@@ -57,7 +57,7 @@ yarn-debug.log*
 yarn-error.log*
 
 #해킹방지
-application.yml
+/src/main/resources/application.yml
 
 # Project exclude paths
 /src/main/front/node_modules/
