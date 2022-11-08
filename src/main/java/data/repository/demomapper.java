@@ -1,6 +1,6 @@
-package data.mapper;
+package data.repository;
 
-import data.dto.demodto;
+import data.domain.demodto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

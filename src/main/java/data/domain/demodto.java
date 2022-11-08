@@ -1,4 +1,4 @@
-package data.dto;
+package data.domain;
 
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
