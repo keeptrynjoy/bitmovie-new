@@ -10,6 +10,7 @@ img.logoimg {
     float: left;
     margin-left: 20px;
     width:150px;
+    cursor: pointer;
 }
 
 ul.member-info {

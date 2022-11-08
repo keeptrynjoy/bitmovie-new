@@ -1,6 +1,6 @@
 import React from 'react';
 import "./Header.css"
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import { styled, alpha, ThemeProvider, createTheme  } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -15,6 +15,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import logo from "../image/bitmovielogo.png"
 
 function Header(props) {
+    const navi = useNavigate();
     //검색바 div
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
@@ -109,7 +110,10 @@ function Header(props) {
     return (
         <div className={"header-div"}>
             <div className={"upper-div"}>
-                <img className={"logoimg"} alt={"로고"} src={logo}/>
+                <img className={"logoimg"} alt={"로고"} src={logo} onClick={()=>{
+                    navi("/");
+
+                }}/>
                 <ul className={"member-info"}>
                     <li>
                         {
