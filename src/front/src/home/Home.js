@@ -1,8 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Glide from "@glidejs/glide"
+import Rank from "./Rank";
+import {Swiper, SwiperSlide} from "swiper/react";
 
 
 function Home(props) {
+
     localStorage.url=process.env.REACT_APP_URL;
     const [loading, setLoading] = useState(true);
     const [movies, setMovies] = useState([]);
@@ -17,6 +20,7 @@ function Home(props) {
         ).json();
         setMovies(json.boxOfficeResult.dailyBoxOfficeList);;
         setLoading(false);
+        console.log(json.boxOfficeResult.dailyBoxOfficeList);
     };
     var carousels = document.querySelectorAll('.glide');
     useEffect(() => {
@@ -35,34 +39,34 @@ function Home(props) {
     }, [carousels]);
 
     return (
-        <div>
-            <h1> today boxoffice</h1>
+
+        <div style={{textAlign:'center'}}>
+            <h1 style={{textAlign:'center'}}> 무비차트</h1>
+            <br/>
             <div className="Home">
                 {loading ? (
                     <p>loading...</p>) : (
                     <div>
                         <div className="frames glide__track" data-glide-el="track">
-                            <ul className = "frames__list glide__slides">
+                            <Swiper className="myswiper"
+                                    navigation
+                                    effect
+                                    speed={800}
+                                    slidesPerView={1}
+                                    loop
+                            >
                                 {movies.map((movie) => (
-                                    <li className="frames__item glide__slide" key={movie.rank}>
-                                        <div className="boxoffice">
-                                            <h2> {movie.rank} </h2>
-                                            <p> {movie.movieNm} ({movie.openDt.substr(0, 4)}) </p>
-                                            <p> 오늘 관객수: {movie.audiCnt} </p>
-                                            <p> 누적 관객수: {movie.audiAcc} </p>
-                                        </div>
-                                    </li>
+                                    <SwiperSlide style={{width:'1000px'}}>
+                                    <Rank movie={movie}/>
+                                    </SwiperSlide>
                                 ))}
-                            </ul>
+                            </Swiper>
                         </div>
-                        <div data-glide-el="controls">
-                            <button data-glide-dir="<">&lt;</button>
-                            <button data-glide-dir=">">&gt;</button>
-                        </div>
+
+
                     </div>
                 )}
             </div>
-            <h1> week boxofiice </h1>
         </div>
     )
 
