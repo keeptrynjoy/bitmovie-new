@@ -1,9 +1,16 @@
 import React from 'react';
+import "./Footer.css"
+import logo from "../image/bitmovielogo.png";
 
 function Footer(props) {
     return (
-        <div>
-            <h1>푸터</h1>
+        <div className={"footer-div"}>
+            <img className={"logoimg"} alt={"로고"} src={logo}/>
+            <b style={{fontSize:"27px"}}>
+                회사소개 | IR제휴 | 광고 | 부대사업 | 문의 | 이용약관 | 개인정보취급방침 | 고객센터 | 배정/편성기준
+                | 사이트맵 | 사업자명:  (주)비트무비 | 사업자등록번호: 10-82-404 | 통신판매업신고번호: 8282-서울
+                강남-40404 | 대표이사: 404 | 서울특별시 강남역 12번 출구 | 개인정보책임자: 대표 404 | 고객센터: 404-3000
+            </b>
         </div>
     );
 }

@@ -6,8 +6,6 @@ import Footer from "../home/Footer";
 import MyPage from "../mypage/MyPage";
 import LoginRouter from "./LoginRouter";
 import MovieRouter from "./MovieRouter";
-import LoginMain from "../login/LoginMain";
-import FindAccount from "../login/FindAccount";
 import SearchResult from "../search/SearchResult";
 import TicketingRouter from "./TicketingRouter";
 
@@ -24,7 +22,7 @@ function RouterMain(props) {
                 <Route path={"/login/*"} element={<LoginRouter/>}/>
                 <Route path={"/movie/*"} element={<MovieRouter/>}/>
                 <Route path={"/ticketing/*"} element={<TicketingRouter/>}/>
-                <Route path={"*"} element={
+                <Route path={"/*"} element={
                     <div>
                         <h1>404떳다</h1>
                     </div>

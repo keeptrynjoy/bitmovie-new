@@ -9,9 +9,9 @@ function MovieRouter(props) {
     return (
         <div>
             <Routes>
+                <Route path={"/"} element={<MovieList/>}/>
                 <Route path={"detail/:movie_num"} element={<MovieDetail/>}/>
                 <Route path={"review/:review_num"} element={<MovieReview/>}/>
-                <Route path={"list"} element={<MovieList/>}/>
                 <Route path={"timetable/:table_num"} element={<MovieTimeTable/>}/>
                 <Route path={"*"} element={
                     <div>
