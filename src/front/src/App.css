@@ -1,19 +1,29 @@
-/*@import "node_modules/@glidejs/glide/src/assets/sass/glide.core";*/
-
+/* MainPage */
 .Home{
-    align-items: center;
+    background-color: white;
+    width: 1000px;
+    height: 1500px;
+    margin: auto;
+
+    position: relative;
+}
+.boxoffice{
+    float: left;
+    margin-top: 20px;
+    margin-left: 27%;
+    padding-top: 40px;
+    width: 450px;
+    height: 250px;
+    color: white;
+    background-color: black;
+    border: 1px solid black;
     text-align: center;
-
+    vertical-align: center;
 }
-.Home{
-    background-color: beige;
-    width: 300px;
-    padding: 20px 20px;
-    margin: 20px 150px;
-    border-radius: 30px;
-    border-style: solid;
-    border-width: 2px;
-    display: inline-block;
-
-
+.swiper-button-prev::after,.swiper-button-next::after {
+    color: black;
 }
+
+
+
+/* 여기까지 메인페이지 css 입니다 */
