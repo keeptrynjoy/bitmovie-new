@@ -1,0 +1,45 @@
+div.header-div {
+    text-align: center;
+    display: block;
+    width: 1500px;
+    margin: 0 auto;
+    position: relative;
+}
+
+img.logoimg {
+    float: left;
+    margin-left: 20px;
+    width:150px;
+}
+
+ul.member-info {
+    padding-top: 20px;
+    padding-right: 20px;
+    list-style: none;
+    float: right;
+    display: flex;
+    align-items: center;
+}
+
+ul.member-info li {
+    align-content: center;
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-top: 3px;
+}
+
+div.member-icon svg {
+    font-size: 60px;
+}
+
+div.logout {
+    color: black;
+    font-size: 20px;
+    font-weight: 400;
+    outline: invert;
+    text-decoration: none;
+}
+
+div.logout:hover {
+    color: aqua;
+}
