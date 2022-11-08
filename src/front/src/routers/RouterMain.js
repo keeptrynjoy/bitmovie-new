@@ -6,8 +6,6 @@ import Footer from "../home/Footer";
 import MyPage from "../mypage/MyPage";
 import LoginRouter from "./LoginRouter";
 import MovieRouter from "./MovieRouter";
-import LoginMain from "../login/LoginMain";
-import FindAccount from "../login/FindAccount";
 import SearchResult from "../search/SearchResult";
 import TicketingRouter from "./TicketingRouter";
 
