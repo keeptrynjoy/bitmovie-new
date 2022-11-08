@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import Glide from "@glidejs/glide"
 import Rank from "./Rank";
 import {Swiper, SwiperSlide} from "swiper/react";
+import {Navigation, Pagination} from "swiper";
 
 
 function Home(props) {
@@ -49,17 +50,20 @@ function Home(props) {
                     <div>
                         <div className="frames glide__track" data-glide-el="track">
                             <Swiper className="myswiper"
+                                    modules={[Navigation, Pagination]}
+                                    pagination={{ clickable: true }}
                                     navigation
                                     effect
                                     speed={800}
+                                    loop={true}
                                     slidesPerView={1}
-                                    loop
                             >
                                 {movies.map((movie) => (
                                     <SwiperSlide style={{width:'1000px'}}>
                                     <Rank movie={movie}/>
                                     </SwiperSlide>
                                 ))}
+
                             </Swiper>
                         </div>
 
