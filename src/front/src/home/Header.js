@@ -1,4 +1,5 @@
 import React from 'react';
+import "./Header.css"
 import {NavLink} from "react-router-dom";
 import { styled, alpha, ThemeProvider, createTheme  } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
@@ -7,9 +8,14 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import LoginTrigger from "./LoginTrigger";
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import PersonIcon from '@mui/icons-material/Person';
+import logo from "../image/bitmovielogo.png"
 
 function Header(props) {
+    //검색바 div
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
@@ -25,6 +31,7 @@ function Header(props) {
         },
     }));
 
+    //검색바 위치
     const SearchIconWrapper = styled('div')(({ theme }) => ({
         padding: theme.spacing(0, 2),
         height: '100%',
@@ -35,6 +42,7 @@ function Header(props) {
         justifyContent: 'center',
     }));
 
+    //검색바 객체
     const StyledInputBase = styled(InputBase)(({ theme }) => ({
         color: 'inherit',
         '& .MuiInputBase-input': {
@@ -44,9 +52,9 @@ function Header(props) {
             transition: theme.transitions.create('width'),
             width: '100%',
             [theme.breakpoints.up('sm')]: {
-                width: '20ch',
+                width: '30ch',
                 '&:focus': {
-                    width: '30ch',
+                    width: '40ch',
                 },
             },
         },
@@ -55,7 +63,7 @@ function Header(props) {
     const NavStyle = styled(NavLink)`
         color: white;
         padding: 20px;
-        font-size: 20px;
+        font-size: 30px;
         font-weight: 400;
         margin: 5px;
         outline: invert;
@@ -64,7 +72,7 @@ function Header(props) {
         text-decoration: none;
         }
         &:hover {
-        color: aquamarine;
+        color: aqua;
         }
         &:active {
         color: aqua;
@@ -72,9 +80,15 @@ function Header(props) {
         top: 2px;
         }
     `
-
-    const HeaderDiv = styled('div')`
-        text-align: center;
+    const MemberNav = styled(NavLink)`
+        color: black;
+        font-size: 20px;
+        font-weight: 400;
+        outline: invert;
+        text-decoration: none;
+        &:hover {
+        color: aqua;
+        }
     `
     const dark_theme = createTheme({
         palette: {
@@ -85,24 +99,64 @@ function Header(props) {
         },
     });
 
+    const logoutClick = (e) => {
+        e.preventDefault();
+        console.log("로그아웃");
+        sessionStorage.removeItem("login_status");
+        window.location.reload();
+    };
+
     return (
-        <HeaderDiv>
-            <div>
-                <span>로고 들어갈 자리</span>
-                <LoginTrigger/>
+        <div className={"header-div"}>
+            <div className={"upper-div"}>
+                <img className={"logoimg"} alt={"로고"} src={logo}/>
+                <ul className={"member-info"}>
+                    <li>
+                        {
+                            sessionStorage.login_status==null?
+                                <MemberNav to={("/login")}>
+                                    <div className={"member-icon"}>
+                                        <LoginIcon/>
+                                    </div>
+                                    로그인
+                                </MemberNav>
+                                :
+                                <div className={"logout"} onClick={logoutClick}>
+                                    <div className={"member-icon"}>
+                                        <LogoutIcon/>
+                                    </div>
+                                    로그아웃
+                                </div>
+
+                        }
+                    </li>
+                    {
+                        sessionStorage.login_status==null?
+                            <li>
+                                <MemberNav to={"/login/join"}>
+                                    <div className={"member-icon"}>
+                                        <PersonAddAlt1Icon/>
+                                    </div>
+                                    회원가입
+                                </MemberNav>
+                            </li>
+                            :
+                            ""
+                    }
+                    <li>
+                        <MemberNav to={"/mypage/1"}>
+                            <div className={"member-icon"}>
+                                <PersonIcon/>
+                            </div>
+                            MyPage
+                        </MemberNav>
+                    </li>
+                </ul>
             </div>
             <Box sx={{ flexGrow: 1 }}>
                 <ThemeProvider theme={dark_theme}>
                     <AppBar position="static">
                         <Toolbar>
-                            <Typography
-                                variant="h6"
-                                noWrap
-                                component="div"
-                                sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-                            >
-                                <NavStyle to={("/")}>Home</NavStyle>
-                            </Typography>
                             <Typography
                                 variant="h6"
                                 noWrap
@@ -117,9 +171,8 @@ function Header(props) {
                                 component="div"
                                 sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
                             >
-                                <NavStyle to={("/")}>예매</NavStyle>
+                                <NavStyle to={("/ticketing")}>예매</NavStyle>
                             </Typography>
-
                             <Search>
                                 <SearchIconWrapper>
                                     <SearchIcon/>
@@ -133,7 +186,7 @@ function Header(props) {
                     </AppBar>
                 </ThemeProvider>
             </Box>
-        </HeaderDiv>
+        </div>
     );
 }
 
