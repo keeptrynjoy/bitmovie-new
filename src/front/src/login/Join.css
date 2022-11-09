@@ -116,3 +116,13 @@
     margin-right: auto;
     margin-top: 10px;
 }
+
+.join-div .pass-error-msg {
+    font-size: 11px;
+    position: absolute;
+    height: 100px;
+    width: 200px;
+    top: 450px;
+    right: 270px;
+    opacity: 0.7;
+}

@@ -5,6 +5,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
+import {Alert} from "@mui/lab";
 
 function JoinInfo(props) {
     const changeSelected=props.changeSelected;
@@ -35,7 +36,7 @@ function JoinInfo(props) {
             alert("이름을 입력하세요")
             return;
         }
-        
+
         if(input.password===""){
             alert("비밀번호를 입력하세요")
             return;
@@ -56,6 +57,10 @@ function JoinInfo(props) {
             return;
         }
 
+        if(!chkPW()){
+            return;
+        };
+
         if(input.password!==passwordtwo)
         {
             alert("비밀번호가 서로 다릅니다");
@@ -64,6 +69,39 @@ function JoinInfo(props) {
 
         alert(input.name + " " + input.nick + " " + input.password +  " " + input.gender + " " + input.birth + " " + input.hp);
         changeSelected("done");
+    }
+
+
+    const chkPW=()=>{
+        const pw = input.password;
+        const id = input.email;
+
+        const reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+        const hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+
+        if(input.password === ""){
+            return "no";
+        }else if(input.password !== passwordtwo){
+            return "diff"
+        }else if(false === reg.test(pw)) {
+            // alert("비밀번호는 8자 이상이어야 하며, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.");
+            return "reg"
+        }else if(/(\w)\1\1\1/.test(pw)){
+            // alert("같은 문자를 4번 이상 사용하실 수 없습니다.");
+            return "4c";
+        }else if(pw.search(id) > -1){
+            // alert("비밀번호에 아이디가 포함되었습니다.");
+            return "id";
+        }else if(pw.search(/\s/) !== -1){
+            // alert("비밀번호는 공백 없이 입력해주세요.");
+            return "space";
+        }else if(hangulcheck.test(pw)){
+            // alert("비밀번호에 한글을 사용 할 수 없습니다.");
+            return "hangul"
+        }else {
+            return "ok";
+        }
+
     }
 
     const changeData=(e)=>{
@@ -77,6 +115,38 @@ function JoinInfo(props) {
 
     return (
         <div className={"join-info"}>
+            {
+                chkPW()==="ok"?
+                    <Alert className={"pass-error-msg"} severity={"success"}>
+                        통과
+                    </Alert>
+                    :
+                    <Alert className={"pass-error-msg"} severity={"error"}>
+                        {
+                            chkPW()==="reg"?
+                                "비밀번호는 8자 이상이어야 하며, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다."
+                                :
+                                chkPW()==="4c"?
+                                    "같은 문자를 4번 이상 사용하실 수 없습니다."
+                                    :
+                                    chkPW()==="id"?
+                                        "비밀번호에 아이디가 포함되었습니다."
+                                        :chkPW()==="space"?
+                                            "비밀번호는 공백 없이 입력해주세요."
+                                            :
+                                            chkPW()==="hangul"?
+                                                "비밀번호에 한글을 사용 할 수 없습니다."
+                                                :
+                                                chkPW()==="no"?
+                                                    "비밀번호를 입력하세요"
+                                                    :
+                                                    chkPW()==="diff"?
+                                                        "비밀번호 확인란이랑 다릅니다"
+                                                        :
+                                                        ""
+                        }
+                    </Alert>
+            }
             <form onSubmit={onSubmitBtn}>
                 <table className='table table-bordered join-table' style={{width:'500px'}}>
                     <tbody>
@@ -108,13 +178,10 @@ function JoinInfo(props) {
                                 <input type={'password'} className={'form-control'}
                                        name={"password"} value={input.password} onChange={changeData}/>
                                 {
-                                    input.password===""?
+                                    chkPW()!=="ok"?
                                         <CloseIcon style={{color:"red", float:"right", marginTop:"7px", marginLeft:"7px"}}/>
                                         :
-                                        input.password===passwordtwo?
-                                            <CheckIcon style={{color:"green", float:"right", marginTop:"7px", marginLeft:"7px"}}/>
-                                            :
-                                            <CloseIcon style={{color:"red", float:"right", marginTop:"7px", marginLeft:"7px"}}/>
+                                        <CheckIcon style={{color:"green", float:"right", marginTop:"7px", marginLeft:"7px"}}/>
                                 }
                             </div>
                         </td>
@@ -126,13 +193,10 @@ function JoinInfo(props) {
                                 <input type={'password'} className={'form-control'}
                                        name={"passwordtwo"} value={passwordtwo} onChange={(e)=>setPasswordtwo(e.target.value)}/>
                                 {
-                                    input.password===""?
+                                    chkPW()!=="ok"?
                                         <CloseIcon style={{color:"red", float:"right", marginTop:"7px", marginLeft:"7px"}}/>
                                         :
-                                        input.password===passwordtwo?
-                                            <CheckIcon style={{color:"green", float:"right", marginTop:"7px", marginLeft:"7px"}}/>
-                                            :
-                                            <CloseIcon style={{color:"red", float:"right", marginTop:"7px", marginLeft:"7px"}}/>
+                                        <CheckIcon style={{color:"green", float:"right", marginTop:"7px", marginLeft:"7px"}}/>
                                 }
                             </div>
                         </td>

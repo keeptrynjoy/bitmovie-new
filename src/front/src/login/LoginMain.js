@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import "./Login.css"
+import {Button} from "@mui/material";
 
 
 function LoginMain(props) {
@@ -56,15 +57,11 @@ function LoginMain(props) {
                                        value={u_pass} onChange={(e) => setU_pass(e.target.value)}/>
                             </td>
                         </tr>
-                        <tr>
-                            <td colSpan={2} className="table-info" align="center">
-                                <button type="submit" className="btn btn-default"
-                                        style={{width: '150px'}}>회원로그인
-                                </button>
-                            </td>
-                        </tr>
                         </tbody>
                     </table>
+                    <Button type={"submit"} variant={"outlined"} color={"success"} style={{marginLeft:"20px"}}>로그인</Button>
+                    <Button type={"button"} variant={"outlined"} color={"primary"} style={{marginLeft:"20px"}} onClick={()=>navi("/login/find")}>아이디/비밀번호 찾기</Button>
+                    <Button type={"button"} variant={"outlined"} color={"secondary"} style={{marginLeft:"20px"}} onClick={()=>navi("/login/join")}>회원가입</Button>
                 </form>
             </div>
         </div>

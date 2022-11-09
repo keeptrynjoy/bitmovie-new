@@ -58,7 +58,7 @@ function MovieList(props) {
                 {mlist.map((list) => (
                     <div className={'onebt'}>
                         <div className={'mp1'} onClick={() => navi(`/movie/detail/${list.movie_num}`)}>{list.text}</div>
-                        <button className={'snbt'} type={'button'}>예매하기</button>
+                        <button className={'snbt'} type={'button'} onClick={() => navi("/ticketing")}>예매하기</button>
                     </div>
                 ))}
 
