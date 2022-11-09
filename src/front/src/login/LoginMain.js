@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import "./Login.css"
 
 
 function LoginMain(props) {
@@ -35,10 +36,13 @@ function LoginMain(props) {
     }
 
     return (
-        <div>
-            <div className="login-box">
+        <div className="login-div">
+            <div className={"login-title"}>
+                로그인
+            </div>
+            <div className={"login-box"}>
                 <form onSubmit={onLoginEvent}>
-                    <table className="table table-bordered">
+                    <table className="table table-bordered login-table">
                         <tbody>
                         <tr>
                             <th style={{width: '100px', backgroundColor: '#ddd'}}>아이디</th>

@@ -2,6 +2,7 @@
     text-align: center;
     display: block;
     width: 1500px;
+    height: 1500px;
     margin: 0 auto;
     position: relative;
     background-color: whitesmoke;
@@ -20,6 +21,7 @@
 
 .join-div .join-box {
     width: 1000px;
+    height: 700px;
     background-color: white;
     margin: 60px auto 0;
     padding: 80px 170px;
@@ -41,7 +43,7 @@
     display: block;
     height: 60px;
     text-align: center;
-    font-size: 16px;
+    font-size: 20px;
     color: #505050;
     line-height: 60px;
     position: relative;
@@ -60,38 +62,57 @@
 }
 
 .join-div .join-box .join-email .join-email-input {
-    width: 750px;
-}
-
-.join-div .join-box .join-email .join-email-input .join-email-info{
-    width: 200px;
-    display: block;
+    margin-top: 75px;
+    margin-left: 100px;
 }
 
 .join-div .join-box .join-email .join-email-input label {
-    width: 380px;
-    height: 40px;
+    width: 500px;
+    height: 70px;
     box-sizing: border-box;
     background-color: #f9f9f9;
     border: 1px solid #d8d8d8;
-    font-size: 14px;
+    font-size: 20px;
     color: #666;
     display: block;
-    line-height: 40px;
+    line-height: 70px;
     padding-left: 20px;
-    margin-left: 11px;
+
 }
 
-.join-div .join-box .join-email .join-email-input label input {
-    width: 206px;
+.join-div .join-box .join-email .join-email-input input {
+    width: 250px;
     -webkit-appearance: none;
     appearance: none;
+    height: 50px;
     background-color: #f9f9f9;
     border: 0;
     border-left: 1px solid #b7b7b7;
     margin-left: 35px;
     padding-left: 14px;
-    font-size: 14px;
+    font-size: 15px;
     color: #3a3a3a;
     margin-top: -5px;
+}
+
+.join-div .join-box .join-indicator li.selected:before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 5px;
+    height: 5px;
+    border-radius: 3px;
+    background-color: #000;
+    left: 50%;
+    top: 10px;
+}
+
+.join-div .join-box .join-email button {
+    margin-top: 30px;
+}
+
+.join-div .join-info .join-table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
 }
