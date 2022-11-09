@@ -12,7 +12,10 @@ public class ScreenTime {
     private int scrtime_pk;
     private int screen_pk;
     private int movie_pk;
+    private int theater_pk;
     private Date scrt_date;
     private Time scrt_stime;
     private Time scrt_etime;
+
+    private Theater theater;
 }
