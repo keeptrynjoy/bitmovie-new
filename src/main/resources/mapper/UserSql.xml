@@ -10,6 +10,10 @@
         SELECT u_name FROM user_tb WHERE u_id = #{u_id}
     </select>
 
+    <!--회원가입 아이디 중복 체크-->
+    <select id="searchId" parameterType="String" resultType="int">
+        SELECT count(*) FROM user_tb WHERE u_id = #{u_id}
+    </select>
     <!--회원가입-->
     <insert id="insertUser" parameterType="User">
         INSERT INTO user_tb (u_id, u_pass, u_name, u_nick, u_phone, u_birth, u_gender, u_photo, u_pwudtdate, u_state)
