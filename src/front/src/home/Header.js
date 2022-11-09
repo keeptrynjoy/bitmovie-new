@@ -99,14 +99,20 @@ function Header(props) {
         },
     });
 
-    const logoutClick = (e) => {
+    const logoutClick =(e)=> {
         e.preventDefault();
-        console.log("로그아웃");
         sessionStorage.removeItem("login_status");
         sessionStorage.removeItem("u_name");
         sessionStorage.removeItem("u_id");
         window.location.reload();
     };
+
+    const myPageClick =(e)=> {
+        if (sessionStorage.login_status==null) {
+            alert("로그인후 이용해주세요");
+            return;
+        }
+    }
 
     return (
         <div className={"header-div"}>
@@ -116,6 +122,16 @@ function Header(props) {
 
                 }}/>
                 <ul className={"member-info"}>
+                    <li>
+                        {
+                            sessionStorage.login_status==null?
+                                ""
+                                :
+                                <div>
+                                    {sessionStorage.u_name}님으로 로그인중
+                                </div>
+                        }
+                    </li>
                     <li>
                         {
                             sessionStorage.login_status==null?
@@ -148,8 +164,13 @@ function Header(props) {
                             :
                             ""
                     }
-                    <li>
-                        <MemberNav to={"/mypage/1"}>
+                    <li onClick={myPageClick}>
+                        <MemberNav to={
+                            sessionStorage.login_status==null?
+                                "/login"
+                                :
+                                "/mypage/1"
+                        }>
                             <div className={"member-icon"}>
                                 <PersonIcon/>
                             </div>
