@@ -35,10 +35,14 @@ public class TheMovieController {
         * 예시) 숫자 1 입력시 순위 1~20인 영화가 저장
         *     숫자 2 입력시 순위 21~40인 영화가 저장
         * */
-        int page_num = 0;
+        int page_num = 1;
 
-//        String url = TMDB_URL + "movie/popular?api_key="+TMDB_KEY+TMDB_KO;
+        //해당 페이지에 있는 영화 id를 반환
         List<Object> movie_id_list = theMovieService.movieListApi(page_num);
+        System.out.println("controller: list "+movie_id_list);
+
+        // movie_id 를 통해 더무비 에서 제공해주는 영화 상세정보를 db에 저장
+        boolean bool_movie_save = theMovieService.movieDataSave(movie_id_list);
 
         // 1. movie list 를 불러와 movie id 를 list 에 담아준다.
 
