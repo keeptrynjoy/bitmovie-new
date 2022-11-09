@@ -8,7 +8,7 @@ function LoginMain(props) {
     const [u_id, setU_id] = useState('');
     const [u_pass, setU_pass] = useState('');
     const navi = useNavigate();
-
+    //로그인 버튼 누르면 호출되는 함수
     const onLoginEvent = (e) => {
         e.preventDefault();
 
@@ -17,10 +17,6 @@ function LoginMain(props) {
 
         axios.post(url, {u_id, u_pass})
             .then(res => {
-
-                console.log(res.data.yesOrNo);
-                console.log(res.data.u_id);
-
                 if (res.data.yesOrNo === 1) {
                     sessionStorage.login_status = 'ok';
                     sessionStorage.u_id = u_id;

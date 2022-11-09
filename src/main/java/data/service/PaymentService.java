@@ -1,5 +1,6 @@
 package data.service;
 
+import data.domain.Payment;
 import data.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,4 +10,8 @@ public class PaymentService {
 
     @Autowired
     PaymentRepository paymentRepository;
+
+    public int selectPaymentData(Payment payment){
+        return paymentRepository.selectPaymentData(payment);
+    }
 }
