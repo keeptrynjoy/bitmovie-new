@@ -1,29 +1,78 @@
 /* MainPage */
 .Home{
     background-color: white;
-    width: 1000px;
-    height: 1500px;
+    width: 1750px;
+    height: 800px;
     margin: auto;
 
     position: relative;
 }
-.boxoffice{
+.boxoffice {
     float: left;
     margin-top: 20px;
-    margin-left: 27%;
+    margin-left: 10%;
     padding-top: 40px;
     width: 450px;
-    height: 250px;
-    color: white;
-    background-color: black;
-    border: 1px solid black;
+    height:650px;
+    color: black;
     text-align: center;
     vertical-align: center;
+    font-size: 0;
+    background-image:url("./image/TOMBOY.jpg");
+    background-size: cover;
+
 }
+
+
+
+
+.boxoffice:hover{
+    font-size: 15px;
+    float: left;
+    margin-top: 20px;
+    margin-left: 12%;
+    padding-top: 250px;
+    width: 450px;
+    height:650px;
+    color: white;
+    text-align: center;
+    vertical-align: center;
+    font-size: 15px;
+
+}
+
+
+
+
+
 .swiper-button-prev::after,.swiper-button-next::after {
     color: black;
 }
 
+.bt1,.bt2{
+    background-color: white;
+    border: 1px solid black;
+}
+
+.main-slider{
+    width: 1000px;
+    height: 500px;
+    margin: auto;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+.main-slider2{
+    width: 1000px;
+    height: 500px;
+    margin: auto;
+    margin-bottom: 100px;
+    margin-top: 50px;
+    border: 1px solid black;
+}
+
+.logoimg{
+
+}
 
 
 /* 여기까지 메인페이지 css 입니다 */

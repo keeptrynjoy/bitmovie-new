@@ -13,7 +13,6 @@ function RouterMain(props) {
     return (
         <div>
             <Header/>
-            <hr/>
             <br style={{clear:"both"}}/><br/>
             <Routes>
                 <Route path={"/"} element={<Home/>}/>
@@ -28,7 +27,6 @@ function RouterMain(props) {
                     </div>
                 }/>
             </Routes>
-            <hr/>
             <br style={{clear:"both"}}/><br/>
             <Footer/>
         </div>
