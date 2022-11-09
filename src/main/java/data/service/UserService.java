@@ -5,13 +5,13 @@ import data.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
 public class UserService {
-
     @Autowired
     UserRepository userRepository;
 
@@ -31,6 +31,10 @@ public class UserService {
         return sendMap;
     }
 
+    //회원가입 아이디 중복 체크
+    public int searchId (@RequestParam String u_id) {
+        return userRepository.searchId(u_id);
+    }
     //회원가입
     public void insertUser (@RequestBody User user) {
         userRepository.insertUser(user);
