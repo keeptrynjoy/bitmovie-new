@@ -1,14 +1,16 @@
 package data.domain;
 
-import org.apache.ibatis.annotations.Mapper;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 import org.apache.ibatis.type.Alias;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 
-@Mapper
+@Data
 @Alias("user")
 public class User {
+    private int user_pk;
     private String u_id;
     private String u_pass;
     private String u_name;
@@ -17,6 +19,7 @@ public class User {
     private Date u_birth;
     private String u_gender;
     private String u_photo;
-    private String u_pwudtdate;
-    private String u_state;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
+    private Timestamp u_pwudtdate;
+    private int u_state;
 }

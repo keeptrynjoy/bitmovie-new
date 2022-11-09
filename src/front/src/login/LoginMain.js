@@ -1,13 +1,14 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import "./Login.css"
 
 
 function LoginMain(props) {
     const [u_id, setU_id] = useState('');
     const [u_pass, setU_pass] = useState('');
     const navi = useNavigate();
-
+    //로그인 버튼 누르면 호출되는 함수
     const onLoginEvent = (e) => {
         e.preventDefault();
 
@@ -16,10 +17,6 @@ function LoginMain(props) {
 
         axios.post(url, {u_id, u_pass})
             .then(res => {
-
-                console.log(res.data.yesOrNo);
-                console.log(res.data.u_id);
-
                 if (res.data.yesOrNo === 1) {
                     sessionStorage.login_status = 'ok';
                     sessionStorage.u_id = u_id;
@@ -35,10 +32,13 @@ function LoginMain(props) {
     }
 
     return (
-        <div>
-            <div className="login-box">
+        <div className="login-div">
+            <div className={"login-title"}>
+                로그인
+            </div>
+            <div className={"login-box"}>
                 <form onSubmit={onLoginEvent}>
-                    <table className="table table-bordered">
+                    <table className="table table-bordered login-table">
                         <tbody>
                         <tr>
                             <th style={{width: '100px', backgroundColor: '#ddd'}}>아이디</th>

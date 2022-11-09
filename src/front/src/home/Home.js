@@ -3,12 +3,13 @@ import Glide from "@glidejs/glide"
 import Rank from "./Rank";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay, Navigation, Pagination} from "swiper";
-import YouTube from "react-youtube";
 import ReactPlayer from "react-player";
 
 function Home(props) {
 
+    //무한스크롤 테스트
 
+    // 무한스크롤  테스트
 
 
 
@@ -17,6 +18,19 @@ function Home(props) {
 
     const [loading, setLoading] = useState(true);
     const [movies, setMovies] = useState([]);
+    const [reviews, setReviews] = useState([
+        {
+            name : "404랑해"
+        },
+        {
+            name : "4조!"
+        },
+        {
+            name : "파이팅 :)"
+        },
+    ]);
+
+
     const key ='3e56c5d518bc82f65d4d1d16806fdd37';
     const today = new Date();
     const targetDT = today.getFullYear()+(today.getMonth()).toString().padStart(2,0)+(today.getDate().toString().padStart(2,0));
@@ -65,7 +79,7 @@ function Home(props) {
 
         <div style={{textAlign:'center'}}>
 
-            <div className="main-slider">
+            <div className="main-slider" >
                 <h1 style={{textAlign:'center', marginBottom:'30px'}}>영화 예고편</h1>
                 <ReactPlayer
                     url={process.env.PUBLIC_URL + 'https://www.youtube.com/watch?v=xUDhdCsLkjU'}
@@ -116,8 +130,28 @@ function Home(props) {
                 }
             </div>
 
+            <h1 style={{textAlign:'center'}}>Movie Review</h1>
             <div className="main-slider2">
-                <h1 style={{textAlign:'center'}}>영화 평점</h1>
+                <Swiper className="myswiper"
+                    modules={[Navigation, Pagination, Autoplay]}
+                    pagination={{ clickable: true }}
+                    navigation
+                    effect
+                    speed={800}
+                    loop={true}
+                    slidesPerView={3}
+                    autoplay={{delay: 2000,
+                        disableOnInteraction:false}}>
+
+                    {reviews.map((review) => (
+
+                    <SwiperSlide>
+                        <div className={'rvv'}>
+                            {review.name}
+                        </div>
+                    </SwiperSlide>
+                    ))}
+                </Swiper>
             </div>
         </div>
     )

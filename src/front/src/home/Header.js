@@ -73,10 +73,9 @@ function Header(props) {
         text-decoration: none;
         }
         &:hover {
-        color: aqua;
+        color:white;
         }
         &:active {
-        color: aqua;
         position: relative;
         top: 2px;
         }
@@ -88,7 +87,7 @@ function Header(props) {
         outline: invert;
         text-decoration: none;
         &:hover {
-        color: aqua;
+        color:black;
         }
     `
     const dark_theme = createTheme({
