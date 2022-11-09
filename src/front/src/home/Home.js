@@ -7,6 +7,8 @@ import {Swiper, SwiperSlide} from "swiper/react";
 function Home(props) {
 
     localStorage.url=process.env.REACT_APP_URL;
+    console.log(process.env.REACT_APP_URL);
+
     const [loading, setLoading] = useState(true);
     const [movies, setMovies] = useState([]);
     const key ='3e56c5d518bc82f65d4d1d16806fdd37';

@@ -104,6 +104,8 @@ function Header(props) {
         e.preventDefault();
         console.log("로그아웃");
         sessionStorage.removeItem("login_status");
+        sessionStorage.removeItem("u_name");
+        sessionStorage.removeItem("u_id");
         window.location.reload();
     };
 
