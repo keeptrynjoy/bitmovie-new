@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.repository.ScreenTimeRepository">
-    <insert id="insertScrTime" parameterType="ScreenTime">
+    <insert id="insertScrTime" parameterType="screenTime">
         INSERT INTO screentime_tb VALUES
                (null,#{movie_pk},#{scrt_date},#{scrt_stime},#{scrt_etime})
     </insert>
-    <select id="selectScrTimeByMovie" resultType="ScreenTime" parameterType="int">
+    <select id="selectScrTimeByMovie" resultType="screenTime" parameterType="int">
         SELECT * FROM screentime_tb WHERE movie_pk=#{movie_pk}
     </select>
-    <select id="selectScrTimeByScreen" resultType="ScreenTime" parameterType="int">
+    <select id="selectScrTimeByScreen" resultType="screenTime" parameterType="int">
         SELECT * FROM screentime_tb WHERE screen_pk=#{screen_pk}
     </select>
-    <update id="updateScrTimeByPk" parameterType="ScreenTime">
+    <update id="updateScrTimeByPk" parameterType="screenTime">
         UPDATE screentime_tb SET screen_pk=#{screen_pk}, movie_pk=#{movie_pk}, scrt_date=#{scrt_date},
                                  scrt_stime=#{scrt_stime}, scrt_etime=#{scrt_etime} WHERE scrtime_pk=#{scrtime_pk}
     </update>
