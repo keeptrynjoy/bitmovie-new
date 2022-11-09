@@ -66,19 +66,19 @@ public class TheMovieService {
         JSONParser jsonParser = new JSONParser();
         List<Object> movie_id_list = new ArrayList<>();
 
-        try {
-            JSONObject jsonObject = (JSONObject) jsonParser.parse(data);
-            JSONArray jsonArray = (JSONArray) jsonObject.get("results");    //data 의 rsult 에 접근
-
-            for(int i=0; i<jsonArray.size(); i++){
-                jsonObject = (JSONObject) jsonArray.get(i);
-
-                Object movie_id = jsonObject.get("id");
-                movie_id_list.add(movie_id);
-            }
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            JSONObject jsonObject = (JSONObject) jsonParser.parse(data);
+//            JSONArray jsonArray = (JSONArray) jsonObject.get("results");    //data 의 rsult 에 접근
+//
+//            for(int i=0; i<jsonArray.size(); i++){
+//                jsonObject = (JSONObject) jsonArray.get(i);
+//
+//                Object movie_id = jsonObject.get("id");
+//                movie_id_list.add(movie_id);
+//            }
+//        } catch (ParseException e) {
+//            throw new RuntimeException(e);
+//        }
 
         return movie_id_list;
     }
