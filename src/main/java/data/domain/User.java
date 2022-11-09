@@ -3,6 +3,7 @@ package data.domain;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.type.Alias;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Mapper
@@ -13,7 +14,7 @@ public class User {
     private String u_name;
     private String u_nick;
     private String u_phone;
-    private Timestamp u_birth;
+    private Date u_birth;
     private String u_gender;
     private String u_photo;
     private String u_pwudtdate;

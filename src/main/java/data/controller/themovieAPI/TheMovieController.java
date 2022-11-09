@@ -17,7 +17,7 @@ public class TheMovieController {
 //            `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${key}&targetDt=${targetDT}`
 //    )
 //        ).json();
-    @GetMapping("/test")
+    @GetMapping("/testapi")
     public void testcontrol(){
 
     }
