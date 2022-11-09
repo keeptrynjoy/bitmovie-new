@@ -1,9 +1,12 @@
 package data.service.api;
 
+import data.domain.Movie;
+import data.repository.MovieRepository;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -22,76 +25,94 @@ public class TheMovieService {
     static final String TMDB_KEY = "7a447c04dbde1f8464230be65ef469eb";
     static final String TMDB_KO = "&language=ko";
 
-    //영화 movie_id 를 반환하는 함수
-//    public List<Object> movieListApi(String data){
-//        JSONParser jsonParser = new JSONParser();
-//        List<Object> movie_id_list = new ArrayList<>();
-//
-//        try {
-//            JSONObject jsonObject = (JSONObject) jsonParser.parse(data);
-//            JSONArray jsonArray = (JSONArray) jsonObject.get("results");    //data 의 rsult 에 접근
-//
-//            for(int i=0; i<jsonArray.size(); i++){
-//                jsonObject = (JSONObject) jsonArray.get(i);
-//
-//                Object movie_id = jsonObject.get("id");
-//                movie_id_list.add(movie_id);
-//            }
-//        } catch (ParseException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        return movie_id_list;
-//    }
+    @Autowired
+    MovieRepository movieRepository;
 
-    public List<Object> movieListApi(int page_num){
+    //page_num 을 받아 (page_num*20+1)~(page_num*20+21)까지의 영화 고유 번호를 list에 담아 반환
+    public List<Object> movieListApi(int page_num) {
 
-        String TMDB_LIST_URL = TMDB_URL+"movie/popular?page="+page_num+"&api_key="+TMDB_KEY+TMDB_KO;
+        //movie_id 를 담을 변수 선언
+        List<Object> movie_id_lsit = new ArrayList<>();
 
+        //url 작성
+        String tmdb_list_url = TMDB_URL + "movie/popular?page=" + page_num + "&api_key=" + TMDB_KEY + TMDB_KO;
 
-        try {
-            URL url = new URL(TMDB_LIST_URL);
-            BufferedReader bf = new BufferedReader(new InputStreamReader(url.openStream()));
-            String data = bf.readLine();
-            System.out.println("next: "+ data);
+        // url 의 데이터를 jsonobject 로 반환
+        JSONObject jsonObject = getDataByURL(tmdb_list_url);
 
-
-            // 2. movie_id_list 를 통해
-
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        } catch (IOException ex){
-            throw new RuntimeException(ex);
+        //jsonobject 에 접근해 movie_id만 반환하기
+        JSONArray jsonArray = (JSONArray) jsonObject.get("results");
+        for (int i = 0; i < jsonArray.size(); i++) {
+            jsonObject = (JSONObject) jsonArray.get(i);
+            Object movie_id = jsonObject.get("id");
+            movie_id_lsit.add(movie_id);
         }
-        JSONParser jsonParser = new JSONParser();
-        List<Object> movie_id_list = new ArrayList<>();
+        return movie_id_lsit;
+    }
 
-        try {
-            JSONObject jsonObject = (JSONObject) jsonParser.parse(data);
-            JSONArray jsonArray = (JSONArray) jsonObject.get("results");    //data 의 rsult 에 접근
+        //movie id 를 통해 영화 상세정보를 db에 저장
+        public boolean movieDataSave (List <Object> movie_id_lsit) {
+            //사용되는 변수선언
+            boolean result = false;
+            JSONObject jsonObject;
 
-            for(int i=0; i<jsonArray.size(); i++){
-                jsonObject = (JSONObject) jsonArray.get(i);
 
-                Object movie_id = jsonObject.get("id");
-                movie_id_list.add(movie_id);
+            for(int i=0; i<movie_id_lsit.size(); i++){
+                //url 선언
+                String detail_url = TMDB_URL+"movie/"+movie_id_lsit.get(i)+"?api_key="+TMDB_KEY+TMDB_KO;
+                //url 의 데이터를 jsonobject로 반환
+                jsonObject = getDataByURL(detail_url);
+                System.out.println("data: "+jsonObject);
+                System.out.println("m_name: "+jsonObject.get("title"));
+                System.out.println("m_type: "+jsonObject.get("genres"));
+                System.out.println("runtime: "+jsonObject.get("runtime"));
+                System.out.println("m_info: "+jsonObject.get("overview"));
+                System.out.println("m_sdate: "+jsonObject.get("release_date"));
+
+
+//                movieRepository.insertDetailData(
+//                        Movie.movieBuilder()
+//                                .build()
+//                );
+
+
+//                movieRepository.save(
+//                        Movie.builder()
+//                                .description(contents.get("overview").toString())
+//                                .title(contents.get("title").toString())
+//                                .imgUrl(ImgUrl + contents.get("poster_path").toString().replaceAll(match, ""))
+//                                .createdAt(dateTime)
+//                                .modifiedAt(dateTime)
+//                                .build()
+//                );
+
             }
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
+            return result;
         }
 
-        return movie_id_list;
-    }
+        //해당 url 의 데이터를 json 형태로 반환
+        public JSONObject getDataByURL(String tmepurl){
 
+            String data = "";
+            JSONParser jsonParser = new JSONParser();
+            JSONObject jsonObject;
 
-    //movie id 를 통해 영화 상세정보를 db에 저장
-    public boolean movieDataSave(List<Object> movie_id_lsit){
+            try {
+                URL url = new URL(tmepurl);
+                BufferedReader bf = new BufferedReader(new InputStreamReader(url.openStream()));
+                data = bf.readLine();
+                //data를 json 타입으로 변환
+                jsonObject = (JSONObject) jsonParser.parse(data);
 
-        boolean result = false;
-        
-        
-
-        return result;
-    }
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            return jsonObject;
+        }
 
 }
+

@@ -1,10 +1,16 @@
 package data.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.Alias;
 
 @Data
 @Alias("movie")
+@Builder(builderMethodName = "movieBuilder")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Movie {
 
     private int movie_pk;
