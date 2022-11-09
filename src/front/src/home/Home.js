@@ -67,12 +67,13 @@ function Home(props) {
                 <h1 style={{textAlign:'center', marginBottom:'30px'}}>영화 예고편</h1>
                 <ReactPlayer
                     url={process.env.PUBLIC_URL + 'https://www.youtube.com/watch?v=xUDhdCsLkjU'}
-                    width='1000px'
+                    width='100%'
                     height='400px'
                     playing={true}
-                    muted={false}
+                    muted={true}
                     controls={true}
                     loop={true}
+
                 />
 
             </div>
