@@ -1,0 +1,97 @@
+.join-div {
+    text-align: center;
+    display: block;
+    width: 1500px;
+    margin: 0 auto;
+    position: relative;
+    background-color: whitesmoke;
+}
+
+.join-div .title {
+    width: 400px;
+    height: 70px;
+    border-bottom: 3px solid #979797;
+    font-size: 40px;
+    color: #666;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.join-div .join-box {
+    width: 1000px;
+    background-color: white;
+    margin: 60px auto 0;
+    padding: 80px 170px;
+}
+
+.join-div .join-box .join-indicator {
+    display: block;
+    width: 750px;
+    height: 60px;
+    overflow: hidden;
+    background: url(/src/image/join-indicator.png) center top no-repeat;
+    position: relative;
+    left: -17px;
+}
+
+.join-div .join-box .join-indicator li {
+    list-style: none;
+    float: left;
+    display: block;
+    height: 60px;
+    text-align: center;
+    font-size: 16px;
+    color: #505050;
+    line-height: 60px;
+    position: relative;
+}
+
+.join-div .join-box .join-indicator li:nth-child(1) {
+    width: 254px;
+}
+
+.join-div .join-box .join-indicator li:nth-child(2) {
+    width: 207px;
+}
+
+.join-div .join-box .join-indicator li:nth-child(3) {
+    width: 253px;
+}
+
+.join-div .join-box .join-email .join-email-input {
+    width: 750px;
+}
+
+.join-div .join-box .join-email .join-email-input .join-email-info{
+    width: 200px;
+    display: block;
+}
+
+.join-div .join-box .join-email .join-email-input label {
+    width: 380px;
+    height: 40px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    border: 1px solid #d8d8d8;
+    font-size: 14px;
+    color: #666;
+    display: block;
+    line-height: 40px;
+    padding-left: 20px;
+    margin-left: 11px;
+}
+
+.join-div .join-box .join-email .join-email-input label input {
+    width: 206px;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #f9f9f9;
+    border: 0;
+    border-left: 1px solid #b7b7b7;
+    margin-left: 35px;
+    padding-left: 14px;
+    font-size: 14px;
+    color: #3a3a3a;
+    margin-top: -5px;
+}
