@@ -116,7 +116,8 @@ function Home(props) {
 
             </div>
             <div>
-                <button type={"button"} className={'bt1'} onClick={movieChart}>무비차트</button>&nbsp;
+                <button type={"button"} className={'bt1'} onClick={movieChart}>무비차트</button>&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <button type={"button"} className={'bt2'} onClick={bitChart}>예매순위</button>
             </div>
             <br/>
