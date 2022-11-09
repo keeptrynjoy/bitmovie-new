@@ -1,0 +1,129 @@
+
+.mlistall{
+    margin: auto;
+    display: flex;
+    text-align: center;
+    justify-content: right;
+    margin-right: 210px;
+}
+
+
+.mlist1{
+    width: 200px;
+    height: 50px;
+    margin-left: 10px;
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 20px;
+}
+
+
+.mlist1:hover{
+    width: 200px;
+    height: 50px;
+    margin-left: 10px;
+    background-color: black;
+    border: 1px solid grey;
+    border-radius: 20px;
+    color: white;
+}
+.mlist2{
+    width: 200px;
+    height: 50px;
+    margin-left: 10px;
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 20px;
+}
+
+.mlist2:hover{
+    width: 200px;
+    height: 50px;
+    margin-left: 10px;
+    background-color: black;
+    border: 1px solid grey;
+    border-radius: 20px;
+    color: white;
+}
+
+.mplist{
+    width: 1500px;
+    height: 1200px;
+    margin: auto;
+    margin-bottom: 100px;
+}
+
+.mp1{
+    width: 250px;
+    height: 360px;
+    border: 1px solid grey;
+    margin-left: 15%;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    margin-top: 100px;
+    align-items: center;
+    font-size: 50px;
+    float: left;
+    background-image:url(/src/image/joker.jpg);
+    background-size: cover;
+    border-radius: 20px;
+    font-size: 0px;
+    margin-bottom: 30px;
+}
+.mp1:hover{
+    width: 250px;
+    height: 360px;
+    border: 1px solid grey;
+    margin-left: 15%;
+    margin-top: 100px;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    font-size: 50px;
+    float: left;
+    background-image:url(/src/image/joker.jpg);
+    background-size: cover;
+    border-radius: 20px;
+    font-size: 50px;
+    color: white;
+
+}
+
+button.snbt{
+    width: 150px;
+    height: 50px;
+    border: 1px solid grey;
+    text-align: center;
+    font-size: 30px;
+    border-radius: 20px;
+    margin-left: 32%;
+    background-color: white;
+    color: black;
+
+}
+
+button.snbt:hover{
+    width: 150px;
+    height: 50px;
+    border: 1px solid grey;
+    text-align: center;
+    font-size: 30px;
+    border-radius: 20px;
+    margin-left: 32%;
+    color: white;
+    background-color: black;
+
+}
+
+
+
+.onebt{
+    width: 300px;
+    height: 550px;
+    display: block;
+    float: left;
+    margin-left: 50px;
+    margin-bottom: 0px;
+}
