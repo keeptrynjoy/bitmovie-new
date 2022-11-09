@@ -1,6 +1,7 @@
 import React from 'react';
 import {useParams} from "react-router-dom";
 import "./Detail.css";
+import ReactPlayer from "react-player";
 
 function MovieDetail(props) {
     const p = useParams();
@@ -20,7 +21,18 @@ function MovieDetail(props) {
                    <button type={"button"} className={"dtbt"}>예매하기</button>
                </div>
                <div className={"prevideo"}>영화예고편 자리</div>
-               <div className={"story"}>영화줄거리 자리</div>
+               <div className={"story"}>
+                   <ReactPlayer
+                       url={process.env.PUBLIC_URL + 'https://www.https://www.youtube.com/watch?v=ijUsSpRVhBU'}
+                       width='100%'
+                       height='400px'
+                       playing={true}
+                       muted={true}
+                       controls={true}
+                       loop={true}
+
+                   /></div>
+               <div className={"dtreview"}>평점 작성자리</div>
            </div>
 
         </div>

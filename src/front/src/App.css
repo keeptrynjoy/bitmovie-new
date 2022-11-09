@@ -1,4 +1,7 @@
 /* MainPage */
+
+
+
 .Home{
     background-color: white;
     width: 1750px;
@@ -21,6 +24,7 @@
     background-image:url("./image/TOMBOY.jpg");
     background-size: cover;
     border-radius: 20px;
+    margin-top: 20%;
 
 }
 
@@ -39,17 +43,35 @@
     font-size: 25px;
     justify-content: center;
     text-align: center;
+    margin-top: 20%;
 
 }
 .rvv{
-    width: 200px;
+    width: 70%;
     height: 100px;
     border: 1px solid gray;
     margin: auto;
-    background-color: black;
     color: white;
     display: block;
     line-height: 100px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 20px;
+    color: white;
+    background-color: black;
+
+
+}
+.rvv:hover{
+    width: 70%;
+    height: 100px;
+    border: 1px solid gray;
+    margin: auto;
+    color: white;
+    background-color: black;
+    display: block;
+    line-height: 100px;
+    margin-bottom: 10px;
     border-radius: 20px;
 
 }
@@ -130,6 +152,22 @@
     font-size: 18px;
 }
 
+.testt {
+    width: 500px;
+    height: 500px;
+    margin-top: 100px;
+    border: 1px solid gray;
+    margin-left: 36%;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    overflow-x: hidden;
+    border-radius: 20px;
+
+
+}
+.testt::-webkit-scrollbar{
+    display:none;
+}
 
 
 /* 여기까지 메인페이지 css 입니다 */
