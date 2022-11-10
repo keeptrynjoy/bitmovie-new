@@ -9,7 +9,10 @@
     <select id="selectName" parameterType="String" resultType="String">
         SELECT u_name FROM user_tb WHERE u_id = #{u_id}
     </select>
-
+    <!--로그인 시 비밀번호 변경 후 지난 기간 불러오기-->
+    <select id="selectPwUdtDate" parameterType="Map" resultType="int">
+        SELECT datediff(now(), u_pwudtdate) FROM user_tb WHERE u_id = #{u_id}
+    </select>
     <!--회원가입 아이디 중복 체크-->
     <select id="searchId" parameterType="String" resultType="int">
         SELECT count(*) FROM user_tb WHERE u_id = #{u_id}
@@ -19,4 +22,24 @@
         INSERT INTO user_tb (u_id, u_pass, u_name, u_nick, u_phone, u_birth, u_gender, u_photo, u_pwudtdate, u_state)
         VALUES (#{u_id}, #{u_pass}, #{u_name}, #{u_nick}, #{u_phone}, #{u_birth}, #{u_gender}, "noimage.jpg", now(), 1)
     </insert>
+    <!--  로그인시 pk가져오기  -->
+    <select id="selectPk" parameterType="String" resultType="int">
+        SELECT user_pk FROM user_tb WHERE u_id = #{u_id}
+    </select>
+    <!--비밀번호 변경할 때 아이디 참조해서 기존 비밀번호 가져오기(입력한 비밀번호와 일치하는 지 확인용)-->
+    <select id="selectPass" parameterType="String" resultType="String">
+        SELECT u_pass FROM user_tb WHERE u_id = #{u_id}
+    </select>
+    <!--비밀번호 변경-->
+    <update id="updatePass" parameterType="Map">
+        UPDATE user_tb SET u_pass = #{u_pass}, u_pwudtdate = now() WHERE u_id = #{u_id}
+    </update>
+    <!--회원 삭제(상태 변경)-->
+    <update id="deleteUser" parameterType="String">
+        UPDATE user_tb SET u_state = 0 WHERE u_id = #{u_id}
+    </update>
+    <!-- 비밀번호 안바꿔도 날짜 업데이트 -->
+    <update id="updatePassDate" parameterType="String">
+        UPDATE user_tb SET u_pwudtdate = now() WHERE user_pk=#{u_pk}
+    </update>
 </mapper>

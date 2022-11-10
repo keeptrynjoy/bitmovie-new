@@ -104,6 +104,8 @@ function Header(props) {
         sessionStorage.removeItem("login_status");
         sessionStorage.removeItem("u_name");
         sessionStorage.removeItem("u_id");
+        sessionStorage.removeItem("u_pk");
+        sessionStorage.removeItem("pwUdtDate");
         window.location.reload();
     };
 
@@ -169,7 +171,7 @@ function Header(props) {
                             sessionStorage.login_status==null?
                                 "/login"
                                 :
-                                "/mypage/1"
+                                `/mypage/${sessionStorage.u_pk}`
                         }>
                             <div className={"member-icon"}>
                                 <PersonIcon/>

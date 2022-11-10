@@ -22,8 +22,21 @@ function LoginMain(props) {
                     sessionStorage.login_status = 'ok';
                     sessionStorage.u_id = u_id;
                     sessionStorage.u_name = res.data.u_name;
-                    navi("/");
-                    window.location.reload();
+                    sessionStorage.u_pk = res.data.u_pk;
+                    sessionStorage.pwUdtDate = res.data.pwUdtDate;
+
+                    // if(res.data.pwUdtDate>90)
+                    // {
+                    //     if(window.confirm("비밀번호를 변경 한지 90일이 지났습니다. 변경 하시겠습니까?"))
+                    //     {
+                    //         navi("/login/find");
+                    //     }else{
+                    //         axios.post(localStorage.url + "/user/updatepassdate", {u_pk:res.data.u_pk})
+                    //             .then()
+                            navi("/");
+                            window.location.reload();
+                    //     }
+                    // }
                 } else {
                     alert("아이디 또는 비밀번호가 맞지 않습니다");
                     setU_id('');

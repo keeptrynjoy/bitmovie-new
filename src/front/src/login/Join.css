@@ -2,7 +2,7 @@
     text-align: center;
     display: block;
     width: 1500px;
-    height: 1500px;
+    height: 1000px;
     margin: 0 auto;
     position: relative;
     background-color: whitesmoke;
@@ -118,11 +118,12 @@
 }
 
 .join-div .pass-error-msg {
-    font-size: 11px;
     position: absolute;
     height: 100px;
     width: 200px;
-    top: 450px;
+    top: 350px;
     right: 270px;
     opacity: 0.7;
+    border-radius: 20px;
+    font-size: 12px;
 }

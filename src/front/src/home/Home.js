@@ -140,8 +140,8 @@ function Home(props) {
                                             autoplay={{delay: 2000,
                                             disableOnInteraction:false}}
                                     >
-                                        {movies.map((movie) => (
-                                            <SwiperSlide style={{width:'1000px'}} key={movie}>
+                                        {movies.map((movie,i) => (
+                                            <SwiperSlide style={{width:'1000px'}} key={i}>
                                                 <Rank movie={movie}/>
                                             </SwiperSlide>
                                         ))}
@@ -155,8 +155,8 @@ function Home(props) {
 
             <h1 style={{textAlign:'center',marginTop:'100px'}}>Movie Review</h1>
             <div className={"testt"}>
-                {reviews.map((review) => (
-                    <div className={'rvv'}>
+                {reviews.map((review,i) => (
+                    <div className={'rvv'} key={i}>
                         {review.name}
                     </div>
                 ))}
