@@ -3,10 +3,8 @@
 
 .calendar {
 .header {
-    @include common.size(50%, 100%);
     @include common.flex-row(space-between, baseline);
 .col.col-first {
-    @include common.size(50%, 50%);
     @include common.flex-column(center, flex-start);
     margin-left: 1%;
 .text {
@@ -16,12 +14,13 @@
     margin-right: 5px;
     font-size: 10px;
     font-weight: 600;
-
 }
+
+
+
 }
 .col.col-end {
     @include common.size(20%, 100%);
-    @include common.flex-row(flex-end, baseline);
 svg {
     @include common.size(11%, fit-content);
     margin-left: 5%;
@@ -39,11 +38,10 @@ svg {
     @include common.flex-row(space-between, center);
     font-weight: 600;
     font-size: 0.3em;
-    padding: 2px;
+    text-align: center;
+    margin: auto;
     color: theme.$dark-gray-color;
 .col {
-    @include common.size(12.9%, 100%);
-    @include common.flex-column(flex-end, flex-start);
     padding-left: 1%;
     background: transparentize(theme.$step-color, 0.6);
     border-radius: 10px;
@@ -60,7 +58,7 @@ svg {
     @include common.flex-row(flex-start, flex-start);
 
     border: 0.4px solid transparentize(gray, 0.4);
-    border-radius: 3px;
+    border-radius: 15px;
     font-size: 0.3em;
 span {
     margin: 4px 0 0 4px;
