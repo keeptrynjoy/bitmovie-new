@@ -139,8 +139,8 @@ function Home(props) {
                                             autoplay={{delay: 2000,
                                             disableOnInteraction:false}}
                                     >
-                                        {movies.map((movie) => (
-                                            <SwiperSlide style={{width:'1000px'}} key={movie}>
+                                        {movies.map((movie,i) => (
+                                            <SwiperSlide style={{width:'1000px'}} key={i}>
                                                 <Rank movie={movie}/>
                                             </SwiperSlide>
                                         ))}
@@ -171,6 +171,7 @@ function Home(props) {
                     slidesPerView={3}
                     autoplay={{delay: 2000,
                         disableOnInteraction:false}}>
+
 
                     {reviews.map((review) => (
 

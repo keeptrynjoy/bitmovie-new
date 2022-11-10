@@ -50,7 +50,7 @@ function RouterMain(props) {
             <br style={{clear:"both"}}/><br/>
             <Routes>
                 <Route path={"/"} element={<Home/>}/>
-                <Route path={"/mypage/:user_id"} element={<MyPage/>}/>
+                <Route path={"/mypage/:u_pk"} element={<MyPage/>}/>
                 <Route path={"/search/:search_word"} element={<SearchResult/>}/>
                 <Route path={"/login/*"} element={<LoginRouter/>}/>
                 <Route path={"/movie/*"} element={<MovieRouter/>}/>

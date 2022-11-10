@@ -1,0 +1,43 @@
+div.mypage-div {
+    display: block;
+    width: 1500px;
+    height: 1500px;
+    margin: 0 auto;
+    position: relative;
+    background-color: whitesmoke;
+}
+
+.upper-info-div {
+    display: flex;
+    padding-left: 50px;
+    padding-top: 50px;
+}
+
+div.photo-div {
+    position : relative;
+    width: 400px;
+    height: 400px;
+}
+
+img.profile-photo {
+    width: 400px;
+    height: 400px;
+    border-radius: 30%;
+}
+
+.mypage-div .photo-div .photo-fix-icon {
+    border-radius: 100%;
+    background-color: red;
+    position : absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+div.info-div {
+    border-radius: 30px;
+    background-color: red;
+    position : relative;
+    width: 900px;
+    margin-left: 100px;
+    height: 400px;
+}
