@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/screentime")
 @RequiredArgsConstructor
 @Slf4j
-public class ScreenController {
+public class ScreenTimeController {
 
     private final ScreenTimeService screenTimeService;
 
