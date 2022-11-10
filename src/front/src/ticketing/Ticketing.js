@@ -1,7 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import "./Ticketing.css";
+import {useNavigate} from "react-router-dom";
+import dateFns from "url";
+import Calender from "./Calender";
 
 function Ticketing(props) {
+    const navi = useNavigate();
+
+    const [mvlist,setMvlist] = useState(Array.from({ length: 80 }));
+    const index = () => {
+        return <div>{dateFns.format(new Date(), "yyyy-MM-dd")}</div>;
+    };
     return (
         <div>
             <div className={'tkbt'}>
@@ -10,13 +19,15 @@ function Ticketing(props) {
             </div>
             <div className={'tktable'}>
                 <div className={'selectmv'}>
-
-
+                    {mvlist.map((list,i) => (
+                        <div key={i}>DB에서 넘어올 영화리스트</div>
+                    ))}
                 </div>
-                <div className={'selectday'}>날짜</div>
-                <div className={'selecttime'}>시간</div>
+                <div className={'selectday'}><Calender/></div>
 
-                <button type={"button"} className={'selectseat'}>좌석선택</button>
+                <div className={'selecttime'}></div>
+
+                <button type={"button"} className={'selectseat'} onClick={() => navi("/ticketing/selectseat")} >좌석선택</button>
 
             </div>
 

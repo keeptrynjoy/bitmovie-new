@@ -1,28 +1,30 @@
 /* MainPage */
-
+@font-face {
+    font-family: "BM Dohyeon";
+}
 
 
 .Home{
-    background-color: white;
     width: 1750px;
-    height: 800px;
+    height: 500px;
     margin: auto;
+
 
     position: relative;
 }
 .boxoffice {
     float: left;
     margin-top: 20px;
-    margin-left: 10%;
+    margin-left: 15%;
     padding-top: 40px;
-    width: 450px;
-    height:650px;
+    width: 230px;
+    height:329px;
     color: black;
     text-align: center;
     vertical-align: center;
     font-size: 0;
     background-image:url("./image/TOMBOY.jpg");
-    background-size: cover;
+    background-size: contain;
     border-radius: 20px;
     margin-top: 20%;
 
@@ -30,17 +32,16 @@
 
 
 .boxoffice:hover{
-    font-size: 15px;
     float: left;
     margin-top: 20px;
-    margin-left: 10%;
-    padding-top: 250px;
-    width: 450px;
-    height:650px;
+    margin-left: 15%;
+    padding-top: 80px;
+    width: 230px;
+    height:329px;
     color: white;
     text-align: center;
     vertical-align: center;
-    font-size: 25px;
+    font-size: 15px;
     justify-content: center;
     text-align: center;
     margin-top: 20%;
@@ -65,13 +66,18 @@
     width: 70%;
     height: 100px;
     margin: auto;
-    color: white;
-    background-color: black;
+    background-color: gray;
     display: block;
     line-height: 100px;
     margin-bottom: 10px;
+    margin-top: 10px;
     border-radius: 20px;
+    color: black;
 
+}
+
+.swiper-wrapper {
+    padding-bottom: 50px;
 }
 
 
