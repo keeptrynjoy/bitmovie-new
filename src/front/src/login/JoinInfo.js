@@ -5,54 +5,56 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
-import {Alert} from "@mui/lab";
+import {Alert, AlertTitle} from "@mui/lab";
+import axios from "axios";
 
 function JoinInfo(props) {
     const changeSelected=props.changeSelected;
     const email=props.email;
     const [passwordtwo,setPasswordtwo]=useState("");
+    const [boolpw2,setBoolpw2]=useState(false);
 
     //입력할 데이터폼
     const [input,setInput] = useState({
-        email: email,
-        name: "",
-        nick:"",
-        password:"",
-        gender:"",
-        birth:"",
-        hp:""
+        u_id: props.email,
+        u_pass:"",
+        u_name: "",
+        u_nick:"",
+        u_phone:"",
+        u_birth:"",
+        u_gender:""
     })
 
     //onSubmit전에 null값 체크
     const onSubmitBtn=(e)=>{
         e.preventDefault();
 
-        if(input.nick===""){
+        if(input.u_nick===""){
             alert("닉네임을 입력하세요")
             return;
         }
 
-        if(input.name===""){
+        if(input.u_name===""){
             alert("이름을 입력하세요")
             return;
         }
 
-        if(input.password===""){
+        if(input.u_pass===""){
             alert("비밀번호를 입력하세요")
             return;
         }
 
-        if(input.gender===""){
+        if(input.u_gender===""){
             alert("성별을 입력하세요")
             return;
         }
 
-        if(input.birth===""){
+        if(input.u_birth===""){
             alert("생일을 입력하세요")
             return;
         }
 
-        if(input.hp===""){
+        if(input.u_phone===""){
             alert("전화번호를 입력하세요")
             return;
         }
@@ -61,28 +63,32 @@ function JoinInfo(props) {
             return;
         };
 
-        if(input.password!==passwordtwo)
+        if(!boolpw2)
         {
             alert("비밀번호가 서로 다릅니다");
             return;
         }
 
-        alert(input.name + " " + input.nick + " " + input.password +  " " + input.gender + " " + input.birth + " " + input.hp);
-        changeSelected("done");
+        let url = localStorage.url + "/user/insert";
+        console.log(input);
+        axios.post(url, input)
+            .then(res => {
+                alert("가입성공");
+                changeSelected("done");
+            })
+        alert(input.u_id + " " + input.u_name + " " + input.u_nick + " " + input.u_pass +  " " + input.u_gender + " " + input.u_birth + " " + input.u_phone);
     }
 
 
     const chkPW=()=>{
-        const pw = input.password;
-        const id = input.email;
+        const pw = input.u_pass;
+        const id = input.u_id;
 
         const reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
         const hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 
-        if(input.password === ""){
+        if(input.u_pass === ""){
             return "no";
-        }else if(input.password !== passwordtwo){
-            return "diff"
         }else if(false === reg.test(pw)) {
             // alert("비밀번호는 8자 이상이어야 하며, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.");
             return "reg"
@@ -102,6 +108,14 @@ function JoinInfo(props) {
             return "ok";
         }
 
+    }
+
+    const chkPW2=()=>{
+        if(input.u_pass===passwordtwo){
+            setBoolpw2(true)
+        }else {
+            setBoolpw2(false)
+        }
     }
 
     const changeData=(e)=>{
@@ -124,7 +138,7 @@ function JoinInfo(props) {
                     <Alert className={"pass-error-msg"} severity={"error"}>
                         {
                             chkPW()==="reg"?
-                                "비밀번호는 8자 이상이어야 하며, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다."
+                                "비밀번호는 8자 이상이고, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다."
                                 :
                                 chkPW()==="4c"?
                                     "같은 문자를 4번 이상 사용하실 수 없습니다."
@@ -140,10 +154,7 @@ function JoinInfo(props) {
                                                 chkPW()==="no"?
                                                     "비밀번호를 입력하세요"
                                                     :
-                                                    chkPW()==="diff"?
-                                                        "비밀번호 확인란이랑 다릅니다"
-                                                        :
-                                                        ""
+                                                    ""
                         }
                     </Alert>
             }
@@ -154,21 +165,7 @@ function JoinInfo(props) {
                         <th style={{width:'130px',backgroundColor:'#ddd'}}>아이디(이메일)</th>
                         <td>
                             <input type={'text'} className='form-control' disabled value={email}
-                                   style={{marginLeft:"20px",width:'300px'}}/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th style={{width:'130px',backgroundColor:'#ddd'}}>닉네임</th>
-                        <td>
-                            <input type={'text'} className={'form-control'} style={{marginLeft:"20px",width:'300px'}}
-                                   name={"nick"} value={input.nick} onChange={changeData}/>
-                        </td>
-                    </tr>
-                    <tr style={{width:"400px"}}>
-                        <th style={{width:'130px',backgroundColor:'#ddd'}}>이름</th>
-                        <td>
-                            <input type={'text'} className={'form-control'} style={{marginLeft:"20px",width:'300px'}}
-                                   name={"name"} value={input.name} onChange={changeData}/>
+                                   name={"u_id"} style={{marginLeft:"20px",width:'300px'}}/>
                         </td>
                     </tr>
                     <tr>
@@ -176,7 +173,7 @@ function JoinInfo(props) {
                         <td>
                             <div className={"input-group"} style={{marginLeft:"20px",width:'330px'}} >
                                 <input type={'password'} className={'form-control'}
-                                       name={"password"} value={input.password} onChange={changeData}/>
+                                       name={"u_pass"} value={input.u_pass} onChange={changeData}/>
                                 {
                                     chkPW()!=="ok"?
                                         <CloseIcon style={{color:"red", float:"right", marginTop:"7px", marginLeft:"7px"}}/>
@@ -191,9 +188,9 @@ function JoinInfo(props) {
                         <td>
                             <div className={"input-group"} style={{marginLeft:"20px",width:'330px'}} >
                                 <input type={'password'} className={'form-control'}
-                                       name={"passwordtwo"} value={passwordtwo} onChange={(e)=>setPasswordtwo(e.target.value)}/>
+                                       name={"passwordtwo"} value={passwordtwo} onChange={(e)=>setPasswordtwo(e.target.value)} onKeyUp={chkPW2}/>
                                 {
-                                    chkPW()!=="ok"?
+                                    !boolpw2?
                                         <CloseIcon style={{color:"red", float:"right", marginTop:"7px", marginLeft:"7px"}}/>
                                         :
                                         <CheckIcon style={{color:"green", float:"right", marginTop:"7px", marginLeft:"7px"}}/>
@@ -201,13 +198,27 @@ function JoinInfo(props) {
                             </div>
                         </td>
                     </tr>
+                    <tr style={{width:"400px"}}>
+                        <th style={{width:'130px',backgroundColor:'#ddd'}}>이름</th>
+                        <td>
+                            <input type={'text'} className={'form-control'} style={{marginLeft:"20px",width:'300px'}}
+                                   name={"u_name"} value={input.u_name} onChange={changeData}/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style={{width:'130px',backgroundColor:'#ddd'}}>닉네임</th>
+                        <td>
+                            <input type={'text'} className={'form-control'} style={{marginLeft:"20px",width:'300px'}}
+                                   name={"u_nick"} value={input.u_nick} onChange={changeData}/>
+                        </td>
+                    </tr>
                     <tr>
                         <th style={{width:'130px',backgroundColor:'#ddd'}}>성별</th>
                         <td>
                             <RadioGroup
                                 aria-labelledby="demo-controlled-radio-buttons-group"
-                                name="gender"
-                                value={input.gender}
+                                name="u_gender"
+                                value={input.u_gender}
                                 onChange={changeData}
                                 style={{display:"block"}}
                             >
@@ -221,14 +232,14 @@ function JoinInfo(props) {
                         <th style={{width:'130px',backgroundColor:'#ddd'}}>생일</th>
                         <td>
                             <input type={'date'} className={'form-control'} style={{marginLeft:"20px",width:'300px'}}
-                                   name={"birth"} value={input.birth} onChange={changeData}/>
+                                   name={"u_birth"} value={input.u_birth} onChange={changeData}/>
                         </td>
                     </tr>
                     <tr>
                         <th style={{width:'130px',backgroundColor:'#ddd'}}>전화번호</th>
                         <td>
                             <input type={'text'} className={'form-control'} style={{marginLeft:"20px",width:'300px'}}
-                                   name={"hp"} value={input.hp} onChange={changeData}/>
+                                   name={"u_phone"} value={input.u_phone} onChange={changeData}/>
                         </td>
                     </tr>
                     </tbody>

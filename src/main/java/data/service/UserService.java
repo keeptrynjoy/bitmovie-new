@@ -17,6 +17,7 @@ public class UserService {
     //로그인 (id, password 체크)
     public Map<String, Object> selectLogin (@RequestBody Map<String, String> map) {
         int yesOrNo = userRepository.selectLogin(map);
+        int u_pk = userRepository.selectPk(map.get("u_id"));
 
         int pwUdtDate = 0;
         String u_name = "";
@@ -29,6 +30,7 @@ public class UserService {
         sendMap.put("yesOrNo", yesOrNo);
         sendMap.put("u_name", u_name);
         sendMap.put("pwUdtDate", pwUdtDate);
+        sendMap.put("u_pk",u_pk);
 
         return sendMap;
     }
@@ -51,12 +53,11 @@ public class UserService {
         return check;
     }
     //비밀번호 변경
-    public void updatePass (Map<String, String> map) {
-        userRepository.updatePass(map);
-    }
-
+    public void updatePass (Map<String, String> map) { userRepository.updatePass(map); }
     //회원 삭제(상태 변경)
     public void deleteUser (String u_id) {
         userRepository.deleteUser(u_id);
     }
+    //비밀번호 안바꿔도 날짜 업데이트
+    public void updatePassDate(String u_pk) {userRepository.updatePassDate(u_pk); }
 }
