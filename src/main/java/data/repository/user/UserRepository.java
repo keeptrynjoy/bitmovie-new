@@ -17,4 +17,6 @@ public interface UserRepository {
     public void updatePass (Map<String, String> map); //비밀번호 변경
     public void deleteUser (String u_id); //회원 삭제 (상태 변경)
     public void updatePassDate (String u_id); //비밀번호 안바꿔도 날짜 업데이트
+    public String selectId (String u_phone); //아이디 찾기
+    public User selectUser (String user_pk); //마이페이지 유저 정보 출력
 }

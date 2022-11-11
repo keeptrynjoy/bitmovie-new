@@ -31,10 +31,23 @@ public class UserController {
     }
     //비밀번호 변경
     @PostMapping("/updatepass")
-    public void updatePass (Map<String, String> map) { userService.updatePass(map); }
+    public void updatePass (Map<String, String> map) {
+        userService.updatePass(map);
+    }
     //회원 삭제(상태 변경)
     @PostMapping("/delete")
     public void deleteUser (String u_id) {
         userService.deleteUser(u_id);
+    }
+    //아이디 찾기
+    @GetMapping("/findid")
+    public String selectId (String u_phone) {
+        return userService.selectId(u_phone);
+    }
+
+    //마이페이지 유저 정보 출력
+    @GetMapping("/information")
+    public User selectUser (String user_pk) {
+        return userService.selectUser(user_pk);
     }
 }
