@@ -17,11 +17,11 @@ public class UserService {
     //로그인 (id, password 체크)
     public Map<String, Object> selectLogin (@RequestBody Map<String, String> map) {
         int yesOrNo = userRepository.selectLogin(map);
-        int u_pk = userRepository.selectPk(map.get("u_id"));
-
+        int u_pk = 0;
         int pwUdtDate = 0;
         String u_name = "";
         if (yesOrNo == 1) {
+            u_pk = userRepository.selectPk(map.get("u_id"));
             u_name = userRepository.selectName(map.get("u_id")); //로그인 성공하면 이름 가져오기
             pwUdtDate = userRepository.selectPwUdtDate(map); //로그인 성공하면 비밀번호 변경 후 지난 기간 가져오기
         }
