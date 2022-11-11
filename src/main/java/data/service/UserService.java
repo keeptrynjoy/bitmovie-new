@@ -1,4 +1,4 @@
-package data.service.user;
+package data.service;
 
 import data.domain.User;
 import data.repository.UserRepository;

@@ -1,4 +1,4 @@
-package data.service.movie;
+package data.service;
 
 import data.domain.Theater;
 import data.repository.TheaterRepository;

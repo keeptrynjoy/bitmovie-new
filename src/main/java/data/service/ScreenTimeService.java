@@ -1,4 +1,4 @@
-package data.service.movie;
+package data.service;
 
 import data.domain.ScreenTime;
 import data.repository.ScreenTimeRepository;

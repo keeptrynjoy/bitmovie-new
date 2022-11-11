@@ -1,4 +1,4 @@
-package data.service.movie;
+package data.service;
 
 import data.domain.Person;
 import data.repository.PersonRepository;

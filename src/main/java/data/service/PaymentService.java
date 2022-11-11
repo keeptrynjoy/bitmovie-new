@@ -1,4 +1,4 @@
-package data.service.pay;
+package data.service;
 
 import data.domain.Payment;
 import data.repository.PaymentRepository;

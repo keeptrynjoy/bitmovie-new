@@ -1,8 +1,8 @@
 package data.controller;
 
 import data.domain.Person;
-import data.service.movie.MovieService;
-import data.service.movie.PersonService;
+import data.service.MovieService;
+import data.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,7 +1,7 @@
 package data.controller;
 
 import data.domain.User;
-import data.service.user.UserService;
+import data.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
