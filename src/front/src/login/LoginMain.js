@@ -14,8 +14,6 @@ function LoginMain(props) {
         e.preventDefault();
 
         let url = localStorage.url + "/login/check";
-        console.log("url: "+url);
-
         axios.post(url, {u_id, u_pass})
             .then(res => {
                 if (res.data.yesOrNo === 1) {
@@ -36,11 +34,10 @@ function LoginMain(props) {
                                 .then((res)=>{
                                     alert("한달 뒤에 다시 물어볼께영");
                                 });
-                            navi("/");
-                            window.location.reload();
                         }
                     }
-
+                    navi("/");
+                    window.location.reload();
                 } else {
                     alert("아이디 또는 비밀번호가 맞지 않습니다");
                     setU_id('');
