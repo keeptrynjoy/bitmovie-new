@@ -14,7 +14,6 @@ function Home(props) {
 
 
     localStorage.url=process.env.REACT_APP_URL;
-    console.log(process.env.REACT_APP_URL);
 
     const [loading, setLoading] = useState(true);
     const [movies, setMovies] = useState([]);
@@ -64,7 +63,6 @@ function Home(props) {
         ).json();
         setMovies(json.boxOfficeResult.dailyBoxOfficeList);
         setLoading(false);
-        console.log(json.boxOfficeResult.dailyBoxOfficeList);
     };
     var carousels = document.querySelectorAll('.glide');
     useEffect(() => {
@@ -86,7 +84,6 @@ function Home(props) {
         // setLoading(false);
     }
     useEffect(() => {
-        console.log(carousels.length);
         for(var i = 0 ; i < carousels.length; i++){
             var glide = new Glide(carousels[i], {
                 type: 'carousel',

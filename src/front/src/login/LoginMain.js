@@ -10,7 +10,7 @@ function LoginMain(props) {
     const [u_pass, setU_pass] = useState('');
     const navi = useNavigate();
     //로그인 버튼 누르면 호출되는 함수
-    const onLoginEvent = (e) => {
+    const onLoginEvent =(e)=> {
         e.preventDefault();
 
         let url = localStorage.url + "/login/check";
@@ -22,21 +22,25 @@ function LoginMain(props) {
                     sessionStorage.login_status = 'ok';
                     sessionStorage.u_id = u_id;
                     sessionStorage.u_name = res.data.u_name;
-                    sessionStorage.u_pk = res.data.u_pk;
                     sessionStorage.pwUdtDate = res.data.pwUdtDate;
+                    //sessionStorage.u_pk = res.data.u_pk;
 
-                    // if(res.data.pwUdtDate>90)
-                    // {
-                    //     if(window.confirm("비밀번호를 변경 한지 90일이 지났습니다. 변경 하시겠습니까?"))
-                    //     {
-                    //         navi("/login/find");
-                    //     }else{
-                    //         axios.post(localStorage.url + "/user/updatepassdate", {u_pk:res.data.u_pk})
-                    //             .then()
+                    if(res.data.pwUdtDate>30)
+                    {
+                        if(window.confirm("비밀번호를 변경 한지 30일이 지났습니다. 변경 하시겠습니까?"))
+                        {
+                            navi("/login/find");
+                        }else{
+                            const upurl = localStorage.url + "/login/updatepassdate?u_id=" + u_id;
+                            axios.get(upurl)
+                                .then((res)=>{
+                                    alert("한달 뒤에 다시 물어볼께영");
+                                });
                             navi("/");
                             window.location.reload();
-                    //     }
-                    // }
+                        }
+                    }
+
                 } else {
                     alert("아이디 또는 비밀번호가 맞지 않습니다");
                     setU_id('');
@@ -57,7 +61,7 @@ function LoginMain(props) {
                         <tr>
                             <th style={{width: '100px', backgroundColor: '#ddd'}}>아이디</th>
                             <td>
-                                <input type="text" className="form-control"
+                                <input type="text" className="form-control" autoComplete={"username"}
                                        placeholder="아이디" required autoFocus
                                        value={u_id} onChange={(e) => setU_id(e.target.value)}/>
                             </td>
@@ -65,7 +69,7 @@ function LoginMain(props) {
                         <tr>
                             <th style={{width: '100px', backgroundColor: '#ddd'}}>비밀번호</th>
                             <td>
-                                <input type="password" className="form-control"
+                                <input type="password" className="form-control" autoComplete={"current-password"}
                                        required placeholder="비밀번호"
                                        value={u_pass} onChange={(e) => setU_pass(e.target.value)}/>
                             </td>

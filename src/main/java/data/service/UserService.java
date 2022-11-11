@@ -59,5 +59,5 @@ public class UserService {
         userRepository.deleteUser(u_id);
     }
     //비밀번호 안바꿔도 날짜 업데이트
-    public void updatePassDate(String u_pk) {userRepository.updatePassDate(u_pk); }
+    public void updatePassDate(String u_id) { userRepository.updatePassDate(u_id); }
 }

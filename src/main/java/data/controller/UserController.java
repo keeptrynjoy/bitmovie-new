@@ -37,6 +37,4 @@ public class UserController {
     public void deleteUser (String u_id) {
         userService.deleteUser(u_id);
     }
-    @PostMapping("/updatepassdate")
-    public void updatePassDate (String u_pk) {userService.updatePassDate(u_pk);}
 }
