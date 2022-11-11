@@ -49,7 +49,6 @@ public class UserController {
     public int selectFindPass (Map<String, String> map) {
         return userService.selectFindPass(map);
     }
-
     //마이페이지 유저 정보 출력
     @GetMapping("/information")
     public User selectUser (String user_pk) {

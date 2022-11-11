@@ -74,7 +74,6 @@ public class UserService {
     public int selectFindPass (Map<String, String> map) {
         return userRepository.selectFindPass(map);
     }
-
     //마이페이지 유저 정보 출력
     public User selectUser (String user_pk) {
         return userRepository.selectUser(user_pk);
