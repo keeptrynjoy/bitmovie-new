@@ -51,6 +51,13 @@ public class TheMovieService {
         return movie_id_lsit;
     }//movieListApi
 
+
+    public List<Object> personListApi(String movie_id) {
+        List<Object> person_id_list = new ArrayList<>();
+
+        return person_id_list;
+    }
+
     //movie id 를 통해 영화 상세정보를 db에 저장
     public void movieDataSave (List <Object> movie_id_lsit) {
         //사용되는 변수선언
@@ -158,8 +165,6 @@ public class TheMovieService {
         }//for
 
     }//updatePhoto
-
-//    public List<Object>
 
 
 

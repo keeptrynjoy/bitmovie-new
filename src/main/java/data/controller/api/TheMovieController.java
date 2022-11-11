@@ -37,10 +37,11 @@ public class TheMovieController {
 
         // movie_id 를 통해 더무비 에서 제공해주는 영화 상세정보를 db에 저장
         theMovieService.movieDataSave(movie_id_list);
+
         // movie_id 를 통해 더무비 포스터를 db에 저장
         theMovieService.updatePhoto(movie_id_list);
-        // 해당 영화의 등장인물 id 출력
 
+        // 해당 영화의 등장인물 id 출력
         return "TMDB 작업";
     }
 

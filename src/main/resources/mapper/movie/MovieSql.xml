@@ -7,4 +7,8 @@
     <update id="updatePhoto" parameterType="Map">
         UPDATE movie_tb SET m_photo = #{m_photo} WHERE movie_pk = #{movie_pk}
     </update>
+
+    <select id="selectMovieList">
+
+    </select>
 </mapper>
