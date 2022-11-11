@@ -31,12 +31,17 @@ public class UserController {
     }
     //비밀번호 변경
     @PostMapping("/updatepass")
-    public void updatePass (Map<String, String> map) { userService.updatePass(map); }
+    public void updatePass (Map<String, String> map) {
+        userService.updatePass(map);
+    }
     //회원 삭제(상태 변경)
     @PostMapping("/delete")
     public void deleteUser (String u_id) {
         userService.deleteUser(u_id);
     }
+    //비밀번호 수정 안해도 수정일 오늘로 업데이트
     @PostMapping("/updatepassdate")
-    public void updatePassDate (String u_pk) {userService.updatePassDate(u_pk);}
+    public void updatePassDate (String u_pk) {
+        userService.updatePassDate(u_pk);
+    }
 }
