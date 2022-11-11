@@ -1,29 +1,178 @@
 /* MainPage */
+@font-face {
+    font-family: "BM Dohyeon";
+}
+
+
 .Home{
-    background-color: white;
-    width: 1000px;
-    height: 1500px;
+    width: 1750px;
+    height: 500px;
     margin: auto;
+
 
     position: relative;
 }
-.boxoffice{
+.boxoffice {
     float: left;
     margin-top: 20px;
-    margin-left: 27%;
+    margin-left: 15%;
     padding-top: 40px;
-    width: 450px;
-    height: 250px;
-    color: white;
-    background-color: black;
-    border: 1px solid black;
+    width: 230px;
+    height:329px;
+    color: black;
     text-align: center;
     vertical-align: center;
+    font-size: 0;
+    background-image:url("./image/TOMBOY.jpg");
+    background-size: contain;
+    border-radius: 20px;
+    margin-top: 20%;
+
 }
+
+
+.boxoffice:hover{
+    float: left;
+    margin-top: 20px;
+    margin-left: 15%;
+    padding-top: 80px;
+    width: 230px;
+    height:329px;
+    color: white;
+    text-align: center;
+    vertical-align: center;
+    font-size: 15px;
+    justify-content: center;
+    text-align: center;
+    margin-top: 20%;
+
+}
+.rvv{
+    width: 70%;
+    height: 100px;
+    margin: auto;
+    color: white;
+    display: block;
+    line-height: 100px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 20px;
+    color: white;
+    background-color: black;
+
+
+}
+.rvv:hover{
+    width: 70%;
+    height: 100px;
+    margin: auto;
+    background-color: gray;
+    display: block;
+    line-height: 100px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 20px;
+    color: black;
+
+}
+
+.swiper-wrapper {
+    padding-bottom: 50px;
+}
+
+
+
+
+
 .swiper-button-prev::after,.swiper-button-next::after {
     color: black;
 }
 
+.bt1,.bt2{
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 10px;
+    width: 250px;
+    height: 50px;
+}
+
+.bt1:hover{
+    background-color: black;
+    color: white;
+}
+.bt2:hover{
+    background-color: black;
+    color: white;
+}
+
+.main-slider{
+    width: 1000px;
+    height: 500px;
+    margin: auto;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+.main-slider2{
+    width: 1300px;
+    height: 350px;
+    margin: auto;
+    margin-bottom: 100px;
+    padding-top: 150px;
+    background-color: white;
+}
+
+.rv1,.rv2,.rv3,.rv4{
+    width: 200px;
+    height: 250px;
+    float: left;
+    margin-left: 40px;
+    margin-top: 50px;
+    border-radius: 20px;
+    border: 1px solid grey;
+    align-items: center;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+
+}
+.rv1:hover{
+    background-color: black;
+    color: white;
+    font-size: 18px;
+}
+.rv2:hover{
+    background-color: black;
+    color: white;
+    font-size: 18px;
+}
+.rv3:hover{
+    background-color: black;
+    color: white;
+    font-size: 18px;
+}
+.rv4:hover{
+    background-color: black;
+    color: white;
+    font-size: 18px;
+}
+
+.testt {
+    width: 500px;
+    height: 500px;
+    margin-top: 100px;
+    border: 1px solid gray;
+    margin-left: 36%;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    overflow-x: hidden;
+    border-radius: 20px;
+    background-color: #3a3a3a;
+
+
+}
+.testt::-webkit-scrollbar{
+    display:none;
+}
 
 
 /* 여기까지 메인페이지 css 입니다 */

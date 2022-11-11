@@ -1,0 +1,129 @@
+.join-div {
+    text-align: center;
+    display: block;
+    width: 1500px;
+    height: 1000px;
+    margin: 0 auto;
+    position: relative;
+    background-color: whitesmoke;
+}
+
+.join-div .title {
+    width: 400px;
+    height: 70px;
+    border-bottom: 3px solid #979797;
+    font-size: 40px;
+    color: #666;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.join-div .join-box {
+    width: 1000px;
+    height: 700px;
+    background-color: white;
+    margin: 60px auto 0;
+    padding: 80px 170px;
+}
+
+.join-div .join-box .join-indicator {
+    display: block;
+    width: 750px;
+    height: 60px;
+    overflow: hidden;
+    background: url(/src/image/join-indicator.png) center top no-repeat;
+    position: relative;
+    left: -17px;
+}
+
+.join-div .join-box .join-indicator li {
+    list-style: none;
+    float: left;
+    display: block;
+    height: 60px;
+    text-align: center;
+    font-size: 20px;
+    color: #505050;
+    line-height: 60px;
+    position: relative;
+}
+
+.join-div .join-box .join-indicator li:nth-child(1) {
+    width: 254px;
+}
+
+.join-div .join-box .join-indicator li:nth-child(2) {
+    width: 207px;
+}
+
+.join-div .join-box .join-indicator li:nth-child(3) {
+    width: 253px;
+}
+
+.join-div .join-box .join-email .join-email-input {
+    margin-top: 75px;
+    margin-left: 100px;
+}
+
+.join-div .join-box .join-email .join-email-input label {
+    width: 500px;
+    height: 70px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    border: 1px solid #d8d8d8;
+    font-size: 20px;
+    color: #666;
+    display: block;
+    line-height: 70px;
+    padding-left: 20px;
+
+}
+
+.join-div .join-box .join-email .join-email-input input {
+    width: 250px;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 50px;
+    background-color: #f9f9f9;
+    border: 0;
+    border-left: 1px solid #b7b7b7;
+    margin-left: 35px;
+    padding-left: 14px;
+    font-size: 15px;
+    color: #3a3a3a;
+    margin-top: -5px;
+}
+
+.join-div .join-box .join-indicator li.selected:before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 5px;
+    height: 5px;
+    border-radius: 3px;
+    background-color: #000;
+    left: 50%;
+    top: 10px;
+}
+
+.join-div .join-box .join-email button {
+    margin-top: 30px;
+}
+
+.join-div .join-info .join-table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+.join-div .pass-error-msg {
+    position: absolute;
+    height: 100px;
+    width: 200px;
+    top: 350px;
+    right: 270px;
+    opacity: 0.7;
+    border-radius: 20px;
+    font-size: 12px;
+}

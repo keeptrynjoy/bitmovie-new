@@ -73,10 +73,9 @@ function Header(props) {
         text-decoration: none;
         }
         &:hover {
-        color: aqua;
+        color:white;
         }
         &:active {
-        color: aqua;
         position: relative;
         top: 2px;
         }
@@ -88,7 +87,7 @@ function Header(props) {
         outline: invert;
         text-decoration: none;
         &:hover {
-        color: aqua;
+        color:black;
         }
     `
     const dark_theme = createTheme({
@@ -100,12 +99,22 @@ function Header(props) {
         },
     });
 
-    const logoutClick = (e) => {
+    const logoutClick =(e)=> {
         e.preventDefault();
-        console.log("로그아웃");
         sessionStorage.removeItem("login_status");
+        sessionStorage.removeItem("u_name");
+        sessionStorage.removeItem("u_id");
+        sessionStorage.removeItem("u_pk");
+        sessionStorage.removeItem("pwUdtDate");
         window.location.reload();
     };
+
+    const myPageClick =(e)=> {
+        if (sessionStorage.login_status==null) {
+            alert("로그인후 이용해주세요");
+            return;
+        }
+    }
 
     return (
         <div className={"header-div"}>
@@ -115,6 +124,16 @@ function Header(props) {
 
                 }}/>
                 <ul className={"member-info"}>
+                    <li>
+                        {
+                            sessionStorage.login_status==null?
+                                ""
+                                :
+                                <div>
+                                    {sessionStorage.u_name}님으로 로그인중
+                                </div>
+                        }
+                    </li>
                     <li>
                         {
                             sessionStorage.login_status==null?
@@ -147,8 +166,13 @@ function Header(props) {
                             :
                             ""
                     }
-                    <li>
-                        <MemberNav to={"/mypage/1"}>
+                    <li onClick={myPageClick}>
+                        <MemberNav to={
+                            sessionStorage.login_status==null?
+                                "/login"
+                                :
+                                `/mypage/${sessionStorage.u_pk}`
+                        }>
                             <div className={"member-icon"}>
                                 <PersonIcon/>
                             </div>

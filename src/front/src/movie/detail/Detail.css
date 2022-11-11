@@ -1,0 +1,93 @@
+.dtall{
+    width: 1500px;
+    height: 2000px;
+    margin: auto;
+}
+
+.dtposter{
+    width: 500px;
+    height: 670px;
+    border: 1px solid gray;
+    margin-left: 3%;
+    margin-top: 5%;
+    background-image: url("/src/image/joker.jpg");
+    background-size: cover;
+    border-radius: 20px;
+    float: left;
+
+}
+
+.dtcontent{
+    width: 800px;
+    height: 750px;
+    float: left;
+    margin-left: 5%;
+    margin-top: 3%;
+
+}
+
+.dtname{
+    width: 700px;
+    height: 600px;
+    border: 1px solid gray;
+    margin-left: 6%;
+    padding-left: 5%;
+    margin-top: 3%;
+    font-size: 20px;
+    line-height:60px;
+    border-radius: 20px;
+
+
+}
+
+.dtbt{
+    background-color: white;
+    width: 300px;
+    height: 70px;
+    margin-top: 50px;
+    margin-left: 30%;
+    display: block;
+    border: 1px solid gray;
+    border-radius: 20px;
+}
+
+.prevideo{
+    width: 1000px;
+    height: 500px;
+    border: 1px solid gray;
+    clear: both;
+    margin-left: 15%;
+    margin-top: 10%;
+    float: left;
+    text-align: center;
+    line-height: 500px;
+    font-size: 50px;
+}
+
+.story{
+    width: 1000px;
+    height: 300px;
+    border: 1px solid gray;
+    clear: both;
+    margin-left: 15%;
+    margin-top: 5%;
+    float: left;
+    text-align: center;
+    line-height: 300px;
+    font-size: 50px;
+    margin-bottom: 5%;
+
+}
+.dtreview{
+    width: 1000px;
+    height: 300px;
+    border: 1px solid gray;
+    clear: both;
+    margin-left: 15%;
+    margin-top: 5%;
+    float: left;
+    text-align: center;
+    line-height: 300px;
+    font-size: 50px;
+    margin-bottom: 5%;
+}
