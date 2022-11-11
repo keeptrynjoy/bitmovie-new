@@ -46,7 +46,8 @@ public class UserController {
     }
     //비밀번호 찾기(아이디, 핸드폰 번호 넘겨서 둘 다 일치하는 레코드 있으면 1, 없으면 0 넘겨줌)
     @GetMapping("/findpass")
-    public int selectFindPass (Map<String, String> map) {
+    public int selectFindPass (@RequestParam Map<String, String> map) {
+        System.out.println(map);
         return userService.selectFindPass(map);
     }
     //마이페이지 유저 정보 출력
