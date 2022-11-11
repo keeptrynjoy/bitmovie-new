@@ -7,13 +7,13 @@ import ReactPlayer from "react-player";
 
 function Home(props) {
 
+    //무한스크롤 테스트
+
+    // 무한스크롤  테스트
 
 
 
-
-
-        localStorage.url=process.env.REACT_APP_URL;
-    console.log(process.env.REACT_APP_URL);
+    localStorage.url=process.env.REACT_APP_URL;
 
     const [loading, setLoading] = useState(true);
     const [movies, setMovies] = useState([]);
@@ -63,7 +63,6 @@ function Home(props) {
         ).json();
         setMovies(json.boxOfficeResult.dailyBoxOfficeList);
         setLoading(false);
-        console.log(json.boxOfficeResult.dailyBoxOfficeList);
     };
     var carousels = document.querySelectorAll('.glide');
     useEffect(() => {
@@ -85,7 +84,6 @@ function Home(props) {
         // setLoading(false);
     }
     useEffect(() => {
-        console.log(carousels.length);
         for(var i = 0 ; i < carousels.length; i++){
             var glide = new Glide(carousels[i], {
                 type: 'carousel',
@@ -114,7 +112,7 @@ function Home(props) {
                 />
 
             </div>
-            <div style={{marginBottom:'100px'}}>
+            <div>
                 <button type={"button"} className={'bt1'} onClick={movieChart}>무비차트</button>&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <button type={"button"} className={'bt2'} onClick={bitChart}>예매순위</button>
@@ -135,7 +133,7 @@ function Home(props) {
                                             effect
                                             speed={800}
                                             loop={true}
-                                            slidesPerView={5}
+                                            slidesPerView={3}
                                             autoplay={{delay: 2000,
                                             disableOnInteraction:false}}
                                     >
@@ -152,40 +150,39 @@ function Home(props) {
                 }
             </div>
 
-            {/*<h1 style={{textAlign:'center',marginTop:'100px'}}>Movie Review</h1>*/}
-            {/*<div className={"testt"}>*/}
-            {/*    {reviews.map((review) => (*/}
-            {/*        <div className={'rvv'}>*/}
-            {/*            {review.name}*/}
-            {/*        </div>*/}
-            {/*    ))}*/}
-            {/*</div>*/}
-            <div className="main-slider2">
-                <Swiper className="myswiper"
-                    modules={[Navigation, Pagination, Autoplay]}
-                    pagination={{ clickable: true }}
-                    navigation
-                    effect
-                    speed={800}
-                    loop={true}
-                    slidesPerView={3}
-                    autoplay={{delay: 2000,
-                        disableOnInteraction:false}}>
-
-
-                    {reviews.map((review) => (
-
-                    <SwiperSlide>
-                        <div className={'rvv'}>
-                            {review.name}
-                        </div>
-                    </SwiperSlide>
-                    ))}
-                </Swiper>
-
-
-
+            <h1 style={{textAlign:'center',marginTop:'100px'}}>Movie Review</h1>
+            <div className={"testt"}>
+                {reviews.map((review,i) => (
+                    <div className={'rvv'} key={i}>
+                        {review.name}
+                    </div>
+                ))}
             </div>
+            {/*<div className="main-slider2">*/}
+            {/*    <Swiper className="myswiper"*/}
+            {/*        modules={[Navigation, Pagination, Autoplay]}*/}
+            {/*        pagination={{ clickable: true }}*/}
+            {/*        navigation*/}
+            {/*        effect*/}
+            {/*        speed={800}*/}
+            {/*        loop={true}*/}
+            {/*        slidesPerView={3}*/}
+            {/*        autoplay={{delay: 2000,*/}
+            {/*            disableOnInteraction:false}}>*/}
+
+            {/*        {reviews.map((review) => (*/}
+
+            {/*        <SwiperSlide>*/}
+            {/*            <div className={'rvv'}>*/}
+            {/*                {review.name}*/}
+            {/*            </div>*/}
+            {/*        </SwiperSlide>*/}
+            {/*        ))}*/}
+            {/*    </Swiper>*/}
+
+
+
+            {/*</div>*/}
         </div>
     )
 

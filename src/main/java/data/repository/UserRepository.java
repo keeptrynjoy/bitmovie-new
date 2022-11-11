@@ -16,5 +16,5 @@ public interface UserRepository {
     public String selectPass (String u_id); //비밀번호 변경할 때 아이디 참조해서 기존 비밀번호 가져오기(입력한 비밀번호와 일치하는 지 확인용)
     public void updatePass (Map<String, String> map); //비밀번호 변경
     public void deleteUser (String u_id); //회원 삭제 (상태 변경)
-    public void updatePassDate (String u_pk); //비밀번호 수정 안해도 수정일 오늘로 업데이트
+    public void updatePassDate (String u_id); //비밀번호 안바꿔도 날짜 업데이트
 }
