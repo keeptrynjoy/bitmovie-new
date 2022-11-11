@@ -21,8 +21,6 @@ function FindAccount(props) {
         const findPwUrl = localStorage.url + "/user/findpass?u_id=" + findPwInputId + "&u_phone=" + findPwInputHp;
         axios.get(findPwUrl)
             .then((res)=>{
-                alert(findPwInputId);
-                alert(findPwInputHp);
                 alert(res.data);
             })
     }
