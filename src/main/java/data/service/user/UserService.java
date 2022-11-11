@@ -66,7 +66,13 @@ public class UserService {
     }
     //아이디 찾기
     public String selectId (String u_phone) {
-        return userRepository.selectId(u_phone);
+        String id = userRepository.selectFindId(u_phone);
+        String resultId = id.substring(0,2) + "**" + id.substring(4);
+        return resultId;
+    }
+    //비밀번호 찾기 (아이디, 핸드폰 번호 확인)
+    public int selectFindPass (Map<String, String> map) {
+        return userRepository.selectFindPass(map);
     }
 
     //마이페이지 유저 정보 출력

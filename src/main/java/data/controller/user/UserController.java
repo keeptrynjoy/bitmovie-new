@@ -25,7 +25,7 @@ public class UserController {
         userService.insertUser(user);
     }
     //비밀번호 변경할 때 아이디 참조해서 기존 비밀번호 가져오기(입력한 비밀번호와 일치하는 지 확인용)
-    @GetMapping("/selectpass")
+    @PostMapping("/selectpass")
     public boolean selectPass (String u_id, String u_pass) {
         return userService.selectPass(u_id, u_pass);
     }
@@ -41,8 +41,13 @@ public class UserController {
     }
     //아이디 찾기
     @GetMapping("/findid")
-    public String selectId (String u_phone) {
+    public String selectFindId (String u_phone) {
         return userService.selectId(u_phone);
+    }
+    //비밀번호 찾기(아이디, 핸드폰 번호 넘겨서 둘 다 일치하는 레코드 있으면 1, 없으면 0 넘겨줌)
+    @GetMapping("/findpass")
+    public int selectFindPass (Map<String, String> map) {
+        return userService.selectFindPass(map);
     }
 
     //마이페이지 유저 정보 출력
