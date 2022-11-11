@@ -50,9 +50,17 @@
     <select id="selectFindPass" parameterType="Map" resultType="int">
         SELECT count(*) FROM user_tb WHERE u_id = #{u_id} AND u_phone = #{u_phone}
     </select>
+
     <!--마이페이지 유저 정보 출력-->
     <select id="selectUser" parameterType="String" resultType="User">
         SELECT u_id, u_name, u_nick, u_phone, u_birth, u_gender, u_photo
         FROM user_tb WHERE user_pk = #{user_pk}
     </select>
+    <!--회원 정보 수정-->
+    <update id="updateUser" parameterType="User">
+        UPDATE user_tb
+        SET u_pass = #{u_pass}, u_name = #{u_name}, u_nick = #{u_nick}, u_phone = #{u_phone},
+            u_photo = #{u_photo}, u_pwudtdate = now()
+        WHERE user_pk = #{user_pk}
+    </update>
 </mapper>

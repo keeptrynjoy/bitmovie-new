@@ -78,4 +78,8 @@ public class UserService {
     public User selectUser (String user_pk) {
         return userRepository.selectUser(user_pk);
     }
+    //회원 정보 수정
+    public void updateUser (User user) {
+        userRepository.updateUser(user);
+    }
 }
