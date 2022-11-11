@@ -51,7 +51,15 @@
     border: 1px solid gray;
     border-radius: 20px;
 }
-
+.movielocation{
+    width: 200px;
+    height: 500px;
+    border: 1px solid gray;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 2%;
+    float: left;
+}
 .tkmenu2:hover{
     width: 300px;
     height: 70px;
@@ -75,12 +83,12 @@
 
 
 .selectmv{
-    width: 500px;
+    width: 400px;
     height: 500px;
     border: 1px solid gray;
     font-size: 20px;
     text-align: center;
-    margin-left: 2%;
+    margin-left: 3%;
     margin-top: 2%;
     float: left;
     overflow: scroll;
@@ -97,7 +105,7 @@
 }
 
 .selecttime{
-    width: 540px;
+    width: 400px;
     height: 500px;
     border: 1px solid gray;
     font-size: 70px;

@@ -152,40 +152,40 @@ function Home(props) {
                 }
             </div>
 
-            {/*<h1 style={{textAlign:'center',marginTop:'100px'}}>Movie Review</h1>*/}
-            {/*<div className={"testt"}>*/}
-            {/*    {reviews.map((review) => (*/}
-            {/*        <div className={'rvv'}>*/}
-            {/*            {review.name}*/}
-            {/*        </div>*/}
-            {/*    ))}*/}
-            {/*</div>*/}
-            <div className="main-slider2">
-                <Swiper className="myswiper"
-                    modules={[Navigation, Pagination, Autoplay]}
-                    pagination={{ clickable: true }}
-                    navigation
-                    effect
-                    speed={800}
-                    loop={true}
-                    slidesPerView={3}
-                    autoplay={{delay: 2000,
-                        disableOnInteraction:false}}>
-
-
-                    {reviews.map((review) => (
-
-                    <SwiperSlide>
-                        <div className={'rvv'}>
-                            {review.name}
-                        </div>
-                    </SwiperSlide>
-                    ))}
-                </Swiper>
-
-
-
+            <h1 style={{textAlign:'center',marginTop:'100px'}}>Movie Review</h1>
+            <div className={"testt"}>
+                {reviews.map((review) => (
+                    <div className={'rvv'}>
+                        {review.name}
+                    </div>
+                ))}
             </div>
+            {/*<div className="main-slider2">*/}
+            {/*    <Swiper className="myswiper"*/}
+            {/*        modules={[Navigation, Pagination, Autoplay]}*/}
+            {/*        pagination={{ clickable: true }}*/}
+            {/*        navigation*/}
+            {/*        effect*/}
+            {/*        speed={800}*/}
+            {/*        loop={true}*/}
+            {/*        slidesPerView={3}*/}
+            {/*        autoplay={{delay: 2000,*/}
+            {/*            disableOnInteraction:false}}>*/}
+
+
+            {/*        {reviews.map((review) => (*/}
+
+            {/*        <SwiperSlide>*/}
+            {/*            <div className={'rvv'}>*/}
+            {/*                {review.name}*/}
+            {/*            </div>*/}
+            {/*        </SwiperSlide>*/}
+            {/*        ))}*/}
+            {/*    </Swiper>*/}
+
+
+
+            {/*</div>*/}
         </div>
     )
 
