@@ -2,7 +2,7 @@ package data.controller;
 
 
 import data.domain.Theater;
-import data.service.TheaterService;
+import data.service.movie.TheaterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

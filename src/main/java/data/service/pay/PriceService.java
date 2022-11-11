@@ -1,13 +1,12 @@
-package data.service;
+package data.service.pay;
 
-import data.repository.SeatRepository;
+import data.repository.PriceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SeatService {
+public class PriceService {
 
     @Autowired
-    SeatRepository seatRepository;
-
+    PriceRepository priceRepository;
 }

@@ -1,15 +1,13 @@
 package data.controller;
 
-import data.domain.Movie;
 import data.domain.Person;
-import data.service.MovieService;
-import data.service.PersonService;
+import data.service.movie.MovieService;
+import data.service.movie.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController

@@ -1,4 +1,4 @@
-package data.service;
+package data.service.pay;
 
 import data.repository.BookingRepository;
 import data.repository.MovieRepository;

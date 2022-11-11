@@ -1,12 +1,13 @@
-package data.service;
+package data.service.movie;
 
-import data.repository.MovieRepository;
+import data.repository.SeatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MovieService {
+public class SeatService {
 
     @Autowired
-    MovieRepository movieRepository;
+    SeatRepository seatRepository;
+
 }

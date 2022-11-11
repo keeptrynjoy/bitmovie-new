@@ -1,6 +1,6 @@
 package data.controller;
 
-import data.service.UserService;
+import data.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

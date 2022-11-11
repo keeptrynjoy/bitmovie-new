@@ -1,13 +1,12 @@
-package data.service;
+package data.service.movie;
 
 import data.repository.MovieRepository;
-import data.repository.ScreenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ScreenService {
+public class MovieService {
 
     @Autowired
-    ScreenRepository screenRepository;
+    MovieRepository movieRepository;
 }

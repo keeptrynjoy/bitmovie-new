@@ -1,7 +1,7 @@
 package data.controller;
 
 import data.domain.ScreenTime;
-import data.service.ScreenTimeService;
+import data.service.movie.ScreenTimeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
