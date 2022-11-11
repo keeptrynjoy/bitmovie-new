@@ -53,11 +53,29 @@ public class UserService {
         return check;
     }
     //비밀번호 변경
-    public void updatePass (Map<String, String> map) { userRepository.updatePass(map); }
+    public void updatePass (Map<String, String> map) {
+        userRepository.updatePass(map);
+    }
     //회원 삭제(상태 변경)
     public void deleteUser (String u_id) {
         userRepository.deleteUser(u_id);
     }
     //비밀번호 안바꿔도 날짜 업데이트
-    public void updatePassDate(String u_id) { userRepository.updatePassDate(u_id); }
+    public void updatePassDate (String u_id) {
+        userRepository.updatePassDate(u_id);
+    }
+    //아이디 찾기
+    public String selectId (String u_phone) {
+        String id = userRepository.selectFindId(u_phone);
+        String resultId = id.substring(0,2) + "**" + id.substring(4);
+        return resultId;
+    }
+    //비밀번호 찾기 (아이디, 핸드폰 번호 확인)
+    public int selectFindPass (Map<String, String> map) {
+        return userRepository.selectFindPass(map);
+    }
+    //마이페이지 유저 정보 출력
+    public User selectUser (String user_pk) {
+        return userRepository.selectUser(user_pk);
+    }
 }

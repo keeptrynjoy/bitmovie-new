@@ -27,17 +27,52 @@ img.profile-photo {
 
 .mypage-div .photo-div .photo-fix-icon {
     border-radius: 100%;
-    background-color: red;
+    background-color: yellow;
     position : absolute;
     right: 10px;
     bottom: 10px;
 }
 
-div.info-div {
+div.mypage-info-wrap {
     border-radius: 30px;
-    background-color: red;
+    background-color: lightgray;
     position : relative;
     width: 900px;
     margin-left: 100px;
     height: 400px;
+    color: white;
+}
+
+.mypage-info-wrap .person-info * {
+    display: inline-block;
+    margin-right: 8px;
+    color: #342929;
+    font-weight: 500;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.mypage-info-wrap .person-info .person-info-name {
+    width: 350px;
+    font-size: 50px;
+}
+
+.mypage-info-wrap .person-info .person-info-id {
+    width: 200px;
+    font-size: 25px;
+}
+
+.mypage-info-wrap .person-info .person-info-nickname {
+    width: 200px;
+    font-size: 15px;
+}
+
+.mypage-info-wrap .person-info {
+    width: 820px;
+    margin-left: 30px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid black;
 }
