@@ -48,6 +48,4 @@ public class MovieController {
 
         return movieService.selectMovieData(movie_pk);
     }
-
-
 }
