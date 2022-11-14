@@ -42,6 +42,8 @@ public class TheMovieController {
         theMovieService.updatePhoto(movie_id_list);
 
         // 해당 영화의 등장인물 id 출력
+        theMovieService.personDataList(movie_id_list);
+
         return "TMDB 작업";
     }
 
