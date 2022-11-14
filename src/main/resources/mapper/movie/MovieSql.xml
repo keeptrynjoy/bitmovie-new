@@ -4,13 +4,13 @@
 
     <!--  TMDB api 영화 정보 저장  -->
     <insert id="insertDetailData" parameterType="movie">
-        INSERT INTO movie_tb (movie_pk, m_name, m_type, m_sdate, m_runtime, m_info)
-        VALUES (#{movie_pk}, #{m_name}, #{m_type}, #{m_sdate}, #{m_runtime}, #{m_info});
+        INSERT INTO movie_tb (movie_pk, m_name, m_type, m_sdate, m_edate, m_runtime, m_info, m_country)
+        VALUES (#{movie_pk}, #{m_name}, #{m_type}, #{m_sdate}, #{m_edate}, #{m_runtime}, #{m_info},#{m_country});
     </insert>
 
-    <!--  TMDB api 영화 포스터 저장  -->
-    <update id="updatePhoto" parameterType="Map">
-        UPDATE movie_tb SET m_photo = #{m_photo} WHERE movie_pk = #{movie_pk}
+    <!--  TMDB api 영화 정보 저장(사진, 영어제목, 동영상)  -->
+    <update id="updateDataOne" parameterType="Map">
+        UPDATE movie_tb SET ${column} = #{data} WHERE movie_pk = #{movie_pk}
     </update>
 
     <select id="selectMovieData" parameterType="String" resultType="movie">

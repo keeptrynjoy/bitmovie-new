@@ -10,9 +10,9 @@ public interface MovieRepository {
 
     public void insertDetailData(Movie movie);
 
-    public void updatePhoto(Map<String, Object> map);
-
     public Movie selectMovieData(String movie_pk);
 
     public int selectMovieYoN(String movie_pk);
+
+    public void updateDataOne(Map<String, Object> map);
 }

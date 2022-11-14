@@ -15,7 +15,9 @@ public class JoinMovie {
     private String m_age_grd;
     private String m_info;
     private String m_photo;
+    private String m_enname;
+    private String m_country;
     private int revw_avgstar;
-    private int pay_count;
+    private int pay_percent;
 
 }
