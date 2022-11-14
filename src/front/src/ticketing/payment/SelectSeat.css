@@ -238,7 +238,7 @@ section .seat:not(.occupied):hover {
     background-color: white;
     height: 70px;
     width: 80%;
-    margin-left: 55px;
+    margin-left: 60px;
     margin-bottom: 45px;
     margin-top: 50px;
     transform: rotateX(-45deg); /*make screen thiner*/
