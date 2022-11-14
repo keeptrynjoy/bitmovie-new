@@ -85,7 +85,6 @@ function JoinInfo(props) {
             })
     }
 
-
     const chkPW=()=>{
         const pw = input.u_pass;
         const id = input.u_id;
@@ -113,7 +112,6 @@ function JoinInfo(props) {
         }else {
             return "ok";
         }
-
     }
 
     const chkPW2=()=>{

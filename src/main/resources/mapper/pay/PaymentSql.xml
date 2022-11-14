@@ -3,10 +3,9 @@
 <mapper namespace="data.repository.pay.PaymentRepository">
     <insert id="insertPaymentData" parameterType="payment">
         INSERT INTO payment_tb VALUES
-            (payment_pk=#{payment_pk},user_pk=#{user_pk},pri_pk=#{pri_pk},
+            (payment_pk=#{payment_pk},user_pk=#{user_pk},
              pay_type=#{pay_type},pay_price=#{pay_price},
              pay_date=#{pay_date},pay_cncl_date=#{pay_cncl_date},
-             pay_adult_cnt=#{pay_adult_cnt},pay_youth_cnt=#{pay_youth_cnt},
              mycoupon_pk=#{mycoupon_pk},pay_use_point=#{pay_use_point},
              pay_state=#{pay_state});
     </insert>

@@ -5,12 +5,15 @@ import ReactPlayer from "react-player";
 import axios from "axios";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay, Navigation, Pagination} from "swiper";
+import moment from 'moment';
+import 'moment/locale/ko';
 
 function MovieDetail(props) {
     const p = useParams();
     const [movie_pk,setMovie_pk]=useState(p.movie_num);
     const [movie_data,setMovie_data]=useState([]);
     const [movie_photo,setMovie_photo]=useState([]);
+
     const getMovieUrl = localStorage.url + "/movie/selectMovieData?movie_pk=" + movie_pk;
 
     const getData =()=>{
@@ -55,18 +58,21 @@ function MovieDetail(props) {
                     <div className={"detail-contents"}>
                         <div className={"detail-contents-title"}>
                             <b>{movie_data.m_name}</b>
+                            ({moment(movie_data.m_sdate).format("YYYY")})
                         </div>
-                        장르 : {movie_data.m_type}<br/>
-                        평점 : 000<br/>
-                        런타임 : {movie_data.m_runtime}분<br/>
-                        영화 간단 줄거리 : {movie_data.m_info}<br/>
+                        <b>기본 : </b> 12 | 제작국가 | {movie_data.m_runtime}분<br/>
+                        <b>장르 : </b> {movie_data.m_type}<br/>
+                        <b>개봉일 : </b> {movie_data.m_sdate}<br/>
+                        <b>줄거리 : </b>
+                        <div className={"detail-contents-summary"}>{movie_data.m_info}</div>
+                        <br/>
                     </div>
-                    <button type={"button"} className={"dtbt"}>예매하기</button>
+                    <button type={"button"} className={"bookingBtn"}>예매하기</button>
                 </div>
                 <div className={"prevideo"}>영화예고편 자리</div>
                 <div className={"story"}>
                     <ReactPlayer
-                        url={process.env.PUBLIC_URL + 'https://www.https://www.youtube.com/watch?v=ijUsSpRVhBU'}
+                        url={process.env.PUBLIC_URL + 'https://www.youtube.com/watch?v=ijUsSpRVhBU'}
                         width='100%'
                         height='400px'
                         playing={true}
