@@ -6,14 +6,7 @@ import {Autoplay, Navigation, Pagination} from "swiper";
 import ReactPlayer from "react-player";
 
 function Home(props) {
-
-
-
-
-
-
-        localStorage.url=process.env.REACT_APP_URL;
-    console.log(process.env.REACT_APP_URL);
+    localStorage.url=process.env.REACT_APP_URL;
 
     const [loading, setLoading] = useState(true);
     const [movies, setMovies] = useState([]);
@@ -51,7 +44,7 @@ function Home(props) {
 
     ]);
 
-
+    //kobis key
     const key ='3e56c5d518bc82f65d4d1d16806fdd37';
     const today = new Date();
     const targetDT = today.getFullYear()+(today.getMonth()).toString().padStart(2,0)+(today.getDate().toString().padStart(2,0));
@@ -63,12 +56,13 @@ function Home(props) {
         ).json();
         setMovies(json.boxOfficeResult.dailyBoxOfficeList);
         setLoading(false);
-        console.log(json.boxOfficeResult.dailyBoxOfficeList);
     };
+
     var carousels = document.querySelectorAll('.glide');
     useEffect(() => {
         getMovies();
     }, []);
+
     const movieChart = async()=>{
         setLoading(true);
         const json = await (
@@ -79,13 +73,14 @@ function Home(props) {
         setMovies(json.boxOfficeResult.dailyBoxOfficeList);
         setLoading(false);
     }
+
     const bitChart=()=>{
         setLoading(true);
         setMovies([]);
         // setLoading(false);
     }
+
     useEffect(() => {
-        console.log(carousels.length);
         for(var i = 0 ; i < carousels.length; i++){
             var glide = new Glide(carousels[i], {
                 type: 'carousel',
@@ -97,9 +92,7 @@ function Home(props) {
     }, [carousels]);
 
     return (
-
         <div style={{textAlign:'center'}}>
-
             <div className="main-slider" >
                 <h1 style={{textAlign:'center', marginBottom:'30px'}}>영화 예고편</h1>
                 <ReactPlayer
@@ -112,9 +105,8 @@ function Home(props) {
                     loop={true}
 
                 />
-
             </div>
-            <div style={{marginBottom:'100px'}}>
+            <div>
                 <button type={"button"} className={'bt1'} onClick={movieChart}>무비차트</button>&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <button type={"button"} className={'bt2'} onClick={bitChart}>예매순위</button>
@@ -135,7 +127,7 @@ function Home(props) {
                                             effect
                                             speed={800}
                                             loop={true}
-                                            slidesPerView={5}
+                                            slidesPerView={3}
                                             autoplay={{delay: 2000,
                                             disableOnInteraction:false}}
                                     >
@@ -151,11 +143,10 @@ function Home(props) {
                         )
                 }
             </div>
-
             <h1 style={{textAlign:'center',marginTop:'100px'}}>Movie Review</h1>
             <div className={"testt"}>
-                {reviews.map((review) => (
-                    <div className={'rvv'}>
+                {reviews.map((review,i) => (
+                    <div className={'rvv'} key={i}>
                         {review.name}
                     </div>
                 ))}
@@ -172,7 +163,6 @@ function Home(props) {
             {/*        autoplay={{delay: 2000,*/}
             {/*            disableOnInteraction:false}}>*/}
 
-
             {/*        {reviews.map((review) => (*/}
 
             {/*        <SwiperSlide>*/}
@@ -182,12 +172,8 @@ function Home(props) {
             {/*        </SwiperSlide>*/}
             {/*        ))}*/}
             {/*    </Swiper>*/}
-
-
-
             {/*</div>*/}
         </div>
     )
-
 }
 export default Home;

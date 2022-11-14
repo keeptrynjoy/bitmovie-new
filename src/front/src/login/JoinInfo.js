@@ -59,7 +59,8 @@ function JoinInfo(props) {
             return;
         }
 
-        if(!chkPW()){
+        if(chkPW()!=="ok"){
+            alert("비밀번호 형식이 맞지 않습니다.");
             return;
         };
 
@@ -69,14 +70,19 @@ function JoinInfo(props) {
             return;
         }
 
+        const hppattern = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
+        if(hppattern.test(input.hp))
+        {
+            alert("전화번호를 확인해주세요");
+            return;
+        }
+        
         let url = localStorage.url + "/user/insert";
-        console.log(input);
         axios.post(url, input)
             .then(res => {
                 alert("가입성공");
                 changeSelected("done");
             })
-        alert(input.u_id + " " + input.u_name + " " + input.u_nick + " " + input.u_pass +  " " + input.u_gender + " " + input.u_birth + " " + input.u_phone);
     }
 
 

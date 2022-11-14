@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.repository.pay.PaymentRepository">
+    <insert id="insertPaymentData" parameterType="payment">
+        INSERT INTO payment_tb VALUES
+            (payment_pk=#{payment_pk},user_pk=#{user_pk},pri_pk=#{pri_pk},
+             pay_type=#{pay_type},pay_price=#{pay_price},
+             pay_date=#{pay_date},pay_cncl_date=#{pay_cncl_date},
+             pay_adult_cnt=#{pay_adult_cnt},pay_youth_cnt=#{pay_youth_cnt},
+             mycoupon_pk=#{mycoupon_pk},pay_use_point=#{pay_use_point},
+             pay_state=#{pay_state});
+    </insert>
+
+    <select id="selectPaymentData" resultType="int" parameterType="payment">
+        SELECT * FROM payment_tb WHERE payment_pk=#{payment_pk}
+    </select>
+</mapper>

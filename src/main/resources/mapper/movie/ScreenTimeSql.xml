@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.repository.movie.ScreenTimeRepository">
+    <insert id="insertScrTime" parameterType="screenTime">
+        INSERT INTO screentime_tb VALUES
+               (null,#{movie_pk},#{scrt_date},#{scrt_stime},#{scrt_etime})
+    </insert>
+    <select id="selectScrTimeByScreen" resultType="screenTime" parameterType="int">
+        SELECT * FROM screentime_tb WHERE screen_pk=#{screen_pk}
+    </select>
+    <select id="selectScrTimeByTheater" resultType="screenTime" parameterType="int">
+        SELECT * FROM screentime_tb WHERE theater_pk=#{theater_pk}
+    </select>
+    <update id="updateScrTimeByPk" parameterType="screenTime">
+        UPDATE screentime_tb SET screen_pk=#{screen_pk}, movie_pk=#{movie_pk}, theater_pk=#{theater_pk}, scrt_date=#{scrt_date},
+                                 scrt_stime=#{scrt_stime}, scrt_etime=#{scrt_etime} WHERE scrtime_pk=#{scrtime_pk}
+    </update>
+    <delete id="deleteScrTime" parameterType="int">
+        DELETE FROM screentime_tb WHERE scrtime_pk=#{scrtime_pk}
+    </delete>
+
+    <resultMap id="screentime" type="screentime">
+        <result column="scrt_date" property="scrt_date"/>
+        <result column="scrt_stime" property="scrt_stime"/>
+        <result column="scrt_etime" property="scrt_etime"/>
+    </resultMap>
+
+    <resultMap id="theater" type="theater">
+        <result column="the_name" property="the_name"/>
+    </resultMap>
+
+    <select id="selectScrTimeByMovie" resultMap="screentime" parameterType="int">
+        SELECT tt.the_name,st.scrt_date,st.scrt_stime,st.scrt_etime
+        FROM screentime_tb st
+                 JOIN theater_tb tt on st.theater_pk = tt.theater_pk
+        WHERE st.movie_pk=1;
+    </select>
+</mapper>
