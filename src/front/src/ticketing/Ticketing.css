@@ -1,7 +1,7 @@
 .tktable{
- width: 1500px;
- height: 800px;
- border: 1px solid gray;
+    width: 1500px;
+    height: 800px;
+    border: 1px solid gray;
     margin-left: 10.5%;
     clear: both;
 }
@@ -37,19 +37,29 @@
     border-radius: 20px;
 }
 
-
+/*.localList{*/
+/*    display: none;*/
+/*}*/
+/*.calen{*/
+/*    display: none;*/
+/*}*/
+/*.t-table{*/
+/*    display: none;*/
+/*}*/
 
 .tkmenu2{
-    width: 300px;
+    width: 200px;
     height: 70px;
     border: 1px solid gray;
     text-align: center;
     line-height: 65px;
     margin-bottom: 50px;
-    float: left;
     background-color: white;
     border: 1px solid gray;
     border-radius: 20px;
+    margin: auto;
+    justify-content: center;
+    display: flex;
 }
 .movielocation{
     width: 200px;
@@ -61,13 +71,13 @@
     float: left;
 }
 .tkmenu2:hover{
-    width: 300px;
+    width: 200px;
     height: 70px;
     border: 1px solid gray;
     text-align: center;
     line-height: 65px;
     margin-bottom: 50px;
-    float: left;
+    float: right;
     background-color: black;
     border: 1px solid gray;
     color: white;
@@ -75,10 +85,9 @@
 }
 
 .tkbt{
-    width: 602px;
+    width: 10%;
     height: 71px;
-    clear: both;
-    margin-left: 58%;
+    float: right;
 }
 
 

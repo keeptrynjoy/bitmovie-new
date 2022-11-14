@@ -122,20 +122,10 @@ main{
     border-top-right-radius: 10px;
     text-align: center;
     color: black;
-
 }
-.seat:hover {
-    cursor: pointer;
-    background-color: red;
-    height: 25px;
-    width: 45px;
-    margin: 3px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    text-align: center;
-    color: black;
 
-}
+
+
 
 .seat2{
     cursor: pointer;
@@ -148,7 +138,7 @@ main{
     text-align: center;
     border-radius: 5px;
 }
-.seat2:hover{
+.seat2:active{
     cursor: pointer;
     background-color: black;
     height: 20px;
@@ -168,7 +158,6 @@ main{
 }
 
 .seat3{
-    cursor: pointer;
     height: 20px;
     width: 55px;
     margin: 3px;
@@ -177,8 +166,13 @@ main{
     text-align: center;
     border-radius: 5px;
     text-align: center;
-
 }
+
+/*.seat3:focus{*/
+/*    background-color: red;*/
+/*}*/
+
+
 .seat.selected {
     background-color: #eb1333;
     width: 35px;
@@ -284,9 +278,17 @@ p.text span {
     line-height: 40px;
     padding-top: 5px;
 }
-button:hover{
-    background-color: green;
-    cursor: pointer;
+button{
+    background-color: #242333;
+    border: 0;
+}
+button .seat{
+}
+button.seat:focus {
+    background-color: red;
+}
+button.seat2:focus {
+    background-color: red;
 }
 
 #movie{
@@ -296,7 +298,6 @@ button:hover{
 }
 
 .seatposter{
-    margin: left;
     width: 150px;
     height: 200px;
     border: 1px solid gray;
