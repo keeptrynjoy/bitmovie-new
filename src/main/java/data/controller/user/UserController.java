@@ -55,9 +55,19 @@ public class UserController {
     public User selectUser (String user_pk) {
         return userService.selectUser(user_pk);
     }
-    //회원 정보 수정
+    //마이페이지 회원 정보 수정
     @PostMapping("/update")
     public void updateUser (User user) {
         userService.updateUser(user);
+    }
+    //마이페이지 예매 목록 조회
+    @GetMapping("/bookinglist")
+    public Map<String, Object> selectBooking (String user_pk) {
+        return userService.selectBooking(user_pk);
+    }
+    //마이페이지 무비로그 조회
+    @GetMapping("/movielog")
+    public Map<String, Object> selectMovieLog (String user_pk) {
+        return userService.selectMovieLog(user_pk);
     }
 }
