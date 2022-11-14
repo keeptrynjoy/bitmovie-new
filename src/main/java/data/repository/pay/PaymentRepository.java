@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface PaymentRepository {
 
     public int selectPaymentData(Payment payment);
+
+    public void insertPaymentData(Payment payment);
 }
+

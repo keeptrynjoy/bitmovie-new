@@ -16,13 +16,10 @@ import java.sql.Timestamp;
 public class Payment {
     private int payment_pk;
     private int user_pk;
-    private int pri_pk;
     private String pay_type;
     private int pay_price;
     private Timestamp pay_date;
     private Timestamp pay_cncl_date;
-    private int pay_adult_cnt;
-    private int pay_youth_cnt;
     private String mycoupon_pk;
     private int pay_use_point;
     private String pay_state;
