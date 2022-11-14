@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import SeatView from './SeatView';
+import SeatView from './SeatView.js';
 import './SelectSeat.css';
 
 const generateArray = (length) => Array.from({ length }, (_, i) => ({ id: i, selected: false }));

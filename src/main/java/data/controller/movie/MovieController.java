@@ -36,7 +36,6 @@ public class MovieController {
         int num = 1;
         Map<String, Object> map = new HashMap<>();
 
-
         Person person = personService.selectPersonData(num);
         System.out.println(person);
         System.out.println(person.getPer_name());
@@ -45,7 +44,6 @@ public class MovieController {
     }
     @GetMapping("/selectMovieData")
     public Movie selectMovieData(@RequestParam String movie_pk) {
-
         return movieService.selectMovieData(movie_pk);
     }
 }
