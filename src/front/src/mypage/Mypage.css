@@ -124,24 +124,48 @@ div.mypage-info-wrap {
 }
 
 div.lower-info-div {
+    display: flex;
     width: 1300px;
     height: 900px;
     margin: 50px auto 0;
-    border: 1px solid black;
 }
 
 div.lower-info-div .sidebar-menu {
-    width: 300px;
+    background-color: Gainsboro;
+    width: 400px;
     height: 100%;
-    background-color: lightgray;
 }
 
 .sidebar-menu .sidebar-menu-title {
     width: 100%;
-    height: 90px;
-    font-size: 45px;
+    height: 110px;
+    vertical-align: center;
+    font-size: 60px;
 }
 
 .sidebar-menu li {
+    font-size: 25px;
     list-style: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+li.menu-items {
+    cursor: pointer;
+}
+
+li.menu-items:hover {
+    background-color: yellow;
+}
+
+b.sidebar-menu-subtitle {
+    margin-top: 10px;
+    font-size: 45px;
+    height: 100px;
+}
+
+div.lower-info-div .mypage-contents {
+    width: 900px;
+    height: 100%
+;
 }

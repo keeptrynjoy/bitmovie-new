@@ -13,6 +13,7 @@ function MovieDetail(props) {
     const [movie_pk,setMovie_pk]=useState(p.movie_num);
     const [movie_data,setMovie_data]=useState([]);
     const [movie_photo,setMovie_photo]=useState([]);
+
     const getMovieUrl = localStorage.url + "/movie/selectMovieData?movie_pk=" + movie_pk;
 
     const getData =()=>{
