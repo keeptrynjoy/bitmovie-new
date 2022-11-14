@@ -21,7 +21,7 @@ function LoginMain(props) {
                     sessionStorage.u_id = u_id;
                     sessionStorage.u_name = res.data.u_name;
                     sessionStorage.pwUdtDate = res.data.pwUdtDate;
-                    //sessionStorage.u_pk = res.data.u_pk;
+                    sessionStorage.u_pk = res.data.u_pk;
 
                     if(res.data.pwUdtDate>30)
                     {
