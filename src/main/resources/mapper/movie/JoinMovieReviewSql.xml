@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="data.repository.movie.JoinMovieReviewPay">
+<mapper namespace="data.repository.movie.JoinMovieRepository">
 
     <!--  영화 정보 + 예매횟수, 평균평점 정보 가져오기  -->
-    <select id="selectJoinMovieData" parameterType="Map" resultType="JoinMovieReviewPay">
+    <select id="selectMovieList" resultType="JoinMovie">
         SELECT mv.movie_pk,
                mv.m_name,
                mv.m_type,

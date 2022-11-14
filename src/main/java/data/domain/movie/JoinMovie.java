@@ -1,9 +1,10 @@
 package data.domain.movie;
 
 import lombok.Data;
+import org.apache.ibatis.type.Alias;
 
 @Data
-public class JoinMovieReviewPay {
+public class JoinMovie {
 
     private int movie_pk;
     private String m_name;
