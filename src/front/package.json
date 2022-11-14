@@ -24,6 +24,7 @@
     "date-fns": "^2.29.3",
     "fs": "^0.0.1-security",
     "iamport-react-native": "^2.0.2",
+    "moment": "^2.29.4",
     "node-sass": "^8.0.0",
     "os": "^0.1.2",
     "react": "^18.2.0",

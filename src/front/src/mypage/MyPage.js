@@ -34,11 +34,68 @@ function MyPage(props) {
                 <div className={"mypage-info-wrap"}>
                     <div className={"person-info"}>
                         <strong className={"person-info-name"}>{data.u_name}님</strong>
-                        <em className={"person-info-id"}>{data.u_id}</em>
+                        {/*<em className={"person-info-id"}>{data.u_id}</em>*/}
                         <span className={"person-info-nickname"}>
                             닉네임 : {data.u_nick}
                         </span>
                     </div>
+                    <div className={"benefit-info"}>
+                        <div className="col-my-coupon">
+                            <h3>MY COUPON</h3>
+                            <ul>
+                                <li>
+                                    <strong>사용 가능 쿠폰</strong>
+                                    <span className={"benefit-li-count"}>0개</span>
+                                </li>
+                                <li>
+                                    <strong>만료 예정 쿠폰</strong>
+                                    <span className={"benefit-li-count"}>0개</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="col-my-point">
+                            <h3>MY POINT</h3>
+                            <ul>
+                                <li>
+                                    <strong>사용 가능 포인트</strong>
+                                    <span className={"benefit-li-count"}>0개</span>
+                                </li>
+                                <li>
+                                    <strong>포인트 사용내역</strong>
+                                    <span className={"benefit-li-count"}>0개</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className={"lower-info-div"}>
+                <div className={"sidebar-menu"}>
+                    <div className={"sidebar-menu-title"}>
+                        MY BITMOVIE
+                    </div>
+                <ul>
+                    <li>
+                        <b>나의 예매내역</b>
+                        <ul>
+                            <li>
+                                영수증 출력
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <b>쿠폰 관리</b>
+                        <ul>
+                            <li>할인쿠폰</li>
+                        </ul>
+                    </li>
+                    <li>
+                        포인트 관리
+                    </li>
+                    <li>
+                        무비로그
+                    </li>
+                </ul>
                 </div>
             </div>
         </div>
