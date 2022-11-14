@@ -55,4 +55,9 @@ public class UserController {
     public User selectUser (String user_pk) {
         return userService.selectUser(user_pk);
     }
+    //회원 정보 수정
+    @PostMapping("/update")
+    public void updateUser (User user) {
+        userService.updateUser(user);
+    }
 }
