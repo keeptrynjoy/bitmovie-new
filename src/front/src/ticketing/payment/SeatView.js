@@ -55,7 +55,7 @@ export default function SeatView({ MOVIES, people, seats, rowSeats, onClickPeopl
                         <article className="seat-section2">
                             <div className="seat3">성인</div>
                             {people?.ADULT?.array?.map(({ id, selected }) => (
-                                <button
+                               <button
                                     key={`adult-${id}`}
                                     style={{ backgroundColor: selected ? 'red' : null }}
                                     className="seat2"
