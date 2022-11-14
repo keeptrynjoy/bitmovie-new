@@ -29,7 +29,7 @@ public class TheMovieController {
          * 예시) 숫자 1 입력시 순위 1~20인 영화가 저장
          *     숫자 2 입력시 순위 21~40인 영화가 저장
          * */
-        int page_num = 1;
+        int page_num = 2;
 
         //해당 페이지에 있는 영화 id를 반환
         List<Object> movie_id_list = theMovieService.movieListApi(page_num);
