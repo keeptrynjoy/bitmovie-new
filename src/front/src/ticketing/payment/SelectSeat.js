@@ -1,11 +1,52 @@
-import React, {useState} from 'react';
-import "./SelectSeat.css";
-import {useNavigate} from "react-router-dom";
+import React, { useState } from 'react';
+import SeatView from './SeatView';
+import './SelectSeat.css';
 
-function SelectSeat(props) {
+const generateArray = (length) => Array.from({ length }, (_, i) => ({ id: i, selected: false }));
 
-    const [seats, setSeats] = useState(Array.from({ length: 8 }));
-    const [rowseats, setRowseats] = useState(Array.from({length:10}));
+const MOVIES = [
+    { label: '어벤져스', value: '10' },
+    { label: '조커', value: '12' },
+    { label: '토르', value: '8' },
+    { label: '기생충', value: '15' },
+];
+
+export default function App(props) {
+    const [seats, setSeats] = useState(generateArray(8));
+    const [rowSeats, setRowSeats] = useState(generateArray(10));
+    const [people, setPeople] = useState({
+        ADULT: { array: generateArray(8), num: 0 },
+        CHILD: { array: generateArray(8), num: 0 },
+    });
+
+    const onClickPeople = (id, type) => {
+        const target = people[type].array.find(({ id: _id }) => id === _id);
+        const notCurrentIdItem = people[type].array.filter(({ id: _id }) => id !== _id).map(({ id: _id }) => ({ id: _id, selected: false }));
+        const array = [...notCurrentIdItem, { ...target, selected: true }].sort((a, b) => a.id - b.id);
+        switch (type) {
+            case 'ADULT': {
+                setPeople(({ CHILD }) => ({ CHILD, ADULT: { array, num: id + 1 } }));
+                break;
+            }
+            case 'CHILD': {
+                setPeople(({ ADULT }) => ({ ADULT, CHILD: { array, num: id + 1 } }));
+                break;
+            }
+        }
+    };
+
+    return <SeatView MOVIES={MOVIES} people={people} seats={seats} rowSeats={rowSeats} onClickPeople={onClickPeople} />;
+}
+
+
+// import React, {useState} from 'react';
+// import "./SelectSeat.css";
+// import {useNavigate} from "react-router-dom";
+//
+// function SelectSeat(props) {
+    //
+    // const [seats, setSeats] = useState(Array.from({ length: 8 }));
+    // const [rowseats, setRowseats] = useState(Array.from({length:10}));
 //좌석선택
 //
 //     const infoContainer = document.querySelector('#info-container');
@@ -121,113 +162,113 @@ function SelectSeat(props) {
 //     //     window.location.reload();
 //     // }
 
-    const navi = useNavigate();
-
-
-    return (
-        <div className={"seatchoose"}>
-            <h1>좌석선택</h1>
-            <section className="movie-container">
-                <label>Pick a movie</label>
-                <select id="movie">
-                    <option value="10">어벤져스</option>
-                    <option value="12">조커</option>
-                    <option value="8">토르</option>
-                    <option value="15">기생충</option>
-                </select>
-            </section>
-
-
-            <ul className="showcase">
-                <li>
-                    <div className="seat okay"></div>
-                    <small>예매가능</small>
-                </li>
-                <li>
-                    <div className="seat selected"></div>
-                    <small>선택된좌석</small>
-                </li>
-                <li>
-                    <div className="seat occupied"></div>
-                    <small>예매완료</small>
-                </li>
-            </ul>
-            <main>
-                <article id="info-container">
-                    <div className={"seatposter"}></div>
-                    <div className={"seattx"}>
-                        <h2>선택된 영화</h2>
-                        <section className="info-section">
-                            <h3>영화 정보</h3>
-                            <p id="selected-movie"></p>
-                        </section>
-                        <section className="info-section">
-                            <h3>좌석 정보</h3>
-                            <br/>
-                            <p>영화관</p>
-                            <p>층수</p>
-                            <p>상영시간 </p>
-                            <p id="selected-seats"></p>
-                        </section>
-                    </div>
-                    <div className={"moveall"}>
-                        <article className="seat-section2">
-                            <div className="seat3">성인</div>
-                            <button className="seat2">0</button>
-                            <button className="seat2">1</button>
-                            <button className="seat2">2</button>
-                            <button className="seat2">3</button>
-                            <button className="seat2">4</button>
-                            <button className="seat2">5</button>
-                            <button className="seat2">6</button>
-                            <button className="seat2">7</button>
-                            <button className="seat2">8</button>
-                        </article>
-                        <article className="seat-section3">
-                            <div className="seat3">청소년</div>
-                            <button className="seat2">0</button>
-                            <button className="seat2">1</button>
-                            <button className="seat2">2</button>
-                            <button className="seat2">3</button>
-                            <button className="seat2">4</button>
-                            <button className="seat2">5</button>
-                            <button className="seat2">6</button>
-                            <button className="seat2">7</button>
-                            <button className="seat2">8</button>
-                        </article>
-                    </div>
-                </article>
-
-                <article className="seat-section">
-                    <div className="screen"></div>
-                    <div className={"seatboxes"}>
-                        {
-                            rowseats.map((list,i)=>(
-
-                                <button className={"row"} key={i}>
-                                    {seats.map((list,j) => (
-                                        // <div className={"seat"+(i,j == seatActive ? " active" : "")} onClick={toggleActive} key={j} value={(i+1)+""+(j+1)} ></div>
-                                        <button className={"seat"} key={j} value={(i+1)+""+(j+1)} ></button>
-                                    ))}
-                                </button>)
-                            )
-                        }
-                    </div>
-
-                </article>
-            </main>
-
-            <p className="text">
-                선택된 좌석 수 : <span id="count">0</span> 최종 예매 금액 : <span id="total">0</span>
-            </p>
-            <div id={"btns"}>
-                {/*<button id="reset-btn" onClick={reloading} >예매 다시하기</button>*/}
-                <button id="reset-btn">예매 다시하기</button>
-                <button id="reset-btn2" onClick={() => navi("/ticketing/payment")}>예매 완료하기</button>
-            </div>
-
-        </div>
-    );
-}
-
-export default SelectSeat;
+//     const navi = useNavigate();
+//
+//
+//     return (
+//         <div className={"seatchoose"}>
+//             <h1>좌석선택</h1>
+//             <section className="movie-container">
+//                 <label>Pick a movie</label>
+//                 <select id="movie">
+//                     <option value="10">어벤져스</option>
+//                     <option value="12">조커</option>
+//                     <option value="8">토르</option>
+//                     <option value="15">기생충</option>
+//                 </select>
+//             </section>
+//
+//
+//             <ul className="showcase">
+//                 <li>
+//                     <div className="seat okay"></div>
+//                     <small>예매가능</small>
+//                 </li>
+//                 <li>
+//                     <div className="seat selected"></div>
+//                     <small>선택된좌석</small>
+//                 </li>
+//                 <li>
+//                     <div className="seat occupied"></div>
+//                     <small>예매완료</small>
+//                 </li>
+//             </ul>
+//             <main>
+//                 <article id="info-container">
+//                     <div className={"seatposter"}></div>
+//                     <div className={"seattx"}>
+//                         <h2>선택된 영화</h2>
+//                         <section className="info-section">
+//                             <h3>영화 정보</h3>
+//                             <p id="selected-movie"></p>
+//                         </section>
+//                         <section className="info-section">
+//                             <h3>좌석 정보</h3>
+//                             <br/>
+//                             <p>영화관</p>
+//                             <p>층수</p>
+//                             <p>상영시간 </p>
+//                             <p id="selected-seats"></p>
+//                         </section>
+//                     </div>
+//                     <div className={"moveall"}>
+//                         <article className="seat-section2">
+//                             <div className="seat3">성인</div>
+//                             <button className="seat2">0</button>
+//                             <button className="seat2">1</button>
+//                             <button className="seat2">2</button>
+//                             <button className="seat2">3</button>
+//                             <button className="seat2">4</button>
+//                             <button className="seat2">5</button>
+//                             <button className="seat2">6</button>
+//                             <button className="seat2">7</button>
+//                             <button className="seat2">8</button>
+//                         </article>
+//                         <article className="seat-section3">
+//                             <div className="seat3">청소년</div>
+//                             <button className="seat2">0</button>
+//                             <button className="seat2">1</button>
+//                             <button className="seat2">2</button>
+//                             <button className="seat2">3</button>
+//                             <button className="seat2">4</button>
+//                             <button className="seat2">5</button>
+//                             <button className="seat2">6</button>
+//                             <button className="seat2">7</button>
+//                             <button className="seat2">8</button>
+//                         </article>
+//                     </div>
+//                 </article>
+//
+//                 <article className="seat-section">
+//                     <div className="screen"></div>
+//                     <div className={"seatboxes"}>
+//                         {
+//                             rowseats.map((list,i)=>(
+//
+//                                 <button className={"row"} key={i}>
+//                                     {seats.map((list,j) => (
+//                                         // <div className={"seat"+(i,j == seatActive ? " active" : "")} onClick={toggleActive} key={j} value={(i+1)+""+(j+1)} ></div>
+//                                         <button className={"seat"} key={j} value={(i+1)+""+(j+1)} ></button>
+//                                     ))}
+//                                 </button>)
+//                             )
+//                         }
+//                     </div>
+//
+//                 </article>
+//             </main>
+//
+//             <p className="text">
+//                 선택된 좌석 수 : <span id="count">0</span> 최종 예매 금액 : <span id="total">0</span>
+//             </p>
+//             <div id={"btns"}>
+//                 {/*<button id="reset-btn" onClick={reloading} >예매 다시하기</button>*/}
+//                 <button id="reset-btn">예매 다시하기</button>
+//                 <button id="reset-btn2" onClick={() => navi("/ticketing/payment")}>예매 완료하기</button>
+//             </div>
+//
+//         </div>
+//     );
+// }
+//
+// export default SelectSeat;

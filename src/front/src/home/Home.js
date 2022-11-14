@@ -127,7 +127,7 @@ function Home(props) {
                                             effect
                                             speed={800}
                                             loop={true}
-                                            slidesPerView={3}
+                                            slidesPerView={5}
                                             autoplay={{delay: 2000,
                                             disableOnInteraction:false}}
                                     >
