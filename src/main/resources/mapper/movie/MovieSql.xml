@@ -16,4 +16,8 @@
     <select id="selectMovieData" parameterType="String" resultType="movie">
         SELECT * FROM movie_tb WHERE movie_pk = #{movie_pk}
     </select>
+
+    <select id="selectMovieYoN" parameterType="String" resultType="int">
+        SELECT count(*) FROM movie_tb WHERE movie_pk = #{movie_pk}
+    </select>
 </mapper>
