@@ -56,11 +56,33 @@
         SELECT u_id, u_name, u_nick, u_phone, u_birth, u_gender, u_photo
         FROM user_tb WHERE user_pk = #{user_pk}
     </select>
-    <!--회원 정보 수정-->
+    <!--마이페이지 회원 정보 수정-->
     <update id="updateUser" parameterType="User">
         UPDATE user_tb
         SET u_pass = #{u_pass}, u_name = #{u_name}, u_nick = #{u_nick}, u_phone = #{u_phone},
             u_photo = #{u_photo}, u_pwudtdate = now()
         WHERE user_pk = #{user_pk}
     </update>
+    <!--마이페이지 예매 목록 출력-->
+    <select id="selectBooking" parameterType="String" resultType="Map">
+        SELECT
+            p.pay_type as paytype,
+            p.pay_price as price,
+            b.booking_pk as booknumber,
+            b.book_the_name as theater,
+            b.book_issu_date as issue,
+            b.book_adult_cnt as adult,
+            b.book_youth_cnt as youth,
+            st.scrt_date as date,
+            st.scrt_stime as begin,
+            s.scr_name as screen,
+            m.m_name as movie
+        FROM
+            user_tb u join payment_tb p on u.user_pk = p.user_pk
+            join booking_tb b on p.payment_pk = b.payment_pk
+            join screentime_tb st on b.scrtime_pk = st.scrtime_pk
+            join screen_tb s on s.screen_pk = st.screen_pk
+            join movie_tb m on st.movie_pk = m.movie_pk
+        WHERE u.user_pk = #{user_pk};
+    </select>
 </mapper>
