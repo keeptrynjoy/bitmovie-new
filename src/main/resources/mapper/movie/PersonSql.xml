@@ -5,5 +5,14 @@
         SELECT * FROM person_tb WHERE person_pk = #{num}
     </select>
 
+    <!--  TMDB - 인물 정보가 db에 저장되어있는지 여부 체크  -->
+    <select id="selectPersonYoN" parameterType="int" resultType="int">
+        SELECT count(*) FROM person_tb WHERE person_pk = #{person_pk}
+    </select>
+
+    <!--  TMDB - 인물 정보 저장  -->
+    <insert id="insertPersonData" parameterType="Person">
+        INSERT INTO person_tb VALUES (#{person_pk}, #{per_name}, #{per_photo})
+    </insert>
 
 </mapper>

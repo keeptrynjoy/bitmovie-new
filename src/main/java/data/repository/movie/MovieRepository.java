@@ -12,4 +12,7 @@ public interface MovieRepository {
 
     public void updatePhoto(Map<String, Object> map);
 
+    public Movie selectMovieData(String movie_pk);
+
+    public int selectMovieYoN(String movie_pk);
 }

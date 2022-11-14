@@ -8,6 +8,7 @@ function Ticketing(props) {
     const navi = useNavigate();
 
     const [mvlist,setMvlist] = useState(Array.from({ length: 80 }));
+    const [mloc,setMloc] = useState(Array.from({length:5}));
     const index = () => {
         return <div>{dateFns.format(new Date(), "yyyy-MM-dd")}</div>;
     };
@@ -21,6 +22,11 @@ function Ticketing(props) {
                 <div className={'selectmv'}>
                     {mvlist.map((list,i) => (
                         <div key={i}>DB에서 넘어올 영화리스트</div>
+                    ))}
+                </div>
+                <div className={"movielocation"}>
+                    {mloc.map((list,i)=>(
+                        <div key={i} style={{fontSize:'15px'}}>DB에서 받을 극장리스트</div>
                     ))}
                 </div>
                 <div className={'selectday'}><Calender/></div>
