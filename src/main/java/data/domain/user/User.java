@@ -25,4 +25,5 @@ public class User {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     private Timestamp u_pwudtdate;
     private int u_state;
+    private int u_point;
 }
