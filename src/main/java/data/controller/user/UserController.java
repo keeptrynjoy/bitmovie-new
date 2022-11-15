@@ -70,4 +70,9 @@ public class UserController {
     public Map<String, Object> selectMovieLog (String user_pk) {
         return userService.selectMovieLog(user_pk);
     }
+    //마이페이지 포인트 조회
+    @GetMapping("/point")
+    public int selectPoint (String user_pk) {
+        return userService.selectPoint(user_pk);
+    }
 }

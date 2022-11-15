@@ -110,4 +110,8 @@
             JOIN movie_tb m ON st.movie_pk = m.movie_pk
         WHERE u.user_pk = #{user_pk};
     </select>
+    <!--마이페이지 포인트 조회-->
+    <select id="selectPoint" parameterType="String" resultType="int">
+        SELECT u_point FROM user_tb WHERE user_pk = #{user_pk}
+    </select>
 </mapper>

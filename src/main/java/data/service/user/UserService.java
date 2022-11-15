@@ -90,4 +90,8 @@ public class UserService {
     public Map<String, Object> selectMovieLog (String user_pk) {
         return userRepository.selectMovieLog(user_pk);
     }
+    //마이페이지 포인트 조회
+    public int selectPoint (String user_pk) {
+        return userRepository.selectPoint(user_pk);
+    }
 }

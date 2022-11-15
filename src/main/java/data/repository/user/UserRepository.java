@@ -23,4 +23,5 @@ public interface UserRepository {
     public void updateUser (User user); //마이페이지 회원 정보 수정
     public Map<String, Object> selectBooking (String user_pk); //마이페이지 예매 목록 조회
     public Map<String, Object> selectMovieLog (String user_pk); //마이페이지 무비로그 조회
+    public int selectPoint (String user_pk); //마이페이지 포인트 조회
 }
