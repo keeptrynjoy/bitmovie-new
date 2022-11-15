@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
-import {Button} from "@mui/material";
+import {Button, Alert} from "@mui/material";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
-import {Alert, AlertTitle} from "@mui/lab";
 import axios from "axios";
 
 function JoinInfo(props) {
@@ -71,9 +70,9 @@ function JoinInfo(props) {
         }
 
         const hppattern = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
-        if(hppattern.test(input.hp))
+        if(!hppattern.test(input.u_phone))
         {
-            alert("전화번호를 확인해주세요");
+            alert("전화번호는 -을 포함해 휴대전화 형식에 맞게 입력해주세요");
             return;
         }
         
@@ -177,7 +176,7 @@ function JoinInfo(props) {
                         <td>
                             <div className={"input-group"} style={{marginLeft:"20px",width:'330px'}} >
                                 <input type={'password'} className={'form-control'}
-                                       name={"u_pass"} value={input.u_pass} onChange={changeData}/>
+                                       name={"u_pass"} value={input.u_pass} onChange={changeData} onKeyUp={chkPW2}/>
                                 {
                                     chkPW()!=="ok"?
                                         <CloseIcon style={{color:"red", float:"right", marginTop:"7px", marginLeft:"7px"}}/>
@@ -226,10 +225,9 @@ function JoinInfo(props) {
                                 onChange={changeData}
                                 style={{display:"block"}}
                             >
-                                <FormControlLabel value="male" control={<Radio />} label="남자" />
-                                <FormControlLabel value="female" control={<Radio />} label="여자" />
+                                <FormControlLabel value="male" control={<Radio/>} label="남자" />
+                                <FormControlLabel value="female" control={<Radio/>} label="여자" />
                             </RadioGroup>
-
                         </td>
                     </tr>
                     <tr>

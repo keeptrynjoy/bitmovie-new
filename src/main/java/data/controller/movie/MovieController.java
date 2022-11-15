@@ -47,7 +47,6 @@ public class MovieController {
 //    }
     @GetMapping("/selectMovieData")
     public Movie selectMovieData(@RequestParam String movie_pk) {
-
         return movieService.selectMovieData(movie_pk);
 
     }
