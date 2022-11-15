@@ -28,12 +28,12 @@ public class MyPageController {
     }
     //마이페이지 예매 목록 조회
     @GetMapping("/bookinglist")
-    public MyPage selectBooking (String user_pk) {
+    public List<MyPage> selectBooking (String user_pk) {
         return myPageService.selectBooking(user_pk);
     }
     //마이페이지 무비로그 조회
     @GetMapping("/movielog")
-    public MyPage selectMovieLog (String user_pk) {
+    public List<MyPage> selectMovieLog (String user_pk) {
         return myPageService.selectMovieLog(user_pk);
     }
     //마이페이지 포인트 조회
@@ -43,7 +43,7 @@ public class MyPageController {
     }
     //마이페이지 포인트 적립/소멸 조회
     @GetMapping("/pointdetail")
-    public MyPage selectPointDetail (String user_pk) {
+    public List<MyPage> selectPointDetail (String user_pk) {
         return myPageService.selectPointDetail(user_pk);
     }
 }
