@@ -22,4 +22,8 @@ public class Movie {
     private String m_age_grd;
     private String m_info;
     private String m_photo;
+    private String m_video;
+    private String m_enname;
+    private String m_country;
+
 }
