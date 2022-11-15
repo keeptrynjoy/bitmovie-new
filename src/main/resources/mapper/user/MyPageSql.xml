@@ -10,7 +10,7 @@
     <update id="updateUser" parameterType="User">
         UPDATE user_tb
         SET u_pass = #{u_pass}, u_name = #{u_name}, u_nick = #{u_nick}, u_phone = #{u_phone},
-            u_photo = #{u_photo}, u_pwudtdate = now()
+            u_photo = #{u_photo}, u_pwudtdate = now(), u_gender = #{u_gender}
         WHERE user_pk = #{user_pk}
     </update>
     <!--마이페이지 예매 목록 조회-->

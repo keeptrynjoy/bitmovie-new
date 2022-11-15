@@ -70,9 +70,9 @@ function JoinInfo(props) {
         }
 
         const hppattern = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
-        if(hppattern.test(input.hp))
+        if(!hppattern.test(input.u_phone))
         {
-            alert("전화번호를 확인해주세요");
+            alert("전화번호는 -을 포함해 휴대전화 형식에 맞게 입력해주세요");
             return;
         }
         

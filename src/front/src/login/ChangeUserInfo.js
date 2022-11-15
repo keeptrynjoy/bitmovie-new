@@ -75,10 +75,10 @@ function ChangeUserInfo(props) {
                 비밀번호가 서로 다릅니다
             </Alert>)
 
-        }else if(hppattern.test(userdata.hp))
+        }else if(!hppattern.test(userdata.u_phone))
         {
             return (<Alert severity={"error"}>
-                전화번호 형식이 아닙니다
+                전화번호는 -을 포함해 휴대전화 형식에 맞게 입력해주세요
             </Alert>)
         }else {
             return "ok"
@@ -141,7 +141,7 @@ function ChangeUserInfo(props) {
             axios.post(updateUrl, userdata)
                 .then((res) => {
                     alert("수정 성공!");
-                    window.location.reload();
+                    // window.location.reload();
                 })
         }else {
             alert("입력 정보를 확인해 주세요");
@@ -218,8 +218,8 @@ function ChangeUserInfo(props) {
                                 onChange={changeData}
                                 style={{display:"block", marginLeft:"50px"}}
                             >
-                                <FormControlLabel value="male" control={<Radio />} label="남자" />
-                                <FormControlLabel value="female" control={<Radio />} label="여자" style={{marginLeft:"60px"}}/>
+                                <FormControlLabel disabled={disabled} value="male" control={<Radio />} label="남자" />
+                                <FormControlLabel disabled={disabled} value="female" control={<Radio />} label="여자" style={{marginLeft:"60px"}}/>
                             </RadioGroup>
                         </td>
                     </tr>
