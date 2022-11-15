@@ -150,11 +150,11 @@ div.lower-info-div .sidebar-menu {
     margin-bottom: 5px;
 }
 
-li.menu-items {
+.menu-items {
     cursor: pointer;
 }
 
-li.menu-items:hover {
+.menu-items:hover {
     background-color: yellow;
 }
 
