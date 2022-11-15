@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/payment")
 @RequiredArgsConstructor
@@ -20,16 +22,25 @@ public class PaymentController {
 
     private final PaymentService paymentService;
 
-    //결제 성공 데이터 insert
-    @PostMapping("/insert_data")
-    public ResponseEntity<?> insertPayment(@RequestBody Payment payment){
+    //결제 성공 후 호출 메서드
+    @PostMapping("/complete")//@RequestBody Payment payment
+    public ResponseEntity<?> paymentComplete(@RequestBody Payment payment) throws IOException {
 
-        //취소일자는 null 값으로 지정
-        payment.setPay_cncl_date(null);
+        //1. 아임포트 토큰 생성
+        String token = paymentService.getToken();
+        System.out.println("토큰 : " + token);
 
-        //insert implement 호출
-        paymentService.insertPaymentData(payment);
+        //2. 토큰으로 결제 완료된 주문 정보 호출하여 결제 완료된 금액
+        int amount = paymentService.paymentInfo(payment.getImp_uid(),token);
+
+//        //취소일자는 null 값으로 지정
+//        payment.setPay_cncl_date(null);
+//
+//        //insert
+//        paymentService.insertPaymentData(payment);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
 }

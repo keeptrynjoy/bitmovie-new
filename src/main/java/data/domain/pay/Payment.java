@@ -23,4 +23,5 @@ public class Payment {
     private String mycoupon_pk;
     private int pay_use_point;
     private String pay_state;
+    private String imp_uid;
 }
