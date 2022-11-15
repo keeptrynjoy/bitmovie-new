@@ -3,7 +3,7 @@
 <mapper namespace="data.repository.user.MyPageRepository">
     <!--마이페이지 유저 정보 출력-->
     <select id="selectUser" parameterType="String" resultType="User">
-        SELECT u_id, u_name, u_nick, u_phone, u_birth, u_gender, u_photo
+        SELECT *
         FROM user_tb WHERE user_pk = #{user_pk}
     </select>
     <!--마이페이지 회원 정보 수정-->

@@ -1,5 +1,7 @@
 import React from 'react';
+import ChangeUserInfo from "../login/ChangeUserInfo";
 
+//영수증
 const booking=()=>{
     return (
         <div>
@@ -8,6 +10,7 @@ const booking=()=>{
     )
 }
 
+//사용가능쿠폰
 const usableCoupon=()=>{
     return (
         <div>
@@ -16,6 +19,7 @@ const usableCoupon=()=>{
     )
 }
 
+//쿠폰내역
 const couponHistory=()=>{
     return (
         <div>
@@ -24,6 +28,7 @@ const couponHistory=()=>{
     )
 }
 
+//포인트 사용안내
 const pointInfo=()=>{
     return (
         <div>
@@ -32,6 +37,7 @@ const pointInfo=()=>{
     )
 }
 
+//포인트 사용 내역
 const pointHistory=()=>{
     return (
         <div>
@@ -40,14 +46,7 @@ const pointHistory=()=>{
     )
 }
 
-const userInfo=()=>{
-    return (
-        <div>
-            userInfo
-        </div>
-    )
-}
-
+//회원 탈퇴
 const withDrawal=()=>{
     return (
         <div>
@@ -56,6 +55,7 @@ const withDrawal=()=>{
     )
 }
 
+//무비로그
 const movieLog=()=>{
     return (
         <div>
@@ -80,7 +80,7 @@ function MyPageContents(props) {
             case "pointHistory":
                 return pointHistory()
             case "userInfo":
-                return userInfo()
+                return <ChangeUserInfo data={props.data}/>
             case "withDrawal":
                 return withDrawal()
             case "movieLog":

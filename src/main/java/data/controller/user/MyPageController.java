@@ -21,7 +21,8 @@ public class MyPageController {
     }
     //마이페이지 회원 정보 수정
     @PostMapping("/update")
-    public void updateUser (User user) {
+    public void updateUser (@RequestBody User user) {
+        System.out.println(user);
         myPageService.updateUser(user);
     }
     //마이페이지 예매 목록 조회

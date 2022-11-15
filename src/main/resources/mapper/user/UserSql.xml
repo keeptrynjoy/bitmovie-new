@@ -17,7 +17,6 @@
     <select id="selectPk" parameterType="String" resultType="int">
         SELECT user_pk FROM user_tb WHERE u_id = #{u_id}
     </select>
-
     <!--회원가입 아이디 중복 체크-->
     <select id="searchId" parameterType="String" resultType="int">
         SELECT count(*) FROM user_tb WHERE u_id = #{u_id}
