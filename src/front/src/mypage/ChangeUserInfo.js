@@ -20,7 +20,6 @@ function ChangeUserInfo(props) {
         setDisabled(!disabled);
     }
 
-
     const errorChk=()=> {
         const hppattern = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
         switch (chkPW()) {
@@ -141,7 +140,7 @@ function ChangeUserInfo(props) {
             axios.post(updateUrl, userdata)
                 .then((res) => {
                     alert("수정 성공!");
-                    // window.location.reload();
+                    window.location.reload();
                 })
         }else {
             alert("입력 정보를 확인해 주세요");

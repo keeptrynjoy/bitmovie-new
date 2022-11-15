@@ -206,3 +206,24 @@ table.user-basic-info-table th{
 .error-msg {
     margin-top: 30px;
 }
+
+table.point-history {
+    width: 90%;
+    margin-left: 50px;
+    margin-top: 50px;
+}
+
+table.point-history thead th {
+    text-align: center;
+    font-size: 25px;
+    width: auto;
+    height: 100px;
+}
+
+table.point-history tbody tr{
+    height: 70px;
+}
+
+table.point-history tbody tr td {
+    font-size: 20px;
+}

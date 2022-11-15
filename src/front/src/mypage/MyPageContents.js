@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import ChangeUserInfo from "./ChangeUserInfo";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import Swal from "sweetalert2";
+import {Add, Remove} from "@material-ui/icons";
 
 //영수증
 const booking=()=>{
@@ -41,10 +42,38 @@ const pointInfo=()=>{
 }
 
 //포인트 사용 내역
-const pointHistory=()=>{
+const pointHistory=(point_list)=>{
     return (
         <div>
-            pointHistory
+            <table className={"point-history table-bordered"}>
+                <thead>
+                <tr>
+                    <th>포인트</th>
+                    <th>적립/사용일</th>
+                    <th>적립/사용</th>
+                    <th>잔여 포인트</th>
+                </tr>
+                </thead>
+                <tbody>
+                {point_list.map((item,i)=>(
+                        <tr key={i}>
+                            <td>{item.point}</td>
+                            <td>{item.po_date}</td>
+                            <td>
+                                {
+                                item.increase===1?
+                                    <Add/>
+                                    :
+                                    <Remove/>
+                                }
+                            </td>
+                            <td>ㅇㅇ</td>
+                        </tr>
+                        )
+                    )
+                }
+                </tbody>
+            </table>
         </div>
     )
 }
@@ -114,13 +143,49 @@ const movieLog=()=>{
 
 function MyPageContents(props) {
     const contents=props.contents;
-    const navi=useNavigate();
     const data=props.data;
+    const navi=useNavigate();
+    const user_pk = sessionStorage.u_pk;
+    //데이터 담을 배열
+    const [datas,setDatas]=useState([]);
+
+    const makeUrl =(statement)=>{
+        return `${localStorage.url}/mypage/${statement}?user_pk=${user_pk}`
+    }
+
+    const getDatas=()=>{
+        axios.get(makeUrl("pointdetail"))
+            .then((res)=>{
+                setDatas({
+                    ...datas,
+                    point_list:res.data
+                });
+            });
+        axios.get(makeUrl("bookinglist"))
+            .then((res)=>{
+                setDatas({
+                    ...datas,
+                    booking_list:res.data
+                });
+            });
+        axios.get(makeUrl("movielog"))
+            .then((res)=>{
+                setDatas({
+                    ...datas,
+                    movie_log:res.data
+                });
+            });
+    }
+
+    //페이지 로딩시 데이터 가져오기
+    useEffect(() => {
+        getDatas();
+    }, []);
 
     const contentSelector =()=>{
         switch (contents) {
             case "booking":
-                return booking()
+                return booking(datas.booking_list)
             case "usableCoupon":
                 return usableCoupon()
             case "couponHistory":
@@ -128,13 +193,15 @@ function MyPageContents(props) {
             case "pointInfo":
                 return pointInfo()
             case "pointHistory":
-                return pointHistory()
+                return pointHistory(datas.point_list);
             case "userInfo":
                 return <ChangeUserInfo data={data}/>
             case "withDrawal":
                 return WithDrawal(navi)
             case "movieLog":
-                return movieLog()
+                return movieLog(datas.movie_log)
+            default:
+                return ""
         }
     }
 

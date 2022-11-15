@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 
 @Getter
 @Setter
-@Alias("mypage")
+@Alias("Mypage")
 public class MyPage {
     //예매 및 무비로그
     private String paytype;
