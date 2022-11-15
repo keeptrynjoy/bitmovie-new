@@ -103,27 +103,26 @@ function MyPage(props) {
                         <li>
                             <b className={"sidebar-menu-subtitle"}>쿠폰 관리</b>
                             <ul>
-                                <li className={"menu-items"}>할인쿠폰</li>
-                                <li className={"menu-items"}>쿠폰</li>
+                                <li className={"menu-items"} onClick={()=>setContents("usableCoupon")}>사용 가능 쿠폰</li>
+                                <li className={"menu-items"} onClick={()=>setContents("couponHistory")}>쿠폰 내역</li>
                             </ul>
                         </li>
                         <li>
                             <b className={"sidebar-menu-subtitle"}>BIT 포인트</b>
                             <ul>
-                                <li className={"menu-items"}>포인트 사용 안내</li>
-                                <li className={"menu-items"}>포인트 사용 내역</li>
+                                <li className={"menu-items"} onClick={()=>setContents("pointInfo")}>포인트 사용 안내</li>
+                                <li className={"menu-items"} onClick={()=>setContents("pointHistory")}>포인트 사용 내역</li>
                             </ul>
                         </li>
                         <li>
                             <b className={"sidebar-menu-subtitle"}>회원 정보 변경</b>
                             <ul>
-                                <li className={"menu-items"}>개인정보 변경</li>
-                                <li className={"menu-items"}>Email/SMS 수신 설정</li>
-                                <li className={"menu-items"}>회원 탈퇴</li>
+                                <li className={"menu-items"} onClick={()=>setContents("userInfo")}>개인정보 변경</li>
+                                <li className={"menu-items"} onClick={()=>setContents("withDrawal")}>회원 탈퇴</li>
                             </ul>
                         </li>
                         <li>
-                            <b className={"sidebar-menu-subtitle"}>무비 로그</b>
+                            <b className={"sidebar-menu-subtitle menu-items"} onClick={()=>setContents("movieLog")}>무비 로그</b>
                         </li>
                     </ul>
                 </div>

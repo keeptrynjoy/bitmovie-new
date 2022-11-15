@@ -8,7 +8,61 @@ const booking=()=>{
     )
 }
 
+const usableCoupon=()=>{
+    return (
+        <div>
+            usableCoupon
+        </div>
+    )
+}
 
+const couponHistory=()=>{
+    return (
+        <div>
+            couponHistory
+        </div>
+    )
+}
+
+const pointInfo=()=>{
+    return (
+        <div>
+            pointInfo
+        </div>
+    )
+}
+
+const pointHistory=()=>{
+    return (
+        <div>
+            pointHistory
+        </div>
+    )
+}
+
+const userInfo=()=>{
+    return (
+        <div>
+            userInfo
+        </div>
+    )
+}
+
+const withDrawal=()=>{
+    return (
+        <div>
+            withDrawal
+        </div>
+    )
+}
+
+const movieLog=()=>{
+    return (
+        <div>
+            movieLog
+        </div>
+    )
+}
 
 function MyPageContents(props) {
     const contents=props.contents;
@@ -16,7 +70,21 @@ function MyPageContents(props) {
     const contentSelector =()=>{
         switch (contents) {
             case "booking":
-                return booking();
+                return booking()
+            case "usableCoupon":
+                return usableCoupon()
+            case "couponHistory":
+                return couponHistory()
+            case "pointInfo":
+                return pointInfo()
+            case "pointHistory":
+                return pointHistory()
+            case "userInfo":
+                return userInfo()
+            case "withDrawal":
+                return withDrawal()
+            case "movieLog":
+                return movieLog()
         }
     }
 
