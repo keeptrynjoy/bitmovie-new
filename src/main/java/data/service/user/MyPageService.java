@@ -4,7 +4,6 @@ import data.domain.user.User;
 import data.repository.user.MyPageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Map;
 
@@ -17,7 +16,7 @@ public class MyPageService {
         return myPageRepository.selectUser(user_pk);
     }
     //마이페이지 회원 정보 수정
-    public void updateUser (@RequestBody User user) {
+    public void updateUser (User user) {
         myPageRepository.updateUser(user);
     }
     //마이페이지 예매 목록 조회

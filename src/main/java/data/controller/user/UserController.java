@@ -27,12 +27,12 @@ public class UserController {
     }
     //비밀번호 변경할 때 아이디 참조해서 기존 비밀번호 가져오기(입력한 비밀번호와 일치하는 지 확인용)
     @PostMapping("/selectpass")
-    public boolean selectPass (String u_id, String u_pass) {
+    public boolean selectPass (@RequestBody String u_id, String u_pass) {
         return userService.selectPass(u_id, u_pass);
     }
     //비밀번호 변경
     @PostMapping("/updatepass")
-    public void updatePass (Map<String, String> map) {
+    public void updatePass (@RequestBody Map<String, String> map) {
         userService.updatePass(map);
     }
     //회원 삭제(상태 변경)
