@@ -1,9 +1,10 @@
 package data.domain.movie;
 
 import lombok.Data;
+import org.apache.ibatis.type.Alias;
 
 @Data
-public class JoinMovieReviewPay {
+public class JoinMovie {
 
     private int movie_pk;
     private String m_name;
@@ -14,7 +15,9 @@ public class JoinMovieReviewPay {
     private String m_age_grd;
     private String m_info;
     private String m_photo;
+    private String m_enname;
+    private String m_country;
     private int revw_avgstar;
-    private int pay_count;
+    private int pay_percent;
 
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.repository.movie.CastRepository">
+
+    <!--  TMDB - 정보 저장  -->
+    <insert id="insertCast" parameterType="Cast">
+        INSERT INTO cast_tb VALUES (null, #{movie_pk}, #{cast_type}, #{person_pk})
+    </insert>
+
+
+</mapper>

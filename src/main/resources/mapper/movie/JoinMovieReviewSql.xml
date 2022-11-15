@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="data.repository.movie.JoinMovieReviewPay">
-    <select id="selectJoinMovieData" parameterType="Map" resultType="JoinMovieReviewPay">
+<mapper namespace="data.repository.movie.JoinMovieRepository">
 
+    <!--  영화 정보 + 예매횟수, 평균평점 정보 가져오기  -->
+    <select id="selectMovieList" resultType="JoinMovie">
+        SELECT mv.movie_pk,
+               mv.m_name,
+               mv.m_type,
+               mv.m_sdate,
+               mv.m_edate,
+               mv.m_runtime,
+               mv.m_age_grd,
+               mv.m_info,
+               mv.m_photo,
+               AVG(re.revw_star) AS revw_avgstar,
+               count(pay.movie_pk) AS pay_count
+        FROM movie_tb mv
+                 LEFT OUTER JOIN review_tb re ON mv.movie_pk = re.movie_pk
+                 LEFT OUTER JOIN payment_tb pay ON mv.movie_pk = pay.movie_pk
+        GROUP BY (movie_pk);
     </select>
 </mapper>

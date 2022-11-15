@@ -1,6 +1,8 @@
 package data.controller.movie;
 
+import data.domain.movie.Movie;
 import data.domain.movie.ScreenTime;
+import data.service.movie.MovieService;
 import data.service.movie.ScreenTimeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class ScreenTimeController {
 
     private final ScreenTimeService screenTimeService;
-
+    private final MovieService movieService;
     @GetMapping("/test")
     public ResponseEntity<ScreenTime> screenTimeByMovie(@RequestParam int movie){
 
