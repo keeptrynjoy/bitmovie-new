@@ -16,7 +16,7 @@ public class BookingController {
 
     private final BookingService bookingService;
 
-    @PostMapping ("/insert_data")
+    @PostMapping ("/complete")
     public ResponseEntity<?> insertBooking(@RequestBody Booking booking){
 
         //insert implement
