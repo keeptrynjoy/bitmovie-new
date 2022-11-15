@@ -10,4 +10,11 @@
     <select id="selectPaymentData" resultType="int" parameterType="payment">
         SELECT * FROM payment_tb WHERE payment_pk=#{payment_pk}
     </select>
+
+    <!--  영화 출력시 필요한 예매울 분모 계산 (날짜기준 총 결제 매수)  -->
+    <select id="selectTotalPay" parameterType="Map" resultType="int">
+        SELECT sum(s.scr_tot_seat)
+        FROM screentime_tb tim, screen_tb s
+        WHERE tim.screen_pk = s.screen_pk AND tim.scrt_date > #{begin_date} AND #{now_date} >= tim.scrt_date
+    </select>
 </mapper>

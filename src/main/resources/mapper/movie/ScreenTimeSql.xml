@@ -35,4 +35,11 @@
                  JOIN theater_tb tt on st.theater_pk = tt.theater_pk
         WHERE st.movie_pk=1;
     </select>
+
+    <!--  영화 출력시 필요한 예매울 분모 계산 (해당 날짜의 총 좌석수 구하기)  -->
+    <select id="selectTotalSeat" parameterType="Map" resultType="int">
+        SELECT sum(s.scr_tot_seat)
+        FROM screentime_tb tim, screen_tb s
+        WHERE tim.screen_pk = s.screen_pk AND tim.scrt_date > #{begin_date} AND #{now_date} >= tim.scrt_date
+    </select>
 </mapper>
