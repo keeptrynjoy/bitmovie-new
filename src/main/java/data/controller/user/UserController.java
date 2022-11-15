@@ -2,6 +2,7 @@ package data.controller.user;
 
 import data.domain.user.User;
 import data.service.user.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,10 +10,10 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin
+@RequiredArgsConstructor
 @RequestMapping("/user")
 public class UserController {
-    @Autowired
-    UserService userService;
+    private final UserService userService;
 
     //회원가입 아이디 중복 체크
     @GetMapping("/idcheck")
@@ -74,5 +75,10 @@ public class UserController {
     @GetMapping("/point")
     public int selectPoint (String user_pk) {
         return userService.selectPoint(user_pk);
+    }
+    //마이페이지 포인트 적립/소멸 조회
+    @GetMapping("/pointdetail")
+    public Map<String, Object> selectPointDetail (String user_pk) {
+        return userService.selectPointDetail(user_pk);
     }
 }

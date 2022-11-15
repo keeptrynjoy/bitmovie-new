@@ -2,6 +2,7 @@ package data.service.user;
 
 import data.domain.user.User;
 import data.repository.user.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,9 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
     //로그인 (id, password 체크)
     public Map<String, Object> selectLogin (@RequestBody Map<String, String> map) {
@@ -93,5 +94,9 @@ public class UserService {
     //마이페이지 포인트 조회
     public int selectPoint (String user_pk) {
         return userRepository.selectPoint(user_pk);
+    }
+    //마이페이지 포인트 적립/소멸 조회
+    public Map<String, Object> selectPointDetail (String user_pk) {
+        return userRepository.selectPointDetail(user_pk);
     }
 }

@@ -114,4 +114,10 @@
     <select id="selectPoint" parameterType="String" resultType="int">
         SELECT u_point FROM user_tb WHERE user_pk = #{user_pk}
     </select>
+    <!--마이페이지 포인트 적립/소멸 내역 조회-->
+    <select id="selectPointDetail" parameterType="String" resultType="Map">
+        SELECT p.po_point, p.po_plusminus, p.po_date, u.u_point
+        FROM point_tb p JOIN user_tb u ON u.user_pk = p.user_pk
+        WHERE u.user_pk = #{user_pk}
+    </select>
 </mapper>
