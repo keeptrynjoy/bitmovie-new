@@ -116,7 +116,7 @@
     </select>
     <!--마이페이지 포인트 적립/소멸 내역 조회-->
     <select id="selectPointDetail" parameterType="String" resultType="Map">
-        SELECT p.po_point, p.po_plusminus, p.po_date, u.u_point
+        SELECT p.po_point AS point, p.po_plusminus AS increase, p.po_date AS date, u.u_point AS u_point
         FROM point_tb p JOIN user_tb u ON u.user_pk = p.user_pk
         WHERE u.user_pk = #{user_pk}
     </select>
