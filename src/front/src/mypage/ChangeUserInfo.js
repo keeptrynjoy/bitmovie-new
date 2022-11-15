@@ -160,7 +160,7 @@ function ChangeUserInfo(props) {
                     <tr>
                         <th>아이디(이메일)</th>
                         <td>
-                            <input required disabled={disabled} type={'text'} className='form-control' onChange={changeData}
+                            <input required disabled type={'text'} className='form-control' onChange={changeData}
                                    disabled value={userdata.u_id} name={"u_id"}/>
                         </td>
                     </tr>

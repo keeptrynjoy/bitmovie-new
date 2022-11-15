@@ -36,8 +36,9 @@ public class UserController {
         userService.updatePass(map);
     }
     //회원 삭제(상태 변경)
-    @PostMapping("/delete")
+    @GetMapping("/delete")
     public void deleteUser (String u_id) {
+        System.out.println(u_id);
         userService.deleteUser(u_id);
     }
     //아이디 찾기
