@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Alias("payment")
 public class Payment {
-    private int payment_pk;
+    private String payment_pk;
     private int user_pk;
     private String pay_type;
     private int pay_price;

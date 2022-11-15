@@ -1,10 +1,12 @@
 package data.controller.pay;
 
+import data.domain.pay.Booking;
+import data.service.pay.BookingService;
 import data.service.user.PointService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
@@ -12,9 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/booking")
 public class BookingController {
 
-    private final PointService pointService;
+    private final BookingService bookingService;
 
-//    @GetMapping("/userpoint")
-//    public ResponseEntity<Integer>
+    @PostMapping ("/insert_data")
+    public ResponseEntity<?> insertBooking(@RequestBody Booking booking){
+
+        //insert implement
+        bookingService.insertBookingData(booking);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }
