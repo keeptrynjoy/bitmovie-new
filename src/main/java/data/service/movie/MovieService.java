@@ -1,9 +1,12 @@
 package data.service.movie;
 
+import data.domain.movie.Cast;
 import data.domain.movie.JoinMovie;
 import data.domain.movie.Movie;
+import data.repository.movie.CastRepository;
 import data.repository.movie.JoinMovieRepository;
 import data.repository.movie.MovieRepository;
+import data.repository.movie.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,7 @@ public class MovieService {
 
     private final MovieRepository movieRepository;
     private final JoinMovieRepository joinMovieRepository;
+    private final CastRepository castRepository;
 
     public Movie selectMovieData(String movie_pk){
         return movieRepository.selectMovieData(movie_pk);
@@ -43,5 +47,9 @@ public class MovieService {
         map.put("BorA", BorA);                  // 상영중(A) , 상영예정(B) 영화만 출력
 
         return joinMovieRepository.selectMovieList(map);
+    }
+
+    public List<Cast> selectCastList(String movie_pk){
+        return castRepository.selectCastList(movie_pk);
     }
 }

@@ -1,5 +1,6 @@
 package data.controller.movie;
 
+import data.domain.movie.Cast;
 import data.domain.movie.JoinMovie;
 import data.domain.movie.Movie;
 import data.service.movie.MovieService;
@@ -8,7 +9,9 @@ import data.service.movie.ScreenTimeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/movie")
@@ -17,22 +20,25 @@ import java.util.List;
 public class MovieController {
 
     private final MovieService movieService;
-    private final PersonService personService;
-    private final ScreenTimeService screenTimeService;
 
     // 영화 상세 정보 출력
     @GetMapping("/selectMovieData")
-    public String selectMovieData(@RequestParam String movie_pk) {
+    public Map<String,Object> selectMovieData(@RequestParam(defaultValue = "49046") String movie_pk) {
 
         // 영화 상세 정보
         Movie movie_data = movieService.selectMovieData(movie_pk);
 
         // 영화 등장인물 정보
-
+        List<Cast> cast_list = movieService.selectCastList(movie_pk);
 
         // 영화 평점 정보
 
-        return "test";
+        
+        // front 로 데이터 전달
+        Map<String, Object> map = new HashMap<>();
+        map.put("data",movie_data);
+        map.put("cast",cast_list);
+        return map;
     }
 
     // 영화 리스트 출력
@@ -49,7 +55,6 @@ public class MovieController {
         */
 
         List<JoinMovie> movie_data_list = movieService.selectMovieList(order_stand, BorA);
-        System.out.println(movie_data_list);
 
         return movie_data_list;
     }
