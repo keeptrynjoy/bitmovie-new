@@ -6,19 +6,12 @@ import Radio from "@mui/material/Radio";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
 
 function ChangeUserInfo(props) {
     const [userdata,setUserdata] = useState(props.data);
     const [newpw2,setNewpw2] = useState(props.data.u_pass);
     const [boolpw2,setBoolpw2]=useState(true);
     const [disabled, setDisabled] = useState(true);
-
-    const navi=useNavigate();
-
-    function handleDisabled() {
-        setDisabled(!disabled);
-    }
 
     const errorChk=()=> {
         const hppattern = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
@@ -150,7 +143,7 @@ function ChangeUserInfo(props) {
     return (
         <div className={"changeUserInfo"}>
             <ScopedCssBaseline/>
-            <div className={"user-basic-info"}>
+            <div className={"mypage-contents-title"}>
                 기본 정보
             </div>
             <form onSubmit={onSubmitBtn}>
@@ -159,7 +152,7 @@ function ChangeUserInfo(props) {
                     <tr>
                         <th>아이디(이메일)</th>
                         <td>
-                            <input required disabled type={'text'} className='form-control' onChange={changeData}
+                            <input required type={'text'} className='form-control' onChange={changeData}
                                    disabled value={userdata.u_id} name={"u_id"}/>
                         </td>
                     </tr>

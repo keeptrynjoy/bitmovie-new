@@ -13,7 +13,7 @@ div.mypage-div {
     padding-top: 50px;
 }
 
-div.photo-div {
+.photo-div {
     position : relative;
     width: 400px;
     height: 400px;
@@ -25,7 +25,7 @@ img.profile-photo {
     border-radius: 30%;
 }
 
-.mypage-div .photo-div .photo-fix-icon {
+.photo-div .photo-fix-icon {
     border-radius: 100%;
     background-color: yellow;
     position : absolute;
@@ -169,16 +169,20 @@ div.lower-info-div .mypage-contents {
     height: 100%;
 }
 
-div.user-basic-info{
+div.mypage-contents-title{
     width: 90%;
     height: 70px;
     font-size: 40px;
     border-bottom: 3px solid black;
 }
 
-div.changeUserInfo {
-    margin-left: 50px;
+.mypage-contents-div {
+    width: 100%;
+    margin-left: 100px;
     margin-top: 30px;
+}
+
+div.changeUserInfo {
 }
 
 table.user-basic-info-table {
@@ -207,23 +211,94 @@ table.user-basic-info-table th{
     margin-top: 30px;
 }
 
-table.point-history {
+table.mypage-table {
     width: 90%;
-    margin-left: 50px;
     margin-top: 50px;
+    text-align: center;
 }
 
-table.point-history thead th {
-    text-align: center;
+table.mypage-table thead th {
+    background-color: #e2e2e0;
     font-size: 25px;
     width: auto;
     height: 100px;
 }
 
-table.point-history tbody tr{
+table.mypage-table tbody tr{
     height: 70px;
+    border-bottom: 1px solid #d6d4ca;
+
 }
 
-table.point-history tbody tr td {
+table.mypage-table tbody tr td {
     font-size: 20px;
+}
+
+.movie-log ul.movie-log-list {
+    list-style: none;
+}
+
+.movie-log ul.movie-log-list li {
+    width: 720px;
+    height: 260px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #d6d4ca;
+}
+
+.movie-log ul.movie-log-list li .article-movie-info {
+    margin-top: 30px;
+    display: flex;
+}
+
+.movie-log ul.movie-log-list li .article-movie-info .box-image {
+    float: left;
+    width: 150px;
+    margin-right: 22px;
+}
+
+span.thumb-image {
+    display: block;
+    position: relative;
+}
+
+.box-image img {
+    width: 100%;
+}
+
+.article-movie-info .box-contents {
+    width: 500px;
+    padding-left: 30px;
+}
+
+.box-contents .movie-title{
+    height: 90px;
+    margin: 10px 0;
+}
+
+.box-contents .movie-title .movie-title-kr {
+    font-size: 40px;
+}
+
+.box-contents .movie-title p {
+    margin-left: 3px;
+    color: #666;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.box-contents .movie-date {
+    font-size: 20px;
+    height: 40px;
+}
+
+.box-contents .movie-theater {
+    font-size: 20px;
+    height: 40px;
+}
+
+div.table-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    padding-right: 30px;
 }

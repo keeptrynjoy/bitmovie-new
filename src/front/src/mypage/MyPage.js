@@ -20,7 +20,7 @@ function MyPage(props) {
         axios.get(infoUrl)
             .then((res)=>{
                 setData(res.data);
-                console.log(res.data);
+                // console.log(res.data);
             });
     }
     //페이지 로딩시 데이터 가져오기
@@ -34,7 +34,7 @@ function MyPage(props) {
                 <div className={"photo-div"}>
                     <img alt={"프로필 사진"} src={photo} className={"profile-photo"}/>
                     <div className={"photo-fix-icon"}>
-                        <EditIcon sx={{ fontSize: 50 }}></EditIcon>
+                        <EditIcon/>
                     </div>
                 </div>
                 <div className={"mypage-info-wrap"}>
