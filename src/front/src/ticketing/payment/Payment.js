@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import axios from "axios";
+import {json} from "react-router-dom";
 
 
 const Payment = (effect, deps) => {
@@ -50,38 +51,42 @@ const Payment = (effect, deps) => {
                     buyer_name: userNameRef.current,
                     buyer_tel: userPhoneRef.current,
                     buyer_addr: "",
-                }, async (rsp) => {
+                },(rsp) => {
                     // callback
                     if (rsp.success) {
-
                         //결제-예매 insert 요청을 순차 비동기 처리하기 위해 async/await 사용.
                         //참고: https://narup.tistory.com/216
-                        try {
-                            const payRequest = await axios.post("http://localhost:8282/payment/complete", {
-                                payment_pk: rsp.merchant_uid,
-                                user_pk: 1,
-                                pay_type: rsp.pay_method,
-                                pay_price: rsp.paid_amount,
-                                pay_date: rsp.paid_at,
-                                mycoupon_pk: 'N',
-                                pay_use_point: usePoint,
-                                pay_state: rsp.status,
-                                imp_uid: rsp.imp_uid
-                            });
 
-                            const bookingRequest = await axios.post("http://localhost:8282/booking/complete", {
-                                payment_pk: rsp.merchant_uid,
-                                scrtime_pk,
-                                book_seat_num,
-                                book_the_name,
-                                book_issu_date: rsp.paid_at,
-                                book_adult_cnt,
-                                book_youth_cnt
-                            });
-                        } catch (error) {
-                            console.log(error);
-                            return
+                        const paymentData = {
+                            payment_pk: rsp.merchant_uid,
+                            user_pk: 1,
+                            pay_type: rsp.pay_method,
+                            pay_price: rsp.paid_amount,
+                            pay_date: rsp.paid_at,
+                            mycoupon_pk: 'N',
+                            pay_use_point: usePoint,
+                            pay_state: rsp.status,
+                            imp_uid: rsp.imp_uid
                         }
+
+                        const bookingData = {
+                            payment_pk: rsp.merchant_uid,
+                            scrtime_pk,
+                            book_seat_num,
+                            book_the_name,
+                            book_issu_date: rsp.paid_at,
+                            book_adult_cnt,
+                            book_youth_cnt
+                        }
+
+                        axios.post("http://localhost:8282/payment/complete", {
+                            "payment":paymentData, "booking": bookingData
+                        }).then(res => {
+                            console.log(res.data);
+                        }).catch(error=>{
+                            console.log(error.response.data);
+                        });
+
                     } else {
                         alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
                     }
@@ -151,11 +156,13 @@ const Payment = (effect, deps) => {
                 구매자 연락처
                 <input type={'text'} ref={userPhoneRef}  onChange={(e) => (
                     userPhoneRef.current = e.target.value
+
                 )}/><br/>
                 구매자 이메일
                 <input type={'email'} ref={userEmailRef}  onChange={(e) => (
                     userEmailRef.current = e.target.value
                 )}/><br/>
+
             </div>
 
             <button onClick={requestPay}>결제하기</button>
