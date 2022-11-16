@@ -1,6 +1,7 @@
 package data.controller.api;
 
 import data.service.api.TheMovieService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +16,10 @@ import java.net.URL;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class TheMovieController {
 
-    @Autowired
-    TheMovieService theMovieService;
+    private final TheMovieService theMovieService;
 
     @GetMapping("/TMDBapi")
     @ResponseBody
@@ -47,7 +48,6 @@ public class TheMovieController {
             // 해당 영화의 등장인물 정보 저장
             theMovieService.personDataList(movie_id_list.get(i));
         }
-
 
         return "TMDB 작업";
     }
