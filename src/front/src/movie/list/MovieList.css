@@ -7,8 +7,7 @@
     margin-right: 210px;
 }
 
-
-.mlist1{
+.reserveBtn{
     width: 200px;
     height: 50px;
     margin-left: 10px;
@@ -17,17 +16,12 @@
     border-radius: 20px;
 }
 
-
-.mlist1:hover{
-    width: 200px;
-    height: 50px;
-    margin-left: 10px;
+.reserveBtn:hover{
     background-color: black;
-    border: 1px solid grey;
-    border-radius: 20px;
-    color: white;
+    color: white
 }
-.mlist2{
+
+.starBtn{
     width: 200px;
     height: 50px;
     margin-left: 10px;
@@ -36,94 +30,114 @@
     border-radius: 20px;
 }
 
-.mlist2:hover{
-    width: 200px;
-    height: 50px;
-    margin-left: 10px;
+.starBtn:hover{
     background-color: black;
-    border: 1px solid grey;
-    border-radius: 20px;
     color: white;
 }
 
 .mplist{
     width: 1500px;
-    height: 1200px;
-    margin: auto;
-    margin-bottom: 100px;
-}
-
-.mp1{
-    width: 250px;
-    height: 360px;
-    border: 1px solid grey;
-    margin-left: 15%;
-    text-align: center;
-    justify-content: center;
+    height: 2400px;
+    margin: auto auto 100px;
+    /*border: 3px solid red;*/
     display: flex;
-    margin-top: 100px;
-    align-items: center;
-    font-size: 50px;
-    float: left;
-    background-image:url(/src/image/joker.jpg);
-    background-size: cover;
-    border-radius: 20px;
-    font-size: 0px;
-    margin-bottom: 30px;
-}
-.mp1:hover{
-    width: 250px;
-    height: 360px;
-    border: 1px solid grey;
-    margin-left: 15%;
-    margin-top: 100px;
-    text-align: center;
+    flex-wrap: wrap;
     justify-content: center;
-    display: flex;
-    align-items: center;
-    font-size: 50px;
+}
+
+.movie-card{
+    width: 230px;
+    height: 331px;
     float: left;
-    background-image:url(/src/image/joker.jpg);
+    border-radius: 20px;
+    position : relative;
     background-size: cover;
-    border-radius: 20px;
-    font-size: 50px;
-    color: white;
-
 }
 
-button.snbt{
-    width: 150px;
-    height: 50px;
-    border: 1px solid grey;
-    text-align: center;
-    font-size: 30px;
+img.movie-card-poster {
+    width: 230px;
+    height: 331px;
     border-radius: 20px;
-    margin-left: 32%;
-    background-color: white;
-    color: black;
-
+    position : absolute;
 }
 
-button.snbt:hover{
-    width: 150px;
-    height: 50px;
-    border: 1px solid grey;
-    text-align: center;
-    font-size: 30px;
+.movie-card .movie-card-title {
+    position: absolute;
+    width: 230px;
+    height: 331px;
     border-radius: 20px;
-    margin-left: 32%;
     color: white;
     background-color: black;
-
+    opacity: 0.75;
+    font-size: 40px;
+    display : flex;
+    justify-content : center;
+    align-items : center;
 }
 
+.on {
+    z-index: 10;
+}
 
+.close {
+    z-index: -1;
+}
 
-.onebt{
-    width: 300px;
-    height: 550px;
-    display: block;
-    float: left;
-    margin-left: 50px;
-    margin-bottom: 0px;
+.movie-list-items {
+    width: 230px;
+    height: 400px;
+    margin: 50px 50px 50px 70px;
+}
+
+.movie-card-text {
+    padding-top: 10px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.movie-card-text .tit-area {
+    position: relative;
+    width: 100%;
+    height: 30px;
+}
+
+.movie-card-text .tit-area .movie-grade {
+    position: absolute;
+}
+
+.movie-card-text .tit-area .tit{
+    position: absolute;
+    margin-left: 30px;
+    width: 90%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 1.3333em;
+    font-weight: 400;
+}
+
+.movie-card-text .rate-date {
+    font-size: 14px;
+    position: relative;
+    width: 100%;
+    height: 30px;
+}
+
+.movie-card-text .rate-date .rate {
+    position: absolute;
+}
+
+.movie-card-text .rate-date .date {
+    position: absolute;
+    margin-left: 95px;
+    float: right;
+}
+
+.movie-info-hover {
+    text-overflow: ellipsis;
+    width:200px;
+    height: 250px;
+    overflow: hidden;
+    font-size: 15px;
 }
