@@ -3,7 +3,7 @@
 <mapper namespace="data.repository.user.UserRepository">
     <!--로그인-->
     <select id="selectLogin" parameterType="Map" resultType="int">
-        SELECT count(*) FROM user_tb WHERE u_id = #{u_id} AND u_pass = #{u_pass}
+        SELECT count(*) FROM user_tb WHERE u_id = #{u_id} AND u_pass = #{u_pass} AND u_state = 1
     </select>
     <!--로그인 시 이름 가져오기-->
     <select id="selectName" parameterType="String" resultType="String">
@@ -33,7 +33,8 @@
     <!--비밀번호 변경-->
     <update id="updatePass" parameterType="Map">
         UPDATE user_tb SET u_pass = #{u_pass}, u_pwudtdate = now() WHERE u_id = #{u_id}
-    </update>    <!-- 비밀번호 안바꿔도 날짜 업데이트 -->
+    </update>
+    <!-- 비밀번호 안바꿔도 날짜 업데이트 -->
     <update id="updatePassDate" parameterType="String">
         UPDATE user_tb SET u_pwudtdate = now() WHERE u_id = #{u_id}
     </update>

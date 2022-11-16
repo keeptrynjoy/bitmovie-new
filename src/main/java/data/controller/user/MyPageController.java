@@ -1,5 +1,6 @@
 package data.controller.user;
 
+import data.domain.user.MyPage;
 import data.domain.user.User;
 import data.service.user.MyPageService;
 import lombok.RequiredArgsConstructor;
@@ -27,12 +28,12 @@ public class MyPageController {
     }
     //마이페이지 예매 목록 조회
     @GetMapping("/bookinglist")
-    public Map<String, Object> selectBooking (String user_pk) {
+    public List<MyPage> selectBooking (String user_pk) {
         return myPageService.selectBooking(user_pk);
     }
     //마이페이지 무비로그 조회
     @GetMapping("/movielog")
-    public Map<String, Object> selectMovieLog (String user_pk) {
+    public List<MyPage> selectMovieLog (String user_pk) {
         return myPageService.selectMovieLog(user_pk);
     }
     //마이페이지 포인트 조회
@@ -42,7 +43,7 @@ public class MyPageController {
     }
     //마이페이지 포인트 적립/소멸 조회
     @GetMapping("/pointdetail")
-    public Map<String, Object> selectPointDetail (String user_pk) {
+    public List<MyPage> selectPointDetail (String user_pk) {
         return myPageService.selectPointDetail(user_pk);
     }
 }

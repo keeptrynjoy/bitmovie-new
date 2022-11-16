@@ -10,11 +10,11 @@
     <update id="updateUser" parameterType="User">
         UPDATE user_tb
         SET u_pass = #{u_pass}, u_name = #{u_name}, u_nick = #{u_nick}, u_phone = #{u_phone},
-            u_photo = #{u_photo}, u_pwudtdate = now(), u_gender = #{u_gender}
+            u_photo = #{u_photo}, u_pwudtdate = now(), u_gender = #{u_gender}, u_birth = #{u_birth}
         WHERE user_pk = #{user_pk}
     </update>
     <!--마이페이지 예매 목록 조회-->
-    <select id="selectBooking" parameterType="String" resultType="Map">
+    <select id="selectBooking" parameterType="String" resultType="MyPage">
         SELECT
             p.pay_type AS paytype,
             p.pay_price AS price,
@@ -39,7 +39,7 @@
         WHERE u.user_pk = #{user_pk} AND DATEDIFF(now(), b.book_issu_date) &lt; 30;
     </select>
     <!--마이페이지 무비로그 조회-->
-    <select id="selectMovieLog" parameterType="String" resultType="Map">
+    <select id="selectMovieLog" parameterType="String" resultType="MyPage">
         SELECT
             b.book_the_name AS theater,
             b.book_adult_cnt AS adult,
@@ -65,8 +65,8 @@
         SELECT u_point FROM user_tb WHERE user_pk = #{user_pk}
     </select>
     <!--마이페이지 포인트 적립/소멸 내역 조회-->
-    <select id="selectPointDetail" parameterType="String" resultType="Map">
-        SELECT p.po_point AS point, p.po_plusminus AS increase, p.po_date AS date, u.u_point AS u_point
+    <select id="selectPointDetail" parameterType="String" resultType="MyPage">
+        SELECT p.po_point AS point, p.po_plusminus AS increase, p.po_date AS po_date, u.u_point AS u_point
         FROM point_tb p JOIN user_tb u ON u.user_pk = p.user_pk
         WHERE u.user_pk = #{user_pk}
     </select>
