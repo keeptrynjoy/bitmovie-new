@@ -8,11 +8,7 @@ import data.service.movie.ScreenTimeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/movie")
@@ -23,7 +19,6 @@ public class MovieController {
     private final MovieService movieService;
     private final PersonService personService;
     private final ScreenTimeService screenTimeService;
-
 
     // 영화 상세 정보 출력
     @GetMapping("/selectMovieData")
@@ -37,30 +32,26 @@ public class MovieController {
 
         // 영화 평점 정보
 
-
-
         return "test";
     }
 
     // 영화 리스트 출력
     @GetMapping("/selectMovieList")
-    public List<JoinMovie> selectMovieList() {
+    public List<JoinMovie> selectMovieList(@RequestParam(defaultValue = "m_name") String order_stand,
+                                           @RequestParam(defaultValue = "null")String BorA) {
+        /*  front 에서 넘겨줄 값 - 아래의 형식으로 전달 바랍니다
+            order_stand : 정렬 기준
+            - 예매율순 인경우 "reserve_rate"
+            - 평점순인 경우 "revw_avgstar"
+            BorA : 상영중인 영화인지 개봉 예정인 영화인지 판단
+            - 상영중 "after"
+            - 개봉예정 "before"
+        */
 
-        // 오늘 날짜를 기준으로 1주일 기간 을 설정해 예매율을 계산
-        LocalDate date = LocalDate.now();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String now_date = date.format(dtf);
-        String before_date = date.minusWeeks(1).format(dtf);     // 조회 하는 날기준 1주일 전
-
-        Map<String, String> map = new HashMap<>();
-        map.put("before_date", before_date);
-        map.put("now_date", now_date);
-
-        List<JoinMovie> movie_data_list = movieService.selectMovieList(map);
+        List<JoinMovie> movie_data_list = movieService.selectMovieList(order_stand, BorA);
         System.out.println(movie_data_list);
 
         return movie_data_list;
     }
-
 
 }
