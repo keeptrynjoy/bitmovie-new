@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.repository.pay.BookingRepository">
+    <insert id="insertBookingData" parameterType="booking">
+        INSERT INTO booking_tb VALUES
+            (null,#{payment_pk},#{scrtime_pk},#{book_seat_num}
+            ,#{book_the_name},#{book_issu_date},#{book_adult_cnt},#{book_youth_cnt});
+    </insert>
 </mapper>

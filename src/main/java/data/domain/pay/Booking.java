@@ -10,9 +10,11 @@ import java.sql.Timestamp;
 @Alias("booking")
 public class Booking {
     private int booking_pk;
-    private int payment_pk;
-    private int screen_pk;
-    private int seat_pk;
+    private String payment_pk;
+    private int scrtime_pk;
+    private String book_seat_num;
     private String book_the_name;
     private Timestamp book_issu_date;
+    private int book_adult_cnt;
+    private int book_youth_cnt;
 }

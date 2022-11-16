@@ -2,6 +2,7 @@ package data.service.user;
 
 import data.domain.user.User;
 import data.repository.user.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,9 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
     //로그인 (id, password 체크)
     public Map<String, Object> selectLogin (@RequestBody Map<String, String> map) {
@@ -34,7 +35,6 @@ public class UserService {
 
         return sendMap;
     }
-
     //회원가입 아이디 중복 체크
     public int searchId (String u_id) {
         return userRepository.searchId(u_id);
@@ -44,7 +44,7 @@ public class UserService {
         userRepository.insertUser(user);
     }
     //비밀번호 변경할 때 아이디 참조해서 기존 비밀번호 가져오기(입력한 비밀번호와 일치하는 지 확인용)
-    public boolean selectPass (String u_id, String u_pass) {
+    public boolean selectPass (@RequestBody String u_id, String u_pass) {
         String pass = userRepository.selectPass(u_id);
         boolean check = false;
         if (pass == u_pass) {
@@ -53,7 +53,7 @@ public class UserService {
         return check;
     }
     //비밀번호 변경
-    public void updatePass (Map<String, String> map) {
+    public void updatePass (@RequestBody Map<String, String> map) {
         userRepository.updatePass(map);
     }
     //회원 삭제(상태 변경)
@@ -73,21 +73,5 @@ public class UserService {
     //비밀번호 찾기 (아이디, 핸드폰 번호 확인)
     public int selectFindPass (Map<String, String> map) {
         return userRepository.selectFindPass(map);
-    }
-    //마이페이지 유저 정보 출력
-    public User selectUser (String user_pk) {
-        return userRepository.selectUser(user_pk);
-    }
-    //마이페이지 회원 정보 수정
-    public void updateUser (User user) {
-        userRepository.updateUser(user);
-    }
-    //마이페이지 예매 목록 조회
-    public Map<String, Object> selectBooking (String user_pk) {
-        return userRepository.selectBooking(user_pk);
-    }
-    //마이페이지 무비로그 조회
-    public Map<String, Object> selectMovieLog (String user_pk) {
-        return userRepository.selectMovieLog(user_pk);
     }
 }

@@ -2,12 +2,15 @@ package data.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.ibatis.type.Alias;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 
-@Data
+@Getter
+@Setter
 @Alias("user")
 public class User {
     private int user_pk;
@@ -22,4 +25,5 @@ public class User {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     private Timestamp u_pwudtdate;
     private int u_state;
+    private int u_point;
 }

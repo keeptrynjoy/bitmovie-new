@@ -4,7 +4,7 @@ div.mypage-div {
     height: 1500px;
     margin: 0 auto;
     position: relative;
-    background-color: whitesmoke;
+    /*background-color: whitesmoke;*/
 }
 
 .upper-info-div {
@@ -166,6 +166,43 @@ b.sidebar-menu-subtitle {
 
 div.lower-info-div .mypage-contents {
     width: 900px;
-    height: 100%
-;
+    height: 100%;
+}
+
+div.user-basic-info{
+    width: 90%;
+    height: 70px;
+    font-size: 40px;
+    border-bottom: 3px solid black;
+}
+
+div.changeUserInfo {
+    margin-left: 50px;
+    margin-top: 30px;
+}
+
+table.user-basic-info-table {
+    width: 90%;
+}
+
+table.user-basic-info-table tr {
+    height: 70px;
+    line-height: 70px;
+    border-bottom: 1px solid lightgray;
+}
+
+table.user-basic-info-table td input{
+    margin-left: 50px;
+    width: 350px;
+}
+
+table.user-basic-info-table th{
+    padding-left: 30px;
+    font-size: 20px;
+    width: 250px;
+    background-color: lightblue;
+}
+
+.error-msg {
+    margin-top: 30px;
 }

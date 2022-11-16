@@ -19,8 +19,4 @@ public interface UserRepository {
     public void updatePassDate (String u_id); //비밀번호 안바꿔도 날짜 업데이트
     public String selectFindId (String u_phone); //아이디 찾기
     public int selectFindPass (Map<String, String> map); //비밀번호 찾기 (아이디, 핸드폰 번호 확인)
-    public User selectUser (String user_pk); //마이페이지 유저 정보 출력
-    public void updateUser (User user); //마이페이지 회원 정보 수정
-    public Map<String, Object> selectBooking (String user_pk); //마이페이지 예매 목록 조회
-    public Map<String, Object> selectMovieLog (String user_pk); //마이페이지 무비로그 조회
 }

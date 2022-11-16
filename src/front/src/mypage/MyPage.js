@@ -15,14 +15,15 @@ function MyPage(props) {
     const [movie_log,setMovie_log]=useState([]);
     const [contents,setContents]=useState("");
 
-    const infoUrl = localStorage.url + "/user/information?user_pk=" + user_pk;
-    const bookingListUrl = localStorage.url + "/user/bookinglist?user_pk=" + user_pk;
-    const movieLogUrl = localStorage.url + "/user/bookinglist?user_pk=" + user_pk;
+    const infoUrl = localStorage.url + "/mypage/information?user_pk=" + user_pk;
+    const bookingListUrl = localStorage.url + "/mypage/bookinglist?user_pk=" + user_pk;
+    const movieLogUrl = localStorage.url + "/mypage/movielog?user_pk=" + user_pk;
 
     const getData =()=>{
         axios.get(infoUrl)
             .then((res)=>{
                 setData(res.data);
+                console.log(res.data);
             });
         axios.get(bookingListUrl)
             .then((res)=>{
@@ -127,7 +128,7 @@ function MyPage(props) {
                     </ul>
                 </div>
                 <div className={"mypage-contents"}>
-                    <MyPageContents contents={contents}/>
+                    <MyPageContents contents={contents} data={data}/>
                 </div>
             </div>
         </div>
