@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PaymentRepository {
 
-    public int selectPaymentData(Payment payment);
+    public Payment selectPaymentData(String payment_pk);
 
     public void insertPaymentData(Payment payment);
 }
