@@ -130,6 +130,36 @@ function JoinInfo(props) {
         )
     }
 
+    // //본인인증 함수
+    // const requestCerti = () => {
+    //     let date = new Date();
+    //     //아임포트 본인인증
+    //     //IMP 객체 초기화
+    //     const {IMP} = window.IMP;
+    //     IMP.init('imp02023053');
+    //
+    //     // IMP.certification(param, callback) 호출
+    //     IMP.certification({ // param
+    //         merchant_uid: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}T${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}_${input.u_id}`,
+    //         min_age: 14,
+    //         name: input.u_name,
+    //         phone: input.u_phone
+    //     }, rsp => { // callback
+    //         if (rsp.success) {
+    //             // axios로 HTTP 요청
+    //             axios({
+    //                 url: "http://localhost:8282/login/certification", // 예: https://www.myservice.com/certifications
+    //                 method: "post",
+    //                 headers: { "Content-Type": "application/json" },
+    //                 data: { imp_uid: rsp.imp_uid }
+    //             });
+    //         } else {
+    //             alert(`인증에 실패하였습니다. 에러 내용: ${rsp.error_msg}`);
+    //         }
+    //     });
+    // }
+
+
     return (
         <div className={"join-info"}>
             {
@@ -243,6 +273,9 @@ function JoinInfo(props) {
                             <input type={'text'} className={'form-control'} style={{marginLeft:"20px",width:'300px'}}
                                    name={"u_phone"} value={input.u_phone} onChange={changeData}/>
                         </td>
+                        {/*<td>*/}
+                        {/*    <button type={"button"} onClick={requestCerti}>본인인증</button>*/}
+                        {/*</td>*/}
                     </tr>
                     </tbody>
                 </table>
