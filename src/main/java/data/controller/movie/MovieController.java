@@ -4,8 +4,6 @@ import data.domain.movie.Cast;
 import data.domain.movie.JoinMovie;
 import data.domain.movie.Movie;
 import data.service.movie.MovieService;
-import data.service.movie.PersonService;
-import data.service.movie.ScreenTimeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +21,7 @@ public class MovieController {
 
     // 영화 상세 정보 출력
     @GetMapping("/selectMovieData")
-    public Map<String,Object> selectMovieData(@RequestParam(defaultValue = "49046") String movie_pk) {
+    public Map<String,Object> selectMovieData(@RequestParam String movie_pk) {
 
         // 영화 상세 정보
         Movie movie_data = movieService.selectMovieData(movie_pk);
@@ -33,7 +31,7 @@ public class MovieController {
 
         // 영화 평점 정보
 
-        
+
         // front 로 데이터 전달
         Map<String, Object> map = new HashMap<>();
         map.put("data",movie_data);
