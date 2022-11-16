@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.repository.movie.JoinMovieRepository">
+
     <!--  영화 정보 + 예매횟수, 평균평점 정보 가져오기  -->
-    <select id="selectMovieList" resultType="JoinMovie">
-        select
+    <select id="selectMovieList" resultType="JoinMovie" parameterType="Map">
+        SELECT
             mv.movie_pk,
             mv.m_name,
             mv.m_type,
@@ -13,22 +14,23 @@
             mv.m_age_grd,
             mv.m_info,
             mv.m_photo,
-            AVG(re.revw_star) AS revw_avgstar,
-            sum_paycount
+            ifnull(round(AVG(re.revw_star)),0) AS revw_avgstar,
+            ifnull(round(sum_paycnt/sum(sum_paycnt)*100),0) AS reserve_rate
         FROM
             movie_tb mv LEFT OUTER JOIN review_tb re ON mv.movie_pk = re.movie_pk
-            left outer join
-                (SELECT
-                    tim.movie_pk,
-                    sum(book.book_adult_cnt + book.book_youth_cnt) AS sum_paycount
-                FROM
-                    payment_tb pay left outer join booking_tb book On pay.payment_pk = book.payment_pk
-                    left outer join screentime_tb tim on book.scrtime_pk = tim.scrtime_pk
-                where
-                    "1970-01-22" > pay.pay_date
-                    and pay.pay_date > "1970-01-19") sub on sub.movie_pk = mv.movie_pk
-        group by (movie_pk);
+                        LEFT OUTER JOIN
+            (SELECT
+                 tim.movie_pk,
+                 sum(book.book_adult_cnt + book.book_youth_cnt) AS sum_paycnt
+             FROM
+                 payment_tb pay LEFT OUTER JOIN booking_tb book ON pay.payment_pk = book.payment_pk
+                                LEFT OUTER JOIN screentime_tb tim ON book.scrtime_pk = tim.scrtime_pk
+             WHERE
+                 #{now_date} >= pay.pay_date
+               AND pay.pay_date > #{before_date}
+             ) sub ON sub.movie_pk = mv.movie_pk
 
-
+        GROUP BY (movie_pk);
     </select>
+
 </mapper>

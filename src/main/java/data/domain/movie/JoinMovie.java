@@ -18,6 +18,6 @@ public class JoinMovie {
     private String m_enname;
     private String m_country;
     private int revw_avgstar;
-    private int pay_percent;
+    private int reserve_rate;
 
 }

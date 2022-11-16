@@ -1,5 +1,6 @@
 package data.controller.movie;
 
+import data.domain.movie.JoinMovie;
 import data.domain.movie.Movie;
 import data.service.movie.MovieService;
 import data.service.movie.PersonService;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -23,39 +25,28 @@ public class MovieController {
     private final ScreenTimeService screenTimeService;
 
 
-    //    @GetMapping("/test")
-//    public void test(){
-//        int num = 1;
-//        Map<String, Object> map = new HashMap<>();
-//
-//        Person person = personService.selectPersonData(num);
-//        System.out.println(person);
-//        System.out.println(person.getPer_name());
-//
-//    }
-//    @GetMapping("/")
-//    public String home(){
-//        int num = 1;
-//        Map<String, Object> map = new HashMap<>();
-//
-//
-//        Person person = personService.selectPersonData(num);
-//        System.out.println(person);
-//        System.out.println(person.getPer_name());
-//
-//        return "/";
-//    }
+    // 영화 상세 정보 출력
     @GetMapping("/selectMovieData")
-    public Movie selectMovieData(@RequestParam String movie_pk) {
+    public String selectMovieData(@RequestParam String movie_pk) {
 
-        return movieService.selectMovieData(movie_pk);
+        // 영화 상세 정보
+        Movie movie_data = movieService.selectMovieData(movie_pk);
 
+        // 영화 등장인물 정보
+
+
+        // 영화 평점 정보
+
+
+
+        return "test";
     }
 
+    // 영화 리스트 출력
     @GetMapping("/selectMovieList")
-    public String selectMovieList() {
+    public List<JoinMovie> selectMovieList() {
 
-        // 1. 현재 시각 기준 1주일 기간동안의 총 좌석 갯수 구하기
+        // 오늘 날짜를 기준으로 1주일 기간 을 설정해 예매율을 계산
         LocalDate date = LocalDate.now();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String now_date = date.format(dtf);
@@ -65,11 +56,10 @@ public class MovieController {
         map.put("before_date", before_date);
         map.put("now_date", now_date);
 
+        List<JoinMovie> movie_data_list = movieService.selectMovieList(map);
+        System.out.println(movie_data_list);
 
-        // 2. joinmovie 데이터 가져오기
-
-
-        return "test";
+        return movie_data_list;
     }
 
 
