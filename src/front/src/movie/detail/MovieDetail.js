@@ -48,7 +48,6 @@ function MovieDetail(props) {
                                     <img alt={""} src={`https://image.tmdb.org/t/p/w500/${item}`}
                                          className={"dtposter"}/>
                                 </SwiperSlide>
-
                             ))}
                         </Swiper>
                     </div>
@@ -82,7 +81,6 @@ function MovieDetail(props) {
                     /></div>
                 <div className={"dtreview"}>평점 작성자리</div>
             </div>
-
         </div>
     );
 }

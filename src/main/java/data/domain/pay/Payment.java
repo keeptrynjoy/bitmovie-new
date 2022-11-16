@@ -1,17 +1,13 @@
 package data.domain.pay;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.apache.ibatis.type.Alias;
 
 import java.sql.Timestamp;
 
-@Data
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
+@Getter
 @Alias("payment")
 public class Payment {
     private String payment_pk;
@@ -23,4 +19,5 @@ public class Payment {
     private String mycoupon_pk;
     private int pay_use_point;
     private String pay_state;
+    private String imp_uid;
 }

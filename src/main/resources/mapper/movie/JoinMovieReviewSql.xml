@@ -3,21 +3,40 @@
 <mapper namespace="data.repository.movie.JoinMovieRepository">
 
     <!--  영화 정보 + 예매횟수, 평균평점 정보 가져오기  -->
-    <select id="selectMovieList" resultType="JoinMovie">
-        SELECT mv.movie_pk,
-               mv.m_name,
-               mv.m_type,
-               mv.m_sdate,
-               mv.m_edate,
-               mv.m_runtime,
-               mv.m_age_grd,
-               mv.m_info,
-               mv.m_photo,
-               AVG(re.revw_star) AS revw_avgstar,
-               count(pay.movie_pk) AS pay_count
-        FROM movie_tb mv
-                 LEFT OUTER JOIN review_tb re ON mv.movie_pk = re.movie_pk
-                 LEFT OUTER JOIN payment_tb pay ON mv.movie_pk = pay.movie_pk
-        GROUP BY (movie_pk);
+    <select id="selectMovieList" resultType="JoinMovie" parameterType="Map">
+        SELECT
+            mv.movie_pk,
+            mv.m_name,
+            mv.m_type,
+            mv.m_sdate,
+            mv.m_edate,
+            mv.m_runtime,
+            mv.m_age_grd,
+            mv.m_info,
+            mv.m_photo,
+            ifnull(round(AVG(re.revw_star)),0) AS revw_avgstar,
+            ifnull(round(sum_paycnt/sum(sum_paycnt)*100),0) AS reserve_rate
+        FROM
+            movie_tb mv LEFT OUTER JOIN review_tb re ON mv.movie_pk = re.movie_pk
+                        LEFT OUTER JOIN
+            (SELECT
+                 tim.movie_pk,
+                 sum(book.book_adult_cnt + book.book_youth_cnt) AS sum_paycnt
+             FROM
+                 payment_tb pay LEFT OUTER JOIN booking_tb book ON pay.payment_pk = book.payment_pk
+                                LEFT OUTER JOIN screentime_tb tim ON book.scrtime_pk = tim.scrtime_pk
+             WHERE
+                 #{now_date} >= pay.pay_date
+               AND pay.pay_date > #{before_date}
+             ) sub ON sub.movie_pk = mv.movie_pk
+        <if test="BorA==after">    <!-- 현재 상영중인 영화만 출력 -->
+            WHERE #{now_date} > mv.m_sdate AND mv.m_edate > #{now_date}
+        </if>
+        <if test="BorA==before">    <!-- 개봉 예정 영화만 출력 -->
+            WHERE mv.m_sdate > #{now_date}
+        </if>
+        GROUP BY (movie_pk)
+        ORDER BY #{order_stand} desc, m_sdate;
     </select>
+
 </mapper>

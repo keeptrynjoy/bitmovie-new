@@ -10,28 +10,18 @@ import MyPageContents from "./MyPageContents";
 function MyPage(props) {
     const p = useParams();
     const user_pk = p.u_pk;
-    const [data,setData] = useState("");
-    const [booking_list,setBooking_list]=useState([]);
-    const [movie_log,setMovie_log]=useState([]);
     const [contents,setContents]=useState("");
+    //유저정보
+    const [data,setData] = useState("");
 
-    const infoUrl = localStorage.url + "/user/information?user_pk=" + user_pk;
-    const bookingListUrl = localStorage.url + "/user/bookinglist?user_pk=" + user_pk;
-    const movieLogUrl = localStorage.url + "/user/bookinglist?user_pk=" + user_pk;
+    const infoUrl = localStorage.url + "/mypage/information?user_pk=" + user_pk;
 
     const getData =()=>{
         axios.get(infoUrl)
             .then((res)=>{
                 setData(res.data);
+                // console.log(res.data);
             });
-        axios.get(bookingListUrl)
-            .then((res)=>{
-                setBooking_list(res.data);
-        });
-        axios.get(movieLogUrl)
-            .then((res)=>{
-                setMovie_log(res.data);
-            })
     }
     //페이지 로딩시 데이터 가져오기
     useEffect(() => {
@@ -44,7 +34,7 @@ function MyPage(props) {
                 <div className={"photo-div"}>
                     <img alt={"프로필 사진"} src={photo} className={"profile-photo"}/>
                     <div className={"photo-fix-icon"}>
-                        <EditIcon sx={{ fontSize: 50 }}></EditIcon>
+                        <EditIcon/>
                     </div>
                 </div>
                 <div className={"mypage-info-wrap"}>
@@ -74,10 +64,10 @@ function MyPage(props) {
                             <ul>
                                 <li>
                                     <strong>사용 가능 포인트</strong>
-                                    <span className={"benefit-li-count"}>0개</span>
+                                    <span className={"benefit-li-count"}>{data.u_point}P</span>
                                 </li>
                                 <li>
-                                    <strong>포인트 사용내역</strong>
+                                    <strong>포인트 뭐넣지</strong>
                                     <span className={"benefit-li-count"}>0개</span>
                                 </li>
                             </ul>
@@ -127,7 +117,7 @@ function MyPage(props) {
                     </ul>
                 </div>
                 <div className={"mypage-contents"}>
-                    <MyPageContents contents={contents}/>
+                    <MyPageContents contents={contents} data={data}/>
                 </div>
             </div>
         </div>

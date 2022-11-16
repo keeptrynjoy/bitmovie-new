@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
-import {Button} from "@mui/material";
+import {Button, Alert} from "@mui/material";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
-import {Alert, AlertTitle} from "@mui/lab";
 import axios from "axios";
 
 function JoinInfo(props) {
@@ -71,9 +70,9 @@ function JoinInfo(props) {
         }
 
         const hppattern = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
-        if(hppattern.test(input.hp))
+        if(!hppattern.test(input.u_phone))
         {
-            alert("전화번호를 확인해주세요");
+            alert("전화번호는 -을 포함해 휴대전화 형식에 맞게 입력해주세요");
             return;
         }
         
@@ -131,6 +130,36 @@ function JoinInfo(props) {
         )
     }
 
+    // //본인인증 함수
+    // const requestCerti = () => {
+    //     let date = new Date();
+    //     //아임포트 본인인증
+    //     //IMP 객체 초기화
+    //     const {IMP} = window.IMP;
+    //     IMP.init('imp02023053');
+    //
+    //     // IMP.certification(param, callback) 호출
+    //     IMP.certification({ // param
+    //         merchant_uid: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}T${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}_${input.u_id}`,
+    //         min_age: 14,
+    //         name: input.u_name,
+    //         phone: input.u_phone
+    //     }, rsp => { // callback
+    //         if (rsp.success) {
+    //             // axios로 HTTP 요청
+    //             axios({
+    //                 url: "http://localhost:8282/login/certification", // 예: https://www.myservice.com/certifications
+    //                 method: "post",
+    //                 headers: { "Content-Type": "application/json" },
+    //                 data: { imp_uid: rsp.imp_uid }
+    //             });
+    //         } else {
+    //             alert(`인증에 실패하였습니다. 에러 내용: ${rsp.error_msg}`);
+    //         }
+    //     });
+    // }
+
+
     return (
         <div className={"join-info"}>
             {
@@ -177,7 +206,7 @@ function JoinInfo(props) {
                         <td>
                             <div className={"input-group"} style={{marginLeft:"20px",width:'330px'}} >
                                 <input type={'password'} className={'form-control'}
-                                       name={"u_pass"} value={input.u_pass} onChange={changeData}/>
+                                       name={"u_pass"} value={input.u_pass} onChange={changeData} onKeyUp={chkPW2}/>
                                 {
                                     chkPW()!=="ok"?
                                         <CloseIcon style={{color:"red", float:"right", marginTop:"7px", marginLeft:"7px"}}/>
@@ -226,10 +255,9 @@ function JoinInfo(props) {
                                 onChange={changeData}
                                 style={{display:"block"}}
                             >
-                                <FormControlLabel value="male" control={<Radio />} label="남자" />
-                                <FormControlLabel value="female" control={<Radio />} label="여자" />
+                                <FormControlLabel value="male" control={<Radio/>} label="남자" />
+                                <FormControlLabel value="female" control={<Radio/>} label="여자" />
                             </RadioGroup>
-
                         </td>
                     </tr>
                     <tr>
@@ -245,6 +273,9 @@ function JoinInfo(props) {
                             <input type={'text'} className={'form-control'} style={{marginLeft:"20px",width:'300px'}}
                                    name={"u_phone"} value={input.u_phone} onChange={changeData}/>
                         </td>
+                        {/*<td>*/}
+                        {/*    <button type={"button"} onClick={requestCerti}>본인인증</button>*/}
+                        {/*</td>*/}
                     </tr>
                     </tbody>
                 </table>

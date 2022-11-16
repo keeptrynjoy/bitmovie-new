@@ -1,14 +1,14 @@
 package data.controller.movie;
 
+import data.domain.movie.Cast;
+import data.domain.movie.JoinMovie;
 import data.domain.movie.Movie;
-import data.domain.movie.Person;
 import data.service.movie.MovieService;
-import data.service.movie.PersonService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -19,37 +19,42 @@ public class MovieController {
 
     private final MovieService movieService;
 
-    private final PersonService personService;
-
-
-
-    //    @GetMapping("/test")
-//    public void test(){
-//        int num = 1;
-//        Map<String, Object> map = new HashMap<>();
-//
-//        Person person = personService.selectPersonData(num);
-//        System.out.println(person);
-//        System.out.println(person.getPer_name());
-//
-//    }
-//    @GetMapping("/")
-//    public String home(){
-//        int num = 1;
-//        Map<String, Object> map = new HashMap<>();
-//
-//
-//        Person person = personService.selectPersonData(num);
-//        System.out.println(person);
-//        System.out.println(person.getPer_name());
-//
-//        return "/";
-//    }
+    // 영화 상세 정보 출력
     @GetMapping("/selectMovieData")
-    public Movie selectMovieData(@RequestParam String movie_pk) {
+    public Map<String,Object> selectMovieData(@RequestParam String movie_pk) {
 
-        return movieService.selectMovieData(movie_pk);
+        // 영화 상세 정보
+        Movie movie_data = movieService.selectMovieData(movie_pk);
+
+        // 영화 등장인물 정보
+        List<Cast> cast_list = movieService.selectCastList(movie_pk);
+
+        // 영화 평점 정보
+
+
+        // front 로 데이터 전달
+        Map<String, Object> map = new HashMap<>();
+        map.put("data",movie_data);
+        map.put("cast",cast_list);
+        return map;
     }
 
+    // 영화 리스트 출력
+    @GetMapping("/selectMovieList")
+    public List<JoinMovie> selectMovieList(@RequestParam(defaultValue = "m_name") String order_stand,
+                                           @RequestParam(defaultValue = "null")String BorA) {
+        /*  front 에서 넘겨줄 값 - 아래의 형식으로 전달 바랍니다
+            order_stand : 정렬 기준
+            - 예매율순 인경우 "reserve_rate"
+            - 평점순인 경우 "revw_avgstar"
+            BorA : 상영중인 영화인지 개봉 예정인 영화인지 판단
+            - 상영중 "after"
+            - 개봉예정 "before"
+        */
+
+        List<JoinMovie> movie_data_list = movieService.selectMovieList(order_stand, BorA);
+
+        return movie_data_list;
+    }
 
 }
