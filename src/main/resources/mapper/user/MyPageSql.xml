@@ -14,7 +14,7 @@
         WHERE user_pk = #{user_pk}
     </update>
     <!--마이페이지 예매 목록 조회-->
-    <select id="selectBooking" parameterType="String" resultType="MyPage">
+    <select id="selectBooking" parameterType="int" resultType="MyPage">
         SELECT
             p.pay_type AS paytype,
             p.pay_price AS price,
@@ -39,7 +39,7 @@
         WHERE u.user_pk = #{user_pk} AND DATEDIFF(now(), b.book_issu_date) &lt; 30;
     </select>
     <!--마이페이지 무비로그 조회-->
-    <select id="selectMovieLog" parameterType="String" resultType="MyPage">
+    <select id="selectMovieLog" parameterType="int" resultType="MyPage">
         SELECT
             b.book_the_name AS theater,
             b.book_adult_cnt AS adult,
@@ -61,11 +61,11 @@
         WHERE u.user_pk = #{user_pk};
     </select>
     <!--마이페이지 포인트 조회-->
-    <select id="selectPoint" parameterType="String" resultType="int">
+    <select id="selectPoint" parameterType="int" resultType="int">
         SELECT u_point FROM user_tb WHERE user_pk = #{user_pk}
     </select>
     <!--마이페이지 포인트 적립/소멸 내역 조회-->
-    <select id="selectPointDetail" parameterType="String" resultType="MyPage">
+    <select id="selectPointDetail" parameterType="int" resultType="MyPage">
         SELECT
             u.user_pk AS user,
             p.po_plusminus AS in_decrease,

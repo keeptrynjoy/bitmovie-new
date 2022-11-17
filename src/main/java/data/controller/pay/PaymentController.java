@@ -76,6 +76,7 @@ public class PaymentController {
             return new ResponseEntity<>("주문이 완료되었습니다", HttpStatus.OK);
         } catch (Exception e){
             paymentService.paymentCancle(token, payment.getImp_uid(),amount,"결제 예러");
+            e.printStackTrace();
             return new ResponseEntity<>("결제 에러", HttpStatus.BAD_REQUEST);
         }
     }

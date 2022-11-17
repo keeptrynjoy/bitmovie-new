@@ -31,9 +31,10 @@ public class MyPage {
     private String grade;
     private String poster;
     //포인트
-    private int point;
-    private int increase;
+    private int user;
+    private int in_decrease;
+    private int inDePoint;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
-    private Timestamp po_date;
-    private int u_point;
+    private Timestamp pDate;
+    private int sumPoint;
 }
