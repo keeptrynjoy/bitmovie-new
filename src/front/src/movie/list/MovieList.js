@@ -145,7 +145,7 @@ function MovieList(props) {
                             </div>
                             <div className={"rate-date"}>
                                 <span className={"rate"}>예매율 : {item.reserve_rate}%</span>
-                                <span className={"date"}>개봉일 : {item.m_edate}</span>
+                                <span className={"date"}>개봉일 : {item.m_sdate}</span>
                             </div>
                             <div className={"btn-div"}>
                                 <span className={"like-btn"}>
