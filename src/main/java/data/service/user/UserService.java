@@ -1,15 +1,15 @@
 package data.service.user;
 
+import data.domain.user.LikeRevw;
 import data.domain.movie.Review;
+import data.domain.user.Report;
 import data.domain.user.User;
 import data.repository.movie.ReviewRepository;
+import data.repository.user.LikeRevwRepository;
+import data.repository.user.ReportRepository;
 import data.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +19,8 @@ import java.util.Map;
 public class UserService {
     private final UserRepository userRepository;
     private final ReviewRepository reviewRepository;
+    private final LikeRevwRepository likeRevwRepository;
+    private final ReportRepository reportRepository;
 
     //로그인 (id, password 체크)
     public Map<String, Object> selectLogin (Map<String, String> map) {
@@ -112,4 +114,23 @@ public class UserService {
         reviewRepository.deleteReview(review_pk);
     }
 
+    // 평점 좋아요
+    public void insertLikeRevw(LikeRevw likeRevw){
+        likeRevwRepository.insertLikeRevw(likeRevw);
+    }
+
+    // 평점 좋아요 취소
+    public void deleteLikeRevw(LikeRevw likeRevw){
+        likeRevwRepository.deleteLikeRevw(likeRevw);
+    }
+
+    // 평점 신고하기
+    public void insertReport(Report report) {
+        reportRepository.insertReport(report);
+    }
+
+    // 평점 신고 취소하기
+    public void deleteReport(Report report) {
+        reportRepository.deleteReport(report);
+    }
 }
