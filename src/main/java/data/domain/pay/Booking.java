@@ -1,12 +1,15 @@
 package data.domain.pay;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.Alias;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -18,7 +21,8 @@ public class Booking {
     private int scrtime_pk;
     private String book_seat_num;
     private String book_the_name;
-    private Timestamp book_issu_date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime book_issu_date;
     private int book_adult_cnt;
     private int book_youth_cnt;
 }

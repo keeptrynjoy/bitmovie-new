@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.repository.user.ReportRepository">
+
+    <!--  영화 평점 신고  -->
+    <insert id="insertReport" parameterType="Report">
+        INSERT INTO report_tb VALUES (#{review_pk}, #{user_pk})
+    </insert>
+
+    <!--  영화 평점 신고 취소  -->
+    <delete id="deleteReport" parameterType="Report">
+        DELETE report_tb WHERE review_pk = #{review_pk} AND user_pk = #{user_pk}
+    </delete>
+
+</mapper>

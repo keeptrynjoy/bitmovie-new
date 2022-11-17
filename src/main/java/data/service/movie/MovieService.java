@@ -2,11 +2,9 @@ package data.service.movie;
 
 import data.domain.movie.Cast;
 import data.domain.movie.JoinMovie;
+import data.domain.movie.JoinRevw;
 import data.domain.movie.Movie;
-import data.repository.movie.CastRepository;
-import data.repository.movie.JoinMovieRepository;
-import data.repository.movie.MovieRepository;
-import data.repository.movie.PersonRepository;
+import data.repository.movie.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,12 +24,14 @@ public class MovieService {
     private final MovieRepository movieRepository;
     private final JoinMovieRepository joinMovieRepository;
     private final CastRepository castRepository;
+    private final JoinRevwRepository joinRevwRepository;
 
     public Movie selectMovieData(String movie_pk){
         return movieRepository.selectMovieData(movie_pk);
     }
 
     public List<JoinMovie> selectMovieList(String order_stand, String BorA) {
+        System.out.println(order_stand);
 
         // 오늘 날짜를 기준으로 1주일 기간 을 설정해 예매율을 계산
         LocalDate date = LocalDate.now();
@@ -51,5 +51,9 @@ public class MovieService {
 
     public List<Cast> selectCastList(String movie_pk){
         return castRepository.selectCastList(movie_pk);
+    }
+
+    public List<JoinRevw> selectJoinRevw(String movie_pk) {
+        return joinRevwRepository.selectJoinRevw(movie_pk);
     }
 }

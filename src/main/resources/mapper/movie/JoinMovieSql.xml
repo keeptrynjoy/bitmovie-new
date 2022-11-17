@@ -29,14 +29,21 @@
                  #{now_date} >= pay.pay_date
                AND pay.pay_date > #{before_date}
              ) sub ON sub.movie_pk = mv.movie_pk
-        <if test="BorA==after">    <!-- 현재 상영중인 영화만 출력 -->
-            WHERE #{now_date} > mv.m_sdate AND mv.m_edate > #{now_date}
+
+        WHERE mv.m_edate > #{now_date}
+        <if test='BorA.equals("after")'>    <!-- 현재 상영중인 영화만 출력 -->
+            AND #{now_date} > mv.m_sdate
         </if>
-        <if test="BorA==before">    <!-- 개봉 예정 영화만 출력 -->
-            WHERE mv.m_sdate > #{now_date}
+        <if test='BorA.equals("before")'>    <!-- 개봉 예정 영화만 출력 -->
+            AND mv.m_sdate > #{now_date}
         </if>
         GROUP BY (movie_pk)
-        ORDER BY #{order_stand} desc, m_sdate;
+        <if test='order_stand!=null'>
+            ORDER BY ${order_stand} desc, m_sdate;
+        </if>
+        <if test='order_stand==null'>
+            ORDER BY mv.m_name asc;
+        </if>
     </select>
 
 </mapper>

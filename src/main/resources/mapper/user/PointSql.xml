@@ -4,4 +4,7 @@
     <select id="selectPointByUser" resultType="int" parameterType="int">
         SELECT * FROM point_tb WHERE user_pk=#{user_pk}
     </select>
+    <insert id="insertPointData" parameterType="point" >
+        INSERT INTO point_tb VALUES (#{point_pk},#{user_pk},#{po_point},#{po_date});
+    </insert>
 </mapper>

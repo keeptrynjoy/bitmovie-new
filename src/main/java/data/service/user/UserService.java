@@ -1,15 +1,15 @@
 package data.service.user;
 
+import data.domain.user.LikeRevw;
 import data.domain.movie.Review;
+import data.domain.user.Report;
 import data.domain.user.User;
 import data.repository.movie.ReviewRepository;
+import data.repository.user.LikeRevwRepository;
+import data.repository.user.ReportRepository;
 import data.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +19,8 @@ import java.util.Map;
 public class UserService {
     private final UserRepository userRepository;
     private final ReviewRepository reviewRepository;
+    private final LikeRevwRepository likeRevwRepository;
+    private final ReportRepository reportRepository;
 
     //로그인 (id, password 체크)
     public Map<String, Object> selectLogin (Map<String, String> map) {
@@ -48,11 +50,11 @@ public class UserService {
     public void insertUser (User user) {
         userRepository.insertUser(user);
     }
-    //비밀번호 변경할 때 아이디 참조해서 기존 비밀번호 가져오기(입력한 비밀번호와 일치하는 지 확인용)
-    public boolean selectPass (String u_id, String u_pass) {
-        String pass = userRepository.selectPass(u_id);
+    //비밀번호 변경할 때 아이디 참조해서 기존 비밀번호 가져오기(기존 비밀번호와 일치하면 비밀번호 변경불가)
+    public boolean selectPass (User user) {
+        String pass = userRepository.selectPass(user);
         boolean check = false;
-        if (pass == u_pass) {
+        if (pass.equals(user.getU_pass())) {
             check = true;
         }
         return check;
@@ -112,4 +114,23 @@ public class UserService {
         reviewRepository.deleteReview(review_pk);
     }
 
+    // 평점 좋아요
+    public void insertLikeRevw(LikeRevw likeRevw){
+        likeRevwRepository.insertLikeRevw(likeRevw);
+    }
+
+    // 평점 좋아요 취소
+    public void deleteLikeRevw(LikeRevw likeRevw){
+        likeRevwRepository.deleteLikeRevw(likeRevw);
+    }
+
+    // 평점 신고하기
+    public void insertReport(Report report) {
+        reportRepository.insertReport(report);
+    }
+
+    // 평점 신고 취소하기
+    public void deleteReport(Report report) {
+        reportRepository.deleteReport(report);
+    }
 }
