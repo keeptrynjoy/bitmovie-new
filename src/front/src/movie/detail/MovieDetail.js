@@ -69,10 +69,9 @@ function MovieDetail(props) {
                     </div>
                     <button type={"button"} className={"bookingBtn"}>예매하기</button>
                 </div>
-                <div className={"prevideo"}>영화예고편 자리</div>
                 <div className={"story"}>
                     <ReactPlayer
-                        url={process.env.PUBLIC_URL + 'https://www.youtube.com/watch?v=ijUsSpRVhBU'}
+                        url={process.env.PUBLIC_URL + `https://www.youtube.com/watch?v=${movie_data.m_video}`}
                         width='100%'
                         height='400px'
                         playing={true}

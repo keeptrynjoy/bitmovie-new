@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.repository.movie.ReviewRepository">
+
+    <!--  평점 등록  -->
     <insert id="insertReview" parameterType="Review">
         INSERT INTO review_tb (review_pk, movie_pk, user_pk, revw_star, revw_text)
         VALUES (null, #{movie_pk}, #{user_pk}, #{revw_star}, #{revw_text});
     </insert>
 
+    <!--  평점 수정  -->
     <update id="updateReview" parameterType="Review">
         UPDATE review_tb
         SET revw_star = #{revw_star},
@@ -13,6 +16,7 @@
         WHERE review_pk = #{review_pk};
     </update>
 
+    <!--  평점 삭제  -->
     <delete id="deleteReview" parameterType="String">
         DELETE review_tb
         WHERE review_pk = #{review_pk}
