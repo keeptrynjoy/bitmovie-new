@@ -58,7 +58,7 @@ public class PaymentController {
 //        System.out.println(amount);
 
         try {
-            int my_point = myPageService.selectPoint("1");
+            int my_point = myPageService.selectPoint(1);
             int used_point = payment.getPay_use_point();
 
             //3-1. 사용된 포인트가 유저가 기존에 보유한 포인트보다 많을 경우
