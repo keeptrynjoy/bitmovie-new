@@ -1,25 +1,22 @@
 package data.domain.user;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
 import org.apache.ibatis.type.Alias;
+import org.springframework.format.annotation.DateTimeFormat;
 
-@Data
-@Alias("point")
-@Builder(builderMethodName = "pointBuilder")
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Alias("point")
 public class Point {
-
-    private int movie_pk;
-    private String m_name;
-    private String m_type;
-    private String m_sdate;
-    private String m_edate;
-    private int m_runtime;
-    private String m_age_grd;
-    private String m_info;
-    private String m_photo;
+    private int point_pk;
+    private int user_pk;
+    private int po_point;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime po_date;
 }
