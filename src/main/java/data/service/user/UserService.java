@@ -1,11 +1,15 @@
 package data.service.user;
 
+import data.domain.movie.Review;
 import data.domain.user.User;
+import data.repository.movie.ReviewRepository;
 import data.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +18,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final ReviewRepository reviewRepository;
 
     //로그인 (id, password 체크)
     public Map<String, Object> selectLogin (@RequestBody Map<String, String> map) {
@@ -74,4 +79,37 @@ public class UserService {
     public int selectFindPass (Map<String, String> map) {
         return userRepository.selectFindPass(map);
     }
+
+    // 영화 평점 등록
+    public void insertReview(String movie_pk, String user_pk, String revw_star, String revw_text) {
+
+        reviewRepository.insertReview(
+                Review.reviewBuilder()
+                        .movie_pk(Integer.parseInt(movie_pk))
+                        .user_pk(Integer.parseInt(user_pk))
+                        .revw_star(Float.parseFloat(revw_star))
+                        .revw_text(revw_text)
+                        .build()
+
+        );
+
+    }
+
+    // 영화 평점 수정
+    public void updateReview(String review_pk, String revw_star, String revw_text) {
+
+        reviewRepository.updateReview(
+                Review.reviewBuilder()
+                        .review_pk(Integer.parseInt(review_pk))
+                        .revw_star(Float.parseFloat(revw_star))
+                        .revw_text(revw_text)
+                        .build()
+        );
+    }
+
+    // 영화 평점 삭제
+    public void deleteReview(String review_pk) {
+        reviewRepository.deleteReview(review_pk);
+    }
+
 }
