@@ -26,10 +26,10 @@ public class UserController {
         userService.insertUser(user);
     }
 
-    //비밀번호 변경할 때 아이디 참조해서 기존 비밀번호 가져오기(입력한 비밀번호와 일치하는 지 확인용)
+    //비밀번호 변경할 때 아이디 참조해서 기존 비밀번호 가져오기(기존 비밀번호와 일치하면 비밀번호 변경불가)
     @PostMapping("/selectpass")
-    public boolean selectPass(@RequestBody String u_id, String u_pass) {
-        return userService.selectPass(u_id, u_pass);
+    public boolean selectPass(@RequestBody User user) {
+        return userService.selectPass(user);
     }
 
     //비밀번호 변경
