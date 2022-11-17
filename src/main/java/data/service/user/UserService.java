@@ -48,11 +48,11 @@ public class UserService {
     public void insertUser (User user) {
         userRepository.insertUser(user);
     }
-    //비밀번호 변경할 때 아이디 참조해서 기존 비밀번호 가져오기(입력한 비밀번호와 일치하는 지 확인용)
-    public boolean selectPass (String u_id, String u_pass) {
-        String pass = userRepository.selectPass(u_id);
+    //비밀번호 변경할 때 아이디 참조해서 기존 비밀번호 가져오기(기존 비밀번호와 일치하면 비밀번호 변경불가)
+    public boolean selectPass (User user) {
+        String pass = userRepository.selectPass(user);
         boolean check = false;
-        if (pass == u_pass) {
+        if (pass.equals(user.getU_pass())) {
             check = true;
         }
         return check;

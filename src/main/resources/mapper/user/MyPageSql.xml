@@ -68,7 +68,6 @@
     <select id="selectPointDetail" parameterType="int" resultType="MyPage">
         SELECT
             u.user_pk AS user,
-            p.po_plusminus AS in_decrease,
             p.po_point AS inDePoint,
             p.po_date AS pDate,
             SUM(p.po_point) OVER(ORDER BY p.po_date) AS sumPoint
@@ -77,6 +76,6 @@
     </select>
     <!--마이페이지 포인트 갱신-->
     <update id="updatePoint" parameterType="Map">
-        UPDATE user_tb SET u_point = u_point - #{setPoint} WHERE user_pk = #{user_pk}
+        UPDATE user_tb SET u_point = u_point + #{setPoint} WHERE user_pk = #{user_pk}
     </update>
 </mapper>
