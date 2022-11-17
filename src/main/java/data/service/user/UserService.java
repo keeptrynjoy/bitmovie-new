@@ -21,7 +21,7 @@ public class UserService {
     private final ReviewRepository reviewRepository;
 
     //로그인 (id, password 체크)
-    public Map<String, Object> selectLogin (@RequestBody Map<String, String> map) {
+    public Map<String, Object> selectLogin (Map<String, String> map) {
         int yesOrNo = userRepository.selectLogin(map);
         int u_pk = 0;
         int pwUdtDate = 0;
@@ -45,11 +45,11 @@ public class UserService {
         return userRepository.searchId(u_id);
     }
     //회원가입
-    public void insertUser (@RequestBody User user) {
+    public void insertUser (User user) {
         userRepository.insertUser(user);
     }
     //비밀번호 변경할 때 아이디 참조해서 기존 비밀번호 가져오기(입력한 비밀번호와 일치하는 지 확인용)
-    public boolean selectPass (@RequestBody String u_id, String u_pass) {
+    public boolean selectPass (String u_id, String u_pass) {
         String pass = userRepository.selectPass(u_id);
         boolean check = false;
         if (pass == u_pass) {
@@ -58,7 +58,7 @@ public class UserService {
         return check;
     }
     //비밀번호 변경
-    public void updatePass (@RequestBody Map<String, String> map) {
+    public void updatePass (Map<String, String> map) {
         userRepository.updatePass(map);
     }
     //회원 삭제(상태 변경)

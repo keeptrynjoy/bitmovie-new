@@ -19,8 +19,9 @@ function MovieDetail(props) {
     const getData =()=>{
         axios.get(getMovieUrl)
             .then((res)=>{
-                setMovie_data(res.data);
-                setMovie_photo(res.data.m_photo.split(","));
+                setMovie_data(res.data.data);
+                console.log(res.data);
+                setMovie_photo(res.data.data.m_photo.split(","));
             })
     }
 
