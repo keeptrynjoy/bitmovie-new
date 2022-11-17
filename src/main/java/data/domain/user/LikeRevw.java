@@ -1,11 +1,13 @@
-package data.domain.movie;
+package data.domain.user;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.apache.ibatis.annotations.Mapper;
 
 @Setter
 @Getter
+@Builder(builderMethodName = "likeRevwBuilder")
+@NoArgsConstructor
+@AllArgsConstructor
 public class LikeRevw {
 
     private int review_pk;

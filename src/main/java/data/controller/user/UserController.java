@@ -1,5 +1,7 @@
 package data.controller.user;
 
+import data.domain.user.LikeRevw;
+import data.domain.user.Report;
 import data.domain.user.User;
 import data.service.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -74,5 +76,30 @@ public class UserController {
     @GetMapping("/deleteReview")
     public void deleteReview(String review_pk) {
         userService.deleteReview(review_pk);
+    }
+
+    // 평점 좋아요
+    @GetMapping("/insertLikeRevw")
+    public void insertLikeRevw(@RequestBody LikeRevw likeRevw){
+        userService.insertLikeRevw(likeRevw);
+    }
+
+    // 평점 좋아요 취소
+    @GetMapping("/deleteLikeRevw")
+    public void deleteLikeRevw(@RequestBody LikeRevw likeRevw) {
+        userService.deleteLikeRevw(likeRevw);
+    }
+
+    // 평점 신고하기
+    @GetMapping("/insertReport")
+    public void insertReport(@RequestBody Report report) {
+        userService.insertReport(report);
+    }
+
+
+    // 평점 신고 취소하기
+    @GetMapping("/deleteReport")
+    public void deleteReport(@RequestBody Report report) {
+        userService.deleteReport(report);
     }
 }

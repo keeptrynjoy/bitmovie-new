@@ -2,6 +2,7 @@ package data.controller.movie;
 
 import data.domain.movie.Cast;
 import data.domain.movie.JoinMovie;
+import data.domain.movie.JoinRevw;
 import data.domain.movie.Movie;
 import data.service.movie.MovieService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ public class MovieController {
 
     // 영화 상세 정보 출력
     @GetMapping("/selectMovieData")
-    public Map<String,Object> selectMovieData(@RequestParam String movie_pk) {
+    public Map<String, Object> selectMovieData(@RequestParam String movie_pk) {
 
         // 영화 상세 정보
         Movie movie_data = movieService.selectMovieData(movie_pk);
@@ -30,19 +31,20 @@ public class MovieController {
         List<Cast> cast_list = movieService.selectCastList(movie_pk);
 
         // 영화 평점 정보
-
+        List<JoinRevw> review_list = movieService.selectJoinRevw(movie_pk);
 
         // front 로 데이터 전달
         Map<String, Object> map = new HashMap<>();
-        map.put("data",movie_data);
-        map.put("cast",cast_list);
+        map.put("data", movie_data);
+        map.put("cast", cast_list);
+        map.put("revw", review_list);
         return map;
     }
 
     // 영화 리스트 출력
     @GetMapping("/selectMovieList")
-    public List<JoinMovie> selectMovieList(@RequestParam(defaultValue = "m_name") String order_stand,
-                                           @RequestParam(defaultValue = "null")String BorA) {
+    public List<JoinMovie> selectMovieList(@RequestParam(defaultValue = "null") String order_stand,
+                                           @RequestParam(defaultValue = "before") String BorA) {
         /*  front 에서 넘겨줄 값 - 아래의 형식으로 전달 바랍니다
             order_stand : 정렬 기준
             - 예매율순 인경우 "reserve_rate"
