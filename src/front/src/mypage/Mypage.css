@@ -136,18 +136,32 @@ div.lower-info-div .sidebar-menu {
     height: 100%;
 }
 
+div.lower-info-div .sidebar-menu ul {
+
+}
+
 .sidebar-menu .sidebar-menu-title {
-    width: 100%;
+    margin-top: 30px;
+    text-align: center;
     height: 110px;
     vertical-align: center;
-    font-size: 60px;
+    font-size: 50px;
+}
+
+b.sidebar-menu-subtitle {
+    margin-top: 10px;
+    font-size: 35px;
+    height: 100px;
 }
 
 .sidebar-menu li {
-    font-size: 25px;
+    width: 280px;
+    font-size: 20px;
     list-style: none;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    padding-left: 10px;
 }
 
 .menu-items {
@@ -155,14 +169,10 @@ div.lower-info-div .sidebar-menu {
 }
 
 .menu-items:hover {
-    background-color: yellow;
+    background-color: silver;
+    box-shadow: darkgray 3px 3px 3px;
 }
 
-b.sidebar-menu-subtitle {
-    margin-top: 10px;
-    font-size: 45px;
-    height: 100px;
-}
 
 div.lower-info-div .mypage-contents {
     width: 900px;
@@ -172,7 +182,7 @@ div.lower-info-div .mypage-contents {
 div.mypage-contents-title{
     width: 90%;
     height: 70px;
-    font-size: 40px;
+    font-size: 25px;
     border-bottom: 3px solid black;
 }
 

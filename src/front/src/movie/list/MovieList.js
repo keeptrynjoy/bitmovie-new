@@ -3,13 +3,24 @@ import "./MovieList.css"
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import MovieCard from "../MovieCard";
-import {Button, Divider, ScopedCssBaseline} from "@mui/material";
+import {Button, Divider, Pagination, ScopedCssBaseline} from "@mui/material";
 import {FavoriteBorderOutlined} from "@material-ui/icons";
+import usePagination from "../../service/UsePagination";
 
 function MovieList(props) {
     const navi = useNavigate();
 
     const [mlist, setMlist] = useState([]);
+    let [page, setPage] = useState(1);
+    const PER_PAGE = 20;
+
+    const count = Math.ceil(mlist.length / PER_PAGE);
+    const _DATA = usePagination(mlist, PER_PAGE);
+
+    const handleChange = (e, p) => {
+        setPage(p);
+        _DATA.jump(p);
+    };
 
     const ListUrl = localStorage.url + "/movie/selectMovieList?";
 
@@ -33,7 +44,7 @@ function MovieList(props) {
             </div>
             <h1 style={{textAlign:'center', marginTop:'100px', marginBottom:'50px'}}>영화리스트</h1>
             <div className={'mplist'}>
-                {mlist.map((item,i) => (
+                {mlist && _DATA.currentData().map((item,i) => (
                     <div className={"movie-list-items"} key={i}>
                         <MovieCard movie_data={item}/>
                         <div className={"movie-card-text"}>
@@ -65,6 +76,14 @@ function MovieList(props) {
                         </div>
                     </div>
                 ))}
+            </div>
+            <div className={"table-pagination"}>
+                <Pagination
+                    count={count}
+                    size="large"
+                    page={page}
+                    onChange={handleChange}
+                />
             </div>
         </div>
     );
