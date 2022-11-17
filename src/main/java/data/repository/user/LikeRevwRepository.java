@@ -1,7 +1,7 @@
 package data.repository.user;
 
 
-import data.domain.movie.LikeRevw;
+import data.domain.user.LikeRevw;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

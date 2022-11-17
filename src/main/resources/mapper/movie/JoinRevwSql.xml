@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.repository.movie.JoinRevwRepository">
+
+    <!--  해당 영화의 평점 나열  -->
+    <select id="selectJoinRevw" parameterType="String" resultType="JoinRevw">
+        sELECT rv.review_pk,
+               rv.movie_pk,
+               rv.user_pk,
+               rv.revw_star,
+               rv.revw_text,
+               count(lik.user_pk) AS count_like,
+               count(rp.user_pk)  AS count_report
+        FROM review_tb rv
+                 left outer join likerevw_tb lik on rv.review_pk = lik.review_pk
+                 left outer join report_tb rp on rv.review_pk = rp.review_pk
+        WHERE rv.movie_pk = #{movie_pk}
+        GROUP BY rv.review_pk;
+    </select>
+
+</mapper>
