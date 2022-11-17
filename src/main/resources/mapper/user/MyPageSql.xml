@@ -75,7 +75,7 @@
         WHERE u.user_pk = #{user_pk}
     </select>
     <!--마이페이지 포인트 갱신-->
-    <update id="updatePoint" parameterType="Map">
-        UPDATE user_tb SET u_point = u_point + #{setPoint} WHERE user_pk = #{user_pk}
+    <update id="updatePoint" parameterType="point">
+        UPDATE user_tb SET u_point = u_point + #{po_point} WHERE user_pk = #{user_pk}
     </update>
 </mapper>

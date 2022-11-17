@@ -1,11 +1,13 @@
 package data.controller.user;
 
 import data.domain.user.MyPage;
+import data.domain.user.Point;
 import data.domain.user.User;
 import data.service.user.MyPageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +50,7 @@ public class MyPageController {
     }
     //마이페이지 포인트 갱신
     @GetMapping("/updatePoint")
-    public void updatePoint (Map<String, Object> map) {
-        myPageService.updatePoint(map);
+    public void updatePoint (Point point) {
+        myPageService.updatePoint(point);
     }
 }
