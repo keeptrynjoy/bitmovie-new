@@ -92,7 +92,7 @@ public class PaymentService {
 
         String response = gson.fromJson(br.readLine(), Map.class).get("response").toString();
 
-        System.out.println(response);
+//        System.out.println(response);
 
         String token = gson.fromJson(response, Map.class).get("access_token").toString();
 

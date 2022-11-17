@@ -3,16 +3,19 @@ package data.controller.pay;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import data.domain.pay.Booking;
 import data.domain.pay.Payment;
+import data.domain.user.Point;
 import data.domain.user.User;
 import data.repository.pay.PaymentRepository;
 import data.service.pay.BookingService;
 import data.service.pay.PaymentService;
 import data.service.user.MyPageService;
+import data.service.user.PointService;
 import data.service.user.UserService;
 import lombok.*;
 import lombok.extern.log4j.Log4j;
@@ -22,6 +25,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 @RestController
 @RequestMapping("/payment")
@@ -35,17 +39,18 @@ public class PaymentController {
 
     private final BookingService bookingService;
 
+    private final PointService pointService;
+
     //결제 성공 후 호출 메서드
     @PostMapping("/complete")
     public ResponseEntity<String> paymentComplete(@RequestBody JsonNode json_node) throws IOException {
 
         // 방법1.jackson 사용
-        ObjectMapper mapper =new ObjectMapper();
+        ObjectMapper mapper =new ObjectMapper().registerModule(new JavaTimeModule());
 
         Payment payment = mapper.treeToValue(json_node.get("payment"),Payment.class);
         Booking booking = mapper.treeToValue(json_node.get("booking"),Booking.class);
 
-//        System.out.println(object_node);
 //        System.out.println(payment.getImp_uid());
 //        System.out.println(booking.getBooking_pk());
 
@@ -55,27 +60,35 @@ public class PaymentController {
 
         //2. 토큰으로 결제 완료된 주문 정보 호출하여 결제 완료된 금액
         int amount = paymentService.paymentInfo(payment.getImp_uid(), token);
-//        System.out.println(amount);
+        System.out.println(amount);
 
         try {
-            int my_point = myPageService.selectPoint(1);
+
+            int my_point = myPageService.selectPoint(payment.getUser_pk());
             int used_point = payment.getPay_use_point();
 
             //3-1. 사용된 포인트가 유저가 기존에 보유한 포인트보다 많을 경우
             if (my_point < used_point) {
                 paymentService.paymentCancle(token, payment.getImp_uid(), amount, "사용 가능 포인트 부족");
                 return new ResponseEntity<String>("[결제 취소] 사용가능한 포인트가 부족합니다.", HttpStatus.BAD_REQUEST);
+            } else {
+                //3-2. point 차감
+
             }
 
-            //4. 특별한 문제가 없을 경우 payment 데이터 저장
+            //5. payment(결제) 데이터 저장
             paymentService.insertPaymentData(payment);
 
-            //5. booking 데이터 저장
+            //6. booking(예매) 데이터 저장
             bookingService.insertBookingData(booking);
+
+            //8. point(point_tb,user_tb) 적립
+            pointService.accumulatePoint(payment);
 
             return new ResponseEntity<>("주문이 완료되었습니다", HttpStatus.OK);
         } catch (Exception e){
             paymentService.paymentCancle(token, payment.getImp_uid(),amount,"결제 예러");
+            e.printStackTrace();
             return new ResponseEntity<>("결제 에러", HttpStatus.BAD_REQUEST);
         }
     }

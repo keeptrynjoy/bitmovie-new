@@ -32,7 +32,7 @@ const Payment = (effect, deps) => {
 
             let date = new Date();
 
-            console.log(book_issu_date, book_seat_num, usePoint);
+            let now = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 
             console.log(
                 "페이버튼",
@@ -44,7 +44,7 @@ const Payment = (effect, deps) => {
             IMP.request_pay(
                 {
                     pg: 'kakaopay',
-                    merchant_uid: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}T${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}_${userIdRef.current}`,
+                    merchant_uid: `${now}_${userIdRef}`,
                     name: '결제테스트',
                     amount: finalPriceRef.current - usePoint,
                     buyer_email: userEmailRef.current,
@@ -57,10 +57,10 @@ const Payment = (effect, deps) => {
 
                         const paymentData = {
                             payment_pk: rsp.merchant_uid,
-                            user_pk: 1,
+                            user_pk: userIdRef.current,
                             pay_type: rsp.pay_method,
                             pay_price: rsp.paid_amount,
-                            pay_date: rsp.paid_at,
+                            pay_date: date,
                             mycoupon_pk: 'N',
                             pay_use_point: usePoint,
                             pay_state: rsp.status,
@@ -72,7 +72,7 @@ const Payment = (effect, deps) => {
                             scrtime_pk,
                             book_seat_num,
                             book_the_name,
-                            book_issu_date: rsp.paid_at,
+                            book_issu_date: date,
                             book_adult_cnt,
                             book_youth_cnt
                         }
@@ -116,19 +116,19 @@ const Payment = (effect, deps) => {
                 <select value={book_seat_num} onChange={(e)=>{
                     setBookSeatNum(e.target.value)
                 }}>{createSeatNum()}</select><br/>
-                상영시간표 고유키
+                상영시간표 고유키(int)
                 <input type={'number'}  onChange={(e) => (
                     setScrTimePk(e.target.value)
                 )}/><br/>
-                극장명
+                극장명(String)
                 <input type={'text'}  onChange={(e) => (
                     setBookTheName(e.target.value)
                 )}/><br/>
-                일반수
+                일반수(int)
                 <input type={'number'} onChange={(e) => (
                     setBookAdultCnt(e.target.value)
                 )}/><br/>
-                청소년수
+                청소년수(int)
                 <input type={'number'}onChange={(e) => (
                     setBookYouthCnt(e.target.value)
                 )}/><br/>
@@ -137,19 +137,19 @@ const Payment = (effect, deps) => {
             <br/>
             <div>
                 <h1>결제정보</h1>
-                유저아이디
+                user_pk(int)
                 <input type={'text'} ref={userIdRef} onChange={(e) => (
                     userIdRef.current = e.target.value
                 )}/><br/>
-                포인트 사용
+                포인트 사용(int, + - 로 기입)
                 <input type={'number'} onChange={(e) => (
                    setUsePoint(e.target.value)
                 )}/><br/>
-                결제금액
+                결제금액(int)
                 <input type={'number'} ref={finalPriceRef}onChange={(e) => (
                     finalPriceRef.current = e.target.value
                 )}/><br/>
-                구매자 이름
+                구매자 이름(String)
                 <input type={'text'} ref={userNameRef}  onChange={(e) => (
                     userNameRef.current = e.target.value
                 )}/><br/>
