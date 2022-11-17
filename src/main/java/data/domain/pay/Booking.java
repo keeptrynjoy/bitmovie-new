@@ -2,11 +2,15 @@ package data.domain.pay;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.Alias;
 
 import java.sql.Timestamp;
 
-@Data
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Alias("booking")
 public class Booking {
     private int booking_pk;

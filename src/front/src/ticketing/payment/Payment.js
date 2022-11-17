@@ -54,8 +54,6 @@ const Payment = (effect, deps) => {
                 },(rsp) => {
                     // callback
                     if (rsp.success) {
-                        //결제-예매 insert 요청을 순차 비동기 처리하기 위해 async/await 사용.
-                        //참고: https://narup.tistory.com/216
 
                         const paymentData = {
                             payment_pk: rsp.merchant_uid,
@@ -79,12 +77,14 @@ const Payment = (effect, deps) => {
                             book_youth_cnt
                         }
 
-                        axios.post("http://localhost:8282/payment/complete", {
-                            "payment":paymentData, "booking": bookingData
+                        axios.post("http://localhost:8282/payment/complete",
+                            {"payment":paymentData, "booking": bookingData}
+                        , {
+                            headers: { "Content-Type": "application/json"}
                         }).then(res => {
-                            console.log(res.data);
+                            alert(res.data);
                         }).catch(error=>{
-                            console.log(error.response.data);
+                            alert(error.response.data);
                         });
 
                     } else {
