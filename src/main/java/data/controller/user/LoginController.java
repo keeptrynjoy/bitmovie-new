@@ -22,10 +22,4 @@ public class LoginController {
     @GetMapping("/updatepassdate")
     public void updatePassDate (String u_id) {
         userService.updatePassDate(u_id);}
-
-    @ResponseBody
-    @PostMapping("/certification")
-    public void certification (@RequestBody String imp_uid) {
-        System.out.println(imp_uid);
-    }
 }
