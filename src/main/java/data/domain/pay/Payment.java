@@ -5,7 +5,7 @@ import org.apache.ibatis.type.Alias;
 
 import java.sql.Timestamp;
 
-@Builder
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Alias("payment")

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.repository.movie.ReviewRepository">
+    <insert id="insertReview" parameterType="Review">
+        INSERT INTO review_tb (review_pk, movie_pk, user_pk, revw_star, revw_text)
+        VALUES (null, #{movie_pk}, #{user_pk}, #{revw_star}, #{revw_text});
+    </insert>
+
+    <update id="updateReview" parameterType="Review">
+        UPDATE review_tb
+        SET revw_star = #{revw_star},
+            revw_text = #{revw_text}
+        WHERE review_pk = #{review_pk};
+    </update>
+
+    <delete id="deleteReview" parameterType="String">
+        DELETE review_tb
+        WHERE review_pk = #{review_pk}
+    </delete>
+</mapper>

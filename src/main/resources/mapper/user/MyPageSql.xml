@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.repository.user.MyPageRepository">
     <!--마이페이지 유저 정보 출력-->
-    <select id="selectUser" parameterType="String" resultType="User">
+    <select id="selectUser" parameterType="int" resultType="User">
         SELECT *
         FROM user_tb WHERE user_pk = #{user_pk}
     </select>
@@ -66,8 +66,17 @@
     </select>
     <!--마이페이지 포인트 적립/소멸 내역 조회-->
     <select id="selectPointDetail" parameterType="String" resultType="MyPage">
-        SELECT p.po_point AS point, p.po_plusminus AS increase, p.po_date AS po_date, u.u_point AS u_point
-        FROM point_tb p JOIN user_tb u ON u.user_pk = p.user_pk
+        SELECT
+            u.user_pk AS user,
+            p.po_plusminus AS in_decrease,
+            p.po_point AS inDePoint,
+            p.po_date AS pDate,
+            SUM(p.po_point) OVER(ORDER BY p.po_date) AS sumPoint
+        FROM user_tb u JOIN point_tb p ON u.user_pk = p.user_pk
         WHERE u.user_pk = #{user_pk}
     </select>
+    <!--마이페이지 포인트 갱신-->
+    <update id="updatePoint" parameterType="Map">
+        UPDATE user_tb SET u_point = u_point - #{setPoint} WHERE user_pk = #{user_pk}
+    </update>
 </mapper>
