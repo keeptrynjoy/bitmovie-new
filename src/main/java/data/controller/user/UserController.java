@@ -1,6 +1,7 @@
 package data.controller.user;
 
 import data.domain.user.LikeRevw;
+import data.domain.user.MWish;
 import data.domain.user.Report;
 import data.domain.user.User;
 import data.service.user.UserService;
@@ -30,7 +31,9 @@ public class UserController {
 
     //비밀번호 변경할 때 아이디 참조해서 기존 비밀번호 가져오기(기존 비밀번호와 일치하면 비밀번호 변경불가)
     @PostMapping("/selectpass")
-    public boolean selectPass(@RequestBody User user) { return userService.selectPass(user); }
+    public boolean selectPass(@RequestBody User user) {
+        return userService.selectPass(user);
+    }
 
     //비밀번호 변경
     @PostMapping("/updatepass")
@@ -40,7 +43,9 @@ public class UserController {
 
     //회원 삭제(상태 변경)
     @GetMapping("/delete")
-    public void deleteUser(String u_id) { userService.deleteUser(u_id); }
+    public void deleteUser(String u_id) {
+        userService.deleteUser(u_id);
+    }
 
     //아이디 찾기
     @GetMapping("/findid")
@@ -75,7 +80,7 @@ public class UserController {
 
     // 평점 좋아요
     @GetMapping("/insertLikeRevw")
-    public void insertLikeRevw(@RequestBody LikeRevw likeRevw){
+    public void insertLikeRevw(@RequestBody LikeRevw likeRevw) {
         userService.insertLikeRevw(likeRevw);
     }
 
@@ -95,5 +100,17 @@ public class UserController {
     @GetMapping("/deleteReport")
     public void deleteReport(@RequestBody Report report) {
         userService.deleteReport(report);
+    }
+
+    // 영화 좋아요
+    @GetMapping("/insertMWish")
+    public void insertMWish(@RequestBody MWish mWish) {
+        userService.isnertMWish(mWish);
+    }
+
+    // 영화 좋아요 취소
+    @GetMapping("/deleteMWish")
+    public void deleteMWish(@RequestBody MWish mWish) {
+        userService.deleteMWish(mWish);
     }
 }
