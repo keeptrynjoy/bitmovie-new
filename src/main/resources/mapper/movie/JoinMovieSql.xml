@@ -38,10 +38,10 @@
             AND mv.m_sdate > #{now_date}
         </if>
         GROUP BY (movie_pk)
-        <if test='order_stand!=null'>
+        <if test='!(order_stand.equals("null"))'>
             ORDER BY ${order_stand} desc, m_sdate;
         </if>
-        <if test='order_stand==null'>
+        <if test='order_stand.equals("null")'>
             ORDER BY mv.m_name asc;
         </if>
     </select>
