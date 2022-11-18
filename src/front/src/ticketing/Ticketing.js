@@ -13,12 +13,15 @@ function Ticketing(props) {
         return <div>{dateFns.format(new Date(), "yyyy-MM-dd")}</div>;
     };
     return (
-        <div>
-            <div className={'tkbt'}>
-            <button className={'tkmenu'}>상영시간표</button>
-            <button className={'tkmenu2'}>예매 다시하기</button>
-            </div>
+
+        <div className={'whole'}>
+
             <div className={'tktable'}>
+                <div className={'tkbt'}>
+                    <button className={'tkmenu'}>상영시간표</button>
+                    <button className={'tkmenu2'}>초기화</button>
+                </div>
+                <div className={'together'}>
                 <div className={'selectmv'}>
                     {mvlist.map((list,i) => (
                         <div key={i}>DB에서 넘어올 영화리스트</div>
@@ -32,10 +35,13 @@ function Ticketing(props) {
                 <div className={'selectday'}><Calender/></div>
 
                 <div className={'selecttime'}></div>
-
+                </div>
                 <button type={"button"} className={'selectseat'} onClick={() => navi("/ticketing/selectseat")} >좌석선택</button>
 
             </div>
+
+
+
 
         </div>
     );
