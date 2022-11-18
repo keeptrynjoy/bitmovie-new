@@ -8,18 +8,21 @@ import MovieList from "./MovieList";
 function Ticketing(props) {
     const navi = useNavigate();
 
+    const refresh=()=>{
+        window.location.reload();
+    }
+
     const [mloc,setMloc] = useState(Array.from({length:5}));
     const index = () => {
         return <div>{dateFns.format(new Date(), "yyyy-MM-dd")}</div>;
     };
     return (
-
         <div className={'whole'}>
 
             <div className={'tktable'}>
                 <div className={'tkbt'}>
-                    <button className={'tkmenu'}>상영시간표</button>
-                    <button className={'tkmenu2'}>초기화</button>
+                    <button className={'tkmenu'} onClick={()=> navi("/ticketing/timetable")}>상영시간표</button>
+                    <button className={'tkmenu2'} onClick={()=>refresh()}>초기화</button>
                 </div>
                 <div className={'together'}>
                 <div className={'selectmv'}>

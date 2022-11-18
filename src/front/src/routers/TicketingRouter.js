@@ -5,6 +5,7 @@ import SelectSeat from "../ticketing/booking/SelectSeat";
 import Ticketing from "../ticketing/booking/Ticketing";
 import BookingTest from "../ticketing/BookingTest";
 import Calender from "../ticketing/booking/Calender";
+import TimeTable from "../ticketing/timetable/TimeTable";
 
 function TicketingRouter(props) {
     return (
@@ -14,6 +15,7 @@ function TicketingRouter(props) {
                 <Route path={"/test"} element={<BookingTest/>}/>
                 <Route path={"payment"} element={<Payment/>}/>
                 <Route path={"selectseat"} element={<SelectSeat/>}/>
+                <Route path={"timetable"} element={<TimeTable/>}/>
                 <Route path={"calender"} element={<Calender/>}/>
                 <Route path={"*"} element={
                     <div>
