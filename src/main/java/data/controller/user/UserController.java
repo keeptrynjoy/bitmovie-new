@@ -58,7 +58,12 @@ public class UserController {
     @GetMapping("/insertReview")
     public void insertReview(String movie_pk, String user_pk, String revw_star,
                              @RequestParam(defaultValue = "") String revw_text) {
+        System.out.println(movie_pk);
+        System.out.println(user_pk);
+        System.out.println(revw_star);
+        System.out.println(revw_text);
         userService.insertReview(movie_pk, user_pk, revw_star, revw_text);
+
     }
 
     // 영화 평점 수정

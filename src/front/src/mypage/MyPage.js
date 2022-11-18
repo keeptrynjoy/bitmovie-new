@@ -28,12 +28,17 @@ function MyPage(props) {
         getData();
     }, []);
 
+    const triggerInputPhoto=()=>{
+        document.getElementById("profile-photo").click();
+    }
+
     return (
         <div className={"mypage-div"}>
             <div className={"upper-info-div"}>
                 <div className={"photo-div"}>
                     <img alt={"프로필 사진"} src={photo} className={"profile-photo"}/>
-                    <div className={"photo-fix-icon"}>
+                    <input type={"file"} hidden={true} id={"profile-photo"}/>
+                    <div className={"photo-fix-icon"} onClick={triggerInputPhoto}>
                         <EditIcon/>
                     </div>
                 </div>
