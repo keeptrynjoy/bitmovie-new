@@ -47,6 +47,8 @@ function MovieList(props) {
         }else {
             setIn_theater("");
         }
+        setPage(1);
+        _DATA.jump(1);
     }
 
     //시작 데이터 가져오기
@@ -88,27 +90,35 @@ function MovieList(props) {
 
     return (
         <div className={"movie-list-div"}>
-            <h1 className={"list-title"}>영화리스트</h1>
-            <div className={"coming-soon"}>
-                <div className={"movie-chart"}
-                     style={{width:"120px"}}
-                     onClick={()=>{
-                         setIn_theater("");
-                     }}>
-                    {
-                        in_theater!=="before"?<ChevronRight style={{position:"absolute",right:"120px"}}/>:""
-                    }
-                    무비차트
-                </div>
-                <div className={"coming-soon-btn"}
-                     style={{width:"120px"}}
-                     onClick={()=>{
-                         setIn_theater("before");
-                     }}>
-                    {
-                        in_theater==="before"?<ChevronRight style={{position:"absolute",right:"120px"}}/>:""
-                    }
-                    상영 예정작
+            <div style={{textAlign:"center"}}>
+                <h1>영화리스트</h1>
+            </div>
+            <div className={"wtf"}>
+                <div className={"coming-soon"}>
+                    <div className={"movie-chart"}
+                         style={{width:"120px"}}
+                         onClick={()=>{
+                             setIn_theater("");
+                         }}>
+                        {/*<span style={{width:"30px",height:"30px", display:"block"}}>*/}
+                        {/*    {*/}
+                        {/*        in_theater!=="before"?<ChevronRight/>:""*/}
+                        {/*    }*/}
+                        {/*</span>*/}
+                        무비차트
+                    </div>
+                    <div className={"coming-soon-btn"}
+                         style={{width:"120px"}}
+                         onClick={(e)=>{
+                             setIn_theater("before");
+                         }}>
+                        {/*<span style={{width:"30px",height:"30px"}}>*/}
+                        {/*{*/}
+                        {/*    in_theater==="before"?<ChevronRight/>:""*/}
+                        {/*}*/}
+                        {/*</span>*/}
+                        상영 예정작
+                    </div>
                 </div>
             </div>
             <hr style={{width:"85%", margin:"auto", height:"3px", backgroundColor:"black"}}/>
@@ -126,34 +136,34 @@ function MovieList(props) {
                 </span>
                 <span className={"btn-group"}>
                     <ButtonGroup variant="outlined" aria-label="outlined button group">
-                          <Button className={"nameBtn"} onClick={()=>setOrder("")}>이름순</Button>
+                          <Button className={"nameBtn"} onClick={()=>setOrder("m_name")}>이름순</Button>
                           <Button className={'reserveBtn'} onClick={()=>setOrder("reserve_rate")}>예매율순</Button>
                           <Button className={'starBtn'} onClick={()=>setOrder("revw_avgstar")}>평점순</Button>
                     </ButtonGroup>
                 </span>
             </div>
             <div className={"movie-card-list-div"}>
-            <div className={'mplist'}>
-                {mlist && _DATA.currentData().map((item,i) => (
-                    <div className={"movie-list-items"} key={i}>
-                        <MovieCard movie_data={item}/>
-                        <div className={"movie-card-text"}>
-                            <div className={"tit-area"}>
-                                <ScopedCssBaseline/>
-                                <span className={"movie-grade"}>12</span>
-                                <span className={"tit"}>{item.m_name}</span>
-                            </div>
-                            <div className={"rate-date"}>
-                                <span className={"rate"}>예매율 : {item.reserve_rate}%</span>
-                                <span className={"date"}>개봉일 : {item.m_edate}</span>
-                            </div>
-                            <div className={"btn-div"}>
+                <div className={'mplist'}>
+                    {mlist && _DATA.currentData().map((item,i) => (
+                        <div className={"movie-list-items"} key={i}>
+                            <MovieCard movie_data={item}/>
+                            <div className={"movie-card-text"}>
+                                <div className={"tit-area"}>
+                                    <ScopedCssBaseline/>
+                                    <span className={"movie-grade"}>12</span>
+                                    <span className={"tit"}>{item.m_name}</span>
+                                </div>
+                                <div className={"rate-date"}>
+                                    <span className={"rate"}>예매율 : {item.reserve_rate}%</span>
+                                    <span className={"date"}>개봉일 : {item.m_sdate}</span>
+                                </div>
+                                <div className={"btn-div"}>
                                 <span className={"like-btn"}>
                                     <Button variant="outlined" startIcon={<FavoriteBorderOutlined />}>
                                     좋아요
                                 </Button>
                                 </span>
-                                <span className={"book-btn"}>
+                                    <span className={"book-btn"}>
                                 <Button
                                     variant={"contained"}
                                     sx={{
@@ -162,19 +172,19 @@ function MovieList(props) {
                                     }}
                                     onClick={() => navi("/ticketing")}>예매</Button>
                                 </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
-            </div>
-            <div className={"table-pagination"}>
-                <Pagination
-                    count={count}
-                    size="large"
-                    page={page}
-                    onChange={handleChange}
-                />
-            </div>
+                    ))}
+                </div>
+                <div className={"table-pagination"}>
+                    <Pagination
+                        count={count}
+                        size="large"
+                        page={page}
+                        onChange={handleChange}
+                    />
+                </div>
             </div>
         </div>
     );

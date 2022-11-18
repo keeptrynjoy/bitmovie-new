@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.repository.user.CouponRepository">
+    <!--생일인 회원키 조회-->
+    <select id="selectBirthUser" resultType="User">
+        SELECT user_pk FROM user_tb WHERE u_birth = CURDATE()
+    </select>
+    <!--생일 쿠폰 생성-->
+    <insert id="insertBirthCoupon" parameterType="Coupon">
+        INSERT INTO coupon_tb (coupon_pk, user_pk, c_class, c_amount, c_issue_date, c_exp_date, c_use_state)
+        SELECT #{coupon_pk}, #{user_pk}, "Birthday", 5000, CURDATE(), ADDDATE(CURDATE(),60), 0
+    </insert>
+</mapper>

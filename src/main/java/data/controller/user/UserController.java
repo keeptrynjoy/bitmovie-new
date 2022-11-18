@@ -1,6 +1,7 @@
 package data.controller.user;
 
 import data.domain.user.LikeRevw;
+import data.domain.user.MWish;
 import data.domain.user.Report;
 import data.domain.user.User;
 import data.service.user.UserService;
@@ -43,7 +44,6 @@ public class UserController {
     //회원 삭제(상태 변경)
     @GetMapping("/delete")
     public void deleteUser(String u_id) {
-        System.out.println(u_id);
         userService.deleteUser(u_id);
     }
 
@@ -63,7 +63,12 @@ public class UserController {
     @GetMapping("/insertReview")
     public void insertReview(String movie_pk, String user_pk, String revw_star,
                              @RequestParam(defaultValue = "") String revw_text) {
+        System.out.println(movie_pk);
+        System.out.println(user_pk);
+        System.out.println(revw_star);
+        System.out.println(revw_text);
         userService.insertReview(movie_pk, user_pk, revw_star, revw_text);
+
     }
 
     // 영화 평점 수정
@@ -80,7 +85,7 @@ public class UserController {
 
     // 평점 좋아요
     @GetMapping("/insertLikeRevw")
-    public void insertLikeRevw(@RequestBody LikeRevw likeRevw){
+    public void insertLikeRevw(@RequestBody LikeRevw likeRevw) {
         userService.insertLikeRevw(likeRevw);
     }
 
@@ -96,10 +101,21 @@ public class UserController {
         userService.insertReport(report);
     }
 
-
     // 평점 신고 취소하기
     @GetMapping("/deleteReport")
     public void deleteReport(@RequestBody Report report) {
         userService.deleteReport(report);
+    }
+
+    // 영화 좋아요
+    @GetMapping("/insertMWish")
+    public void insertMWish(@RequestBody MWish mWish) {
+        userService.isnertMWish(mWish);
+    }
+
+    // 영화 좋아요 취소
+    @GetMapping("/deleteMWish")
+    public void deleteMWish(@RequestBody MWish mWish) {
+        userService.deleteMWish(mWish);
     }
 }

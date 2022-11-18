@@ -7,13 +7,16 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.ComponentScan;
+
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 
 @SpringBootApplication
+@EnableScheduling //스케줄링 기능 활성화
 @ComponentScan({"data.*"})
 @MapperScan({"data.*"})
 public class BitmovieApplication implements Jackson2ObjectMapperBuilderCustomizer {

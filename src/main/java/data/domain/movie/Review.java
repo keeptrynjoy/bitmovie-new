@@ -1,8 +1,8 @@
 package data.domain.movie;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.apache.ibatis.type.Alias;
-
 import java.time.LocalDateTime;
 
 @Setter
@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @ToString
 public class Review {
-
     private int review_pk;
     private int movie_pk;
     private int user_pk;

@@ -30,7 +30,7 @@ public class TheMovieController {
          * 예시) 숫자 1 입력시 순위 1~20인 영화가 저장
          *     숫자 2 입력시 순위 21~40인 영화가 저장
          * */
-        int page_num = 1;
+        int page_num = 3;
 
         //해당 페이지에 있는 영화 id를 반환
         List<Object> movie_id_list = theMovieService.movieListApi(page_num);
@@ -47,6 +47,24 @@ public class TheMovieController {
             theMovieService.updateVideo(movie_id_list.get(i));
             // 해당 영화의 등장인물 정보 저장
             theMovieService.personDataList(movie_id_list.get(i));
+        }
+
+
+        //해당 페이지에 있는 영화 id를 반환
+        List<Object> movie_upcoming_list = theMovieService.movieUpcomoingList(page_num);
+//        System.out.println("controller: list "+movie_id_list);
+
+        for (int i = 0; i < movie_upcoming_list.size(); i++) {
+            // movie_id 를 통해 더무비 에서 제공해주는 영화 상세정보를 db에 저장
+            theMovieService.movieDataSave(movie_upcoming_list.get(i));
+            // movie_id 를 통해 더무비 포스터를 db에 저장
+            theMovieService.updatePhoto(movie_upcoming_list.get(i));
+            // 영어 이름 저장
+            theMovieService.updateEnName(movie_upcoming_list.get(i));
+            // 영화 트레일러 저장
+            theMovieService.updateVideo(movie_upcoming_list.get(i));
+            // 해당 영화의 등장인물 정보 저장
+            theMovieService.personDataList(movie_upcoming_list.get(i));
         }
 
         return "TMDB 작업";
