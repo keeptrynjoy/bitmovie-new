@@ -9,9 +9,6 @@ import './Calender.scss'
 
 const RenderHeader = ({ currentMonth, prevMonth, nextMonth, input, setInput, changeData }) => {
 
-
-
-
     return (
         <div className={"calender-body"}>
             <div className="header row">
@@ -67,7 +64,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, changeData}) => 
             formattedDate = format(day, 'd');
             const cloneDay = day;
             days.push(
-                <div
+                <button
                     className={`col cell ${
                         !isSameMonth(day, monthStart)
                             ? 'disabled'
@@ -78,10 +75,13 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, changeData}) => 
                                     : 'valid'
                     }`}
                     key={day} value={formattedDate}
-                    onClick={() =>
+                    name="calender"
+                    onClick={(e) =>{
                         // onDateClick(parseInt(cloneDay))
-                    changeData()
-                    }
+                        // changeData(e)}
+                        console.log(e.target.value);
+                    }}
+
 
                 >
                     <span
@@ -93,7 +93,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, changeData}) => 
                     >
                         {formattedDate}
                     </span>
-                </div>,
+                </button>,
             );
             day = addDays(day, 1);
         }
@@ -107,7 +107,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, changeData}) => 
     return <div className="body">{rows}</div>;
 };
 
-export const Calender = (props) => {
+const Calender = (props) => {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
     const {input,setInput,changeData}=props;
@@ -130,6 +130,7 @@ export const Calender = (props) => {
             />
             <RenderDays />
             <RenderCells
+                input={input} setInput={setInput} changeData={changeData}
                 currentMonth={currentMonth}
                 selectedDate={selectedDate}
                 onDateClick={onDateClick}
