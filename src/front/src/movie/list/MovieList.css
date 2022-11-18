@@ -1,30 +1,43 @@
 .movie-list-div {
-    position: relative;
+
 }
 
-.list-title {
-    text-align: center;
-    margin-top: 50px;
-    padding-bottom: 30px;
+.wtf {
+    display: flex;
+    justify-content: center;
 }
+
 
 .coming-soon {
+    width: 1300px;
     display: flex;
-    position: relative;
-    height: 40px;
-    justify-content: right;
-    margin-right: 5%;
+    justify-content: flex-end;
+    margin-bottom: 20px;
 }
 
-.coming-soon div {
-    width: 150px;
-    position: absolute;
+.coming-soon .movie-chart{
+    text-align: center;
+    display: inline-block;
+    width: 300px;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
-.coming-soon .movie-chart {
-    right:150px;
+.coming-soon .movie-chart:hover{
+    background-color: gainsboro;
 }
 
+.coming-soon .coming-soon-btn {
+    text-align: center;
+    display: inline-block;
+    width: 300px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.coming-soon .coming-soon-btn:hover {
+    background-color: gainsboro;
+}
 
 .sorting{
     padding-top: 40px;
@@ -54,7 +67,7 @@
 .mplist{
     width: 1500px;
     height: 2400px;
-    margin: auto auto 100px;
+    margin: 50px auto 100px;
     /*border: 3px solid red;*/
     display: flex;
     flex-wrap: wrap;

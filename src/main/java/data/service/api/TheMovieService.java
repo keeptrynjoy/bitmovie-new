@@ -6,6 +6,7 @@ import data.domain.movie.Person;
 import data.repository.movie.CastRepository;
 import data.repository.movie.MovieRepository;
 import data.repository.movie.PersonRepository;
+import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -24,6 +25,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
+@RequiredArgsConstructor
 public class TheMovieService {
 
     static final String TMDB_IMG_URL = "https://image.tmdb.org/t/p/";
@@ -31,12 +33,10 @@ public class TheMovieService {
     static final String TMDB_KEY = "api_key=7a447c04dbde1f8464230be65ef469eb";
     static final String TMDB_KO = "&language=ko";
 
-    @Autowired
-    MovieRepository movieRepository;
-    @Autowired
-    CastRepository castRepository;
-    @Autowired
-    PersonRepository personRepository;
+
+    private final MovieRepository movieRepository;
+    private final CastRepository castRepository;
+    private final PersonRepository personRepository;
 
     //page_num 을 받아 (page_num*20+1)~(page_num*20+21)까지의 영화 고유 번호를 list에 담아 반환
     public List<Object> movieListApi(int page_num) {
@@ -67,10 +67,8 @@ public class TheMovieService {
     //movie id 를 통해 영화 상세정보를 db에 저장
     public void movieDataSave (Object movie_id) {
         //사용되는 변수선언
-        boolean result = false;
         JSONObject jsonObject;
         JSONArray jsonArray;
-
 
 //        for(int i=0; i<movie_id_lsit.size(); i++){
 
@@ -135,7 +133,6 @@ public class TheMovieService {
                             .build()
             );
 
-
 //        }//for
 
     }//movieDataSave
@@ -159,7 +156,6 @@ public class TheMovieService {
         map.put("movie_pk", movie_id);
         movieRepository.updateDataOne(map);
     }//updateEnName
-
 
     // 영화 트레일러 db에 저장
     public void updateVideo(Object movie_id) {
@@ -186,7 +182,6 @@ public class TheMovieService {
             map.put("movie_pk", movie_id);
             movieRepository.updateDataOne(map);
         }
-
     }
 
     // 영화 포스터 db 에 저장.
@@ -226,8 +221,6 @@ public class TheMovieService {
 
     }//updatePhoto
 
-
-
     // 인물 정보 저장
     public Map<String, Object> personDataList(Object movie_id){
         Map<String, Object> map = new HashMap<>();
@@ -266,7 +259,6 @@ public class TheMovieService {
                     per_photo = object.toString();
                 }
                 System.out.println("per_photo: "+per_photo);
-                System.out.println("befoer person");
                 personRepository.insertPersonData(
                         Person.personBuilder()
                                 .person_pk(person_pk)
@@ -277,7 +269,6 @@ public class TheMovieService {
             // cast_tb 에 인물과 영화를 연결하는 정보 저장
             int movie_pk = Integer.parseInt(movie_id.toString());
             String cast_type = jsonObject.get("known_for_department").toString();
-            System.out.println("before - cast");
             System.out.println("movie_pk: "+movie_pk);
             castRepository.insertCast(
                     Cast.castBuilder()
@@ -286,7 +277,6 @@ public class TheMovieService {
                             .person_pk(person_pk)
                             .build()
             );
-            System.out.println("after - cast");
 
             per_id_list_total.add(jsonObject.get("credit_id"));
 //            }//for

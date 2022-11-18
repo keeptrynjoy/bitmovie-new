@@ -142,6 +142,7 @@ function MyPageContents(props) {
 
     return (
         <div className={"mypage-contents-div"}>
+            {console.log(datas)}
             {contentSelector()}
         </div>
     );
