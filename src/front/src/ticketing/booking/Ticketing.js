@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import "./Ticketing.css";
 import {useNavigate} from "react-router-dom";
 import dateFns from "url";
 import Calender from "./Calender";
 import MovieList from "./MovieList";
 import Location from "./Location";
+import TimeTable from "../timetable/TimeTable";
 
 function Ticketing(props) {
     const navi = useNavigate();
@@ -14,6 +15,18 @@ function Ticketing(props) {
     }
     const [input,setInput]=useState([]);
 
+    const changeData=(e)=>{
+        let {name,value}=e.target;
+        setInput({
+                ...input, //기존의 inputs 객체 복사해서 넣음(펼침 연산자)
+                [name]:value //name키에 입력값넣기
+            }
+        )
+    }
+
+    useEffect(()=>{
+        console.log(input);
+    },[input]);
 
 
 
@@ -31,14 +44,14 @@ function Ticketing(props) {
                 </div>
                 <div className={'together'}>
                 <div className={'selectmv'}>
-                    <MovieList/>
+                    <MovieList input={input} setInput={setInput} changeData={changeData}/>
                 </div>
                 <div className={"movielocation"}>
-                <Location/>
+                <Location input={input} setInput={setInput} changeData={changeData} />
                 </div>
-                <div className={'selectday'}><Calender/></div>
+                <div className={'selectday'}><Calender input={input} setInput={setInput} changeData={changeData} /></div>
 
-                <div className={'selecttime'}></div>
+                <div className={'selecttime'}><TimeTable/></div>
                 </div>
                 <button type={"button"} className={'selectseat'} onClick={() => navi("/ticketing/selectseat")} >좌석선택</button>
 

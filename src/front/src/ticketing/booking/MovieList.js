@@ -3,7 +3,10 @@ import './MovieList.css';
 import age from './bookingIMG/15age.png';
 import axios from "axios";
 
-const MovieList = () => {
+const MovieList = (props) => {
+
+    const {input,setInput,changeData}=props;
+
 
     // const [mvlist,setMvlist] = useState(Array.from({ length: 80 }));
     const [mvlist,setMvlist] = useState([]);
@@ -68,7 +71,7 @@ const MovieList = () => {
                             <div>
                                 <img src={age} style={{width:'30px', float:'left'}}/>
                             </div>
-                    <button className={'mvbtn'} key={i} style={{fontSize:'15px'}} value={i+1}>
+                    <button className={'mvbtn'} key={i} style={{fontSize:'15px'}} value={i+1} name={'movie'} onClick={changeData} >
                         {list.m_name}
                     </button>
                         </li>
