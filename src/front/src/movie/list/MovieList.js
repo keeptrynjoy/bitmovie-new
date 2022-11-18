@@ -47,6 +47,10 @@ function MovieList(props) {
         }else {
             setIn_theater("");
         }
+        goToPageOne();
+    }
+
+    const goToPageOne=()=>{
         setPage(1);
         _DATA.jump(1);
     }
@@ -99,6 +103,7 @@ function MovieList(props) {
                          style={{width:"120px"}}
                          onClick={()=>{
                              setIn_theater("");
+                             goToPageOne();
                          }}>
                         {/*<span style={{width:"30px",height:"30px", display:"block"}}>*/}
                         {/*    {*/}
@@ -111,6 +116,7 @@ function MovieList(props) {
                          style={{width:"120px"}}
                          onClick={(e)=>{
                              setIn_theater("before");
+                             goToPageOne();
                          }}>
                         {/*<span style={{width:"30px",height:"30px"}}>*/}
                         {/*{*/}

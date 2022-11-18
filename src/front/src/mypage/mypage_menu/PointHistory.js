@@ -6,7 +6,7 @@ import usePagination from "../../service/UsePagination";
 function PointHistory(props) {
     const list=props.point_list;
     let [page, setPage] = useState(1);
-    const PER_PAGE = 2;
+    const PER_PAGE = 10;
 
     const count = Math.ceil(list.length / PER_PAGE);
     const _DATA = usePagination(list, PER_PAGE);
@@ -35,8 +35,8 @@ function PointHistory(props) {
                     list && _DATA.currentData().map((item,i)=>{
                             return (
                                 <tr key={i}>
-                                    <td>{item.po_date}</td>
-                                    <td>{item.point}</td>
+                                    <td>{item.pDate}</td>
+                                    <td>{item.inDePoint}</td>
                                     <td>
                                         {
                                             item.increase===1?
@@ -51,7 +51,7 @@ function PointHistory(props) {
                                             </span>
                                         }
                                     </td>
-                                    <td></td>
+                                    <td>{item.sumPoint}</td>
                                 </tr>
                             )
                         }
