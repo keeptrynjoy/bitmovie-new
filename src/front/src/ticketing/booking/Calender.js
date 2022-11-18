@@ -66,7 +66,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
             formattedDate = format(day, 'd');
             const cloneDay = day;
             days.push(
-                <div
+                <div value={formattedDate}
                     className={`col cell ${
                         !isSameMonth(day, monthStart)
                             ? 'disabled'
