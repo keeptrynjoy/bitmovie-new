@@ -70,7 +70,7 @@
             u.user_pk AS user,
             p.po_point AS inDePoint,
             p.po_date AS pDate,
-            SUM(p.po_point) OVER(ORDER BY p.pDate, p.point_pk desc) AS sumPoint
+            SUM(p.po_point) OVER(ORDER BY p.po_date, p.point_pk desc) AS sumPoint
         FROM user_tb u JOIN point_tb p ON u.user_pk = p.user_pk
         WHERE u.user_pk = #{user_pk}
     </select>
