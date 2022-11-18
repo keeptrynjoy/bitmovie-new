@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.repository.user.MWishRepository">
+
+    <!--  영화 좋아요  -->
+    <insert id="isnertMWish" parameterType="MWish">
+        INSERT INTO mwish_tb VALUES (#{movie_pk}, #{user_pk})
+    </insert>
+
+    <!--  영화 좋아요 취소  -->
+    <delete id="deleteMWish" parameterType="MWish">
+        DELETE mwish_tb WHERE movie_pk = #{movie_pk} AND user_pk = #{user_pk}
+    </delete>
+
+</mapper>

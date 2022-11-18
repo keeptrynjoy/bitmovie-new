@@ -6,4 +6,7 @@
             (null,#{payment_pk},#{scrtime_pk},#{book_seat_num}
             ,#{book_the_name},#{book_issu_date},#{book_adult_cnt},#{book_youth_cnt});
     </insert>
+    <select id="selectScreeningMovieList" resultType="movie">
+        SELECT * FROM movie_tb mt WHERE mt.m_sdate &lt;= now() order by m_name desc;
+    </select>
 </mapper>

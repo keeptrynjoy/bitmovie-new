@@ -3,7 +3,12 @@ package data.service.pay;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import data.domain.movie.Movie;
+import data.domain.movie.Review;
 import data.domain.pay.Payment;
+import data.repository.movie.JoinMovieRepository;
+import data.repository.movie.MovieRepository;
+import data.repository.movie.ReviewRepository;
 import data.repository.pay.PaymentRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +21,11 @@ import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -186,6 +196,51 @@ public class PaymentService {
 
         br.close();
         conn.disconnect();
+    }
+
+    private final MovieRepository movieRepository;
+
+    private final ReviewRepository reviewRepository;
+
+    public void insertReviewMacro(){
+
+        List<Movie> movie_pk_list =  movieRepository.selectTotalMoviePK();
+
+        List<String> review_content = new ArrayList<>();
+        review_content.add("영화 진짜 재밌어요.");
+        review_content.add("2022년 최고의 영화입니다");
+        review_content.add("정신 나갈거 같아요.. 너무 잼나요");
+        review_content.add("난 별로던데 다들 댓글 알바 아님?");
+        review_content.add("근래에 봤던 영화중에 가장 재미있었어요");
+        review_content.add("감독님 사랑해요!");
+        review_content.add("칸 영화제 가즈아");
+        review_content.add("잘봤습니다!");
+        review_content.add("쏘쏘함");
+        review_content.add("아니 근데 너무 재밌는거 아니에용?");
+
+        for(Movie m : movie_pk_list){
+
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+            LocalDate sdate = LocalDate.parse(m.getM_sdate(),format);
+
+            
+
+//            for(int i=0; i<=9; i++){
+//                Review review = Review.reviewBuilder()
+//                        .movie_pk(m.getMovie_pk())
+//                        .user_pk(i+1)
+//                        .revw_star((int)(Math.random()*4)+1)
+//                        .revw_text(review_content.get(i))
+//                        .revw_date(screening_date)
+//                        .build();
+//
+//                reviewRepository.insertReview(review);
+//            }
+
+        }
 
     }
+
+
 }

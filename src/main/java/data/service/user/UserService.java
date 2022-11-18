@@ -2,10 +2,12 @@ package data.service.user;
 
 import data.domain.user.LikeRevw;
 import data.domain.movie.Review;
+import data.domain.user.MWish;
 import data.domain.user.Report;
 import data.domain.user.User;
 import data.repository.movie.ReviewRepository;
 import data.repository.user.LikeRevwRepository;
+import data.repository.user.MWishRepository;
 import data.repository.user.ReportRepository;
 import data.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ public class UserService {
     private final ReviewRepository reviewRepository;
     private final LikeRevwRepository likeRevwRepository;
     private final ReportRepository reportRepository;
+    private final MWishRepository mWishRepository;
 
     //로그인 (id, password 체크)
     public Map<String, Object> selectLogin (Map<String, String> map) {
@@ -132,5 +135,15 @@ public class UserService {
     // 평점 신고 취소하기
     public void deleteReport(Report report) {
         reportRepository.deleteReport(report);
+    }
+
+    // 영화 좋아요 기능
+    public void isnertMWish(MWish mWish) {
+        mWishRepository.isnertMWish(mWish);
+    }
+
+    // 영화 좋아요 취소
+    public void deleteMWish(MWish mWish) {
+        mWishRepository.deleteMWish(mWish);
     }
 }

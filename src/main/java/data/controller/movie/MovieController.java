@@ -56,8 +56,8 @@ public class MovieController {
 
 
         List<JoinMovie> movie_data_list = movieService.selectMovieList(order_stand, BorA);
-        System.out.println("controller : "+order_stand);
-        System.out.println("controller:"+ BorA);
+//        System.out.println("controller : "+order_stand);
+//        System.out.println("controller:"+ BorA);
         return movie_data_list;
     }
 }
