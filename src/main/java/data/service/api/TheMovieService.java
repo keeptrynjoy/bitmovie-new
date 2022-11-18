@@ -38,7 +38,7 @@ public class TheMovieService {
     private final CastRepository castRepository;
     private final PersonRepository personRepository;
 
-    //page_num 을 받아 (page_num*20+1)~(page_num*20+21)까지의 영화 고유 번호를 list에 담아 반환
+    //page_num 을 받아 (page_num*20+1)~(page_num*20+21)까지의 영화 고유 번호를 list에 담아 반환 - 인기 차트
     public List<Object> movieListApi(int page_num) {
 
         //movie_id 를 담을 변수 선언
@@ -46,6 +46,31 @@ public class TheMovieService {
 
         //url 작성
         String tmdb_list_url = TMDB_URL + "movie/popular?page=" + page_num + "&" + TMDB_KEY + TMDB_KO;
+
+        // url 의 데이터를 jsonobject 로 반환
+        JSONObject jsonObject = getDataByURL(tmdb_list_url);
+
+        //jsonobject 에 접근해 movie_id만 반환하기
+        JSONArray jsonArray = (JSONArray) jsonObject.get("results");
+        for (int i = 0; i < jsonArray.size(); i++) {
+            jsonObject = (JSONObject) jsonArray.get(i);
+            String movie_id = jsonObject.get("id").toString();
+            // db에 들어있는지를 판단해 없는 영화만 list에 add 한다.
+            int movieYoN = movieRepository.selectMovieYoN(movie_id);
+            if (movieYoN == 0) {
+                movie_id_lsit.add(movie_id);
+            }
+        }
+        return movie_id_lsit;
+    }//movieListApi
+
+    public List<Object> movieUpcomoingList(int page_num) {
+
+        //movie_id 를 담을 변수 선언
+        List<Object> movie_id_lsit = new ArrayList<>();
+
+        //url 작성
+        String tmdb_list_url = TMDB_URL + "movie/upcoming?page=" + page_num + "&" + TMDB_KEY + TMDB_KO;
 
         // url 의 데이터를 jsonobject 로 반환
         JSONObject jsonObject = getDataByURL(tmdb_list_url);
@@ -244,8 +269,8 @@ public class TheMovieService {
             jsonObject = (JSONObject) jsonArray.get(j);
             System.out.println(jsonObject);
 
-            // 등장인물의 cast_id 를 구하기
-            person_pk = Integer.parseInt(jsonObject.get("cast_id").toString());
+            // 등장인물의 id 를 구하기
+            person_pk = Integer.parseInt(jsonObject.get("id").toString());
             // 이 인물정보가 db에 있는지 여부를 확인
             int personYoN = personRepository.selectPersonYoN(person_pk);
             // 해당 인물 정보가 없는경우 , person_tb에 데이터를 저장.
