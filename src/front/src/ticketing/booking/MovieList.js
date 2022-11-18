@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import './MovieList.css'
+import './MovieList.css';
+import age from './bookingIMG/15age.png';
 
 const MovieList = () => {
 
@@ -14,8 +15,13 @@ const MovieList = () => {
         ...mvnum,
         [e.target.name]:e.target.value
         })
-        console.log(mvnum);
+
     }
+
+    console.log(mvnum);
+
+    const imgUrl = './ex'
+
 
     return (
 
@@ -24,6 +30,9 @@ const MovieList = () => {
             {mvlist.map((list,i) => (
                 <ul>
                     <li style={{listStyle:'none'}} >
+                        <div>
+                            <img src={age} style={{width:'30px', float:'left'}}/>
+                        </div>
                 <button key={i} className={'mvbtn'} value={i+1} name={'mvnum'}onClick={handleOnClick}>DB에서 넘어올 영화리스트</button>
                     </li>
                 </ul>
