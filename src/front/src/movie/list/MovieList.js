@@ -47,6 +47,8 @@ function MovieList(props) {
         }else {
             setIn_theater("");
         }
+        setPage(1);
+        _DATA.jump(1);
     }
 
     //시작 데이터 가져오기
@@ -107,7 +109,7 @@ function MovieList(props) {
                     </div>
                     <div className={"coming-soon-btn"}
                          style={{width:"120px"}}
-                         onClick={()=>{
+                         onClick={(e)=>{
                              setIn_theater("before");
                          }}>
                         {/*<span style={{width:"30px",height:"30px"}}>*/}
@@ -134,7 +136,7 @@ function MovieList(props) {
                 </span>
                 <span className={"btn-group"}>
                     <ButtonGroup variant="outlined" aria-label="outlined button group">
-                          <Button className={"nameBtn"} onClick={()=>setOrder("")}>이름순</Button>
+                          <Button className={"nameBtn"} onClick={()=>setOrder("m_name")}>이름순</Button>
                           <Button className={'reserveBtn'} onClick={()=>setOrder("reserve_rate")}>예매율순</Button>
                           <Button className={'starBtn'} onClick={()=>setOrder("revw_avgstar")}>평점순</Button>
                     </ButtonGroup>

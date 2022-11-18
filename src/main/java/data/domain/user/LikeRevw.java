@@ -5,9 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Setter
 @Getter
-@Builder(builderMethodName = "likeRevwBuilder")
-@NoArgsConstructor
-@AllArgsConstructor
 public class LikeRevw {
 
     private int review_pk;
