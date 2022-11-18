@@ -51,11 +51,11 @@ function MyPage(props) {
                             <ul>
                                 <li>
                                     <strong>사용 가능 쿠폰</strong>
-                                    <span className={"benefit-li-count"}>0개</span>
+                                    <span className={"benefit-li-count"}>0 개</span>
                                 </li>
                                 <li>
                                     <strong>만료 예정 쿠폰</strong>
-                                    <span className={"benefit-li-count"}>0개</span>
+                                    <span className={"benefit-li-count"}>0 개</span>
                                 </li>
                             </ul>
                         </div>
@@ -64,11 +64,11 @@ function MyPage(props) {
                             <ul>
                                 <li>
                                     <strong>사용 가능 포인트</strong>
-                                    <span className={"benefit-li-count"}>{data.u_point}P</span>
+                                    <span className={"benefit-li-count"}>{data.u_point} P</span>
                                 </li>
                                 <li>
                                     <strong>포인트 뭐넣지</strong>
-                                    <span className={"benefit-li-count"}>0개</span>
+                                    <span className={"benefit-li-count"}>0 개</span>
                                 </li>
                             </ul>
                         </div>

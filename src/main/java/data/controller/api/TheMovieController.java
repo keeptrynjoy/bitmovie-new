@@ -36,7 +36,7 @@ public class TheMovieController {
         List<Object> movie_id_list = theMovieService.movieListApi(page_num);
 //        System.out.println("controller: list "+movie_id_list);
 
-        for (int i = 0; i < movie_id_list.size(); i++) {
+        for (int i = 0; i < 5; i++) {
             // movie_id 를 통해 더무비 에서 제공해주는 영화 상세정보를 db에 저장
             theMovieService.movieDataSave(movie_id_list.get(i));
             // movie_id 를 통해 더무비 포스터를 db에 저장

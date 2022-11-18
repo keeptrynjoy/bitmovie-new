@@ -10,8 +10,9 @@ import axios from "axios";
 function ChangeUserInfo(props) {
     const [userdata,setUserdata] = useState(props.data);
     const [newpw2,setNewpw2] = useState(props.data.u_pass);
-    const [boolpw2,setBoolpw2]=useState(true);
+    const [boolpw2,setBoolpw2] = useState(true);
     const [disabled, setDisabled] = useState(true);
+    const [oldPass, setOldPass] = useState(props.data.u_pass);
 
     const errorChk=()=> {
         const hppattern = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
@@ -40,6 +41,10 @@ function ChangeUserInfo(props) {
                 return (<Alert severity={"error"}>
                     비밀번호를 입력하세요
                 </Alert>)
+            case "old":
+                return (<Alert severity={"error"}>
+                    이전 비밀번호랑 같습니다
+                </Alert>)
         }
         if(userdata.u_nick===""){
             return (<Alert severity={"error"}>
@@ -66,7 +71,6 @@ function ChangeUserInfo(props) {
             return (<Alert severity={"error"}>
                 비밀번호가 서로 다릅니다
             </Alert>)
-
         }else if(!hppattern.test(userdata.u_phone))
         {
             return (<Alert severity={"error"}>
@@ -101,7 +105,9 @@ function ChangeUserInfo(props) {
         }else if(hangulcheck.test(pw)){
             // alert("비밀번호에 한글을 사용 할 수 없습니다.");
             return "hangul"
-        }else {
+        }else if(pw===oldPass){
+            return "old";
+        }else{
             return "ok";
         }
     }

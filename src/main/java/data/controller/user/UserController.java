@@ -30,9 +30,7 @@ public class UserController {
 
     //비밀번호 변경할 때 아이디 참조해서 기존 비밀번호 가져오기(기존 비밀번호와 일치하면 비밀번호 변경불가)
     @PostMapping("/selectpass")
-    public boolean selectPass(@RequestBody User user) {
-        return userService.selectPass(user);
-    }
+    public boolean selectPass(@RequestBody User user) { return userService.selectPass(user); }
 
     //비밀번호 변경
     @PostMapping("/updatepass")
@@ -42,10 +40,7 @@ public class UserController {
 
     //회원 삭제(상태 변경)
     @GetMapping("/delete")
-    public void deleteUser(String u_id) {
-        System.out.println(u_id);
-        userService.deleteUser(u_id);
-    }
+    public void deleteUser(String u_id) { userService.deleteUser(u_id); }
 
     //아이디 찾기
     @GetMapping("/findid")
@@ -95,7 +90,6 @@ public class UserController {
     public void insertReport(@RequestBody Report report) {
         userService.insertReport(report);
     }
-
 
     // 평점 신고 취소하기
     @GetMapping("/deleteReport")
