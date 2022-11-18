@@ -36,13 +36,13 @@ svg {
 .days {
     @include common.size(100%, fit-content);
     @include common.flex-row(space-between, center);
-    font-weight: 600;
+    font-weight: 500;
     font-size: 0.3em;
     text-align: center;
     margin: auto;
     color: theme.$dark-gray-color;
+  font-size: 15px;
 .col {
-    padding-left: 1%;
     background: transparentize(theme.$step-color, 0.6);
     border-radius: 10px;
 }
@@ -60,8 +60,12 @@ svg {
     border: 0.4px solid transparentize(gray, 0.4);
     border-radius: 15px;
     font-size: 0.3em;
+    text-align: center;
 span {
-    margin: 4px 0 0 4px;
+  text-align: center;
+  vertical-align: center;
+  margin: 0 auto;
+
 }
 .not-valid {
     color: theme.$gray-color;
@@ -82,7 +86,8 @@ img {
 .col.cell.selected {
     @include common.shadow(1.5px, theme.$main-color, 0.1);
     transform: scale(1.02);
-    border: none;
+    margin: 0 auto;
+    border: 1px solid theme.$main-color;
     background: theme.$sub-color;
     color: theme.$main-color;
     font-weight: 600;
