@@ -77,7 +77,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
                                     : 'valid'
                     }`}
                     key={day}
-                    onClick={() => onDateClick(parse(cloneDay))}
+                    onClick={()=>onDateClick(parse(cloneDay))}
                 >
                     <span
                         className={

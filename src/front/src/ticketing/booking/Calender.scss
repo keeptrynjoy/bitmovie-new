@@ -107,6 +107,7 @@ img {
  }
 }
 .col.cell.selected {
+  @include common.shadow(1.5px, theme.$dark-gray-color, 0.1);
     margin: 0 auto;
     height: 50px;
     background: lightgrey;
