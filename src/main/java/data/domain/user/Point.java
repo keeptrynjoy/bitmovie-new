@@ -17,6 +17,5 @@ public class Point {
     private int point_pk;
     private int user_pk;
     private int po_point;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime po_date;
 }

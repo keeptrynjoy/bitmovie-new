@@ -21,7 +21,6 @@ public class Booking {
     private int scrtime_pk;
     private String book_seat_num;
     private String book_the_name;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime book_issu_date;
     private int book_adult_cnt;
     private int book_youth_cnt;

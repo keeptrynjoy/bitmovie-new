@@ -17,9 +17,7 @@ public class Payment {
     private int user_pk;
     private String pay_type;
     private int pay_price;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime pay_date;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime pay_cncl_date;
     private String mycoupon_pk;
     private int pay_use_point;

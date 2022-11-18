@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.TimeZone;
 
 @RestController
 @RequestMapping("/payment")
@@ -43,16 +45,21 @@ public class PaymentController {
 
     //결제 성공 후 호출 메서드
     @PostMapping("/complete")
-    public ResponseEntity<String> paymentComplete(@RequestBody JsonNode json_node) throws IOException {
+    public ResponseEntity<String> paymentComplete(@RequestBody ObjectNode object_node) throws IOException {
+
+        System.out.println(object_node);
 
         // 방법1.jackson 사용
         ObjectMapper mapper =new ObjectMapper().registerModule(new JavaTimeModule());
 
-        Payment payment = mapper.treeToValue(json_node.get("payment"),Payment.class);
-        Booking booking = mapper.treeToValue(json_node.get("booking"),Booking.class);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        mapper.setDateFormat(sdf);
 
-//        System.out.println(payment.getImp_uid());
-//        System.out.println(booking.getBooking_pk());
+        Payment payment = mapper.treeToValue(object_node.get("payment"),Payment.class);
+        Booking booking = mapper.treeToValue(object_node.get("booking"),Booking.class);
+
+        System.out.println(payment.getPay_date());
+        System.out.println(booking.getBook_issu_date());
 
         //1. 아임포트 토큰 생성
         String token = paymentService.getToken();

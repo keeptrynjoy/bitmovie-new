@@ -33,7 +33,7 @@ const Payment = (effect, deps) => {
             let date = new Date();
 
             let now = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-
+            console.log(now)
             console.log(
                 "페이버튼",
                 userIdRef.current,
@@ -44,7 +44,7 @@ const Payment = (effect, deps) => {
             IMP.request_pay(
                 {
                     pg: 'kakaopay',
-                    merchant_uid: `${now}_${userIdRef}`,
+                    merchant_uid: `${now}_${userIdRef.current}`,
                     name: '결제테스트',
                     amount: finalPriceRef.current - usePoint,
                     buyer_email: userEmailRef.current,
