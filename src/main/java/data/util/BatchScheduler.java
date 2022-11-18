@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class BatchScheduler {
     private final CouponService couponService;
     //생일 쿠폰 발급
-    @Scheduled(cron = "1/10 * * * * *", zone = "Asia/Seoul") //매일 자정 실행
+    @Scheduled(cron = "0 0 0 * * *", zone = "Asia/Seoul") //매일 자정 실행
     public void insertBirthCoupon () {
         couponService.insertBirthCoupon();
     }
