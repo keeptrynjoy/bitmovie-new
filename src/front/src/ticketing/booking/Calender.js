@@ -14,19 +14,21 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
 
     return (
         <div className={"calender-body"}>
-        <div className="header row">
-            <div className="col col-start">
-                <span className="text" style={{fontSize:'50px'}}>
-                    <span className="text month" style={{fontSize:'20px', marginLeft:'50px'}}>
+        <div className="header row" >
+            <div className="col col-start" >
+                <span className="text" style={{margin:'0'}}>
+                    <span className="text month" style={{fontSize:'20px', margin:'0', padding:'0'}}>
                         {format(currentMonth, 'yyyy')}년&nbsp;
                         {format(currentMonth, 'M')}월
 
                         </span>
                 </span>
             </div>
-            <div className="col col-end">
+            <div>
+            <div className="col col-end" >
                 <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth} />
                 <Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth} />
+                </div>
             </div>
         </div>
         </div>
