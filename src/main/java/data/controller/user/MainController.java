@@ -25,6 +25,15 @@ public class MainController {
     }
 
     // 검색 기능
+    @GetMapping("search")
+    public void search(String search){
+        mainService.selectSearchData(search);
+        // 1. 영화에서 해당 단어 감색
+
+        // 2. 인물정보에서 해당 정보 검색
+
+        // 3. 인물 정보에서 가장 처음 위치하는 사람의 상세정보 출력
+    }
 
 
 
