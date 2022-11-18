@@ -29,4 +29,8 @@
         WHERE movie_pk = #{movie_pk}
     </update>
 
+    <!-- DB에 저장된 영화 PK 전부 출력 -->
+    <select id="selectTotalMoviePK" resultType="movie">
+        SELECT movie_pk FROM movie_tb;
+    </select>
 </mapper>

@@ -1,12 +1,13 @@
 package data.controller.pay;
 
-import data.domain.pay.Booking;
+import data.domain.movie.Movie;
 import data.service.pay.BookingService;
-import data.service.user.PointService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -16,13 +17,12 @@ public class BookingController {
 
     private final BookingService bookingService;
 
-    @PostMapping ("/complete")
-    public ResponseEntity<?> insertBooking(@RequestBody Booking booking){
+    /* 상영중인 영화 리스트 */
+    @GetMapping("/screening_list")
+    public ResponseEntity<List<Movie>> screeningMovieList(){
 
-        //insert implement
-        bookingService.insertBookingData(booking);
+        List<Movie> screeningMovies = bookingService.selectScreeningMovieList();
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(screeningMovies,HttpStatus.OK);
     }
-
 }

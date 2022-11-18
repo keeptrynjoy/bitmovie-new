@@ -88,7 +88,7 @@ const Payment = (effect, deps) => {
                         });
 
                     } else {
-                        alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+                        alert(rsp.error_msg);
                     }
                 }
             );
@@ -141,7 +141,7 @@ const Payment = (effect, deps) => {
                 <input type={'text'} ref={userIdRef} onChange={(e) => (
                     userIdRef.current = e.target.value
                 )}/><br/>
-                포인트 사용(int, + - 로 기입)
+                포인트 사용(int)
                 <input type={'number'} onChange={(e) => (
                    setUsePoint(e.target.value)
                 )}/><br/>

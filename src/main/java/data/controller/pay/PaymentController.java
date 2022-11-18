@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.TimeZone;
 
 @RestController
@@ -47,19 +48,15 @@ public class PaymentController {
     @PostMapping("/complete")
     public ResponseEntity<String> paymentComplete(@RequestBody ObjectNode object_node) throws IOException {
 
-        System.out.println(object_node);
-
-        // 방법1.jackson 사용
+        // JackSon 라이브러리 사용
         ObjectMapper mapper =new ObjectMapper().registerModule(new JavaTimeModule());
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        mapper.setDateFormat(sdf);
-
+        //ObjectNode 객체를 ObjectMapper로 읽
         Payment payment = mapper.treeToValue(object_node.get("payment"),Payment.class);
         Booking booking = mapper.treeToValue(object_node.get("booking"),Booking.class);
 
-        System.out.println(payment.getPay_date());
-        System.out.println(booking.getBook_issu_date());
+        payment.setPay_date(payment.getPay_date().plusHours(9));
+        booking.setBook_issu_date(booking.getBook_issu_date().plusHours(9));
 
         //1. 아임포트 토큰 생성
         String token = paymentService.getToken();
@@ -67,7 +64,7 @@ public class PaymentController {
 
         //2. 토큰으로 결제 완료된 주문 정보 호출하여 결제 완료된 금액
         int amount = paymentService.paymentInfo(payment.getImp_uid(), token);
-        System.out.println(amount);
+        System.out.println("아임포트 amount : " + amount);
 
         try {
 
@@ -78,9 +75,9 @@ public class PaymentController {
             if (my_point < used_point) {
                 paymentService.paymentCancle(token, payment.getImp_uid(), amount, "사용 가능 포인트 부족");
                 return new ResponseEntity<String>("[결제 취소] 사용가능한 포인트가 부족합니다.", HttpStatus.BAD_REQUEST);
-            } else {
+            } else if (used_point > 0){
                 //3-2. point 차감
-
+                pointService.deductionPoint(payment);
             }
 
             //5. payment(결제) 데이터 저장
@@ -105,4 +102,8 @@ public class PaymentController {
         return paymentService.selectPaymentData(payment_pk);
     }
 
+    @GetMapping("/review_macro")
+    public void reviewMacroProgram(){
+        paymentService.insertReviewMacro();
+    }
 }
