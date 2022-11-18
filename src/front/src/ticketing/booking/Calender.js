@@ -13,6 +13,7 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
 
 
     return (
+        <div className={"calender-body"}>
         <div className="header row">
             <div className="col col-start">
                 <span className="text" style={{fontSize:'50px'}}>
@@ -27,6 +28,7 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
                 <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth} />
                 <Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth} />
             </div>
+        </div>
         </div>
     );
 };
