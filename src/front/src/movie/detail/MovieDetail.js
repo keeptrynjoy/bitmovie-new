@@ -62,20 +62,20 @@ function MovieDetail(props) {
         return false;
     }
     const handleOpen = () => {
-        // if (u_pk==null){
-        //     Swal.fire({
-        //         icon:"error",
-        //         text:"로그인 후 사용 가능합니다"
-        //     })
-        //     return;
-        // }
-        // if (!checkMovieLog()){
-        //     Swal.fire({
-        //         icon:"error",
-        //         text:"영화 시청 후 리뷰 작성이 가능합니다"
-        //     })
-        //     return;
-        // }
+        if (u_pk==null){
+            Swal.fire({
+                icon:"error",
+                text:"로그인 후 사용 가능합니다"
+            })
+            return;
+        }
+        if (!checkMovieLog()){
+            Swal.fire({
+                icon:"error",
+                text:"영화 시청 후 리뷰 작성이 가능합니다"
+            })
+            return;
+        }
         setReview_Open(true);
     }
     const handleClose = () => setReview_Open(false);
@@ -93,6 +93,7 @@ function MovieDetail(props) {
                     text:"리뷰 작성 성공"
                 })
             })
+        document.window.reload();
     }
 
     return (
