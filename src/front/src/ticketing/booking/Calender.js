@@ -8,6 +8,10 @@ import './Calender.scss'
 
 
 const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
+
+
+
+
     return (
         <div className="header row">
             <div className="col col-start">

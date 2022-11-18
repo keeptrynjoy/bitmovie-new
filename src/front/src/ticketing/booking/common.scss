@@ -1,5 +1,5 @@
 // 넓게 통용되는 것들
-@use 'payment/theme';
+@use 'src/ticketing/booking/theme';
 
 @mixin size($width: 14px, $height: 14px) {
     width: $width;

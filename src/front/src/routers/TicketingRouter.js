@@ -1,10 +1,10 @@
 import React from 'react';
 import {Route, Routes} from "react-router-dom";
 import Payment from "../ticketing/payment/Payment";
-import SelectSeat from "../ticketing/payment/SelectSeat";
-import Ticketing from "../ticketing/Ticketing";
+import SelectSeat from "../ticketing/booking/SelectSeat";
+import Ticketing from "../ticketing/booking/Ticketing";
 import BookingTest from "../ticketing/BookingTest";
-import Calender from "../ticketing/Calender";
+import Calender from "../ticketing/booking/Calender";
 
 function TicketingRouter(props) {
     return (
