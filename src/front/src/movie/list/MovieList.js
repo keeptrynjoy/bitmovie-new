@@ -47,6 +47,8 @@ function MovieList(props) {
         }else {
             setIn_theater("");
         }
+        setPage(1);
+        _DATA.jump(1);
     }
 
     //시작 데이터 가져오기
@@ -107,7 +109,7 @@ function MovieList(props) {
                     </div>
                     <div className={"coming-soon-btn"}
                          style={{width:"120px"}}
-                         onClick={()=>{
+                         onClick={(e)=>{
                              setIn_theater("before");
                          }}>
                         {/*<span style={{width:"30px",height:"30px"}}>*/}
