@@ -58,7 +58,7 @@ function Home(props) {
         setLoading(false);
     };
 
-    var carousels = document.querySelectorAll('.glide');
+    let carousels = document.querySelectorAll('.glide');
     useEffect(() => {
         getMovies();
     }, []);
@@ -81,8 +81,8 @@ function Home(props) {
     }
 
     useEffect(() => {
-        for(var i = 0 ; i < carousels.length; i++){
-            var glide = new Glide(carousels[i], {
+        for(let i = 0 ; i < carousels.length; i++){
+            let glide = new Glide(carousels[i], {
                 type: 'carousel',
                 startAt: 0,
                 perView: 5,
@@ -151,28 +151,7 @@ function Home(props) {
                     </div>
                 ))}
             </div>
-            {/*<div className="main-slider2">*/}
-            {/*    <Swiper className="myswiper"*/}
-            {/*        modules={[Navigation, Pagination, Autoplay]}*/}
-            {/*        pagination={{ clickable: true }}*/}
-            {/*        navigation*/}
-            {/*        effect*/}
-            {/*        speed={800}*/}
-            {/*        loop={true}*/}
-            {/*        slidesPerView={3}*/}
-            {/*        autoplay={{delay: 2000,*/}
-            {/*            disableOnInteraction:false}}>*/}
 
-            {/*        {reviews.map((review) => (*/}
-
-            {/*        <SwiperSlide>*/}
-            {/*            <div className={'rvv'}>*/}
-            {/*                {review.name}*/}
-            {/*            </div>*/}
-            {/*        </SwiperSlide>*/}
-            {/*        ))}*/}
-            {/*    </Swiper>*/}
-            {/*</div>*/}
         </div>
     )
 }
