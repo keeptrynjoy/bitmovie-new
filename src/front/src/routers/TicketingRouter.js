@@ -6,6 +6,7 @@ import Ticketing from "../ticketing/booking/Ticketing";
 import BookingTest from "../ticketing/BookingTest";
 import Calender from "../ticketing/booking/Calender";
 import TimeTable from "../ticketing/timetable/TimeTable";
+import Location from "../ticketing/booking/Location";
 
 function TicketingRouter(props) {
     return (
@@ -16,6 +17,7 @@ function TicketingRouter(props) {
                 <Route path={"payment"} element={<Payment/>}/>
                 <Route path={"selectseat"} element={<SelectSeat/>}/>
                 <Route path={"timetable"} element={<TimeTable/>}/>
+                <Route path={"locationlist"} element={<Location/>}/>
                 <Route path={"calender"} element={<Calender/>}/>
                 <Route path={"*"} element={
                     <div>

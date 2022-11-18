@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import './MovieList.css'
 
 const MovieList = () => {
 
@@ -11,7 +12,7 @@ const MovieList = () => {
 
         <div>
             {mvlist.map((list,i) => (
-                <div key={i}>DB에서 넘어올 영화리스트</div>
+                <button key={i} className={'mvbtn'} value={i+1}>DB에서 넘어올 영화리스트</button>
             ))}
         </div>
     );

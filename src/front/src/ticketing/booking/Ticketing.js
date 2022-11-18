@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 import dateFns from "url";
 import Calender from "./Calender";
 import MovieList from "./MovieList";
+import Location from "./Location";
 
 function Ticketing(props) {
     const navi = useNavigate();
@@ -12,7 +13,6 @@ function Ticketing(props) {
         window.location.reload();
     }
 
-    const [mloc,setMloc] = useState(Array.from({length:5}));
     const index = () => {
         return <div>{dateFns.format(new Date(), "yyyy-MM-dd")}</div>;
     };
@@ -29,9 +29,7 @@ function Ticketing(props) {
                     <MovieList/>
                 </div>
                 <div className={"movielocation"}>
-                    {mloc.map((list,i)=>(
-                        <div key={i} style={{fontSize:'15px'}}>DB에서 받을 극장리스트</div>
-                    ))}
+                <Location/>
                 </div>
                 <div className={'selectday'}><Calender/></div>
 
