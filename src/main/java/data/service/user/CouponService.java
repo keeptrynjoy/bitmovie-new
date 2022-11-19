@@ -13,9 +13,9 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class CouponService {
     private final CouponRepository couponRepository;
-    //user_pk 담긴 list 생성
     //생일 쿠폰 생성
     public void insertBirthCoupon () {
+        //user_pk 담긴 list 생성
         List<User> userList = couponRepository.selectBirthUser();
         final char[] possibleCharacters =
                 {'1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
@@ -29,15 +29,20 @@ public class CouponService {
                 buf.append(possibleCharacters[rnd.nextInt(possibleCharacterCount)]);
             }
             String coupon_pk = buf.toString(); //생성한 쿠폰번호를 coupon_pk 로 초기화
-            User user = userList.get(currentIndex); //List 형태로 가져온 dto 반복문 돌릴 때마다 펼치기
-            int user_pk = user.getUser_pk(); //펼친 dto 에서 user_pk 꺼내오기
+            int overlap = couponRepository.selectCouponNumber(coupon_pk); //쿠폰번호 중복 조회(있으면 1 반환)
+            if(overlap == 0) { //중복된 번호 없으면 쿠폰 생성
+                User user = userList.get(currentIndex); //List 형태로 가져온 dto 반복문 돌릴 때마다 펼치기
+                int user_pk = user.getUser_pk(); //펼친 dto 에서 user_pk 꺼내오기
 
-            Coupon coupon = new Coupon(); //다시 보낼 Coupon 객체 생성
-            coupon.setCoupon_pk(coupon_pk); //쿠폰번호 담기
-            coupon.setUser_pk(user_pk); //user_pk 담기
+                Coupon coupon = new Coupon(); //다시 보낼 Coupon 객체 생성
+                coupon.setCoupon_pk(coupon_pk); //쿠폰번호 담기
+                coupon.setUser_pk(user_pk); //user_pk 담기
 
-            couponRepository.insertBirthCoupon(coupon);
-            currentIndex++;
+                couponRepository.insertBirthCoupon(coupon);
+                currentIndex++;
+            } else { //중복된 번호 있으면 다시 실행
+                return;
+            }
         }
     }
 }

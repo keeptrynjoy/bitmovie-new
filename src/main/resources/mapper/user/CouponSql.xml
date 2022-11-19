@@ -10,4 +10,8 @@
         INSERT INTO coupon_tb (coupon_pk, user_pk, c_class, c_amount, c_issue_date, c_exp_date, c_use_state)
         SELECT #{coupon_pk}, #{user_pk}, "Birthday", 5000, CURDATE(), ADDDATE(CURDATE(),60), 0
     </insert>
+    <!--쿠폰번호 중복 조회-->
+    <select id="selectCouponNumber" parameterType="String" resultType="int">
+        SELECT count(*) FROM coupon_tb WHERE coupon_pk = #{coupon_pk}
+    </select>
 </mapper>

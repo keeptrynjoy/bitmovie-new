@@ -3,8 +3,7 @@
 <mapper namespace="data.repository.user.MyPageRepository">
     <!--마이페이지 유저 정보 출력-->
     <select id="selectUser" parameterType="int" resultType="User">
-        SELECT *
-        FROM user_tb WHERE user_pk = #{user_pk}
+        SELECT * FROM user_tb WHERE user_pk = #{user_pk}
     </select>
     <!--마이페이지 회원 정보 수정-->
     <update id="updateUser" parameterType="User">
@@ -78,4 +77,13 @@
     <update id="updatePoint" parameterType="point">
         UPDATE user_tb SET u_point = u_point + #{po_point} WHERE user_pk = #{user_pk}
     </update>
+    <!--마이페이지 쿠폰 개수 조회-->
+    <select id="selectMyCouponCount" parameterType="int" resultType="int">
+        SELECT count(*) FROM coupon_tb WHERE user_pk = #{user_pk} AND c_use_state = 0
+    </select>
+    <!--마이페이지 사용가능쿠폰 조회-->
+    <select id="selectMyCouponDetail" parameterType="int" resultType="Coupon">
+        SELECT coupon_pk, c_class, c_amount, c_issue_date, c_exp_date
+        FROM coupon_tb WHERE user_pk = #{user_pk} AND c_use_state = 0
+    </select>
 </mapper>
