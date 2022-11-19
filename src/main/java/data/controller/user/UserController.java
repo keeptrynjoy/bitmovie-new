@@ -26,6 +26,7 @@ public class UserController {
     //회원가입
     @PostMapping("/insert")
     public void insertUser(@RequestBody User user) {
+        System.out.println(user);
         userService.insertUser(user);
     }
 

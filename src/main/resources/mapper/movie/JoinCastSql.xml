@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.repository.movie.JoinCastRepository">
+
+    <!--  등장 인물 정보 출력  -->
+    <select id="selectCastByMovie" parameterType="int" resultType="JoinCast">
+        SELECT ca.cast_type, per.per_name, per.per_photo, per.person_pk
+        FROM cast_tb ca, person_tb per
+        WHERE per.person_pk = ca.person_pk AND ca.movie_pk = #{movie_pk};
+    </select>
+
+
+    <!--  인물 상세 페이지  -->
+    <select id="selectCastDetail" parameterType="int" resultType="JoinCast">
+        SELECT per.person_pk, per.per_name, per.per_photo, cas.cast_type, mv.movie_pk, mv.m_name, mv.m_sdate
+        FROM person_tb per, cast_tb cas, movie_tb mv
+        WHERE per.person_pk=#{person_pk} AND cas.person_pk=#{person_pk} AND mv.movie_pk = cas.movie_pk;
+    </select>
+
+
+</mapper>

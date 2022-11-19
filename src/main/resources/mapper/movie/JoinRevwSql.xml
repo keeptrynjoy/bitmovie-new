@@ -3,7 +3,7 @@
 <mapper namespace="data.repository.movie.JoinRevwRepository">
 
     <!--  해당 영화의 평점 나열  -->
-    <select id="selectJoinRevw" parameterType="String" resultType="JoinRevw">
+    <select id="selectJoinRevw" parameterType="int" resultType="JoinRevw">
         SELECT rv.review_pk,
                rv.movie_pk,
                rv.user_pk,

@@ -1,9 +1,6 @@
 package data.service.movie;
 
-import data.domain.movie.Cast;
-import data.domain.movie.JoinMovie;
-import data.domain.movie.JoinRevw;
-import data.domain.movie.Movie;
+import data.domain.movie.*;
 import data.repository.movie.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +22,8 @@ public class MovieService {
     private final JoinMovieRepository joinMovieRepository;
     private final CastRepository castRepository;
     private final JoinRevwRepository joinRevwRepository;
-
-    public Movie selectMovieData(String movie_pk){
-        return movieRepository.selectMovieData(movie_pk);
-    }
+    private final JoinCastRepository joinCastRepository;
+    
 
     public List<JoinMovie> selectMovieList(String order_stand, String BorA) {
         System.out.println(order_stand);
@@ -49,11 +44,22 @@ public class MovieService {
         return joinMovieRepository.selectMovieList(map);
     }
 
-    public List<Cast> selectCastList(String movie_pk){
-        return castRepository.selectCastList(movie_pk);
+    // 영화 상세 페이지 - 영화 정보 출력
+    public Map<String,Object> selectMovieData(int movie_pk) {
+        
+        // 1. 영화 정보 출력
+        Movie movie_data = movieRepository.selectMovieData(movie_pk);
+        // 2. 영화 등장인물 정보 반환
+        List<JoinCast> cast_list = joinCastRepository.selectCastByMovie(movie_pk);
+        // 3. 영화 평점 정보 반환
+        List<JoinRevw> review_list = joinRevwRepository.selectJoinRevw(movie_pk);
+
+        // controller 로 데이터 전달
+        Map<String, Object> map = new HashMap<>();
+        map.put("data", movie_data);
+        map.put("cast", cast_list);
+        map.put("revw", review_list);
+        return map;
     }
 
-    public List<JoinRevw> selectJoinRevw(String movie_pk) {
-        return joinRevwRepository.selectJoinRevw(movie_pk);
-    }
 }
