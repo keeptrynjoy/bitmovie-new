@@ -1,12 +1,20 @@
 import {useLocation, useNavigate} from "react-router-dom";
 
 import './SelectSeat.css';
+import {useState} from "react";
 export default function SeatView({ MOVIES, people, seats, rowSeats, onClickPeople,input ,setInput,changeData }) {
 
     const navi=useNavigate();
     const location = useLocation();
     const movieData= location.state.input;
     console.log('state',location.state);
+
+
+    const reset=()=>{
+        movieData('');
+    }
+
+
 
     return (
         <div className={'seatchoose'}>
@@ -40,17 +48,15 @@ export default function SeatView({ MOVIES, people, seats, rowSeats, onClickPeopl
                 <article id="info-container">
                     <div className={'seatposter'}></div>
                     <div className={'seattx'}>
-                        <p>선택한 영화 : {movieData.movie}</p>
+                        <p>제목 : <b  style={{fontSize:'20px', color:'blue'}}>{movieData.movie}</b></p>
                         <section className="info-section">
-                            <h3>영화 정보</h3>
                             <p id="selected-movie"></p>
                         </section>
                         <section className="info-section">
-                            <h3>좌석 정보</h3>
                             <br />
-                            <p>상영관 : {movieData.location}</p>
-                            <p>예매날짜 : {movieData.calender} </p>
-                            <p>상영시간표 : {movieData.time} </p>
+                            <p>상영관 : {movieData.location} 관</p>
+                            <p>예매날짜 : 2022년 11월 {movieData.calender}일 </p>
+                            <p>상영시간표 : {movieData.time}번째 상영타임 </p>
 
                             <p id="selected-seats"></p>
                         </section>
@@ -108,7 +114,7 @@ export default function SeatView({ MOVIES, people, seats, rowSeats, onClickPeopl
                 선택된 좌석 수 : <span id="count">0</span> 최종 예매 금액 : <span id="total">0</span>
             </p>
             <div id={'btns'}>
-                <button id="reset-btn">예매 다시하기</button>
+                <button id="reset-btn" onClick={reset}>예매 다시하기</button>
                 <button id="reset-btn2" onClick={() => navi('/ticketing/payment')}>
                     예매 완료하기
                 </button>
