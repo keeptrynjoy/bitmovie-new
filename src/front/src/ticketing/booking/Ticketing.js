@@ -51,7 +51,7 @@ function Ticketing(props) {
                 </div>
                 <div className={'selectday'}><Calender input={input} setInput={setInput} changeData={changeData} /></div>
 
-                <div className={'selecttime'}><TimeTable/></div>
+                <div className={'selecttime'}><TimeTable input={input} setInput={setInput} changeData={changeData} /></div>
                 </div>
                 <button type={"button"} className={'selectseat'} onClick={() => navi("/ticketing/selectseat")} >좌석선택</button>
 

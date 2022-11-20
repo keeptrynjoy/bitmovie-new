@@ -77,22 +77,23 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, changeData}) => 
                     key={day} value={formattedDate}
                     name="calender"
                     onClick={(e) =>{
-                        // onDateClick(parseInt(cloneDay))
-                        // changeData(e)}
-                        console.log(e.target.value);
-                    }}
+                        onDateClick(parseInt(cloneDay))
+                        changeData(e)}
+
+                    }
 
 
                 >
-                    <span
-                        className={
-                            format(currentMonth, 'M') !== format(day, 'M')
-                                ? 'text not-valid'
-                                : ''
-                        }
-                    >
+                    {/*<span*/}
+                    {/*    name={"calender"} value={formattedDate}*/}
+                    {/*    className={*/}
+                    {/*        format(currentMonth, 'M') !== format(day, 'M')*/}
+                    {/*            ? 'text not-valid'*/}
+                    {/*            : ''*/}
+                    {/*    }*/}
+                    {/*>*/}
                         {formattedDate}
-                    </span>
+                    {/*</span>*/}
                 </button>,
             );
             day = addDays(day, 1);
