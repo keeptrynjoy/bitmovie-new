@@ -1,7 +1,7 @@
 import {useNavigate} from "react-router-dom";
 
 import './SelectSeat.css';
-export default function SeatView({ MOVIES, people, seats, rowSeats, onClickPeople }) {
+export default function SeatView({ MOVIES, people, seats, rowSeats, onClickPeople,input ,setInput,changeData }) {
 
     const navi=useNavigate();
 

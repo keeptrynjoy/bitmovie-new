@@ -8,8 +8,8 @@ import Location from "./Location";
 import TimeTable from "../timetable/TimeTable";
 
 function Ticketing(props) {
-    const navi = useNavigate();
 
+    const navi = useNavigate();
     const refresh=()=>{
         window.location.reload();
     }
@@ -23,6 +23,19 @@ function Ticketing(props) {
             }
         )
     }
+
+    const goSeat = ()=>{
+
+
+        navi("/ticketing/selectseat", {
+            state : {
+                input:input
+            },
+        });
+
+    }
+
+
 
     useEffect(()=>{
         console.log(input);
@@ -53,7 +66,8 @@ function Ticketing(props) {
 
                 <div className={'selecttime'}><TimeTable input={input} setInput={setInput} changeData={changeData} /></div>
                 </div>
-                <button type={"button"} className={'selectseat'} onClick={() => navi("/ticketing/selectseat")} >좌석선택</button>
+                {/*<button type={"button"} className={'selectseat'} onClick={() => navi("/ticketing/selectseat",{input, setInput})} input={input} setInput={setInput} changeData={changeData} >좌석선택</button>*/}
+                <button type={"button"} className={'selectseat'} onClick={goSeat} >좌석선택</button>
 
             </div>
 
