@@ -9,10 +9,13 @@ import TimeTable from "../timetable/TimeTable";
 
 function Ticketing(props) {
 
-    const navi = useNavigate();
+
     const refresh=()=>{
         window.location.reload();
     }
+
+    const navi = useNavigate();
+
     const [input,setInput]=useState([]);
 
     const changeData=(e)=>{

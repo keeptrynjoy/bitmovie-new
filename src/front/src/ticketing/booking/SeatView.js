@@ -1,9 +1,12 @@
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 import './SelectSeat.css';
 export default function SeatView({ MOVIES, people, seats, rowSeats, onClickPeople,input ,setInput,changeData }) {
 
     const navi=useNavigate();
+    const location = useLocation();
+    const movieData= location.state.input;
+    console.log('state',location.state);
 
     return (
         <div className={'seatchoose'}>
@@ -37,7 +40,7 @@ export default function SeatView({ MOVIES, people, seats, rowSeats, onClickPeopl
                 <article id="info-container">
                     <div className={'seatposter'}></div>
                     <div className={'seattx'}>
-                        <h2>선택된 영화</h2>
+                        <p>선택한 영화 : {movieData.movie}</p>
                         <section className="info-section">
                             <h3>영화 정보</h3>
                             <p id="selected-movie"></p>
@@ -45,9 +48,10 @@ export default function SeatView({ MOVIES, people, seats, rowSeats, onClickPeopl
                         <section className="info-section">
                             <h3>좌석 정보</h3>
                             <br />
-                            <p>영화관</p>
-                            <p>층수</p>
-                            <p>상영시간 </p>
+                            <p>상영관 : {movieData.location}</p>
+                            <p>예매날짜 : {movieData.calender} </p>
+                            <p>상영시간표 : {movieData.time} </p>
+
                             <p id="selected-seats"></p>
                         </section>
                     </div>
