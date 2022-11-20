@@ -51,7 +51,7 @@ function JoinInfo(props) {
         if(input.u_birth===""){
             alert("생일을 입력하세요")
             return;
-        }
+        }x
 
         if(input.u_phone===""){
             alert("전화번호를 입력하세요")

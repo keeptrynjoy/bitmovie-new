@@ -77,13 +77,22 @@
     <update id="updatePoint" parameterType="point">
         UPDATE user_tb SET u_point = u_point + #{po_point} WHERE user_pk = #{user_pk}
     </update>
-    <!--마이페이지 쿠폰 개수 조회-->
+    <!--마이페이지 사용가능 쿠폰 개수 조회-->
     <select id="selectMyCouponCount" parameterType="int" resultType="int">
         SELECT count(*) FROM coupon_tb WHERE user_pk = #{user_pk} AND c_use_state = 0
     </select>
-    <!--마이페이지 사용가능쿠폰 조회-->
+    <!--마이페이지 사용가능 쿠폰 조회-->
     <select id="selectMyCouponDetail" parameterType="int" resultType="Coupon">
         SELECT coupon_pk, c_class, c_amount, c_issue_date, c_exp_date
         FROM coupon_tb WHERE user_pk = #{user_pk} AND c_use_state = 0
+    </select>
+    <!--마이페이지 만료예정 쿠폰 개수 조회-->
+    <select id="selectExpCoupon" parameterType="int" resultType="int">
+        SELECT count(*) FROM coupon_tb WHERE user_pk = #{user_pk} AND DATEDIFF(c_exp_date, CURDATE()) &lt; 7
+    </select>
+    <!--마이페이지 쿠폰 발급/사용 내역 조회-->
+    <select id="selectCouponDetail" parameterType="int" resultType="Coupon">
+        SELECT coupon_pk, c_class, c_amount, c_issue_date, c_exp_date, c_use_date, c_use_state
+        FROM coupon_tb WHERE user_pk = #{user_pk}
     </select>
 </mapper>

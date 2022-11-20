@@ -52,14 +52,24 @@ public class MyPageController {
     public void updatePoint (Point point) {
         myPageService.updatePoint(point);
     }
-    //마이페이지 쿠폰 개수 조회
+    //마이페이지 사용가능 쿠폰 개수 조회
     @GetMapping("/mycouponcount")
     public int selectMyCouponCount (int user_pk) {
         return myPageService.selectMyCouponCount(user_pk);
     }
-    //마이페이지 사용가능쿠폰 조회
+    //마이페이지 사용가능 쿠폰 조회
     @GetMapping("/mycoupondetail")
     public List<Coupon> selectMyCouponDetail (int user_pk) {
         return myPageService.selectMyCouponDetail(user_pk);
+    }
+    //마이페이지 만료예정 쿠폰 개수 조회
+    @GetMapping("/expcoupon")
+    public int selectExpCoupon (int user_pk) {
+        return myPageService.selectExpCoupon(user_pk);
+    }
+    //마이페이지 쿠폰 발급/사용 내역 조회
+    @GetMapping("/coupondetail")
+    public List<Coupon> selectCouponDetail (int user_pk) {
+        return myPageService.selectCouponDetail(user_pk);
     }
 }

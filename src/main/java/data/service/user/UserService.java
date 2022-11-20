@@ -1,16 +1,13 @@
 package data.service.user;
 
-import data.domain.user.LikeRevw;
+import data.domain.user.*;
 import data.domain.movie.Review;
-import data.domain.user.MWish;
-import data.domain.user.Report;
-import data.domain.user.User;
 import data.repository.movie.ReviewRepository;
-import data.repository.user.LikeRevwRepository;
-import data.repository.user.MWishRepository;
-import data.repository.user.ReportRepository;
-import data.repository.user.UserRepository;
+import data.repository.user.*;
 import lombok.RequiredArgsConstructor;
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -24,7 +21,6 @@ public class UserService {
     private final LikeRevwRepository likeRevwRepository;
     private final ReportRepository reportRepository;
     private final MWishRepository mWishRepository;
-
     //로그인 (id, password 체크)
     public Map<String, Object> selectLogin (Map<String, String> map) {
         int yesOrNo = userRepository.selectLogin(map);
@@ -52,6 +48,30 @@ public class UserService {
     //회원가입
     public void insertUser (User user) {
         userRepository.insertUser(user);
+    }
+    //회원가입 시 본인 인증
+    public void certifiedPhoneNumber(String phoneNumber, String cerNum) {
+
+        String api_key = "NCSOX3D8XBNLOEGI";
+        String api_secret = "XS5PNYO2EUDRLMH3I7NMVV478Z62KPRZ";
+        Message coolsms = new Message(api_key, api_secret);
+
+        // 4 params(to, from, type, text) are mandatory. must be filled
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("to", phoneNumber);    // 수신전화번호
+        params.put("from", "01086859930");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
+        params.put("type", "SMS");
+        params.put("text", "핫띵크 휴대폰인증 테스트 메시지 : 인증번호는" + "["+cerNum+"]" + "입니다.");
+        params.put("app_version", "test app 1.2"); // application name and version
+
+        try {
+            JSONObject obj = (JSONObject) coolsms.send(params);
+            System.out.println(obj.toString());
+        } catch (CoolsmsException e) {
+            System.out.println(e.getMessage());
+            System.out.println(e.getCode());
+        }
+
     }
     //비밀번호 변경할 때 아이디 참조해서 기존 비밀번호 가져오기(기존 비밀번호와 일치하면 비밀번호 변경불가)
     public boolean selectPass (User user) {

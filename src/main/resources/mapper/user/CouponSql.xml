@@ -14,4 +14,18 @@
     <select id="selectCouponNumber" parameterType="String" resultType="int">
         SELECT count(*) FROM coupon_tb WHERE coupon_pk = #{coupon_pk}
     </select>
+    <!--회원가입 후 유저키 조회-->
+    <select id="selectUserKey" resultType="int">
+        SELECT MAX(user_pk) FROM user_tb
+    </select>
+    <!--가입 쿠폰 생성-->
+    <insert id="insertJoinCoupon" parameterType="Coupon">
+        INSERT INTO coupon_tb (coupon_pk, user_pk, c_class, c_amount, c_issue_date, c_exp_date, c_use_state)
+        SELECT #{coupon_pk}, #{user_pk}, "Join", 3000, CURDATE(), ADDDATE(CURDATE(),60), 0
+    </insert>
+    <!--쿠폰 사용기간 만료되면 사용불가-->
+    <update id="updateCouponState">
+        UPDATE coupon_tb SET c_use_state = 1 WHERE c_exp_date = CURDATE();
+    </update>
+
 </mapper>

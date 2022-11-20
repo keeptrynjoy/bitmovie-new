@@ -19,11 +19,10 @@ public class BatchScheduler {
     public void insertBirthCoupon () {
         couponService.insertBirthCoupon();
     }
-
-//    Logger logger = LoggerFactory.getLogger(this.getClass());
-//    10초마다 실행
-//    @Scheduled(cron = "1/10 * * * * *", zone = "Asia/Seoul")
-//    public void testSchedule() {
-//        logger.info("[MYTEST] test batch {}", LocalDateTime.now());
-//    }
+    //쿠폰 사용기간 만료되면 사용불가
+//    @Scheduled(cron = "1/10 * * * * *", zone = "Asia/Seoul") //10초마다 실행
+    @Scheduled(cron = "0 0 0 * * *", zone = "Asia/Seoul") //매일 자정 실행
+    public void updateCouponState () {
+        couponService.updateCouponState();
+    }
 }
