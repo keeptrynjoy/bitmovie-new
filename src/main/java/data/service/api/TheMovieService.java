@@ -97,66 +97,73 @@ public class TheMovieService {
 
 //        for(int i=0; i<movie_id_lsit.size(); i++){
 
-            String movie_type="";   // 영화 장르
-            String name = "";       // 영화 제목
-            String sdate = "";      // 상영 시작일
-            String edate = "";      // 상영 종료일 (시작일+3달)
-            String info = "...";    // 줄거리
-            int runtime = 0;        // 런타임
-            String country = "US";
+        // 관람 등급 1,12,15,19 세중 랜덤으로 생성
+        final String[] age_grade_list =
+                {"0", "12", "15", "19" , "12", "15"};
+        Random rand = new Random();
+        String age_grd = age_grade_list[rand.nextInt(age_grade_list.length)];
 
-            //url 선언
-            String detail_url = TMDB_URL + "movie/" + movie_id + "?" + TMDB_KEY + TMDB_KO;
-            //url 의 데이터를 jsonobject로 반환
+        String movie_type="";   // 영화 장르
+        String name = "";       // 영화 제목
+        String sdate = "";      // 상영 시작일
+        String edate = "";      // 상영 종료일 (시작일+3달)
+        String info = "...";    // 줄거리
+        int runtime = 0;        // 런타임
+        String country = "US";
 
-            jsonObject = getDataByURL(detail_url);
+        //url 선언
+        String detail_url = TMDB_URL + "movie/" + movie_id + "?" + TMDB_KEY + TMDB_KO;
+        //url 의 데이터를 jsonobject로 반환
 
-            name = jsonObject.get("title").toString();
-            runtime = Integer.parseInt(jsonObject.get("runtime").toString());
+        jsonObject = getDataByURL(detail_url);
 
-            // 제작 국가 정보
-            JSONArray countryArray = (JSONArray) jsonObject.get("production_countries");
-            if(countryArray.size()!=0){     // 데이터 가 없는 경우 초기 값 US 로 저장.
-                country = ((JSONObject) countryArray.get(0)).get("name").toString();
-            }
+        name = jsonObject.get("title").toString();
+        runtime = Integer.parseInt(jsonObject.get("runtime").toString());
 
-            // 영화 개봉일 상영 종료일 계산
-            sdate = jsonObject.get("release_date").toString();
-            // edate 계산 Edate = sdate + 3달
-            DateTimeFormatter dtformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.KOREA);
-            LocalDate date = LocalDate.parse(sdate, dtformatter);
-            edate = date.plusMonths(3).toString();
+        // 제작 국가 정보
+        JSONArray countryArray = (JSONArray) jsonObject.get("production_countries");
+        if(countryArray.size()!=0){     // 데이터 가 없는 경우 초기 값 US 로 저장.
+            country = ((JSONObject) countryArray.get(0)).get("name").toString();
+        }
 
-            //영화 소개 글 존재 유무에 따라 데이터 저장
-            if(!(jsonObject.get("overview").toString().trim().equals(""))){
-                info = jsonObject.get("overview").toString();
-            }
+        // 영화 개봉일 상영 종료일 계산
+        sdate = jsonObject.get("release_date").toString();
+        // edate 계산 Edate = sdate + 3달
+        DateTimeFormatter dtformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.KOREA);
+        LocalDate date = LocalDate.parse(sdate, dtformatter);
+        edate = date.plusMonths(3).toString();
 
-            // 장르에 대한 정보 가져오기 ,로 연결해 String 에 담기
-            jsonArray = (JSONArray) jsonObject.get("genres");
-            movie_type = "";
-            for (int j = 0; j < jsonArray.size(); j++) {
-                jsonObject = (JSONObject) jsonArray.get(j);
-                movie_type += jsonObject.get("name").toString();
-                movie_type += ",";
-            }
-            movie_type = movie_type.substring(0, movie_type.length() - 1);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        //영화 소개 글 존재 유무에 따라 데이터 저장
+        if(!(jsonObject.get("overview").toString().trim().equals(""))){
+            info = jsonObject.get("overview").toString();
+        }
+
+        // 장르에 대한 정보 가져오기 ,로 연결해 String 에 담기
+        jsonArray = (JSONArray) jsonObject.get("genres");
+        movie_type = "";
+        for (int j = 0; j < jsonArray.size(); j++) {
+            jsonObject = (JSONObject) jsonArray.get(j);
+            movie_type += jsonObject.get("name").toString();
+            movie_type += ",";
+        }
+        movie_type = movie_type.substring(0, movie_type.length() - 1);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 
-            //Repository 를 호출해 db에 저장
-            movieRepository.insertDetailData(
-                    Movie.movieBuilder()
-                            .movie_pk(Integer.parseInt(movie_id.toString()))
-                            .m_name(name)
-                            .m_type(movie_type)
-                            .m_sdate(sdate)
-                            .m_edate(edate)
-                            .m_runtime(runtime)
-                            .m_info(info)
-                            .m_country(country)
-                            .build()
-            );
+        //Repository 를 호출해 db에 저장
+        movieRepository.insertDetailData(
+                Movie.movieBuilder()
+                        .movie_pk(Integer.parseInt(movie_id.toString()))
+                        .m_name(name)
+                        .m_type(movie_type)
+                        .m_sdate(sdate)
+                        .m_edate(edate)
+                        .m_runtime(runtime)
+                        .m_info(info)
+                        .m_country(country)
+                        .m_age_grd(age_grd)
+                        .build()
+        );
 
 //        }//for
 

@@ -15,5 +15,5 @@ public interface ScreenTimeRepository {
     public void updateScrTimeByPk(ScreenTime screenTime);
     public void deleteScrTime(int scrtime_pk);
 
-    public List<JoinTime> selectTimeByMovie(Map<String, Object> map);     //영화 페이지에서 상영 시간표 출력
+
 }

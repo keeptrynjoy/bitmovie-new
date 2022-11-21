@@ -1,13 +1,7 @@
 package data.service.user;
 
-import data.domain.movie.JoinCast;
-import data.domain.movie.JoinMovie;
-import data.domain.movie.JoinRevw;
-import data.domain.movie.Person;
-import data.repository.movie.JoinCastRepository;
-import data.repository.movie.JoinMovieRepository;
-import data.repository.movie.JoinRevwRepository;
-import data.repository.movie.PersonRepository;
+import data.domain.movie.*;
+import data.repository.movie.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +17,7 @@ public class MainService {
     private final JoinMovieRepository joinMovieRepository;
     private final PersonRepository personRepository;
     private final JoinCastRepository joinCastRepository;
+    private final JoinTimeRepositroy joinTimeRepositroy;
 
     // 가장 최신 등록된 평점을 'count'갯수 만큼 반환
     public List<JoinRevw> selectRecentRevw(int count) {
@@ -46,5 +41,21 @@ public class MainService {
         map.put("people_list", people_list);
         map.put("movie_list", movie_list);
         return map;
+    }
+
+    public List<JoinTime> selectTimeByClick(int movie_pk, int theater_pk, String date){
+        Map<String, Object> map = new HashMap<>();
+        map.put("movie_pk", movie_pk);
+        map.put("date", date);
+        map.put("theater_pk", theater_pk);
+        return joinTimeRepositroy.selectTimeByClick(map);
+    }
+
+    public List<JoinTime> testMovieTime(int movie_pk, int theater_pk, String date) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("movie_pk", movie_pk);
+        map.put("date", date);
+        map.put("theater_pk", theater_pk);
+        return joinTimeRepositroy.testMovieTime(map);
     }
 }
