@@ -1,5 +1,6 @@
 package data.repository.user;
 
+import data.domain.user.Coupon;
 import data.domain.user.MyPage;
 import data.domain.user.Point;
 import data.domain.user.User;
@@ -17,4 +18,8 @@ public interface MyPageRepository {
     public int selectPoint (int user_pk); //마이페이지 포인트 조회
     public List<MyPage> selectPointDetail (int user_pk); //마이페이지 포인트 적립/소멸 조회
     public void updatePoint (Point point); //마이페이지 포인트 갱신
+    public int selectMyCouponCount (int user_pk); //마이페이지 사용가능 쿠폰 개수 조회
+    public List<Coupon> selectMyCouponDetail (int user_pk); //마이페이지 사용가능 쿠폰 조회
+    public int selectExpCoupon (int user_pk); //마이페이지 만료예정 쿠폰 개수 조회
+    public List<Coupon> selectCouponDetail (int user_pk); //마이페이지 쿠폰 발급/사용 내역 조회
 }

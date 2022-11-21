@@ -2,13 +2,11 @@ import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
 import { format, addMonths, subMonths } from 'date-fns';
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
-import { isSameMonth, isSameDay, addDays, parse } from 'date-fns';
+import { isSameMonth, isSameDay, addDays } from 'date-fns';
 import './Calender.scss'
 
 
-
 const RenderHeader = ({ currentMonth, prevMonth, nextMonth, input, setInput, changeData }) => {
-
     return (
         <div className={"calender-body"}>
             <div className="header row">
@@ -17,8 +15,7 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth, input, setInput, cha
                     <span className="text month" style={{fontSize:'20px', margin:'0', padding:'0'}}>
                         {format(currentMonth, 'yyyy')}년&nbsp;
                         {format(currentMonth, 'M')}월
-
-                        </span>
+                    </span>
                 </span>
                 </div>
                 <div>

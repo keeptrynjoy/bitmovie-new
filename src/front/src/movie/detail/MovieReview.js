@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Rating} from "@mui/lab";
 import axios from "axios";
-import {Report} from "@material-ui/icons";
+import {Flag, Report} from "@material-ui/icons";
 
 function MovieReview(props) {
     const review=props.review;
@@ -46,7 +46,7 @@ function MovieReview(props) {
                             />
                         </div>
                         <div className={"review-report"}>
-                            <Report fontSize={"large"}/>
+                            <Flag fontSize={"large"}/>
                         </div>
                     </div>
                 </div>

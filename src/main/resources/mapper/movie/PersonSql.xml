@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.repository.movie.PersonRepository">
+
+    <!--  인물 상세 정보 조회  -->
     <select id="selectPersonData" parameterType="int" resultType="person">
-        SELECT * FROM person_tb WHERE person_pk = #{num}
+        SELECT * FROM person_tb WHERE person_pk = #{person_pk}
     </select>
 
     <!--  TMDB - 인물 정보가 db에 저장되어있는지 여부 체크  -->
@@ -18,11 +20,6 @@
     <!--  메인화면 검색 - 인물  -->
     <select id="selectSearchList" parameterType="String" resultType="Person">
         SELECT * FROM person_tb WHERE per_name LIKE concat('%',#{search},'%')
-    </select>
-
-    <!--  인물 상세 정보 출력  -->
-    <select id="selectPersonDetail" parameterType="int" resultType="Person">
-        SELECT * FROM person_tb WHERE person_pk = #{person_pk}
     </select>
 
 </mapper>

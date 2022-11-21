@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface PersonRepository {
 
-    public Person selectPersonData(int num);
+    public Person selectPersonData(int person_pk);  // 인물 상세 정보 조회
 
     public int selectPersonYoN(int person_pk);     // TMDB - 인물 정보가 db에 저장되어있는지 여부 체크
 

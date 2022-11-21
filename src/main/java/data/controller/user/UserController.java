@@ -4,11 +4,13 @@ import data.domain.user.LikeRevw;
 import data.domain.user.MWish;
 import data.domain.user.Report;
 import data.domain.user.User;
+import data.service.user.CouponService;
 import data.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Random;
 
 @RestController
 @CrossOrigin
@@ -16,46 +18,56 @@ import java.util.Map;
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
+    private final CouponService couponService;
 
     //회원가입 아이디 중복 체크
     @GetMapping("/idcheck")
     public int searchId(String u_id) {
         return userService.searchId(u_id); //아이디가 있으면 1 반환, 없으면 0 반환
     }
-
     //회원가입
     @PostMapping("/insert")
-    public void insertUser(@RequestBody User user) {
+    public void insertUser (@RequestBody User user) {
         userService.insertUser(user);
+        couponService.insertJoinCoupon();
     }
-
+    //회원가입 시 본인 인증
+    @GetMapping("/sendSMS")
+    public String sendSMS (@RequestParam String u_phone) {
+        Random rnd  = new Random();
+        StringBuffer buffer = new StringBuffer();
+        for (int i=0; i<4; i++) {
+            buffer.append(rnd.nextInt(10));
+        }
+        String cerNum = buffer.toString();
+        System.out.println("수신자 번호 : " + u_phone);
+        System.out.println("인증번호 : " + cerNum);
+        userService.certifiedPhoneNumber(u_phone, cerNum);
+        return cerNum;
+    }
     //비밀번호 변경할 때 아이디 참조해서 기존 비밀번호 가져오기(기존 비밀번호와 일치하면 비밀번호 변경불가)
     @PostMapping("/selectpass")
-    public boolean selectPass(@RequestBody User user) {
+    public boolean selectPass (@RequestBody User user) {
         return userService.selectPass(user);
     }
-
     //비밀번호 변경
     @PostMapping("/updatepass")
-    public void updatePass(@RequestBody Map<String, String> map) {
+    public void updatePass (@RequestBody Map<String, String> map) {
         userService.updatePass(map);
     }
-
     //회원 삭제(상태 변경)
     @GetMapping("/delete")
-    public void deleteUser(String u_id) {
+    public void deleteUser (String u_id) {
         userService.deleteUser(u_id);
     }
-
     //아이디 찾기
     @GetMapping("/findid")
-    public String selectFindId(String u_phone) {
+    public String selectFindId (String u_phone) {
         return userService.selectId(u_phone);
     }
-
     //비밀번호 찾기(아이디, 핸드폰 번호 넘겨서 둘 다 일치하는 레코드 있으면 1, 없으면 0 넘겨줌)
     @GetMapping("/findpass")
-    public int selectFindPass(@RequestParam Map<String, String> map) {
+    public int selectFindPass (@RequestParam Map<String, String> map) {
         return userService.selectFindPass(map);
     }
 

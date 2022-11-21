@@ -3,7 +3,7 @@
 <mapper namespace="data.repository.movie.MovieRepository">
 
     <!--  영화 상세 정보 출력  -->
-    <select id="selectMovieData" parameterType="String" resultType="movie">
+    <select id="selectMovieData" parameterType="int" resultType="movie">
         SELECT *
         FROM movie_tb
         WHERE movie_pk = #{movie_pk}
