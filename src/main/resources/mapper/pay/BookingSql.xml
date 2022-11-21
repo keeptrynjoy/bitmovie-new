@@ -8,8 +8,17 @@
             ,#{book_the_name},#{book_issu_date},#{book_adult_cnt},#{book_youth_cnt});
     </insert>
 
-    <!-- 상영중인 영화 리스트 출력 -->
+    <!-- 상영중인 영화 리스트 조회 -->
     <select id="selectScreeningMovieList" resultType="movie">
         SELECT * FROM movie_tb mt WHERE mt.m_sdate &lt;= now() order by m_name desc;
+    </select>
+
+    <!-- 현재 예매되어 있는 좌석번호 조회-->
+    <select id="selectSeatNumData" resultType="String" parameterType="int">
+        SELECT group_concat(book_seat_num)
+            AS seat_num
+        FROM booking_tb
+        WHERE scrtime_pk=#{scrtime_pk}
+        GROUP BY scrtime_pk;
     </select>
 </mapper>
