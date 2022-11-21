@@ -27,17 +27,15 @@ function Ticketing(props) {
         )
     }
 
-    const goSeat = ()=>{
-
+    const goSeat = ()=> {
 
         navi("/ticketing/selectseat", {
-            state : {
-                input:input
+            state: {
+                input: input
             },
+
         });
-
     }
-
 
 
     useEffect(()=>{
