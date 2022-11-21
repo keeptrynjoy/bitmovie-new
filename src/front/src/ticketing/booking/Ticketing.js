@@ -70,6 +70,7 @@ function Ticketing(props) {
                 {/*<button type={"button"} className={'selectseat'} onClick={() => navi("/ticketing/selectseat",{input, setInput})} input={input} setInput={setInput} changeData={changeData} >좌석선택</button>*/}
                 <button type={"button"} className={'selectseat'} onClick={goSeat} >좌석선택</button>
 
+
             </div>
 
 

@@ -1,42 +1,3 @@
-// import React, {useEffect, useState} from 'react';
-// import {useLocation} from "react-router-dom";
-//
-// const SelectSeat = () => {
-
-    //
-    // const location = useLocation();
-    // console.log('state',location.state);
-    //
-    // const movieData= location.state.input;
-    // console.log(movieData);
-    //
-    //
-    // let allData=useLocation();
-    // console.log(allData);
-    //
-    // return (
-//         <div>
-//             <span>영화 : {movieData.movie}</span>
-//             <span>상영관 : {movieData.location}</span>
-//             <span>날짜 : {movieData.calender}</span>
-//             <span>시간 : {movieData.time}</span>
-//         </div>
-//     );
-// };
-//
-// export default SelectSeat;
-
-
-
-
-
-
-
-
-
-
-
-
 
 import React, { useState } from 'react';
 import SeatView from './SeatView.js';
@@ -47,11 +8,6 @@ import {useLocation} from "react-router-dom";
 
 
 const generateArray = (length) => Array.from({ length }, (_, i) => ({ id: i, selected: false }));
-
-
-
-
-
 
 
 export default function App(props) {
@@ -77,8 +33,6 @@ export default function App(props) {
 
 
     });
-
-
 
 
 

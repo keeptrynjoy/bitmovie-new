@@ -1,7 +1,6 @@
 import {json, useLocation, useNavigate} from "react-router-dom";
 
 import './SelectSeat.css';
-import {useState} from "react";
 export default function SeatView({people, seats, rowSeats, onClickPeople,input ,setInput,changeData }) {
 
     const navi=useNavigate();
@@ -14,14 +13,35 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     }
     const obj = JSON.parse(movieData.movie);
 
-    console.log(obj.m_photo);
 
     return (
         <div className={'seatchoose'}>
             <h1>좌석선택</h1>
-            <section className="movie-container">
-
+            <br/>
+            <section>
+                <label>성인</label>&nbsp;
+                <select>
+                    <option disabled>0명</option>
+                    <option value="a1">1명</option>
+                    <option value="a2">2명</option>
+                    <option value="a3">3명</option>
+                    <option value="a4">4명</option>
+                    <option value="a5">5명</option>
+                    <option value="a6">6명</option>
+                </select>
+                &nbsp;
+                <label>청소년</label>&nbsp;
+                <select>
+                    <option disabled>0명</option>
+                    <option value="s1">1명</option>
+                    <option value="s2">2명</option>
+                    <option value="s3">3명</option>
+                    <option value="s4">4명</option>
+                    <option value="s5">5명</option>
+                    <option value="s6">6명</option>
+                </select>
             </section>
+            <br/>
 
             <ul className="showcase">
                 <li>
@@ -41,18 +61,15 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                 <article id="info-container">
                     <div className={'seatposter'}></div>
                     <div className={'seattx'}>
-                        <p>제목 : <b  style={{fontSize:'20px', color:'blue'}}>{obj.m_name}</b></p>
-                        <section className="info-section">
-                            <p id="selected-movie"></p>
-                        </section>
-                        <section className="info-section">
+                        <b  style={{fontSize:'20px'}}>{obj.m_name}</b>
                             <br />
-                            <p>상영관 : {movieData.location} 관</p>
-                            <p>예매날짜 : 2022년 11월 {movieData.calender}일 </p>
-                            <p>상영시간표 : {movieData.time}번째 상영타임 </p>
+                            <p>상영관 {movieData.location}관</p>
+                            <p>날짜 2022.11.{movieData.calender}일 </p>
+                            <p>시간 {obj.m_runtime}분</p>
+                            <p>인원</p>
+                            <p>좌석</p>
 
                             <p id="selected-seats"></p>
-                        </section>
                     </div>
                     <div className={'moveall'}>
                         <article className="seat-section2">
@@ -95,6 +112,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                                         className={'seat'}
                                         key={j}
                                         value={i + 1 + '' + (j + 1)}
+                                        onClick={changeData}
                                     />
                                 ))}
                             </button>
@@ -103,9 +121,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                 </article>
             </main>
 
-            <p className="text">
-                선택된 좌석 수 : <span id="count">0</span>
-            </p>
+
             <div id={'btns'}>
                 <button id="reset-btn" onClick={reset}>예매 다시하기</button>
                 <button id="reset-btn2" onClick={() => navi('/ticketing/payment')}>
