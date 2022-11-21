@@ -5,9 +5,9 @@ import data.domain.pay.Booking;
 import data.repository.pay.BookingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -28,17 +28,11 @@ public class BookingService {
 //            System.out.println(split[0]);
             m.setM_photo(split[0]);
         }
-
         return selectMovieList;
     }
 
-    public boolean bookingCheck(Booking booking){
-        String book_seat_num = booking.getBook_seat_num();
-        int scrtime_pk = booking.getScrtime_pk();
+    public String reservedSeatList(int screentime){
 
-
-
-        return true;
-
+        return bookingRepositorys.selectSeatNumData(screentime);
     }
 }

@@ -19,23 +19,6 @@
         DELETE FROM screentime_tb WHERE scrtime_pk=#{scrtime_pk}
     </delete>
 
-    <resultMap id="screentime" type="screentime">
-        <result column="scrt_date" property="scrt_date"/>
-        <result column="scrt_stime" property="scrt_stime"/>
-        <result column="scrt_etime" property="scrt_etime"/>
-    </resultMap>
-
-    <resultMap id="theater" type="theater">
-        <result column="the_name" property="the_name"/>
-    </resultMap>
-
-    <select id="selectScrTimeByMovie" resultMap="screentime" parameterType="int">
-        SELECT tt.the_name,st.scrt_date,st.scrt_stime,st.scrt_etime
-        FROM screentime_tb st
-                 JOIN theater_tb tt on st.theater_pk = tt.theater_pk
-        WHERE st.movie_pk=1;
-    </select>
-
     <!--  영화 출력시 필요한 예매울 분모 계산 (해당 날짜의 총 좌석수 구하기)  -->
     <select id="selectTotalSeat" parameterType="Map" resultType="int">
         SELECT sum(s.scr_tot_seat)

@@ -14,4 +14,6 @@ public interface BookingRepository {
     public void insertBookingData(Booking booking);
 
     public List<Movie> selectScreeningMovieList();
+
+    public String selectSeatNumData(int screentime);
 }
