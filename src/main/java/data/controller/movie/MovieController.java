@@ -1,10 +1,8 @@
 package data.controller.movie;
 
-import data.domain.movie.Cast;
-import data.domain.movie.JoinMovie;
-import data.domain.movie.JoinRevw;
-import data.domain.movie.Movie;
+import data.domain.movie.*;
 import data.service.movie.MovieService;
+import data.service.movie.ScreenTimeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +17,7 @@ import java.util.Map;
 public class MovieController {
 
     private final MovieService movieService;
+    private final ScreenTimeService screenTimeService;
 
     // 영화 상세 정보 출력
     @GetMapping("/selectMovieData")
@@ -41,5 +40,13 @@ public class MovieController {
         */
         List<JoinMovie> movie_data_list = movieService.selectMovieList(order_stand, BorA);
         return movie_data_list;
+    }
+
+    // 영화 페이지 - 상영시간표 출력
+    @GetMapping("/selectTimeByMovie")
+    public List<JoinTime> selectTimeByMovie(int movie_pk, String date){
+        System.out.println("controller movie_pk: " + movie_pk);
+        System.out.println("controller date: " + date);
+        return screenTimeService.selectTimeByMovie(movie_pk, date);
     }
 }
