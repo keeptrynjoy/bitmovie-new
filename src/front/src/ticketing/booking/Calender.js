@@ -74,7 +74,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, changeData}) => 
                     key={day} value={formattedDate}
                     name="calender"
                     onClick={(e) =>{
-                        onDateClick(parseInt(cloneDay))
+                        onDateClick(cloneDay)
                         changeData(e)}
                     }
                 >

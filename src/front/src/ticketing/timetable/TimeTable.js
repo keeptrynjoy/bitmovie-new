@@ -9,7 +9,7 @@ const TimeTable = (props) => {
     return (
         <div>
             {table.map((list,i)=>(
-                <div>
+                <div key={i}>
                     <button key={i} value={i+1} className={"time-table"} name={"time"} onClick={changeData}  >상영시간표</button>
                 </div>
 

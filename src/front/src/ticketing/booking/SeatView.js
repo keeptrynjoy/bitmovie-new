@@ -1,36 +1,42 @@
 import {json, useLocation, useNavigate} from "react-router-dom";
 
 import './SelectSeat.css';
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
+import Swal from "sweetalert2";
 export default function SeatView({people, seats, rowSeats, onClickPeople,input ,setInput,changeData }) {
 
     const navi=useNavigate();
     const location = useLocation();
     const movieData= location.state.input;
+    const [totalp, setTotalp] =useState(0);
+    const [selected_seat, setSelected_seat]=useState([]);
     const [checkedArr, setCheckedArr] = useState([]);
+    const alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
     console.log('state',location.state);
 
     const reset=()=>{
-        movieData('');
+        window.location.reload();
     }
     const obj = JSON.parse(movieData.movie);
 
+    //성인
     const handleOnchangePerson=(e)=>{
 
         const value= e.value;
 
         document.getElementById('result').innerText=e.target.value;
+        setTotalp(parseInt(e.target.value)+parseInt(document.getElementById('student_select').value));
 
     }
 
+    //청소년
     const handleOnchangePerson2=(e)=>{
 
         const value= e.value;
 
-        document.getElementById('result2').innerText=  e.target.value;
-
+        document.getElementById('result2').innerText=e.target.value;
+        setTotalp(parseInt(e.target.value)+parseInt(document.getElementById('adult_select').value));
     }
-
 
 
 
@@ -38,16 +44,28 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
     // const [checkedInputs, setCheckedInputs] = useState([]);
     //
-    // const changeHandler = (checked, checkings) => {
-    //     if (checked) {
-    //         setCheckedInputs([...checkedInputs, checkings]);
-    //     } else {
-    //         // 체크 해제
-    //         setCheckedInputs(checkedInputs.filter((el) => el !== checkings));
-    //     }
-    // };
-    //
+    const changeHandler = (e) => {
 
+        if(selected_seat.length>totalp){
+            Swal.fire({
+                icon:"warning",
+                text:"안돼"
+            })
+            return;
+        }
+
+        if (e.target.checked) {
+            setSelected_seat([...selected_seat, e.target.value]);
+        } else {
+            // 체크 해제
+            setSelected_seat(selected_seat.filter((a) => a !== e.target.value));
+        }
+
+    };
+
+    useEffect(()=>{
+        console.log(selected_seat);
+    },[selected_seat]);
 
 
 
@@ -111,25 +129,25 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
             <br/>
             <section>
                 <label>성인</label>&nbsp;
-                <select name={'adult'} onChange={handleOnchangePerson}>
-                    <option value={0} selected>0명</option>
-                    <option value="성인1명">1명</option>
-                    <option value="성인2명">2명</option>
-                    <option value="성인3명">3명</option>
-                    <option value="성인4명">4명</option>
-                    <option value="성인5명">5명</option>
-                    <option value="성인6명">6명</option>
+                <select name={'adult'} id={"adult_select"} defaultValue={0} onChange={handleOnchangePerson}>
+                    <option value="0">0명</option>
+                    <option value="1">1명</option>
+                    <option value="2">2명</option>
+                    <option value="3">3명</option>
+                    <option value="4">4명</option>
+                    <option value="5">5명</option>
+                    <option value="6">6명</option>
                 </select>
                 &nbsp;
                 <label>청소년</label>&nbsp;
-                <select name={'child'} onChange={handleOnchangePerson2}>
-                    <option value={0} selected>0명</option>
-                    <option value="청소년1명">1명</option>
-                    <option value="청소년2명">2명</option>
-                    <option value="청소년3명">3명</option>
-                    <option value="청소년4명">4명</option>
-                    <option value="청소년5명">5명</option>
-                    <option value="청소년6명">6명</option>
+                <select name={'child'} id={"student_select"} defaultValue={0} onChange={handleOnchangePerson2}>
+                    <option value="0">0명</option>
+                    <option value="1">1명</option>
+                    <option value="2">2명</option>
+                    <option value="3">3명</option>
+                    <option value="4">4명</option>
+                    <option value="5">5명</option>
+                    <option value="6">6명</option>
                 </select>
             </section>
             <br/>
@@ -150,15 +168,14 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
             </ul>
             <main>
                 <article id="info-container">
-                    <div className={'seatposter'}></div>
+                    <img alt={obj.m_name} src={`https://image.tmdb.org/t/p/w500${obj.m_photo}`} className={'seatposter'}/>
                     <div className={'seattx'}>
                         <p style={{fontSize:'30px'}}>{obj.m_name}</p>
                         <p><b style={{fontSize:'20px'}}>상영관</b> {movieData.location}관</p>
                             <p><b style={{fontSize:'20px'}}>날짜</b> 2022.11.{movieData.calender}일 </p>
                             <p><b style={{fontSize:'20px'}}>시간</b> {obj.m_runtime}분</p>
-                            <p><b style={{fontSize:'20px'}}>인원</b> <span id={'result'}></span>&nbsp;<span id={'result2'}></span></p>
+                            <p><b style={{fontSize:'20px'}}>인원</b>성인 :  <span id={'result'}></span>&nbsp;청소년 : <span id={'result2'}></span></p>
                             <p><b style={{fontSize:'20px'}}>좌석</b> <span id={checkedArr}></span> </p>
-
                             <p id="selected-seats"></p>
                     </div>
                 </article>
@@ -168,20 +185,20 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                     <div className={'seatboxes'}>
                         {rowSeats.map((list, i) => (
                             <li className={'row'} key={i} >
-                                {seats.map((list,i) => (
+                                {seats.map((list,j) => (
                                 // {seats.map((list, j) => (
                                     <input type={"checkbox"}
                                         className={'seat'}
-                                        key={i}
+                                        key={j}
                                         // value={i + 1 + '' + (j + 1)}
-                                        value={i+1}
+                                        value={alphabet[i].toUpperCase()+(j+1).toString()}
                                            // onChange={(
                                            //
                                            // )=>{
                                            //     changeHandler(e.currentTarget.checked, checkings)
                                            // }}
-                                           // checked={checkedInputs.includes(checkings) ? true : false}
-
+                                           //  checked={selected_seat.includes(this.value)}
+                                        onChange={changeHandler}
                                 />
                                 ))}
                             </li>
