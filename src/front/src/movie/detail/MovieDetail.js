@@ -25,6 +25,7 @@ function MovieDetail(props) {
     const [movie_data,setMovie_data]=useState([]);
     const [movie_photo,setMovie_photo]=useState([]);
     const [movie_review,setMovie_review]=useState([]);
+    const [cast_data,setCast_data]=useState([]);
     const [review_open, setReview_Open] = useState(false);
     const [review_star,setReview_star]=useState(0);
     const [review_text,setReview_text]=useState("");
@@ -38,6 +39,7 @@ function MovieDetail(props) {
                 setMovie_data(res.data.data);
                 setMovie_photo(res.data.data.m_photo.split(","));
                 setMovie_review(res.data.revw);
+                setCast_data(res.data.cast);
                 console.log(res.data);
             })
     }
@@ -96,32 +98,54 @@ function MovieDetail(props) {
         document.window.reload();
     }
 
+    const getCastType=(i)=>{
+        switch (i) {
+            case "Writing":
+                return "각본"
+            case "Visual Effects":
+                return "CG"
+            case "Sound":
+                return "음향 감독"
+            case "Production":
+                return "제작"
+            case "Directing":
+                return "감독"
+            case "Editing":
+                return "편집"
+            case "Crew":
+                return "제작진"
+            case "Camera":
+                return "촬영"
+            case "Art":
+                return "미술"
+            default:
+                return "배우"
+        }
+    }
+
     return (
         <div>
             <div className={'detail-div'}>
                 <div className={"detail-upper-div"}>
                     <div className={"poster-and-btn"}>
-                        {
-                            <div className="frames glide__track" data-glide-el="track" style={{width:"350px",height:"500px",alignContent:"center"}}>
-                                <Swiper className="myswiper"
-                                        modules={[Navigation, Pagination, Autoplay]}
-                                        pagination={{ clickable: true }}
-                                        navigation
-                                        effect
-                                        speed={800}
-                                        loop={false}
-                                        slidesPerView={1}
-                                >
-                                    {movie_photo.map((item, idx) => (
-                                        <SwiperSlide key={idx}>
-                                            <img alt={""} src={`https://image.tmdb.org/t/p/w500/${item}`}
-                                                 className={"dtposter"}/>
-                                        </SwiperSlide>
-                                    ))}
-                                </Swiper>
-                            </div>
-
-                        }
+                        <div className="frames glide__track" data-glide-el="track" style={{width:"350px",height:"500px",alignContent:"center"}}>
+                            <Swiper className="myswiper"
+                                    modules={[Navigation, Pagination, Autoplay]}
+                                    pagination={{ clickable: true }}
+                                    navigation
+                                    effect
+                                    speed={800}
+                                    loop={false}
+                                    slidesPerView={1}
+                            >
+                                {movie_photo.map((item, idx) => (
+                                    <SwiperSlide key={idx}>
+                                        <img alt={""} src={`https://image.tmdb.org/t/p/w500/${item}`}
+                                             className={"dtposter"}/>
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
+                        </div>
                         <button type={"button"} className={"bookingBtn"}>예매하기</button>
                     </div>
                     <div className={"detail-content-div"}>
@@ -130,7 +154,7 @@ function MovieDetail(props) {
                                 <b>{movie_data.m_name}</b>
                                 ({moment(movie_data.m_sdate).format("YYYY")})
                             </div>
-                            <b>기본 : </b> 12 | 제작국가 | {movie_data.m_runtime===0?"미정":`${movie_data.m_runtime}분`}<br/>
+                            <b>기본 : </b> {movie_data.m_age_grd==="0"?"All":movie_data.m_age_grd} | {movie_data.m_country} | {movie_data.m_runtime===0?"미정":`${movie_data.m_runtime}분`}<br/>
                             <b>장르 : </b> {movie_data.m_type}<br/>
                             <b>개봉일 : </b> {movie_data.m_sdate}<br/>
                             <b>줄거리 : </b>
@@ -149,6 +173,35 @@ function MovieDetail(props) {
                         controls={true}
                         loop={true}
                     />
+                </div>
+                <div className={"cast-div"}>
+                    <h1>출연/제작진</h1>
+                    <Swiper className="castswiper"
+                            modules={[Navigation, Pagination, Autoplay]}
+                            pagination={{ clickable: true }}
+                            navigation
+                            effect
+                            speed={800}
+                            loop={false}
+                            slidesPerView={4}
+                    >
+                        {cast_data.map((item, idx) => (
+                            <SwiperSlide key={idx}>
+                                <div className={"cast-card"}>
+                                    <img alt={""} src={`https://image.tmdb.org/t/p/w500/${item.per_photo}`}
+                                         className={"cast-img"}/>
+                                    <div className={"cast-info"}>
+                                        <div className={"person-name"}>
+                                            {item.per_name}
+                                        </div>
+                                        <div className={"cast-type"}>
+                                            {getCastType(item.cast_type)}
+                                        </div>
+                                    </div>
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
                 </div>
                 <div className={"dtreview"}>
                     <h1>영화리뷰</h1>
@@ -177,15 +230,6 @@ function MovieDetail(props) {
                                     }}
                                     value={review_text}
                                 />
-                                {/*<TextField*/}
-                                {/*    sx={{width:"500px"}}*/}
-                                {/*    placeholder={"이 영화를 평가해주세요"}*/}
-                                {/*    autoFocus*/}
-                                {/*    margin="dense"*/}
-                                {/*    id="review"*/}
-                                {/*    type="text"*/}
-                                {/*    variant="standard"*/}
-                                {/*/>*/}
                             </FormControl>
                         </DialogContent>
                         <DialogActions>
