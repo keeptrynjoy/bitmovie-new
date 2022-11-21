@@ -1,12 +1,13 @@
 import {json, useLocation, useNavigate} from "react-router-dom";
 
 import './SelectSeat.css';
-import {useState} from "react";
+import {useCallback, useState} from "react";
 export default function SeatView({people, seats, rowSeats, onClickPeople,input ,setInput,changeData }) {
 
     const navi=useNavigate();
     const location = useLocation();
     const movieData= location.state.input;
+    const [checkedArr, setCheckedArr] = useState([]);
     console.log('state',location.state);
 
     const reset=()=>{
@@ -14,23 +15,133 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     }
     const obj = JSON.parse(movieData.movie);
 
-    console.log(obj.m_photo);
+    const handleOnchangePerson=(e)=>{
+
+        const value= e.value;
+
+        document.getElementById('result').innerText=e.target.value;
+
+    }
+
+    const handleOnchangePerson2=(e)=>{
+
+        const value= e.value;
+
+        document.getElementById('result2').innerText=  e.target.value;
+
+    }
+
+
+
+
+    //체크박스
+
+    // const [checkedInputs, setCheckedInputs] = useState([]);
+    //
+    // const changeHandler = (checked, checkings) => {
+    //     if (checked) {
+    //         setCheckedInputs([...checkedInputs, checkings]);
+    //     } else {
+    //         // 체크 해제
+    //         setCheckedInputs(checkedInputs.filter((el) => el !== checkings));
+    //     }
+    // };
+    //
+
+
+
+
+
+
+
+
+
+
+
+    // const CheckBox = () => {
+    //     const [checkedList, setCheckedLists] = useState([]);
+
+
+    // 개별 체크 클릭 시 발생하는 함수
+//     const onCheckedElement = useCallback(
+//         (checked, list) => {
+//             if (checked) {
+//                 setCheckedLists([...checkedList, list]);
+//             }else {
+//                 setCheckedLists(checkedList.filter((el) => el !== list));
+//             }
+//         },
+//         [checkedList]
+//     );
+// };
+
+
+        // const value=e.value;
+        //
+        // document.getElementsByClassName('result3').innerText=  e.target.value;
+        //
+
+
+
+    //
+    //     console.log(e.target.value);
+    //     if (e.target.value!==0) {
+    //         document.getElementById('result3').innerText = e.target.value;
+    //     }
+    //
+    // }
+    //
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     return (
         <div className={'seatchoose'}>
-            <h1>좌석선택</h1>
-            <section className="movie-container">
-
+            <h1>인원 및 좌석선택</h1>
+            <br/>
+            <section>
+                <label>성인</label>&nbsp;
+                <select name={'adult'} onChange={handleOnchangePerson}>
+                    <option value={0} selected>0명</option>
+                    <option value="성인1명">1명</option>
+                    <option value="성인2명">2명</option>
+                    <option value="성인3명">3명</option>
+                    <option value="성인4명">4명</option>
+                    <option value="성인5명">5명</option>
+                    <option value="성인6명">6명</option>
+                </select>
+                &nbsp;
+                <label>청소년</label>&nbsp;
+                <select name={'child'} onChange={handleOnchangePerson2}>
+                    <option value={0} selected>0명</option>
+                    <option value="청소년1명">1명</option>
+                    <option value="청소년2명">2명</option>
+                    <option value="청소년3명">3명</option>
+                    <option value="청소년4명">4명</option>
+                    <option value="청소년5명">5명</option>
+                    <option value="청소년6명">6명</option>
+                </select>
             </section>
+            <br/>
 
             <ul className="showcase">
                 <li>
                     <div className="seat okay"></div>
-                    <small>예매가능</small>
+                    <small>선택가능</small>
                 </li>
                 <li>
                     <div className="seat selected"></div>
-                    <small>선택된좌석</small>
+                    <small>선택불가</small>
                 </li>
                 <li>
                     <div className="seat occupied"></div>
@@ -41,46 +152,14 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                 <article id="info-container">
                     <div className={'seatposter'}></div>
                     <div className={'seattx'}>
-                        <p>제목 : <b  style={{fontSize:'20px', color:'blue'}}>{obj.m_name}</b></p>
-                        <section className="info-section">
-                            <p id="selected-movie"></p>
-                        </section>
-                        <section className="info-section">
-                            <br />
-                            <p>상영관 : {movieData.location} 관</p>
-                            <p>예매날짜 : 2022년 11월 {movieData.calender}일 </p>
-                            <p>상영시간표 : {movieData.time}번째 상영타임 </p>
+                        <p style={{fontSize:'30px'}}>{obj.m_name}</p>
+                        <p><b style={{fontSize:'20px'}}>상영관</b> {movieData.location}관</p>
+                            <p><b style={{fontSize:'20px'}}>날짜</b> 2022.11.{movieData.calender}일 </p>
+                            <p><b style={{fontSize:'20px'}}>시간</b> {obj.m_runtime}분</p>
+                            <p><b style={{fontSize:'20px'}}>인원</b> <span id={'result'}></span>&nbsp;<span id={'result2'}></span></p>
+                            <p><b style={{fontSize:'20px'}}>좌석</b> <span id={checkedArr}></span> </p>
 
                             <p id="selected-seats"></p>
-                        </section>
-                    </div>
-                    <div className={'moveall'}>
-                        <article className="seat-section2">
-                            <div className="seat3">성인</div>
-                            {people?.ADULT?.array?.map(({ id, selected }) => (
-                               <button
-                                    key={`adult-${id}`}
-                                    style={{ backgroundColor: selected ? 'red' : null }}
-                                    className="seat2"
-                                    onClick={() => onClickPeople(id, 'ADULT')}
-                                >
-                                    {id + 1}
-                                </button>
-                            ))}
-                        </article>
-                        <article className="seat-section3">
-                            <div className="seat3">청소년</div>
-                            {people?.CHILD?.array?.map(({ id, selected }) => (
-                                <button
-                                    key={`child-${id}`}
-                                    style={{ backgroundColor: selected ? 'red' : null }}
-                                    className="seat2"
-                                    onClick={() => onClickPeople(id, 'CHILD')}
-                                >
-                                    {id + 1}
-                                </button>
-                            ))}
-                        </article>
                     </div>
                 </article>
 
@@ -88,24 +167,30 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                     <div className="screen"></div>
                     <div className={'seatboxes'}>
                         {rowSeats.map((list, i) => (
-                            <button className={'row'} key={i}>
-                                {seats.map((list, j) => (
-                                    <button
-                                        style={{ backgroundColor: !list?.selected ? null : 'red' }}
+                            <li className={'row'} key={i} >
+                                {seats.map((list,i) => (
+                                // {seats.map((list, j) => (
+                                    <input type={"checkbox"}
                                         className={'seat'}
-                                        key={j}
-                                        value={i + 1 + '' + (j + 1)}
-                                    />
+                                        key={i}
+                                        // value={i + 1 + '' + (j + 1)}
+                                        value={i+1}
+                                           // onChange={(
+                                           //
+                                           // )=>{
+                                           //     changeHandler(e.currentTarget.checked, checkings)
+                                           // }}
+                                           // checked={checkedInputs.includes(checkings) ? true : false}
+
+                                />
                                 ))}
-                            </button>
+                            </li>
                         ))}
                     </div>
                 </article>
             </main>
 
-            <p className="text">
-                선택된 좌석 수 : <span id="count">0</span>
-            </p>
+
             <div id={'btns'}>
                 <button id="reset-btn" onClick={reset}>예매 다시하기</button>
                 <button id="reset-btn2" onClick={() => navi('/ticketing/payment')}>
