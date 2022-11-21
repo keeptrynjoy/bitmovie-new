@@ -75,11 +75,10 @@ main{
 }
 
 .seattx{
-    width: 150px;
+    width: 250px;
     height: 200px;
     float: left;
     margin-left: 5%;
-    margin-top: 10%;
 }
 
 #info-container h2{
@@ -303,9 +302,7 @@ button.seat2:focus {
     border: 1px solid gray;
     background-image: url("/src/image/joker.jpg");
     background-size: cover;
-    border-radius: 20px;
+    border-radius: 10px;
     float: left;
-    margin-left: 40px;
-    margin-top: 20px;
 
 }

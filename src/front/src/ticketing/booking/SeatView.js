@@ -13,32 +13,48 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     }
     const obj = JSON.parse(movieData.movie);
 
+    const handleOnchangePerson=(e)=>{
+
+        const value= e.value;
+
+        document.getElementById('result').innerText=e.target.value;
+
+    }
+
+    const handleOnchangePerson2=(e)=>{
+
+        const value= e.value;
+
+        document.getElementById('result2').innerText= ","+ e.target.value;
+
+    }
+
 
     return (
         <div className={'seatchoose'}>
-            <h1>좌석선택</h1>
+            <h1>인원 및 좌석선택</h1>
             <br/>
             <section>
                 <label>성인</label>&nbsp;
-                <select>
+                <select name={'adult'} onChange={handleOnchangePerson}>
                     <option disabled>0명</option>
-                    <option value="a1">1명</option>
-                    <option value="a2">2명</option>
-                    <option value="a3">3명</option>
-                    <option value="a4">4명</option>
-                    <option value="a5">5명</option>
-                    <option value="a6">6명</option>
+                    <option value="성인1명">1명</option>
+                    <option value="성인2명">2명</option>
+                    <option value="성인3명">3명</option>
+                    <option value="성인4명">4명</option>
+                    <option value="성인5명">5명</option>
+                    <option value="성인6명">6명</option>
                 </select>
                 &nbsp;
                 <label>청소년</label>&nbsp;
-                <select>
+                <select name={'child'} onChange={handleOnchangePerson2}>
                     <option disabled>0명</option>
-                    <option value="s1">1명</option>
-                    <option value="s2">2명</option>
-                    <option value="s3">3명</option>
-                    <option value="s4">4명</option>
-                    <option value="s5">5명</option>
-                    <option value="s6">6명</option>
+                    <option value="청소년1명">1명</option>
+                    <option value="청소년2명">2명</option>
+                    <option value="청소년3명">3명</option>
+                    <option value="청소년4명">4명</option>
+                    <option value="청소년5명">5명</option>
+                    <option value="청소년6명">6명</option>
                 </select>
             </section>
             <br/>
@@ -46,11 +62,11 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
             <ul className="showcase">
                 <li>
                     <div className="seat okay"></div>
-                    <small>예매가능</small>
+                    <small>선택가능</small>
                 </li>
                 <li>
                     <div className="seat selected"></div>
-                    <small>선택된좌석</small>
+                    <small>선택불가</small>
                 </li>
                 <li>
                     <div className="seat occupied"></div>
@@ -61,44 +77,43 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                 <article id="info-container">
                     <div className={'seatposter'}></div>
                     <div className={'seattx'}>
-                        <b  style={{fontSize:'20px'}}>{obj.m_name}</b>
-                            <br />
-                            <p>상영관 {movieData.location}관</p>
-                            <p>날짜 2022.11.{movieData.calender}일 </p>
-                            <p>시간 {obj.m_runtime}분</p>
-                            <p>인원</p>
-                            <p>좌석</p>
+                        <p style={{fontSize:'30px'}}>{obj.m_name}</p>
+                        <p><b style={{fontSize:'20px'}}>상영관</b> {movieData.location}관</p>
+                            <p><b style={{fontSize:'20px'}}>날짜</b> 2022.11.{movieData.calender}일 </p>
+                            <p><b style={{fontSize:'20px'}}>시간</b> {obj.m_runtime}분</p>
+                            <p><b style={{fontSize:'20px'}}>인원</b> <span id={'result'}></span><span id={'result2'}></span></p>
+                            <p><b style={{fontSize:'20px'}}>좌석</b></p>
 
                             <p id="selected-seats"></p>
                     </div>
-                    <div className={'moveall'}>
-                        <article className="seat-section2">
-                            <div className="seat3">성인</div>
-                            {people?.ADULT?.array?.map(({ id, selected }) => (
-                               <button
-                                    key={`adult-${id}`}
-                                    style={{ backgroundColor: selected ? 'red' : null }}
-                                    className="seat2"
-                                    onClick={() => onClickPeople(id, 'ADULT')}
-                                >
-                                    {id + 1}
-                                </button>
-                            ))}
-                        </article>
-                        <article className="seat-section3">
-                            <div className="seat3">청소년</div>
-                            {people?.CHILD?.array?.map(({ id, selected }) => (
-                                <button
-                                    key={`child-${id}`}
-                                    style={{ backgroundColor: selected ? 'red' : null }}
-                                    className="seat2"
-                                    onClick={() => onClickPeople(id, 'CHILD')}
-                                >
-                                    {id + 1}
-                                </button>
-                            ))}
-                        </article>
-                    </div>
+                    {/*<div className={'moveall'}>*/}
+                        {/*<article className="seat-section2">*/}
+                        {/*    <div className="seat3">성인</div>*/}
+                        {/*    {people?.ADULT?.array?.map(({ id, selected }) => (*/}
+                        {/*       <button*/}
+                        {/*            key={`adult-${id}`}*/}
+                        {/*            style={{ backgroundColor: selected ? 'red' : null }}*/}
+                        {/*            className="seat2"*/}
+                        {/*            onClick={() => onClickPeople(id, 'ADULT')}*/}
+                        {/*        >*/}
+                        {/*            {id + 1}*/}
+                        {/*        </button>*/}
+                        {/*    ))}*/}
+                        {/*</article>*/}
+                        {/*<article className="seat-section3">*/}
+                        {/*    <div className="seat3">청소년</div>*/}
+                        {/*    {people?.CHILD?.array?.map(({ id, selected }) => (*/}
+                        {/*        <button*/}
+                        {/*            key={`child-${id}`}*/}
+                        {/*            style={{ backgroundColor: selected ? 'red' : null }}*/}
+                        {/*            className="seat2"*/}
+                        {/*            onClick={() => onClickPeople(id, 'CHILD')}*/}
+                        {/*        >*/}
+                        {/*            {id + 1}*/}
+                        {/*        </button>*/}
+                        {/*    ))}*/}
+                        {/*</article>*/}
+                    {/*</div>*/}
                 </article>
 
                 <article className="seat-section">
