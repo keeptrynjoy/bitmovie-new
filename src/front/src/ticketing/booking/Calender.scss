@@ -64,9 +64,15 @@ svg {
     @include common.flex-row(flex-start, flex-start);
 
     border: 0.4px solid transparentize(gray, 0.4);
-    border-radius: 25px;
     font-size: 0.3em;
-    text-align: center;
+    color: white;
+    margin: 0 auto;
+    border-radius: 25px;
+    justify-content: center;
+    width: 50px;
+    height:48px;
+    align-items: center;
+    background-color: #3a3a3a;
 
 
 
@@ -77,14 +83,16 @@ span {
 
 }
 
+
 .not-valid {
-    color: theme.$gray-color;
+    background-color: theme.$gray-color;
     text-align: center;
     align-items: center;
     line-height: 45px;
     margin: 0 auto;
     height: 48px;
     border-radius: 25px;
+    justify-content: center;
 
 }
 img {
@@ -96,6 +104,8 @@ img {
   margin: 0 auto;
   align-items: center;
   border-radius: 25px;
+  background-color: theme.$dark-gray-color;
+  justify-content: center;
 
 
 &:hover {
@@ -104,6 +114,7 @@ img {
      transform: scale(1.01);
      border: none;
      background: transparentize(theme.$gray-color, 0.5);
+      justify-content: center;
  }
 }
 .col.cell.selected {
@@ -114,6 +125,7 @@ img {
     color: black;
     align-items: center;
     border-radius: 25px;
+    justify-content: center;
 }
 }
 }

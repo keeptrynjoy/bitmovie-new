@@ -17,6 +17,6 @@ public interface MovieRepository {
 
     public void updateDataOne(Map<String, Object> map);
 
-    public List<Movie> selectTotalMoviePK();
+    public List<Movie> selectTotalMovie();
 }
 
