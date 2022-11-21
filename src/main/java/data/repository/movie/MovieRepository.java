@@ -11,12 +11,12 @@ public interface MovieRepository {
 
     public void insertDetailData(Movie movie);
 
-    public Movie selectMovieData(String movie_pk);
+    public Movie selectMovieData(int movie_pk);
 
     public int selectMovieYoN(String movie_pk);
 
     public void updateDataOne(Map<String, Object> map);
 
-    public List<Movie> selectTotalMoviePK();
+    public List<Movie> selectTotalMovie();
 }
 

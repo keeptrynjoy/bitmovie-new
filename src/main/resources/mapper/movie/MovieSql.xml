@@ -3,7 +3,7 @@
 <mapper namespace="data.repository.movie.MovieRepository">
 
     <!--  영화 상세 정보 출력  -->
-    <select id="selectMovieData" parameterType="String" resultType="movie">
+    <select id="selectMovieData" parameterType="int" resultType="movie">
         SELECT *
         FROM movie_tb
         WHERE movie_pk = #{movie_pk}
@@ -30,7 +30,7 @@
     </update>
 
     <!-- DB에 저장된 영화 PK 전부 출력 -->
-    <select id="selectTotalMoviePK" resultType="movie">
-        SELECT movie_pk FROM movie_tb;
+    <select id="selectTotalMovie" resultType="movie">
+        SELECT * FROM movie_tb WHERE m_sdate &lt; now();
     </select>
 </mapper>

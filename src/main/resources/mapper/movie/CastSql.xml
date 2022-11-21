@@ -7,9 +7,4 @@
         INSERT INTO cast_tb VALUES (null, #{movie_pk}, #{cast_type}, #{person_pk})
     </insert>
 
-    <select id="selectCastList" parameterType="String" resultType="Cast">
-        SELECT * FROM cast_tb WHERE movie_pk = #{movie_pk}
-    </select>
-
-
 </mapper>

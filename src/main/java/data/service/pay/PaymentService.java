@@ -1,12 +1,10 @@
 package data.service.pay;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import data.domain.movie.Movie;
 import data.domain.movie.Review;
 import data.domain.pay.Payment;
-import data.repository.movie.JoinMovieRepository;
 import data.repository.movie.MovieRepository;
 import data.repository.movie.ReviewRepository;
 import data.repository.pay.PaymentRepository;
@@ -19,9 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -139,15 +135,6 @@ public class PaymentService {
     }
 
 
-    //Gson은 Java에서 Json을 파싱하고, 생성하기 위해 사용되는 구글에서 개발한 오픈소스
-    //참고 : https://hianna.tistory.com/629
-//        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-//        System.out.println("결제 내역 JSON : "+ br.readLine());
-//        결제 내역 JSON : {"code":0,"message":null,"response":{"amount":9000,"apply_num":"","bank_code":null,"bank_name":null,"buyer_addr":"","buyer_email":"sunmin4218@gmail.com","buyer_name":"\ud14c\uc2a4\ud2b8","buyer_postcode":null,"buyer_tel":"010-0000-0000","cancel_amount":0,"cancel_history":[],"cancel_reason":null,"cancel_receipt_urls":[],"cancelled_at":0,"card_code":null,"card_name":null,"card_number":null,"card_quota":0,"card_type":null,"cash_receipt_issued":false,"channel":"pc","currency":"KRW","custom_data":null,"customer_uid":null,"customer_uid_usage":null,"emb_pg_provider":null,"escrow":false,"fail_reason":null,"failed_at":0,"imp_uid":"imp_747436343689","merchant_uid":"2022-11-16T10:17:16_1","name":"\uacb0\uc81c\ud14c\uc2a4\ud2b8","paid_at":1668561453,"pay_method":"point","pg_id":"TC0ONETIME","pg_provider":"kakaopay","pg_tid":"T3743a1c204d1c578263","receipt_url":"https:\/\/mockup-pg-web.kakao.com\/v1\/confirmation\/p\/T3743a1c204d1c578263\/5af320980bba882bbf907c831a5333db9c5e06f8d989f756af6d2f321ab77e63","started_at":1668561436,"status":"paid","user_agent":"Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/107.0.0.0 Safari\/537.36","vbank_code":null,"vbank_date":0,"vbank_holder":null,"vbank_issued_at":0,"vbank_name":null,"vbank_num":null}}
-
-    //        System.out.println("결제 내역 Object : "+ gson.fromJson(br.readLine(), Response.class));
-//        결제 내역 Object : PaymentService.Response(response=PaymentService.PaymentInfo(amount=9000))
     public void paymentCancle(String access_token, String imp_uid, int amount ,String reason) throws IOException {
 
         //HttpURLConnection 인스턴스 객체 생성
@@ -198,49 +185,49 @@ public class PaymentService {
         conn.disconnect();
     }
 
-    private final MovieRepository movieRepository;
+//    private final MovieRepository movieRepository;
 
-    private final ReviewRepository reviewRepository;
+//    private final ReviewRepository reviewRepository;
 
-    public void insertReviewMacro(){
-
-        List<Movie> movie_pk_list =  movieRepository.selectTotalMoviePK();
-
-        List<String> review_content = new ArrayList<>();
-        review_content.add("영화 진짜 재밌어요.");
-        review_content.add("2022년 최고의 영화입니다");
-        review_content.add("정신 나갈거 같아요.. 너무 잼나요");
-        review_content.add("난 별로던데 다들 댓글 알바 아님?");
-        review_content.add("근래에 봤던 영화중에 가장 재미있었어요");
-        review_content.add("감독님 사랑해요!");
-        review_content.add("칸 영화제 가즈아");
-        review_content.add("잘봤습니다!");
-        review_content.add("쏘쏘함");
-        review_content.add("아니 근데 너무 재밌는거 아니에용?");
-
-        for(Movie m : movie_pk_list){
-
-            DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-            LocalDate sdate = LocalDate.parse(m.getM_sdate(),format);
-
-            
-
+//    public void insertReviewMacro(){
+//
+//        List<Movie> movie_pk_list =  movieRepository.selectTotalMovie();
+//
+//        List<String> review_content = new ArrayList<>();
+//        review_content.add("영화 진짜 재밌어요.");
+//        review_content.add("2022년 최고의 영화입니다");
+//        review_content.add("정신 나갈거 같아요.. 너무 잼나요");
+//        review_content.add("난 별로던데 다들 댓글 알바 아님?");
+//        review_content.add("근래에 봤던 영화중에 가장 재미있었어요");
+//        review_content.add("감독님 사랑해요!");
+//        review_content.add("칸 영화제 가즈아");
+//        review_content.add("잘봤습니다!");
+//        review_content.add("쏘쏘함");
+//        review_content.add("아니 근데 너무 재밌는거 아니에용?");
+//
+//        for(Movie m : movie_pk_list){
+//
+//            DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//
+//            LocalDateTime sdate = LocalDateTime.parse(m.getM_sdate()+" 00:00:00",format);
+//
 //            for(int i=0; i<=9; i++){
 //                Review review = Review.reviewBuilder()
 //                        .movie_pk(m.getMovie_pk())
 //                        .user_pk(i+1)
 //                        .revw_star((int)(Math.random()*4)+1)
 //                        .revw_text(review_content.get(i))
-//                        .revw_date(screening_date)
+//                        .revw_date(sdate.plusHours(i))
 //                        .build();
+//
+////            System.out.println(review);
 //
 //                reviewRepository.insertReview(review);
 //            }
-
-        }
-
-    }
+//
+//        }
+//
+//    }
 
 
 }

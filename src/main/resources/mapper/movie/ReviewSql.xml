@@ -4,8 +4,8 @@
 
     <!--  평점 등록  -->
     <insert id="insertReview" parameterType="Review">
-        INSERT INTO review_tb (review_pk, movie_pk, user_pk, revw_star, revw_text)
-        VALUES (null, #{movie_pk}, #{user_pk}, #{revw_star}, #{revw_text});
+        INSERT INTO review_tb (review_pk, movie_pk, user_pk, revw_star, revw_text, revw_date)
+        VALUES (null, #{movie_pk}, #{user_pk}, #{revw_star}, #{revw_text},#{revw_date});
     </insert>
 
     <!--  평점 수정  -->
