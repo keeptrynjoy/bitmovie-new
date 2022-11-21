@@ -21,9 +21,9 @@ export default function App(props) {
     let allData=useLocation();
     console.log(allData);
 
-    const [seats, setSeats] = useState(generateArray(8));
+    const [seats, setSeats] = useState(generateArray(10));
     const {input, setInput, changeData}=props;
-    const [rowSeats, setRowSeats] = useState(generateArray(10));
+    const [rowSeats, setRowSeats] = useState(generateArray(8));
     const [people, setPeople] = useState({
         ADULT: { array: generateArray(8), num: 0 },
         CHILD: { array: generateArray(8), num: 0 },
