@@ -79,21 +79,9 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, changeData}) => 
                     onClick={(e) =>{
                         onDateClick(parseInt(cloneDay))
                         changeData(e)}
-
                     }
-
-
                 >
-                    {/*<span*/}
-                    {/*    name={"calender"} value={formattedDate}*/}
-                    {/*    className={*/}
-                    {/*        format(currentMonth, 'M') !== format(day, 'M')*/}
-                    {/*            ? 'text not-valid'*/}
-                    {/*            : ''*/}
-                    {/*    }*/}
-                    {/*>*/}
                         {formattedDate}
-                    {/*</span>*/}
                 </button>,
             );
             day = addDays(day, 1);

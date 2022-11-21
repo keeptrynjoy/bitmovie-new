@@ -1,4 +1,4 @@
-import {useLocation, useNavigate} from "react-router-dom";
+import {json, useLocation, useNavigate} from "react-router-dom";
 
 import './SelectSeat.css';
 import {useState} from "react";
@@ -9,12 +9,12 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     const movieData= location.state.input;
     console.log('state',location.state);
 
-
     const reset=()=>{
         movieData('');
     }
+    const obj = JSON.parse(movieData.movie);
 
-
+    console.log(obj.m_photo);
 
     return (
         <div className={'seatchoose'}>
@@ -41,7 +41,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                 <article id="info-container">
                     <div className={'seatposter'}></div>
                     <div className={'seattx'}>
-                        <p>제목 : <b  style={{fontSize:'20px', color:'blue'}}>{movieData.movie}</b></p>
+                        <p>제목 : <b  style={{fontSize:'20px', color:'blue'}}>{obj.m_name}</b></p>
                         <section className="info-section">
                             <p id="selected-movie"></p>
                         </section>

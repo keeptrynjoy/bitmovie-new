@@ -71,7 +71,7 @@ const MovieList = (props) => {
                             <div>
                                 <img src={age} style={{width:'30px', float:'left'}}/>
                             </div>
-                    <button className={'mvbtn'} key={i} style={{fontSize:'15px'}} value={list.m_name} name={'movie'} onClick={changeData} >
+                    <button className={'mvbtn'} key={i} style={{fontSize:'15px'}} value={JSON.stringify(list)} name={'movie'} onClick={changeData} >
                         {list.m_name}
                     </button>
                         </li>
