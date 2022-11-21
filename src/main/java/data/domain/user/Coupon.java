@@ -19,5 +19,7 @@ public class Coupon {
     private Timestamp c_issue_date; //쿠폰발급일
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private Timestamp c_exp_date; //쿠폰만료일
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
+    private Timestamp c_use_date; //쿠폰사용일시
     private int c_use_state; //사용여부 (1일 경우 사용/소멸, 0일 경우 미사용)
 }
