@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import "./MovieList.css"
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import MovieCard from "../MovieCard";
+import MovieCard from "./MovieCard";
 import {Button, ButtonGroup, Divider, Pagination, ScopedCssBaseline, Switch} from "@mui/material";
 import {ChevronRight, FavoriteBorderOutlined} from "@material-ui/icons";
 import usePagination from "../../service/UsePagination";

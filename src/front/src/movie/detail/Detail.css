@@ -229,3 +229,29 @@
     padding-bottom: 5px;
 }
 
+.cast-div {
+    width: 1500px;
+    height: 550px;
+    margin-top: 7%;
+    clear: both;
+    float: left;
+    text-align: center;
+}
+
+.cast-div h1 {
+    height: 100px;
+}
+
+.cast-info .person-name{
+    font-size: 27px;
+}
+
+.cast-info .cast-type {
+    font-size: 20px;
+}
+
+.cast-img {
+    width: 230px;
+    height: 333px;
+    border-radius: 10px;
+}
