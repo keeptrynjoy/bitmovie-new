@@ -21,26 +21,7 @@ public class UserService {
     private final LikeRevwRepository likeRevwRepository;
     private final ReportRepository reportRepository;
     private final MWishRepository mWishRepository;
-    //로그인 (id, password 체크)
-    public Map<String, Object> selectLogin (Map<String, String> map) {
-        int yesOrNo = userRepository.selectLogin(map);
-        int u_pk = 0;
-        int pwUdtDate = 0;
-        String u_name = "";
-        if (yesOrNo == 1) {
-            u_pk = userRepository.selectPk(map.get("u_id"));
-            u_name = userRepository.selectName(map.get("u_id")); //로그인 성공하면 이름 가져오기
-            pwUdtDate = userRepository.selectPwUdtDate(map); //로그인 성공하면 비밀번호 변경 후 지난 기간 가져오기
-        }
 
-        Map<String, Object> sendMap = new HashMap<>();
-        sendMap.put("yesOrNo", yesOrNo);
-        sendMap.put("u_name", u_name);
-        sendMap.put("pwUdtDate", pwUdtDate);
-        sendMap.put("u_pk",u_pk);
-
-        return sendMap;
-    }
     //회원가입 아이디 중복 체크
     public int searchId (String u_id) {
         return userRepository.searchId(u_id);
@@ -51,7 +32,6 @@ public class UserService {
     }
     //회원가입 시 본인 인증
     public void certifiedPhoneNumber(String u_phone, String cerNum) {
-
         String api_key = "NCSOX3D8XBNLOEGI";
         String api_secret = "XS5PNYO2EUDRLMH3I7NMVV478Z62KPRZ";
         Message coolsms = new Message(api_key, api_secret);
@@ -61,7 +41,7 @@ public class UserService {
         params.put("to", u_phone);    // 수신전화번호
         params.put("from", "010-8685-9930");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
         params.put("type", "SMS");
-        params.put("text", "핫띵크 휴대폰인증 테스트 메시지 : 인증번호는" + "["+cerNum+"]" + "입니다.");
+        params.put("text", "[BitMovie] 문자 본인인증 서비스 : 인증번호는 " + "[" + cerNum + "]" + " 입니다.");
         params.put("app_version", "test app 1.2"); // application name and version
 
         try {
@@ -71,7 +51,6 @@ public class UserService {
             System.out.println(e.getMessage());
             System.out.println(e.getCode());
         }
-
     }
     //비밀번호 변경할 때 아이디 참조해서 기존 비밀번호 가져오기(기존 비밀번호와 일치하면 비밀번호 변경불가)
     public boolean selectPass (User user) {
@@ -83,16 +62,12 @@ public class UserService {
         return check;
     }
     //비밀번호 변경
-    public void updatePass (Map<String, String> map) {
-        userRepository.updatePass(map);
+    public void updatePass (User user) {
+        userRepository.updatePass(user);
     }
     //회원 삭제(상태 변경)
     public void deleteUser (String u_id) {
         userRepository.deleteUser(u_id);
-    }
-    //비밀번호 안바꿔도 날짜 업데이트
-    public void updatePassDate (String u_id) {
-        userRepository.updatePassDate(u_id);
     }
     //아이디 찾기
     public String selectId (String u_phone) {
@@ -101,8 +76,8 @@ public class UserService {
         return resultId;
     }
     //비밀번호 찾기 (아이디, 핸드폰 번호 확인)
-    public int selectFindPass (Map<String, String> map) {
-        return userRepository.selectFindPass(map);
+    public int selectFindPass (User user) {
+        return userRepository.selectFindPass(user);
     }
 
     // 영화 평점 등록

@@ -29,7 +29,7 @@ function MovieDetail(props) {
     const [review_star,setReview_star]=useState(0);
     const [review_text,setReview_text]=useState("");
 
-    const u_pk = sessionStorage.u_pk;
+    const user_pk = sessionStorage.user_pk;
 
     const getData =()=>{
         const getMovieUrl = localStorage.url + "/movie/selectMovieData?movie_pk=" + movie_pk;
@@ -49,7 +49,7 @@ function MovieDetail(props) {
 
     //리뷰 작성 함수
     const checkMovieLog=()=>{
-        const movieLogUrl = `${localStorage.url}/mypage/movielog?user_pk=${u_pk}`;
+        const movieLogUrl = `${localStorage.url}/mypage/movielog?user_pk=${user_pk}`;
         axios.get(movieLogUrl)
             .then((res)=>{
                 for(let i=0;i<res.data.length;i++)
@@ -62,7 +62,7 @@ function MovieDetail(props) {
         return false;
     }
     const handleOpen = () => {
-        if (u_pk==null){
+        if (user_pk==null){
             Swal.fire({
                 icon:"error",
                 text:"로그인 후 사용 가능합니다"
@@ -83,7 +83,7 @@ function MovieDetail(props) {
         setReview_text(e.target.value);
     };
     const submitReview = (e) =>{
-        const insertReviewUrl = `${localStorage.url}/user/insertReview?movie_pk=${movie_pk}&user_pk=${sessionStorage.u_pk}&revw_star=${review_star}&revw_text=${review_text}`;
+        const insertReviewUrl = `${localStorage.url}/user/insertReview?movie_pk=${movie_pk}&user_pk=${sessionStorage.user_pk}&revw_star=${review_star}&revw_text=${review_text}`;
         axios.get(insertReviewUrl)
             .then((res)=>{
                 setReview_text("");

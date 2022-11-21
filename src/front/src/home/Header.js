@@ -105,8 +105,8 @@ function Header(props) {
         sessionStorage.removeItem("login_status");
         sessionStorage.removeItem("u_name");
         sessionStorage.removeItem("u_id");
-        sessionStorage.removeItem("u_pk");
-        sessionStorage.removeItem("pwUdtDate");
+        sessionStorage.removeItem("user_pk");
+        sessionStorage.removeItem("u_pwUdtDate");
         navi("/");
         window.location.reload();
     };
@@ -176,7 +176,7 @@ function Header(props) {
                             sessionStorage.login_status==null?
                                 "/login"
                                 :
-                                `/mypage/${sessionStorage.u_pk}`
+                                `/mypage/${sessionStorage.user_pk}`
                         }>
                             <div className={"member-icon"}>
                                 <PersonIcon/>

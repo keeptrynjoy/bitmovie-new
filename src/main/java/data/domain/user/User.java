@@ -22,7 +22,9 @@ public class User {
     private String u_gender;
     private String u_photo;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
-    private Timestamp u_pwudtdate;
+    private Timestamp u_pwUdtDate;
     private int u_state;
     private int u_point;
+    private int loginOk;
+    private int u_passDateDiff;
 }

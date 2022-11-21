@@ -9,7 +9,6 @@ import data.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
 import java.util.Random;
 
 @RestController
@@ -45,20 +44,10 @@ public class UserController {
         userService.certifiedPhoneNumber(u_phone, cerNum);
         return cerNum;
     }
-    //비밀번호 변경할 때 아이디 참조해서 기존 비밀번호 가져오기(기존 비밀번호와 일치하면 비밀번호 변경불가)
-    @PostMapping("/selectpass")
-    public boolean selectPass (@RequestBody User user) {
-        return userService.selectPass(user);
-    }
     //비밀번호 변경
     @PostMapping("/updatepass")
-    public void updatePass (@RequestBody Map<String, String> map) {
-        userService.updatePass(map);
-    }
-    //회원 삭제(상태 변경)
-    @GetMapping("/delete")
-    public void deleteUser (String u_id) {
-        userService.deleteUser(u_id);
+    public void updatePass (@RequestBody User user) {
+        userService.updatePass(user);
     }
     //아이디 찾기
     @GetMapping("/findid")
@@ -67,8 +56,18 @@ public class UserController {
     }
     //비밀번호 찾기(아이디, 핸드폰 번호 넘겨서 둘 다 일치하는 레코드 있으면 1, 없으면 0 넘겨줌)
     @GetMapping("/findpass")
-    public int selectFindPass (@RequestParam Map<String, String> map) {
-        return userService.selectFindPass(map);
+    public int selectFindPass (@RequestParam User user) {
+        return userService.selectFindPass(user);
+    }
+    //회원 삭제(상태 변경)
+    @GetMapping("/delete")
+    public void deleteUser (String u_id) {
+        userService.deleteUser(u_id);
+    }
+    //비밀번호 변경할 때 아이디 참조해서 기존 비밀번호 가져오기(기존 비밀번호와 일치하면 비밀번호 변경불가)
+    @PostMapping("/selectpass")
+    public boolean selectPass (@RequestBody User user) {
+        return userService.selectPass(user);
     }
 
     // 영화 평점 등록

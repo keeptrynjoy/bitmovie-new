@@ -9,7 +9,7 @@ import MyPageContents from "./MyPageContents";
 
 function MyPage(props) {
     const p = useParams();
-    const user_pk = p.u_pk;
+    const user_pk = p.user_pk;
     const [contents,setContents]=useState("");
     //유저정보
     const [data,setData] = useState("");
@@ -20,7 +20,7 @@ function MyPage(props) {
         axios.get(infoUrl)
             .then((res)=>{
                 setData(res.data);
-                // console.log(res.data);
+                console.log(res.data);
             });
     }
     //페이지 로딩시 데이터 가져오기
