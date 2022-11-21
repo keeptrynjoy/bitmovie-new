@@ -21,7 +21,8 @@ function JoinInfo(props) {
         u_nick:"",
         u_phone:"",
         u_birth:"",
-        u_gender:""
+        u_gender:"",
+        checkSMS:""
     })
 
     //onSubmit전에 null값 체크
@@ -51,7 +52,7 @@ function JoinInfo(props) {
         if(input.u_birth===""){
             alert("생일을 입력하세요")
             return;
-        }x
+        }
 
         if(input.u_phone===""){
             alert("전화번호를 입력하세요")
@@ -128,6 +129,23 @@ function JoinInfo(props) {
                 [name]:value //name키에 입력값넣기
             }
         )
+    }
+
+    // const checkSMS = () => {
+    //     if (res.obj == input.checkSMS) {
+    //         alert("휴대폰 인증이 정상적으로 완료되었습니다.");
+    //     } else {
+    //         alert("인증번호가 올바르지 않습니다.")
+    //     }
+    // }
+
+    const sendSMS = () => {
+        let url = localStorage.url + "/user/sendSMS?u_phone=" + input.u_phone;
+        console.log(input.u_phone);
+        axios.get(url)
+            .then(res => {
+                console.log("ph: "+res.data);
+            })
     }
 
     return (
@@ -243,6 +261,26 @@ function JoinInfo(props) {
                             <input type={'text'} className={'form-control'} style={{marginLeft:"20px",width:'300px'}}
                                    name={"u_phone"} value={input.u_phone} onChange={changeData}/>
                         </td>
+                        <button type={"button"} variant={"outlined"} color={"success"}
+                                onClick={() => {
+                                    sendSMS();
+                                    alert("인증번호 발송 완료!!");
+                                }}>
+                            인증번호 전송
+                        </button>
+                    </tr>
+                    <tr>
+                        <th style={{width:'130px',backgroundColor:'#ddd'}}>인증번호</th>
+                        <td>
+                            <input type={'text'} className={'form-control'} style={{marginLeft:"20px",width:'300px'}}
+                                   name={"checkSMS"} onChange={changeData}/>
+                        </td>
+                        <button type={"button"} variant={"outlined"} color={"success"}
+                                onClick={() => {
+
+                                }}>
+                            인증번호 확인
+                        </button>
                     </tr>
                     </tbody>
                 </table>

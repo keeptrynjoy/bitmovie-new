@@ -33,16 +33,16 @@ public class UserController {
     }
     //회원가입 시 본인 인증
     @GetMapping("/sendSMS")
-    public String sendSMS (String phoneNumber) {
+    public String sendSMS (@RequestParam String u_phone) {
         Random rnd  = new Random();
         StringBuffer buffer = new StringBuffer();
         for (int i=0; i<4; i++) {
             buffer.append(rnd.nextInt(10));
         }
         String cerNum = buffer.toString();
-        System.out.println("수신자 번호 : " + phoneNumber);
+        System.out.println("수신자 번호 : " + u_phone);
         System.out.println("인증번호 : " + cerNum);
-        userService.certifiedPhoneNumber(phoneNumber, cerNum);
+        userService.certifiedPhoneNumber(u_phone, cerNum);
         return cerNum;
     }
     //비밀번호 변경할 때 아이디 참조해서 기존 비밀번호 가져오기(기존 비밀번호와 일치하면 비밀번호 변경불가)
