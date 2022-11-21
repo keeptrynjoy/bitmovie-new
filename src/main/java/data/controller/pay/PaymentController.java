@@ -80,6 +80,8 @@ public class PaymentController {
                 pointService.deductionPoint(payment);
             }
 
+            //4-1. 예매한 좌석이 이미 예약되어 있을 경우
+
             //5. payment(결제) 데이터 저장
             paymentService.insertPaymentData(payment);
 
@@ -102,8 +104,9 @@ public class PaymentController {
         return paymentService.selectPaymentData(payment_pk);
     }
 
-    @GetMapping("/review_macro")
-    public void reviewMacroProgram(){
-        paymentService.insertReviewMacro();
-    }
+    //리뷰 메크로 처리 프로그램
+//    @GetMapping("/review_macro")
+//    public void reviewMacroProgram(){
+//        paymentService.insertReviewMacro();
+//    }
 }

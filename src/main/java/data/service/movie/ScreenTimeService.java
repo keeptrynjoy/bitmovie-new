@@ -12,7 +12,6 @@ public class ScreenTimeService {
     ScreenTimeRepository screenTimeRepository;
 
     public ScreenTime selectScrTimeByTheater(int theater_pk){
-
         return screenTimeRepository.selectScrTimeByTheater(theater_pk);
     };
     public ScreenTime selectScrTimeByScreen(int screen_pk){
