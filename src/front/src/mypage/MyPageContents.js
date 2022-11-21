@@ -92,7 +92,7 @@ function MyPageContents(props) {
     const contents=props.contents;
     const data=props.data;
     const navi=useNavigate();
-    const user_pk = sessionStorage.u_pk;
+    const user_pk = sessionStorage.user_pk;
     //데이터 담을 배열
     const [datas,setDatas]=useState([]);
 

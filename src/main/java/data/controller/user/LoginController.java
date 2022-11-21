@@ -1,25 +1,23 @@
 package data.controller.user;
 
-import data.service.user.UserService;
+import data.domain.user.User;
+import data.service.user.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/login")
 public class LoginController {
     @Autowired
-    UserService userService;
-
+    LoginService loginService;
     //로그인 (id, password 확인 후)
     @PostMapping("/check")
-    public Map<String, Object> selectLogin (@RequestBody Map<String, String> map) {
-        return userService.selectLogin(map);
+    public User selectLogin (@RequestBody User user) {
+        return loginService.selectLogin(user);
     }
     //비번 안바꿔도 업뎃햇다고 하기
     @GetMapping("/updatepassdate")
     public void updatePassDate (String u_id) {
-        userService.updatePassDate(u_id);}
+        loginService.updatePassDate(u_id);}
 }

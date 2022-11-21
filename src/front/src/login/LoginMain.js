@@ -18,14 +18,14 @@ function LoginMain(props) {
         let url = localStorage.url + "/login/check";
         axios.post(url, {u_id, u_pass})
             .then(res => {
-                if (res.data.yesOrNo === 1) {
+                if (res.data.loginOk === 1) {
                     sessionStorage.login_status = 'ok';
                     sessionStorage.u_id = u_id;
                     sessionStorage.u_name = res.data.u_name;
-                    sessionStorage.pwUdtDate = res.data.pwUdtDate;
-                    sessionStorage.u_pk = res.data.u_pk;
+                    sessionStorage.u_passDateDiff = res.data.u_passDateDiff;
+                    sessionStorage.user_pk = res.data.user_pk;
 
-                    if(res.data.pwUdtDate>30)
+                    if(res.data.u_passDateDiff>30)
                     {
                         // Swal.fire({
                         //     title: '비밀번호를 변경 한지 30일이 지났습니다.',
@@ -79,7 +79,6 @@ function LoginMain(props) {
                         icon: "warning",
                         text: "아이디 또는 비밀번호가 맞지 않습니다"
                     });
-                    setU_id('');
                     setU_pass('');
                 }
             })
