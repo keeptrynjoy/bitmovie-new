@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function FindAccount(props) {
     //아이디 별표로 나온다고 문구 띄우기
@@ -12,7 +13,10 @@ function FindAccount(props) {
         const findIdUrl = localStorage.url + "/user/findid?u_phone=" + findIdInput;
         axios.get(findIdUrl)
             .then((res)=>{
-                alert(res.data);
+                Swal.fire({
+                    icon:"info",
+                    text:`${res.data}`
+                })
             })
     }
 
@@ -21,7 +25,10 @@ function FindAccount(props) {
         const findPwUrl = localStorage.url + "/user/findpass?u_id=" + findPwInputId + "&u_phone=" + findPwInputHp;
         axios.get(findPwUrl)
             .then((res)=>{
-                alert(res.data);
+                Swal.fire({
+                    icon:"info",
+                    text:`${res.data}`
+                })
             })
     }
 

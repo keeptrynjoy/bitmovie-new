@@ -15,5 +15,6 @@ public class Cast {
     private int movie_pk;
     private String cast_type;
     private int person_pk;
-
+    private Person person;
+    private Movie movie;
 }

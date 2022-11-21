@@ -1,10 +1,8 @@
 package data.controller.movie;
 
-import data.domain.movie.Cast;
-import data.domain.movie.JoinMovie;
-import data.domain.movie.JoinRevw;
-import data.domain.movie.Movie;
+import data.domain.movie.*;
 import data.service.movie.MovieService;
+import data.service.movie.ScreenTimeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,26 +17,13 @@ import java.util.Map;
 public class MovieController {
 
     private final MovieService movieService;
+    private final ScreenTimeService screenTimeService;
 
     // 영화 상세 정보 출력
     @GetMapping("/selectMovieData")
-    public Map<String, Object> selectMovieData(@RequestParam String movie_pk) {
+    public Map<String, Object> selectMovieData(@RequestParam int movie_pk) {
 
-        // 영화 상세 정보
-        Movie movie_data = movieService.selectMovieData(movie_pk);
-
-        // 영화 등장인물 정보
-        List<Cast> cast_list = movieService.selectCastList(movie_pk);
-
-        // 영화 평점 정보
-        List<JoinRevw> review_list = movieService.selectJoinRevw(movie_pk);
-
-        // front 로 데이터 전달
-        Map<String, Object> map = new HashMap<>();
-        map.put("data", movie_data);
-        map.put("cast", cast_list);
-        map.put("revw", review_list);
-        return map;
+        return movieService.selectMovieData(movie_pk);
     }
 
     // 영화 리스트 출력
@@ -53,11 +38,15 @@ public class MovieController {
             - 상영중 "after"
             - 개봉예정 "before"
         */
-
-
         List<JoinMovie> movie_data_list = movieService.selectMovieList(order_stand, BorA);
-//        System.out.println("controller : "+order_stand);
-//        System.out.println("controller:"+ BorA);
         return movie_data_list;
+    }
+
+    // 영화 페이지 - 상영시간표 출력
+    @GetMapping("/selectTimeByMovie")
+    public List<JoinTime> selectTimeByMovie(int movie_pk, String date){
+        System.out.println("controller movie_pk: " + movie_pk);
+        System.out.println("controller date: " + date);
+        return screenTimeService.selectTimeByMovie(movie_pk, date);
     }
 }
