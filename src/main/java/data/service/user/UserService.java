@@ -21,6 +21,8 @@ public class UserService {
     private final LikeRevwRepository likeRevwRepository;
     private final ReportRepository reportRepository;
     private final MWishRepository mWishRepository;
+
+
     //로그인 (id, password 체크)
     public Map<String, Object> selectLogin (Map<String, String> map) {
         int yesOrNo = userRepository.selectLogin(map);
@@ -61,7 +63,7 @@ public class UserService {
         params.put("to", u_phone);    // 수신전화번호
         params.put("from", "010-8685-9930");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
         params.put("type", "SMS");
-        params.put("text", "핫띵크 휴대폰인증 테스트 메시지 : 인증번호는" + "["+cerNum+"]" + "입니다.");
+        params.put("text", "[BitMovie] 문자 본인인증 서비스 : 인증번호는 " + "[" + cerNum + "]" + " 입니다.");
         params.put("app_version", "test app 1.2"); // application name and version
 
         try {
