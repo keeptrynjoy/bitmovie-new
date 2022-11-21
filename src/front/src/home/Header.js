@@ -13,6 +13,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import PersonIcon from '@mui/icons-material/Person';
 import logo from "../image/bitmovielogo.png"
+import Swal from "sweetalert2";
 
 function Header(props) {
     const navi = useNavigate();
@@ -112,7 +113,10 @@ function Header(props) {
 
     const myPageClick =(e)=> {
         if (sessionStorage.login_status==null) {
-            alert("로그인후 이용해주세요");
+            Swal.fire({
+                icon:"warning",
+                text:"로그인후 이용해주세요"
+            });
             return;
         }
     }

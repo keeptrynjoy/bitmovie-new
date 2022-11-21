@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Glide from "@glidejs/glide"
 import Rank from "./Rank";
 import {Swiper, SwiperSlide} from "swiper/react";
@@ -77,7 +77,7 @@ function Home(props) {
     const bitChart=()=>{
         setLoading(true);
         setMovies([]);
-        // setLoading(false);
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -136,7 +136,6 @@ function Home(props) {
                                                 <Rank movie={movie}/>
                                             </SwiperSlide>
                                         ))}
-
                                     </Swiper>
                                 </div>
                             </div>

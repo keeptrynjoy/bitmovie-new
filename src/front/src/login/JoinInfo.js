@@ -6,6 +6,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function JoinInfo(props) {
     const changeSelected=props.changeSelected;
@@ -30,57 +31,87 @@ function JoinInfo(props) {
         e.preventDefault();
 
         if(input.u_nick===""){
-            alert("닉네임을 입력하세요")
+            Swal.fire({
+                icon:"warning",
+                text:"닉네임을 입력하세요"
+            })
             return;
         }
 
         if(input.u_name===""){
-            alert("이름을 입력하세요")
+            Swal.fire({
+                icon:"warning",
+                text:"이름을 입력하세요"
+            })
             return;
         }
 
         if(input.u_pass===""){
-            alert("비밀번호를 입력하세요")
+            Swal.fire({
+                icon:"warning",
+                text:"비밀번호를 입력하세요"
+            })
             return;
         }
 
         if(input.u_gender===""){
-            alert("성별을 입력하세요")
+            Swal.fire({
+                icon:"warning",
+                text:"성별을 입력하세요"
+            })
             return;
         }
 
         if(input.u_birth===""){
-            alert("생일을 입력하세요")
+            Swal.fire({
+                icon:"warning",
+                text:"생일을 입력하세요"
+            })
             return;
         }
 
         if(input.u_phone===""){
-            alert("전화번호를 입력하세요")
+            Swal.fire({
+                icon:"warning",
+                text:"전화번호를 입력하세요"
+            })
             return;
         }
 
         if(chkPW()!=="ok"){
-            alert("비밀번호 형식이 맞지 않습니다.");
+            Swal.fire({
+                icon:"warning",
+                text:"비밀번호 형식이 맞지 않습니다"
+            })
             return;
         };
 
         if(!boolpw2)
         {
-            alert("비밀번호가 서로 다릅니다");
+            Swal.fire({
+                icon:"warning",
+                text:"비밀번호가 서로 다릅니다"
+            })
             return;
         }
 
         const hppattern = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
         if(!hppattern.test(input.u_phone))
         {
-            alert("전화번호는 -을 포함해 휴대전화 형식에 맞게 입력해주세요");
+            Swal.fire({
+                icon:"warning",
+                text:"전화번호는 -을 포함해 휴대전화 형식에 맞게 입력해주세요"
+            })
             return;
         }
         
         let url = localStorage.url + "/user/insert";
         axios.post(url, input)
             .then(res => {
-                alert("가입성공");
+                Swal.fire({
+                    icon:"success",
+                    text:"가입성공"
+                })
                 changeSelected("done");
             })
     }
