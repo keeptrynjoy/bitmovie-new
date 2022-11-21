@@ -7,15 +7,12 @@ import './Calender.scss'
 
 
 
-const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
-
-
-
+const RenderHeader = ({ currentMonth, prevMonth, nextMonth, input, setInput, changeData }) => {
 
     return (
         <div className={"calender-body"}>
-        <div className="header row" >
-            <div className="col col-start" >
+            <div className="header row">
+                <div className="col col-start" >
                 <span className="text" style={{margin:'0'}}>
                     <span className="text month" style={{fontSize:'20px', margin:'0', padding:'0'}}>
                         {format(currentMonth, 'yyyy')}년&nbsp;
@@ -23,14 +20,14 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
 
                         </span>
                 </span>
-            </div>
-            <div>
-            <div className="col col-end" >
-                <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth} />
-                <Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth} />
+                </div>
+                <div>
+                    <div className="col col-end" >
+                        <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth} />
+                        <Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth} />
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     );
 };
@@ -50,11 +47,12 @@ const RenderDays = () => {
     return <div className="days row">{days}</div>;
 };
 
-const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
+const RenderCells = ({ currentMonth, selectedDate, onDateClick, changeData}) => {
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
     const endDate = endOfWeek(monthEnd);
+
 
     const rows = [];
     let days = [];
@@ -66,7 +64,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
             formattedDate = format(day, 'd');
             const cloneDay = day;
             days.push(
-                <div
+                <button
                     className={`col cell ${
                         !isSameMonth(day, monthStart)
                             ? 'disabled'
@@ -76,19 +74,15 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
                                     ? 'not-valid'
                                     : 'valid'
                     }`}
-                    key={day}
-                    onClick={()=>onDateClick(parseInt(cloneDay))}
+                    key={day} value={formattedDate}
+                    name="calender"
+                    onClick={(e) =>{
+                        onDateClick(parseInt(cloneDay))
+                        changeData(e)}
+                    }
                 >
-                    <span
-                        className={
-                            format(currentMonth, 'M') !== format(day, 'M')
-                                ? 'text not-valid'
-                                : ''
-                        }
-                    >
                         {formattedDate}
-                    </span>
-                </div>,
+                </button>,
             );
             day = addDays(day, 1);
         }
@@ -102,9 +96,10 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
     return <div className="body">{rows}</div>;
 };
 
-export const Calender = () => {
+const Calender = (props) => {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const {input,setInput,changeData}=props;
 
     const prevMonth = () => {
         setCurrentMonth(subMonths(currentMonth, 1));
@@ -124,6 +119,7 @@ export const Calender = () => {
             />
             <RenderDays />
             <RenderCells
+                input={input} setInput={setInput} changeData={changeData}
                 currentMonth={currentMonth}
                 selectedDate={selectedDate}
                 onDateClick={onDateClick}

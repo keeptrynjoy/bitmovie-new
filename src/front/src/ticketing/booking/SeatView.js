@@ -1,22 +1,26 @@
-import {useNavigate} from "react-router-dom";
+import {json, useLocation, useNavigate} from "react-router-dom";
 
 import './SelectSeat.css';
-export default function SeatView({ MOVIES, people, seats, rowSeats, onClickPeople }) {
+import {useState} from "react";
+export default function SeatView({people, seats, rowSeats, onClickPeople,input ,setInput,changeData }) {
 
     const navi=useNavigate();
+    const location = useLocation();
+    const movieData= location.state.input;
+    console.log('state',location.state);
+
+    const reset=()=>{
+        movieData('');
+    }
+    const obj = JSON.parse(movieData.movie);
+
+    console.log(obj.m_photo);
 
     return (
         <div className={'seatchoose'}>
             <h1>좌석선택</h1>
             <section className="movie-container">
-                <label>Pick a movie</label>
-                <select id="movie">
-                    {MOVIES?.map(({ label, value }, index) => (
-                        <option key={`${label}-${index}`} value={value}>
-                            {label}
-                        </option>
-                    ))}
-                </select>
+
             </section>
 
             <ul className="showcase">
@@ -37,17 +41,16 @@ export default function SeatView({ MOVIES, people, seats, rowSeats, onClickPeopl
                 <article id="info-container">
                     <div className={'seatposter'}></div>
                     <div className={'seattx'}>
-                        <h2>선택된 영화</h2>
+                        <p>제목 : <b  style={{fontSize:'20px', color:'blue'}}>{obj.m_name}</b></p>
                         <section className="info-section">
-                            <h3>영화 정보</h3>
                             <p id="selected-movie"></p>
                         </section>
                         <section className="info-section">
-                            <h3>좌석 정보</h3>
                             <br />
-                            <p>영화관</p>
-                            <p>층수</p>
-                            <p>상영시간 </p>
+                            <p>상영관 : {movieData.location} 관</p>
+                            <p>예매날짜 : 2022년 11월 {movieData.calender}일 </p>
+                            <p>상영시간표 : {movieData.time}번째 상영타임 </p>
+
                             <p id="selected-seats"></p>
                         </section>
                     </div>
@@ -101,10 +104,10 @@ export default function SeatView({ MOVIES, people, seats, rowSeats, onClickPeopl
             </main>
 
             <p className="text">
-                선택된 좌석 수 : <span id="count">0</span> 최종 예매 금액 : <span id="total">0</span>
+                선택된 좌석 수 : <span id="count">0</span>
             </p>
             <div id={'btns'}>
-                <button id="reset-btn">예매 다시하기</button>
+                <button id="reset-btn" onClick={reset}>예매 다시하기</button>
                 <button id="reset-btn2" onClick={() => navi('/ticketing/payment')}>
                     예매 완료하기
                 </button>

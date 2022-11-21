@@ -1,9 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
+import './TimeTable.css';
 
-const TimeTable = () => {
+const TimeTable = (props) => {
+
+    const [table,setTable]= useState(Array.from({ length: 5 }))
+    const {input, setInput, changeData}=props;
+
     return (
         <div>
-            <h1>상영시간표</h1>
+            {table.map((list,i)=>(
+                <div>
+                    <button key={i} value={i+1} className={"time-table"} name={"time"} onClick={changeData}  >상영시간표</button>
+                </div>
+
+                ))}
         </div>
     );
 };
