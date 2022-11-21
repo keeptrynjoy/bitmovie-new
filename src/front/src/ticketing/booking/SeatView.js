@@ -2,7 +2,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 
 import './SelectSeat.css';
 import {useState} from "react";
-export default function SeatView({ MOVIES, people, seats, rowSeats, onClickPeople,input ,setInput,changeData }) {
+export default function SeatView({people, seats, rowSeats, onClickPeople,input ,setInput,changeData }) {
 
     const navi=useNavigate();
     const location = useLocation();
@@ -20,14 +20,7 @@ export default function SeatView({ MOVIES, people, seats, rowSeats, onClickPeopl
         <div className={'seatchoose'}>
             <h1>좌석선택</h1>
             <section className="movie-container">
-                <label>Pick a movie</label>
-                <select id="movie">
-                    {MOVIES?.map(({ label, value }, index) => (
-                        <option key={`${label}-${index}`} value={value}>
-                            {label}
-                        </option>
-                    ))}
-                </select>
+
             </section>
 
             <ul className="showcase">
@@ -111,7 +104,7 @@ export default function SeatView({ MOVIES, people, seats, rowSeats, onClickPeopl
             </main>
 
             <p className="text">
-                선택된 좌석 수 : <span id="count">0</span> 최종 예매 금액 : <span id="total">0</span>
+                선택된 좌석 수 : <span id="count">0</span>
             </p>
             <div id={'btns'}>
                 <button id="reset-btn" onClick={reset}>예매 다시하기</button>

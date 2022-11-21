@@ -54,13 +54,6 @@ const generateArray = (length) => Array.from({ length }, (_, i) => ({ id: i, sel
 
 
 
-const MOVIES = [
-    { label: '어벤져스', value: '10' },
-    { label: '조커', value: '12' },
-    { label: '토르', value: '8' },
-    { label: '기생충', value: '15' },
-];
-
 export default function App(props) {
     const location = useLocation();
     console.log('state',location.state);
@@ -105,6 +98,6 @@ export default function App(props) {
         }
     };
 
-    return <SeatView MOVIES={MOVIES} people={people} seats={seats} rowSeats={rowSeats} onClickPeople={onClickPeople} input={input} setInput={setInput} changeData={changeData} />;
+    return <SeatView people={people} seats={seats} rowSeats={rowSeats} onClickPeople={onClickPeople} input={input} setInput={setInput} changeData={changeData} />;
 }
 
