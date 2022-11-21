@@ -31,7 +31,7 @@ function JoinInfo(props) {
 
         if(input.u_nick===""){
             Swal.fire({
-                icon:"waring",
+                icon:"warning",
                 text:"닉네임을 입력하세요"
             })
             return;
@@ -39,7 +39,7 @@ function JoinInfo(props) {
 
         if(input.u_name===""){
             Swal.fire({
-                icon:"waring",
+                icon:"warning",
                 text:"이름을 입력하세요"
             })
             return;
@@ -47,7 +47,7 @@ function JoinInfo(props) {
 
         if(input.u_pass===""){
             Swal.fire({
-                icon:"waring",
+                icon:"warning",
                 text:"비밀번호를 입력하세요"
             })
             return;
@@ -55,7 +55,7 @@ function JoinInfo(props) {
 
         if(input.u_gender===""){
             Swal.fire({
-                icon:"waring",
+                icon:"warning",
                 text:"성별을 입력하세요"
             })
             return;
@@ -63,7 +63,7 @@ function JoinInfo(props) {
 
         if(input.u_birth===""){
             Swal.fire({
-                icon:"waring",
+                icon:"warning",
                 text:"생일을 입력하세요"
             })
             return;
@@ -71,7 +71,7 @@ function JoinInfo(props) {
 
         if(input.u_phone===""){
             Swal.fire({
-                icon:"waring",
+                icon:"warning",
                 text:"전화번호를 입력하세요"
             })
             return;
@@ -79,7 +79,7 @@ function JoinInfo(props) {
 
         if(chkPW()!=="ok"){
             Swal.fire({
-                icon:"waring",
+                icon:"warning",
                 text:"비밀번호 형식이 맞지 않습니다"
             })
             return;
@@ -88,7 +88,7 @@ function JoinInfo(props) {
         if(!boolpw2)
         {
             Swal.fire({
-                icon:"waring",
+                icon:"warning",
                 text:"비밀번호가 서로 다릅니다"
             })
             return;
@@ -98,7 +98,7 @@ function JoinInfo(props) {
         if(!hppattern.test(input.u_phone))
         {
             Swal.fire({
-                icon:"waring",
+                icon:"warning",
                 text:"전화번호는 -을 포함해 휴대전화 형식에 맞게 입력해주세요"
             })
             return;
