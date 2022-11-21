@@ -9,12 +9,9 @@ import './Calender.scss'
 
 const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
 
-
-
-
     return (
         <div className={"calender-body"}>
-        <div className="header row" >
+        <div className="header row">
             <div className="col col-start" >
                 <span className="text" style={{margin:'0'}}>
                     <span className="text month" style={{fontSize:'20px', margin:'0', padding:'0'}}>

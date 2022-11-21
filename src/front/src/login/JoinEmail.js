@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Button} from "@mui/material";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function JoinEmail(props) {
     const email = props.email;
@@ -23,11 +24,17 @@ function JoinEmail(props) {
     //아이디 중복 체크 버튼 함수
     const idCheckButton = () => {
         if(email===""){
-            alert("[e-mail]을 입력해주세요");
+            Swal.fire({
+                icon:"warning",
+                text:"[e-mail]을 입력해주세요"
+            })
             return;
         }
         if(!validEmail){
-            alert("유효한 e-mail주소가 아닙니다");
+            Swal.fire({
+                icon:"warning",
+                text:"유효한 e-mail주소가 아닙니다"
+            })
             return;
         }
         let url = localStorage.url + "/user/idcheck?u_id=" + email;
