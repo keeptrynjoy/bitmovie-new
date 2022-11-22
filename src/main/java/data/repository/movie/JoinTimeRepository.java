@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 @Mapper
-public interface JoinTimeRepositroy {
+public interface JoinTimeRepository {
 
     public List<JoinTime> selectTimeByMovie(Map<String, Object> map);     //영화 페이지에서 상영 시간표 출력
 
