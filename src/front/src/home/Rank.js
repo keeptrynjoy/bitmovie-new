@@ -2,17 +2,19 @@ import React, {useState} from 'react';
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/effect-fade'
+import {useNavigate} from "react-router-dom";
 
 
 function Rank(props) {
     const [movie, setMovie] = useState(props.movie);
     const [IsOn,setIsOn] = useState(false);
+    const navi = useNavigate();
     return (
         <div className="container"
              onMouseEnter={()=>setIsOn(true)}
              onMouseLeave={()=>setIsOn(false)}
              onClick={()=>{
-                 props.setSelected_movie(movie.id);
+                 navi(`/movie/detail/${movie.id}`)
              }}>
                 {/*kobis*/}
                 {/*<div className="boxoffice" >*/}

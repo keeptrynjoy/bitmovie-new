@@ -108,7 +108,6 @@ function Home(props) {
                             playing={true}
                             muted={true}
                             controls={true}
-                            loop={true}
                         />
                 }
             </div>
