@@ -4,7 +4,9 @@
     }
 }
 
-
+.allboxes{
+    margin: 0;
+}
 .seatchoose {
     box-sizing: border-box;
     border-radius: 20px;
@@ -67,10 +69,10 @@ main{
     background-color: white;
     border-radius: 15px;
     color: black;
-    width: 30%;
+    width: 40%;
     padding: 10px;
     margin-left: 200px;
-    height: 500px;
+    height: 650px;
 
 }
 
@@ -201,6 +203,7 @@ main{
     list-style-type: none;
     display: flex;
     justify-content: space-between;
+    margin: 0;
 }
 
 .showcase li {
@@ -293,6 +296,9 @@ button.seat2:focus {
 }
 
 .seatposter{
+    margin-top: 20px;
+    margin-bottom: 40px;
+    margin-left: 90px;
     width: 150px;
     height: 200px;
     border: 1px solid gray;

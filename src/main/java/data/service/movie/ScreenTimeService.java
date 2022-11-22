@@ -40,4 +40,17 @@ public class ScreenTimeService {
         map.put("date", date);
         return joinTimeRepository.selectTimeByMovie(map);
     }
+
+    public List<JoinTime> selectScrtInfo(ScreenTime screenTime){
+        List<JoinTime> joinTimes = joinTimeRepository.selectScrtFirstInfo(screenTime);
+        List<ScreenTime> screenTimes = screenTimeRepository.selectScrtDetailInfo(screenTime);
+
+        for (JoinTime j : joinTimes){
+                j.setScrt_detail(screenTimes);
+        }
+        System.out.println(screenTimes);
+        System.out.println(joinTimes);
+
+        return joinTimes;
+    }
 }

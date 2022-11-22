@@ -7,6 +7,7 @@ import MovieList from "./MovieList";
 import Location from "./Location";
 import TimeTable from "../timetable/TimeTable";
 import Swal from "sweetalert2";
+import moment from "moment";
 
 function Ticketing(props) {
 
@@ -16,10 +17,10 @@ function Ticketing(props) {
     }
 
     const navi = useNavigate();
-
+    const today= moment().format("yyyy-MM-DD");
     const [input,setInput]=useState({
         movie:"",
-        calender:"",
+        calender:today,
         time:"",
         location:""
     });

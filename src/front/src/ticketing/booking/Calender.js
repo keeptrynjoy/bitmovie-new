@@ -43,7 +43,6 @@ const RenderDays = () => {
 
     return <div className="days row">{days}</div>;
 };
-
 const RenderCells = ({ currentMonth, selectedDate, onDateClick, changeData}) => {
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
@@ -55,6 +54,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, changeData}) => 
     let days = [];
     let day = startDate;
     let formattedDate = '';
+
 
     while (day <= endDate) {
         for (let i = 0; i < 7; i++) {
@@ -71,7 +71,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, changeData}) => 
                                     ? 'not-valid'
                                     : 'valid'
                     }`}
-                    key={day} value={formattedDate}
+                    key={day} value={format(day, 'yyyy-MM-dd')}
                     name="calender"
                     onClick={(e) =>{
                         onDateClick(cloneDay)

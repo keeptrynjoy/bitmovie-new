@@ -68,4 +68,16 @@
                 AND theater_pk = #{theater_pk}
             </if>
     </select>
+
+    <!-- 상영시간 데이터(상영관명,영화명,관람등급,총좌석수) 조회 -->
+    <select id="selectScrtFirstInfo" resultType="JoinTime" parameterType="screentime">
+        SELECT
+           scr.screen_pk ,scr.scr_name, mt.m_name, mt.m_age_grd, scr.scr_tot_seat
+        FROM screentime_tb scrt, movie_tb mt, screen_tb scr
+        WHERE scrt.movie_pk=#{movie_pk}
+          AND scrt.scrt_date =#{scrt_date}
+          AND scrt.theater_pk =#{theater_pk}
+          AND mt.movie_pk = scrt.movie_pk
+          AND scr.screen_pk = scrt.screen_pk;
+    </select>
 </mapper>

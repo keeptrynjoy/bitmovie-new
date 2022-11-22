@@ -10,123 +10,96 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     const movieData= location.state.input;
     const [totalp, setTotalp] =useState(0);
     const [selected_seat, setSelected_seat]=useState([]);
-    const [checkedArr, setCheckedArr] = useState([]);
     const alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-    console.log('state',location.state);
+    console.log('state확인용',location.state);
 
     const reset=()=>{
         window.location.reload();
     }
-    const obj = JSON.parse(movieData.movie);
-
-    //성인
-    const handleOnchangePerson=(e)=>{
-
-        const value= e.value;
-
-        document.getElementById('result').innerText=e.target.value;
-        setTotalp(parseInt(e.target.value)+parseInt(document.getElementById('student_select').value));
-
-    }
-
-    //청소년
-    const handleOnchangePerson2=(e)=>{
-
-        const value= e.value;
-
-        document.getElementById('result2').innerText=e.target.value;
-        setTotalp(parseInt(e.target.value)+parseInt(document.getElementById('adult_select').value));
+    const gone =()=> {
+        navi('/ticketing/payment',{
+            state:{
+                input:input
+            },
+        });
     }
 
 
-
-    //체크박스
-
-    // const [checkedInputs, setCheckedInputs] = useState([]);
+    // navi("/ticketing/selectseat", {
+    //     state: {
+    //         input: input
+    //     },
     //
-    const changeHandler = (e) => {
+    // });
 
-        if(selected_seat.length>totalp){
-            Swal.fire({
-                icon:"warning",
-                text:"안돼"
-            })
-            return;
+
+
+const obj = JSON.parse(movieData.movie);
+const obj2 = JSON.parse(movieData.location);
+
+
+
+
+    console.log("현재개수" + totalp);
+        const handleOnchangePerson = (e) => {
+
+            const value = e.value;
+
+            document.getElementById('result').innerText = e.target.value;
+            setTotalp(parseInt(e.target.value) + parseInt(document.getElementById('student_select').value));
+
         }
 
-        if (e.target.checked) {
-            setSelected_seat([...selected_seat, e.target.value]);
-        } else {
-            // 체크 해제
-            setSelected_seat(selected_seat.filter((a) => a !== e.target.value));
+
+        const handleOnchangePerson2 = (e) => {
+            const value = e.value;
+
+            document.getElementById('result2').innerText = e.target.value;
+            setTotalp(parseInt(e.target.value) + parseInt(document.getElementById('adult_select').value));
+
         }
 
-    };
+
+
+
+ const [tg,setTg]= useState(null);
+    console.log("체크용"+[...selected_seat]);
+
+    console.log(selected_seat);
+
+        const changeHandler = (e) => {
+
+
+
+            setTg(e.target);
+            if (e.target.checked) {
+                setSelected_seat([...selected_seat, e.target.value]);
+            } else {
+                // 체크 해제
+                setSelected_seat(selected_seat.filter((a) => a !== e.target.value));
+            }
+
+        };
 
     useEffect(()=>{
-        console.log(selected_seat);
+
+
+        if (selected_seat.length > totalp) {
+            Swal.fire({
+                icon: "warning",
+                text: "인원 확인 부탁드립니다"
+            })
+                tg.checked=false;
+                    console.log(1);
+                    setSelected_seat([
+                        ...selected_seat.slice(0,selected_seat.length-1)
+                    ])
+        }
     },[selected_seat]);
-
-
-
-
-
-
-
-
-
-
-    // const CheckBox = () => {
-    //     const [checkedList, setCheckedLists] = useState([]);
-
-
-    // 개별 체크 클릭 시 발생하는 함수
-//     const onCheckedElement = useCallback(
-//         (checked, list) => {
-//             if (checked) {
-//                 setCheckedLists([...checkedList, list]);
-//             }else {
-//                 setCheckedLists(checkedList.filter((el) => el !== list));
-//             }
-//         },
-//         [checkedList]
-//     );
-// };
-
-
-        // const value=e.value;
-        //
-        // document.getElementsByClassName('result3').innerText=  e.target.value;
-        //
-
-
-
-    //
-    //     console.log(e.target.value);
-    //     if (e.target.value!==0) {
-    //         document.getElementById('result3').innerText = e.target.value;
-    //     }
-    //
-    // }
-    //
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     return (
         <div className={'seatchoose'}>
             <h1>인원 및 좌석선택</h1>
-            <br/>
             <section>
                 <label>성인</label>&nbsp;
                 <select name={'adult'} id={"adult_select"} defaultValue={0} onChange={handleOnchangePerson}>
@@ -166,16 +139,17 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                     <small>예매완료</small>
                 </li>
             </ul>
-            <main>
+            <main className={'allboxes'}>
                 <article id="info-container">
                     <img alt={obj.m_name} src={`https://image.tmdb.org/t/p/w500${obj.m_photo}`} className={'seatposter'}/>
                     <div className={'seattx'}>
-                        <p style={{fontSize:'30px'}}>{obj.m_name}</p>
-                        <p><b style={{fontSize:'20px'}}>상영관</b> {movieData.location}관</p>
-                            <p><b style={{fontSize:'20px'}}>날짜</b> 2022.11.{movieData.calender}일 </p>
-                            <p><b style={{fontSize:'20px'}}>시간</b> {obj.m_runtime}분</p>
-                            <p><b style={{fontSize:'20px'}}>인원</b>성인 :  <span id={'result'}></span>&nbsp;청소년 : <span id={'result2'}></span></p>
-                            <p><b style={{fontSize:'20px'}}>좌석</b> <span id={checkedArr}></span> </p>
+                        <p style={{fontSize:'20px'}}><b>상영 영화</b> {obj.m_name} (<span style={{fontStyle:'italic'}}>{obj.m_enname} </span> )</p>
+                        <p><b style={{fontSize:'20px'}}>상영 지점</b> {obj2.the_name}</p>
+                            <p><b style={{fontSize:'20px'}}>예매 날짜</b> {movieData.calender}</p>
+                            <p><b style={{fontSize:'20px'}}>러닝 타임</b> {obj.m_runtime}분</p>
+                            <p><b style={{fontSize:'20px'}}>상영 시간</b> {movieData.time}타임</p>
+                            <p><b style={{fontSize:'20px'}}>선택 인원</b> 성인 :  <span id={'result'}></span>&nbsp;청소년 : <span id={'result2'}></span></p>
+                            <p><b style={{fontSize:'20px'}}>선택 좌석</b> <span id={'result3'}>{[...selected_seat.join(",")]}</span> </p>
                             <p id="selected-seats"></p>
                     </div>
                 </article>
@@ -186,20 +160,14 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                         {rowSeats.map((list, i) => (
                             <li className={'row'} key={i} >
                                 {seats.map((list,j) => (
-                                // {seats.map((list, j) => (
                                     <input type={"checkbox"}
-                                        className={'seat'}
-                                        key={j}
-                                        // value={i + 1 + '' + (j + 1)}
-                                        value={alphabet[i].toUpperCase()+(j+1).toString()}
-                                           // onChange={(
-                                           //
-                                           // )=>{
-                                           //     changeHandler(e.currentTarget.checked, checkings)
-                                           // }}
-                                           //  checked={selected_seat.includes(this.value)}
-                                        onChange={changeHandler}
-                                />
+                                    className={'seat'}
+                                    key={j}
+                                    value={alphabet[i].toUpperCase()+(j+1).toString()}
+                                           name={'seat'} id={"seat_select"}
+                                           onChange = {changeHandler}
+                                    />
+
                                 ))}
                             </li>
                         ))}
@@ -210,9 +178,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
             <div id={'btns'}>
                 <button id="reset-btn" onClick={reset}>예매 다시하기</button>
-                <button id="reset-btn2" onClick={() => navi('/ticketing/payment')}>
-                    예매 완료하기
-                </button>
+                <button id="reset-btn2" onClick={gone}>예매 완료하기</button>
             </div>
         </div>
     );
