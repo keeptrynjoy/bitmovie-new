@@ -2,6 +2,7 @@ package data.service.movie;
 
 import data.domain.movie.*;
 import data.repository.movie.*;
+import data.repository.user.MWishRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ public class MovieService {
     private final CastRepository castRepository;
     private final JoinRevwRepository joinRevwRepository;
     private final JoinCastRepository joinCastRepository;
+    private final MWishRepository mWishRepository;
     
 
     public List<JoinMovie> selectMovieList(String order_stand, String BorA) {
@@ -41,7 +43,14 @@ public class MovieService {
         map.put("order_stand", order_stand);    // 정렬기준 - 예매율순(reserve_rate), 평점순(revw_avgstar), default 값은 가나다순
         map.put("BorA", BorA);                  // 상영중(A) , 상영예정(B) 영화만 출력
 
-        return joinMovieRepository.selectMovieList(map);
+        List<JoinMovie> data = joinMovieRepository.selectMovieList(map);
+
+        for(int i=0; i<data.size(); i++){
+            int movie_pk = data.get(i).getMovie_pk();
+            int wish = mWishRepository.selectWishCnt(movie_pk);
+            data.get(i).setWish_cnt(wish);
+        }
+        return data;
     }
 
     // 영화 상세 페이지 - 영화 정보 출력
@@ -54,11 +63,14 @@ public class MovieService {
         // 3. 영화 평점 정보 반환
         List<JoinRevw> review_list = joinRevwRepository.selectJoinRevw(movie_pk);
 
+        int wish_cnt = mWishRepository.selectWishCnt(movie_pk);
+
         // controller 로 데이터 전달
         Map<String, Object> map = new HashMap<>();
         map.put("data", movie_data);
         map.put("cast", cast_list);
         map.put("revw", review_list);
+        map.put("wish_cnt", wish_cnt);
         return map;
     }
 

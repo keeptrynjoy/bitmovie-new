@@ -1,9 +1,12 @@
 package data.domain.movie;
 
-import lombok.Data;
-import org.apache.ibatis.type.Alias;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class JoinMovie {
 
     private int movie_pk;
@@ -19,5 +22,6 @@ public class JoinMovie {
     private String m_country;
     private int revw_avgstar;
     private int reserve_rate;
+    private int wish_cnt;
 
 }
