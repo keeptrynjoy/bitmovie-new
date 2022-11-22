@@ -125,7 +125,8 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                         <p style={{fontSize:'20px'}}><b>상영 영화</b> {obj.m_name} (<span style={{fontStyle:'italic'}}>{obj.m_enname} </span> )</p>
                         <p><b style={{fontSize:'20px'}}>상영 지점</b> {obj2.the_name}</p>
                             <p><b style={{fontSize:'20px'}}>예매 날짜</b> {movieData.calender}</p>
-                            <p><b style={{fontSize:'20px'}}>상영 시간</b> {obj.m_runtime}분</p>
+                            <p><b style={{fontSize:'20px'}}>러닝 타임</b> {obj.m_runtime}분</p>
+                            <p><b style={{fontSize:'20px'}}>상영 시간</b> {movieData.time}타임</p>
                             <p><b style={{fontSize:'20px'}}>선택 인원</b> 성인 :  <span id={'result'}></span>&nbsp;청소년 : <span id={'result2'}></span></p>
                             <p><b style={{fontSize:'20px'}}>선택 좌석</b> <span id={'result3'}>{[...selected_seat.join(",")]}</span> </p>
                             <p id="selected-seats"></p>
