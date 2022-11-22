@@ -26,4 +26,16 @@
         WHERE tim.screen_pk = s.screen_pk AND tim.scrt_date > #{begin_date} AND #{now_date} >= tim.scrt_date
     </select>
 
+    <!-- 상영시간 데이터(상영시간고유키,시작/종료시간,예매된자석수) 조회-->
+    <select id="selectScrtDetailInfo" resultType="screentime" parameterType="screentime">
+        SELECT
+            scrt.scrtime_pk, scrt.scrt_stime, scrt.scrt_etime, tot_seat.booked
+        FROM screentime_tb scrt
+                 LEFT OUTER JOIN (SELECT bt.scrtime_pk, sum(bt.book_adult_cnt) + sum(bt.book_youth_cnt) AS booked FROM booking_tb bt GROUP BY bt.scrtime_pk) AS tot_seat
+                                 ON scrt.scrtime_pk = tot_seat.scrtime_pk
+        WHERE scrt.movie_pk=#{movie_pk}
+          AND scrt.theater_pk=#{theater_pk}
+          AND scrt.scrt_date=#{scrt_date};
+    </select>
+
 </mapper>

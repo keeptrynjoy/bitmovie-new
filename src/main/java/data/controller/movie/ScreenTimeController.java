@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/screentime")
@@ -18,12 +20,26 @@ import org.springframework.web.bind.annotation.*;
 public class ScreenTimeController {
 
     private final ScreenTimeService screenTimeService;
-    private final MovieService movieService;
+
     @GetMapping("/test")
     public ResponseEntity<ScreenTime> screenTimeByMovie(@RequestParam int movie){
 
         ScreenTime screenTime=screenTimeService.selectScrTimeByMovie(movie);
 
         return new ResponseEntity<>(screenTime,HttpStatus.OK);
+    }
+
+    @GetMapping("/screen_times")
+    public ResponseEntity screenTimes(@RequestParam int movie,
+                                         @RequestParam int theater,
+                                         @RequestParam Date date){
+
+        ScreenTime  screenTime = ScreenTime.builder()
+                                    .movie_pk(movie)
+                                    .theater_pk(theater)
+                                   .scrt_date(date)
+                                    .build();
+
+        return ResponseEntity.ok(screenTimeService.selectScrtInfo(screenTime));
     }
 }
