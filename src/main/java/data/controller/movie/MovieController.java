@@ -21,7 +21,7 @@ public class MovieController {
 
     // 영화 상세 정보 출력
     @GetMapping("/selectMovieData")
-    public Map<String, Object> selectMovieData(@RequestParam int movie_pk) {
+    public Map<String, Object> selectMovieData(int movie_pk) {
 
         return movieService.selectMovieData(movie_pk);
     }

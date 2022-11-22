@@ -1,5 +1,6 @@
 package data.controller.user;
 
+import data.domain.movie.JoinCast;
 import data.domain.movie.JoinRevw;
 import data.domain.movie.JoinTime;
 import data.service.user.MainService;
@@ -27,27 +28,31 @@ public class MainController {
     }
 
     // 검색 기능
-    @GetMapping("search")
+    @GetMapping("/search")
     public Map<String,Object> search(String search){
         return mainService.selectSearchData(search);
     }
 
-    @GetMapping("selectMovieTime")
-    public List<JoinTime> selectTimeByClick(@RequestParam(defaultValue = "") int movie_pk,
-                                            @RequestParam(defaultValue = "") int theater_pk,
+    // 검색기능 - 검색된 인물중 첫번째 인물의 상세정보 반환
+    @GetMapping("/searchDetail")
+    public List<JoinCast> searchDetail(int person_pk) {
+        return mainService.selectSearchDetail(person_pk);
+    }
+
+    @GetMapping("/selectMovieTime")
+    public List<JoinTime> selectTimeByClick(@RequestParam(defaultValue = "0") int movie_pk,
+                                            @RequestParam(defaultValue = "0") int theater_pk,
                                             @RequestParam(defaultValue = "") String date) {
 
         return mainService.selectTimeByClick(movie_pk, theater_pk, date);
     }
 
     @GetMapping("/testMovieTime")
-    public List<JoinTime> testMovieTime(@RequestParam(defaultValue = "") int movie_pk,
-                                        @RequestParam(defaultValue = "") int theater_pk,
-                                        @RequestParam(defaultValue = "") String date) {
+    public List<JoinTime> testMovieTime(@RequestParam(defaultValue = "0") int movie_pk,
+                              @RequestParam(defaultValue = "0") int theater_pk,
+                              @RequestParam(defaultValue = "null") String date) {
 
-
-
-        return mainService.testMovieTime(movie_pk, theater_pk, date);
+         return mainService.testMovieTime(movie_pk, theater_pk, date);
     }
 
 

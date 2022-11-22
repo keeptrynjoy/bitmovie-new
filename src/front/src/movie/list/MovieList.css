@@ -84,6 +84,7 @@
 }
 
 img.movie-card-poster {
+    cursor: pointer;
     width: 230px;
     height: 331px;
     border-radius: 10px;
@@ -91,6 +92,7 @@ img.movie-card-poster {
 }
 
 .movie-card .movie-card-title {
+    cursor: pointer;
     position: absolute;
     width: 230px;
     height: 331px;
@@ -136,6 +138,7 @@ img.movie-card-poster {
 }
 
 .movie-card-text .tit-area .tit{
+    cursor: pointer;
     position: absolute;
     margin-left: 30px;
     width: 90%;

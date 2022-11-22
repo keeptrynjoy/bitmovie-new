@@ -33,4 +33,9 @@
     <select id="selectTotalMovie" resultType="movie">
         SELECT * FROM movie_tb WHERE m_sdate &lt; now();
     </select>
+
+
+    <select id="IngOrNot" parameterType="Map" resultType="int">
+        SELECT count(*) movie_tb WHERE movie_pk = #{movie_pk} AND
+    </select>
 </mapper>

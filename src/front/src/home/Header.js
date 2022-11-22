@@ -121,6 +121,14 @@ function Header(props) {
         }
     }
 
+    const handleSearch=(e)=>{
+        if(e.key==="Enter")
+        {
+            navi(`../search/${e.target.value}`);
+            navi(0);
+        }
+    }
+
     return (
         <div className={"header-div"}>
             <div className={"upper-div"}>
@@ -213,6 +221,7 @@ function Header(props) {
                                 <StyledInputBase
                                     placeholder="검색어를 입력하세요"
                                     inputProps={{ 'aria-label': 'search' }}
+                                    onKeyUp={handleSearch}
                                 />
                             </Search>
                         </Toolbar>

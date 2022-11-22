@@ -58,13 +58,13 @@
         WHERE
             scr.screen_pk = tim.screen_pk
             AND scr.theater_pk = th.theater_pk
-            <if test="movie_pk!=null">
+            <if test="movie_pk!=0">
                 AND tim.movie_pk = #{movie_pk}
             </if>
-            <if test="date!=null">
+            <if test="!(date.equals('null'))">
                 AND tim.scrt_date = #{date}
             </if>
-            <if test="theater_pk!=null">
+            <if test="theater_pk!=0">
                 AND theater_pk = #{theater_pk}
             </if>
     </select>
