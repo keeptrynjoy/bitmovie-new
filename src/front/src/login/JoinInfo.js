@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import {Button} from "@mui/material";
+import {Button, Alert} from "@mui/material";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
-import {Alert, AlertTitle} from "@mui/lab";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function JoinInfo(props) {
     const changeSelected=props.changeSelected;
@@ -22,7 +22,9 @@ function JoinInfo(props) {
         u_nick:"",
         u_phone:"",
         u_birth:"",
-        u_gender:""
+        u_gender:"",
+        checkSMS:"",
+        randomNum:""
     })
 
     //onSubmit전에 null값 체크
@@ -30,55 +32,91 @@ function JoinInfo(props) {
         e.preventDefault();
 
         if(input.u_nick===""){
-            alert("닉네임을 입력하세요")
+            Swal.fire({
+                icon:"warning",
+                text:"닉네임을 입력하세요"
+            })
             return;
         }
 
         if(input.u_name===""){
-            alert("이름을 입력하세요")
+            Swal.fire({
+                icon:"warning",
+                text:"이름을 입력하세요"
+            })
             return;
         }
 
         if(input.u_pass===""){
-            alert("비밀번호를 입력하세요")
+            Swal.fire({
+                icon:"warning",
+                text:"비밀번호를 입력하세요"
+            })
             return;
         }
 
         if(input.u_gender===""){
-            alert("성별을 입력하세요")
+            Swal.fire({
+                icon:"warning",
+                text:"성별을 입력하세요"
+            })
             return;
         }
 
+
         if(input.u_birth===""){
-            alert("생일을 입력하세요")
+            Swal.fire({
+                icon:"warning",
+                text:"생일을 입력하세요"
+            })
             return;
         }
 
         if(input.u_phone===""){
-            alert("전화번호를 입력하세요")
+            Swal.fire({
+                icon:"warning",
+                text:"전화번호를 입력하세요"
+            })
             return;
         }
 
-        if(!chkPW()){
+        if(chkPW()!=="ok"){
+            Swal.fire({
+                icon:"warning",
+                text:"비밀번호 형식이 맞지 않습니다"
+            })
             return;
         };
 
         if(!boolpw2)
         {
-            alert("비밀번호가 서로 다릅니다");
+            Swal.fire({
+                icon:"warning",
+                text:"비밀번호가 서로 다릅니다"
+            })
             return;
         }
 
+        const hppattern = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
+        if(!hppattern.test(input.u_phone))
+        {
+            Swal.fire({
+                icon:"warning",
+                text:"전화번호는 -을 포함해 휴대전화 형식에 맞게 입력해주세요"
+            })
+            return;
+        }
+        
         let url = localStorage.url + "/user/insert";
-        console.log(input);
         axios.post(url, input)
             .then(res => {
-                alert("가입성공");
+                Swal.fire({
+                    icon:"success",
+                    text:"가입성공"
+                })
                 changeSelected("done");
             })
-        alert(input.u_id + " " + input.u_name + " " + input.u_nick + " " + input.u_pass +  " " + input.u_gender + " " + input.u_birth + " " + input.u_phone);
     }
-
 
     const chkPW=()=>{
         const pw = input.u_pass;
@@ -107,7 +145,6 @@ function JoinInfo(props) {
         }else {
             return "ok";
         }
-
     }
 
     const chkPW2=()=>{
@@ -125,6 +162,24 @@ function JoinInfo(props) {
                 [name]:value //name키에 입력값넣기
             }
         )
+    }
+
+    const sendSMS = () => {
+        let url = localStorage.url + "/user/sendSMS?u_phone=" + input.u_phone;
+        console.log(input.u_phone);
+        axios.get(url)
+            .then(res => {
+                console.log("ph: "+res.data);
+                input.randomNum = res.data;
+            })
+    }
+
+    const checkSMS = () => {
+        if (input.randomNum == input.checkSMS) {
+            alert("휴대폰 인증이 정상적으로 완료되었습니다.");
+        } else {
+            alert("인증번호가 올바르지 않습니다.")
+        }
     }
 
     return (
@@ -173,7 +228,7 @@ function JoinInfo(props) {
                         <td>
                             <div className={"input-group"} style={{marginLeft:"20px",width:'330px'}} >
                                 <input type={'password'} className={'form-control'}
-                                       name={"u_pass"} value={input.u_pass} onChange={changeData}/>
+                                       name={"u_pass"} value={input.u_pass} onChange={changeData} onKeyUp={chkPW2}/>
                                 {
                                     chkPW()!=="ok"?
                                         <CloseIcon style={{color:"red", float:"right", marginTop:"7px", marginLeft:"7px"}}/>
@@ -222,10 +277,9 @@ function JoinInfo(props) {
                                 onChange={changeData}
                                 style={{display:"block"}}
                             >
-                                <FormControlLabel value="male" control={<Radio />} label="남자" />
-                                <FormControlLabel value="female" control={<Radio />} label="여자" />
+                                <FormControlLabel value="male" control={<Radio/>} label="남자" />
+                                <FormControlLabel value="female" control={<Radio/>} label="여자" />
                             </RadioGroup>
-
                         </td>
                     </tr>
                     <tr>
@@ -241,6 +295,26 @@ function JoinInfo(props) {
                             <input type={'text'} className={'form-control'} style={{marginLeft:"20px",width:'300px'}}
                                    name={"u_phone"} value={input.u_phone} onChange={changeData}/>
                         </td>
+                        <button type={"button"} variant={"outlined"} color={"success"}
+                                onClick={() => {
+                                    sendSMS();
+                                    alert("인증번호 발송 완료!!");
+                                }}>
+                            인증번호 전송
+                        </button>
+                    </tr>
+                    <tr>
+                        <th style={{width:'130px',backgroundColor:'#ddd'}}>인증번호</th>
+                        <td>
+                            <input type={'text'} className={'form-control'} style={{marginLeft:"20px",width:'300px'}}
+                                   name={"checkSMS"} onChange={changeData}/>
+                        </td>
+                        <button type={"button"} variant={"outlined"} color={"success"}
+                                onClick={() => {
+                                    checkSMS();
+                                }}>
+                            인증번호 확인
+                        </button>
                     </tr>
                     </tbody>
                 </table>

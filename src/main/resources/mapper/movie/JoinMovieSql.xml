@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.repository.movie.JoinMovieRepository">
+
+    <!--  영화 정보 + 예매율, 평균평점 정보 가져오기  -->
+    <select id="selectMovieList" parameterType="Map" resultType="JoinMovie">
+        SELECT
+            mv.movie_pk,
+            mv.m_name,
+            mv.m_type,
+            mv.m_sdate,
+            mv.m_edate,
+            mv.m_runtime,
+            mv.m_age_grd,
+            mv.m_info,
+            mv.m_photo,
+            mv.m_enname,
+            ifnull(round(AVG(re.revw_star)),0) AS revw_avgstar,
+            ifnull(round(sum_paycnt/sum(sum_paycnt)*100),0) AS reserve_rate
+        FROM
+            movie_tb mv LEFT OUTER JOIN review_tb re ON mv.movie_pk = re.movie_pk
+                        LEFT OUTER JOIN
+            (SELECT
+                 tim.movie_pk,
+                 sum(book.book_adult_cnt + book.book_youth_cnt) AS sum_paycnt
+             FROM
+                 payment_tb pay LEFT OUTER JOIN booking_tb book ON pay.payment_pk = book.payment_pk
+                                LEFT OUTER JOIN screentime_tb tim ON book.scrtime_pk = tim.scrtime_pk
+
+             WHERE
+                 #{now_date} >= pay.pay_date
+               AND pay.pay_date > #{before_date}
+             ) sub ON sub.movie_pk = mv.movie_pk
+
+        WHERE mv.m_edate > #{now_date}
+        <if test='BorA.equals("after")'>    <!-- 현재 상영중인 영화만 출력 -->
+            AND #{now_date} > mv.m_sdate
+        </if>
+        <if test='BorA.equals("before")'>    <!-- 개봉 예정 영화만 출력 -->
+            AND mv.m_sdate > #{now_date}
+        </if>
+        GROUP BY (movie_pk)
+        ORDER BY
+        <if test='!(order_stand.equals("null"))'>
+            ${order_stand} desc,
+        </if>
+            m_sdate;
+    </select>
+
+    <!--  메인화면에서 검색 - 영화 정보 + 예매율, 평균평점 정보  -->
+    <select id="selectSearchMovie" resultType="JoinMovie" parameterType="String">
+        SELECT
+        mv.movie_pk,
+        mv.m_name,
+        mv.m_type,
+        mv.m_sdate,
+        mv.m_edate,
+        mv.m_runtime,
+        mv.m_age_grd,
+        mv.m_info,
+        mv.m_photo,
+        ifnull(round(AVG(re.revw_star)),0) AS revw_avgstar,
+        ifnull(round(sum_paycnt/sum(sum_paycnt)*100),0) AS reserve_rate
+        FROM
+        movie_tb mv LEFT OUTER JOIN review_tb re ON mv.movie_pk = re.movie_pk
+        LEFT OUTER JOIN
+            (SELECT
+                tim.movie_pk,
+                sum(book.book_adult_cnt + book.book_youth_cnt) AS sum_paycnt
+            FROM
+                payment_tb pay LEFT OUTER JOIN booking_tb book ON pay.payment_pk = book.payment_pk
+            LEFT OUTER JOIN screentime_tb tim ON book.scrtime_pk = tim.scrtime_pk
+            ) sub ON sub.movie_pk = mv.movie_pk
+        WHERE m_name LIKE CONCAT('%',#{search},'%') OR m_enname LIKE CONCAT('%',#{search},'%')
+        GROUP BY movie_pk
+        ORDER BY m_sdate;
+    </select>
+
+</mapper>

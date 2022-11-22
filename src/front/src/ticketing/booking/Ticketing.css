@@ -1,0 +1,134 @@
+.body{
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.together{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.tktable{
+    width: 1400px;
+    height: 700px;
+    margin: 0 auto;
+    clear: both;
+}
+
+.tkmenu{
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 10px;
+    margin-right: 10px;
+
+}
+
+.tkmenu:hover{
+    width: 100px;
+    height: 50px;
+    border: 1px solid gray;
+    text-align: center;
+    background-color: black;
+    margin-right: 10px;
+    color: white;
+    border-radius: 10px;
+}
+
+
+.tkmenu2{
+    width: 100px;
+    height: 50px;
+    border: 1px solid gray;
+    text-align: center;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.tkmenu2:hover{
+    width: 100px;
+    height: 50px;
+    border: 1px solid gray;
+    text-align: center;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+}
+.movielocation{
+    width: 20%;
+    height: 500px;
+    border: 1px solid gray;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 2%;
+    float: left;
+}
+.tkbt{
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    margin: 0 auto;
+}
+.whole{
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+.selectmv{
+    width: 20%;
+    height: 500px;
+    border: 1px solid gray;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 2%;
+    float: left;
+    overflow: scroll;
+}
+
+.selectday{
+    width: 30%;
+    height: 500px;
+    border: 1px solid gray;
+    text-align: center;
+    margin-top: 2%;
+    float: left;
+    font-size: 50px;
+
+}
+.selecttime{
+    width: 400px;
+    height: 500px;
+    border: 1px solid gray;
+    font-size: 70px;
+    text-align: center;
+    margin-top: 2%;
+    float: left;
+    overflow: scroll;
+}
+
+.selectseat{
+    width: 100px;
+    height: 50px;
+    border: 1px solid black;
+    text-align: center;
+    background-color: white;
+    border-radius: 10px;
+    float: right;
+    margin-top: 1%;
+}
+.selectseat:hover{
+    width: 100px;
+    height: 50px;
+    border: 1px solid gray;
+    text-align: center;
+    float: right;
+    margin-top: 1%;
+    background-color: black;
+    border-radius: 10px;
+    color: white;
+}

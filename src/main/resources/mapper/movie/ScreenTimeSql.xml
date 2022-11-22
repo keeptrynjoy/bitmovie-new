@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.repository.movie.ScreenTimeRepository">
+    <insert id="insertScrTime" parameterType="screenTime">
+        INSERT INTO screentime_tb VALUES
+               (null,#{movie_pk},#{scrt_date},#{scrt_stime},#{scrt_etime})
+    </insert>
+    <select id="selectScrTimeByScreen" resultType="screenTime" parameterType="int">
+        SELECT * FROM screentime_tb WHERE screen_pk=#{screen_pk}
+    </select>
+    <select id="selectScrTimeByTheater" resultType="screenTime" parameterType="int">
+        SELECT * FROM screentime_tb WHERE theater_pk=#{theater_pk}
+    </select>
+    <update id="updateScrTimeByPk" parameterType="screenTime">
+        UPDATE screentime_tb SET screen_pk=#{screen_pk}, movie_pk=#{movie_pk}, theater_pk=#{theater_pk}, scrt_date=#{scrt_date},
+                                 scrt_stime=#{scrt_stime}, scrt_etime=#{scrt_etime} WHERE scrtime_pk=#{scrtime_pk}
+    </update>
+    <delete id="deleteScrTime" parameterType="int">
+        DELETE FROM screentime_tb WHERE scrtime_pk=#{scrtime_pk}
+    </delete>
+
+    <!--  영화 출력시 필요한 예매울 분모 계산 (해당 날짜의 총 좌석수 구하기)  -->
+    <select id="selectTotalSeat" parameterType="Map" resultType="int">
+        SELECT sum(s.scr_tot_seat)
+        FROM screentime_tb tim, screen_tb s
+        WHERE tim.screen_pk = s.screen_pk AND tim.scrt_date > #{begin_date} AND #{now_date} >= tim.scrt_date
+    </select>
+
+    <!-- 상영시간 데이터(상영시간고유키,시작/종료시간,예매된자석수) 조회-->
+    <select id="selectScrtDetailInfo" resultType="screentime" parameterType="screentime">
+        SELECT
+            scrt.scrtime_pk, scrt.scrt_stime, scrt.scrt_etime, tot_seat.booked
+        FROM screentime_tb scrt
+                 LEFT OUTER JOIN (SELECT bt.scrtime_pk, sum(bt.book_adult_cnt) + sum(bt.book_youth_cnt) AS booked FROM booking_tb bt GROUP BY bt.scrtime_pk) AS tot_seat
+                                 ON scrt.scrtime_pk = tot_seat.scrtime_pk
+        WHERE scrt.movie_pk=#{movie_pk}
+          AND scrt.theater_pk=#{theater_pk}
+          AND scrt.scrt_date=#{scrt_date};
+    </select>
+
+</mapper>

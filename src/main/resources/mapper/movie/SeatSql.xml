@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.repository.movie.SeatRepository">
+    <select id="selectSeatByType" resultType="seat" parameterType="String">
+        SELECT * FROM seat_tb WHERE seat_type=#{seat_type}
+    </select>
+</mapper>

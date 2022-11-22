@@ -1,0 +1,53 @@
+.search-div {
+    margin-top: 5%;
+    margin-left: 5%;
+}
+
+.results {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.movie-result h1 {
+    height: 100px;
+}
+
+.result-card {
+    width: 260px;
+    height: 450px;
+    margin: 45px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    cursor: pointer;
+}
+
+.result-poster {
+    width: 260px;
+    height: 372px;
+    border-radius: 10px;
+}
+
+.result-text {
+    display: flex;
+    flex-wrap: wrap;
+    width: 260px;
+    font-size: 18px;
+}
+
+.result-text .result-text-mname {
+    font-size: 25px;
+    width: 200px;
+    margin-left: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.people-result {
+    margin-top: 50px;
+}
+
+.result-text-pername {
+    font-size: 20px;
+}

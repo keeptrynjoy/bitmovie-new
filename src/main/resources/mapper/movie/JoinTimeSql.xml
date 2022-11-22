@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.repository.movie.JoinTimeRepository">
+
+    <!--  영화 페이지에서 상영 시간표 출력  -->
+    <select id="selectTimeByMovie" parameterType="Map" resultType="JoinTime">
+        SELECT tim.screen_pk,
+               tim.movie_pk,
+               tim.scrt_date,
+               tim.scrt_stime,
+               scr.scr_name,
+               scr.seat_plot,
+               scr.scr_tot_seat,
+               th.the_name,
+               (sum(book.book_youth_cnt) + sum(book.book_adult_cnt)) AS booked
+        FROM screentime_tb tim, screen_tb scr, theater_tb th, booking_tb book
+        WHERE tim.movie_pk= #{movie_pk}
+          AND tim.scrt_date = #{date}
+          AND scr.screen_pk = tim.screen_pk
+          AND scr.theater_pk = th.theater_pk
+          AND tim.scrtime_pk = book.scrtime_pk;
+    </select>
+
+    <!--  영화 상영 시간표 - 영화,극장,날짜에따라 반응  테스트중-->
+    <select id="selectTimeByClick" parameterType="Map" resultType="JoinTime">
+        SELECT tim.screen_pk,
+               tim.movie_pk,
+               tim.scrt_date,
+               tim.scrt_stime,
+               scr.scr_name,
+               scr.seat_plot,
+               scr.scr_tot_seat,
+               th.the_name
+        FROM screentime_tb tim, screen_tb scr, theater_tb th, booking_tb book
+        WHERE
+        <if test="movie_pk!=null">
+            tim.movie_pk = #{movie_pk} AND
+        </if>
+        <if test="date!=null">
+            tim.scrt_date = #{date} AND
+        </if>
+        <if test="theater_pk!=null">
+            scr.theater_pk = th.theater_pk AND
+        </if>
+          scr.screen_pk = tim.screen_pk
+    </select>
+
+    <select id="testMovieTime" parameterType="Map" resultType="JoinTime">
+        SELECT tim.screen_pk,
+               tim.movie_pk,
+               tim.scrt_date,
+               tim.scrt_stime,
+               scr.scr_name,
+               scr.seat_plot,
+               scr.scr_tot_seat,
+               th.the_name
+        FROM screentime_tb tim, screen_tb scr, theater_tb th, booking_tb book
+        WHERE
+            scr.screen_pk = tim.screen_pk
+            AND scr.theater_pk = th.theater_pk
+            <if test="movie_pk!=0">
+                AND tim.movie_pk = #{movie_pk}
+            </if>
+            <if test="!(date.equals('null'))">
+                AND tim.scrt_date = #{date}
+            </if>
+            <if test="theater_pk!=0">
+                AND theater_pk = #{theater_pk}
+            </if>
+    </select>
+
+    <!-- 상영시간 데이터(상영관명,영화명,관람등급,총좌석수) 조회 -->
+    <select id="selectScrtFirstInfo" resultType="JoinTime" parameterType="screentime">
+        SELECT
+           scr.screen_pk ,scr.scr_name, mt.m_name, mt.m_age_grd, scr.scr_tot_seat
+        FROM screentime_tb scrt, movie_tb mt, screen_tb scr
+        WHERE scrt.movie_pk=#{movie_pk}
+          AND scrt.scrt_date =#{scrt_date}
+          AND scrt.theater_pk =#{theater_pk}
+          AND mt.movie_pk = scrt.movie_pk
+          AND scr.screen_pk = scrt.screen_pk;
+    </select>
+</mapper>

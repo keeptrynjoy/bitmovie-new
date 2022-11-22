@@ -1,129 +1,175 @@
+.movie-list-div {
 
-.mlistall{
-    margin: auto;
+}
+
+.wtf {
     display: flex;
+    justify-content: center;
+}
+
+
+.coming-soon {
+    width: 1300px;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.coming-soon .movie-chart{
     text-align: center;
-    justify-content: right;
-    margin-right: 210px;
+    display: inline-block;
+    width: 300px;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
+.coming-soon .movie-chart:hover{
+    background-color: gainsboro;
 
-.mlist1{
-    width: 200px;
-    height: 50px;
-    margin-left: 10px;
-    background-color: white;
-    border: 1px solid grey;
-    border-radius: 20px;
 }
 
-
-.mlist1:hover{
-    width: 200px;
-    height: 50px;
-    margin-left: 10px;
-    background-color: black;
-    border: 1px solid grey;
-    border-radius: 20px;
-    color: white;
-}
-.mlist2{
-    width: 200px;
-    height: 50px;
-    margin-left: 10px;
-    background-color: white;
-    border: 1px solid grey;
-    border-radius: 20px;
+.coming-soon .coming-soon-btn {
+    text-align: center;
+    display: inline-block;
+    width: 300px;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
-.mlist2:hover{
-    width: 200px;
+.coming-soon .coming-soon-btn:hover {
+    background-color: gainsboro;
+}
+
+.sorting{
+    padding-top: 40px;
+    width: 1300px;
+    height: 80px;
+    margin: auto;
+    position: relative;
+    text-align: center;
+}
+
+.toggle-BorA {
+    float: left;
+}
+
+.sorting .btn-group{
+    float: right;
+}
+
+.btn-group button{
+    width: 100px;
     height: 50px;
     margin-left: 10px;
-    background-color: black;
-    border: 1px solid grey;
-    border-radius: 20px;
-    color: white;
+    border-radius: 5px;
+    color: black;
 }
 
 .mplist{
     width: 1500px;
-    height: 1200px;
-    margin: auto;
-    margin-bottom: 100px;
-}
-
-.mp1{
-    width: 250px;
-    height: 360px;
-    border: 1px solid grey;
-    margin-left: 15%;
-    text-align: center;
-    justify-content: center;
+    margin: 50px auto 100px;
+    /*border: 3px solid red;*/
     display: flex;
-    margin-top: 100px;
-    align-items: center;
-    font-size: 50px;
-    float: left;
-    background-image:url(/src/image/joker.jpg);
-    background-size: cover;
-    border-radius: 20px;
-    font-size: 0px;
-    margin-bottom: 30px;
-}
-.mp1:hover{
-    width: 250px;
-    height: 360px;
-    border: 1px solid grey;
-    margin-left: 15%;
-    margin-top: 100px;
-    text-align: center;
+    flex-wrap: wrap;
     justify-content: center;
-    display: flex;
-    align-items: center;
-    font-size: 50px;
+}
+
+.movie-card{
+    width: 230px;
+    height: 331px;
     float: left;
-    background-image:url(/src/image/joker.jpg);
+    border-radius: 10px;
+    position : relative;
     background-size: cover;
-    border-radius: 20px;
-    font-size: 50px;
-    color: white;
-
 }
 
-button.snbt{
-    width: 150px;
-    height: 50px;
-    border: 1px solid grey;
-    text-align: center;
-    font-size: 30px;
-    border-radius: 20px;
-    margin-left: 32%;
-    background-color: white;
-    color: black;
-
+img.movie-card-poster {
+    cursor: pointer;
+    width: 230px;
+    height: 331px;
+    border-radius: 10px;
+    position : absolute;
 }
 
-button.snbt:hover{
-    width: 150px;
-    height: 50px;
-    border: 1px solid grey;
-    text-align: center;
-    font-size: 30px;
-    border-radius: 20px;
-    margin-left: 32%;
+.movie-card .movie-card-title {
+    cursor: pointer;
+    position: absolute;
+    width: 230px;
+    height: 331px;
+    border-radius: 10px;
     color: white;
     background-color: black;
-
+    opacity: 0.75;
+    font-size: 40px;
+    display : flex;
+    justify-content : center;
+    align-items : center;
 }
 
+.on {
+    z-index: 10;
+}
 
+.close {
+    z-index: -1;
+}
 
-.onebt{
-    width: 300px;
-    height: 550px;
-    display: block;
-    float: left;
-    margin-left: 50px;
-    margin-bottom: 0px;
+.movie-list-items {
+    width: 230px;
+    height: 400px;
+    margin: 50px 50px 50px 70px;
+}
+
+.movie-card-text {
+    padding-top: 10px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.movie-card-text .tit-area {
+    position: relative;
+    width: 100%;
+    height: 30px;
+}
+
+.movie-card-text .tit-area .movie-grade {
+    position: absolute;
+}
+
+.movie-card-text .tit-area .tit{
+    cursor: pointer;
+    position: absolute;
+    margin-left: 30px;
+    width: 90%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 1.3333em;
+    font-weight: 400;
+}
+
+.movie-card-text .rate-date {
+    font-size: 14px;
+    position: relative;
+    width: 100%;
+    height: 30px;
+}
+
+.movie-card-text .rate-date .rate {
+    position: absolute;
+}
+
+.movie-card-text .rate-date .date {
+    position: absolute;
+    margin-left: 95px;
+    float: right;
+}
+
+.movie-info-hover {
+    text-overflow: ellipsis;
+    width:200px;
+    height: 250px;
+    overflow: hidden;
+    font-size: 15px;
 }

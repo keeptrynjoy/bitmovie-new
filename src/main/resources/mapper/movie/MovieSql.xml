@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.repository.movie.MovieRepository">
+
+    <!--  영화 상세 정보 출력  -->
+    <select id="selectMovieData" parameterType="int" resultType="movie">
+        SELECT *
+        FROM movie_tb
+        WHERE movie_pk = #{movie_pk}
+    </select>
+
+    <!--  TMDB 영화정보가 저장되어 있는지 아닌지 판단  -->
+    <select id="selectMovieYoN" parameterType="String" resultType="int">
+        SELECT count(*)
+        FROM movie_tb
+        WHERE movie_pk = #{movie_pk}
+    </select>
+
+    <!--  TMDB api 영화 정보 저장  -->
+    <insert id="insertDetailData" parameterType="movie">
+        INSERT INTO movie_tb (movie_pk, m_name, m_type, m_sdate, m_edate, m_runtime, m_info, m_country, m_age_grd)
+        VALUES (#{movie_pk}, #{m_name}, #{m_type}, #{m_sdate}, #{m_edate}, #{m_runtime}, #{m_info}, #{m_country}, #{m_age_grd});
+    </insert>
+
+    <!--  TMDB api 영화 정보 저장(사진, 영어제목, 동영상)  -->
+    <update id="updateDataOne" parameterType="Map">
+        UPDATE movie_tb
+        SET ${column} = #{data}
+        WHERE movie_pk = #{movie_pk}
+    </update>
+
+    <!-- DB에 저장된 영화 PK 전부 출력 -->
+    <select id="selectTotalMovie" resultType="movie">
+        SELECT * FROM movie_tb WHERE m_sdate &lt; now();
+    </select>
+
+
+    <select id="IngOrNot" parameterType="Map" resultType="int">
+        SELECT count(*) movie_tb WHERE movie_pk = #{movie_pk} AND
+    </select>
+</mapper>

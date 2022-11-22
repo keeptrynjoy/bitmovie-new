@@ -13,6 +13,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import PersonIcon from '@mui/icons-material/Person';
 import logo from "../image/bitmovielogo.png"
+import Swal from "sweetalert2";
 
 function Header(props) {
     const navi = useNavigate();
@@ -104,15 +105,27 @@ function Header(props) {
         sessionStorage.removeItem("login_status");
         sessionStorage.removeItem("u_name");
         sessionStorage.removeItem("u_id");
-        sessionStorage.removeItem("u_pk");
-        sessionStorage.removeItem("pwUdtDate");
+        sessionStorage.removeItem("user_pk");
+        sessionStorage.removeItem("u_pwUdtDate");
+        navi("/");
         window.location.reload();
     };
 
     const myPageClick =(e)=> {
         if (sessionStorage.login_status==null) {
-            alert("로그인후 이용해주세요");
+            Swal.fire({
+                icon:"warning",
+                text:"로그인후 이용해주세요"
+            });
             return;
+        }
+    }
+
+    const handleSearch=(e)=>{
+        if(e.key==="Enter")
+        {
+            navi(`../search/${e.target.value}`);
+            navi(0);
         }
     }
 
@@ -171,7 +184,7 @@ function Header(props) {
                             sessionStorage.login_status==null?
                                 "/login"
                                 :
-                                `/mypage/${sessionStorage.u_pk}`
+                                `/mypage/${sessionStorage.user_pk}`
                         }>
                             <div className={"member-icon"}>
                                 <PersonIcon/>
@@ -208,6 +221,7 @@ function Header(props) {
                                 <StyledInputBase
                                     placeholder="검색어를 입력하세요"
                                     inputProps={{ 'aria-label': 'search' }}
+                                    onKeyUp={handleSearch}
                                 />
                             </Search>
                         </Toolbar>

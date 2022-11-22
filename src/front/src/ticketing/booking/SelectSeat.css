@@ -1,0 +1,310 @@
+@media (max-width: 960px){
+    #info-container{
+        display: none;
+    }
+}
+
+.allboxes{
+    margin: 0;
+}
+.seatchoose {
+    box-sizing: border-box;
+    border-radius: 20px;
+}
+
+.seatchoose{
+    background-color: #242333;
+    color: white;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: 'Lato';
+    margin: 0;
+    width: 1500px;
+    margin: auto;
+}
+
+.movie-container {
+    font-family: 'Lato';
+    margin: 20px 0;
+}
+
+
+
+.movie-container select{
+    background-color: white;
+    border: 0;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-left: 10px;
+    padding: 5px 15px 5px 15px;
+    -moz-apperance: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+.movie-container select2{
+    background-color: white;
+    border: 0;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-left: 10px;
+    padding: 5px 15px 5px 15px;
+    -moz-apperance: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+main{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 80vw;
+    margin: 20px 0;
+}
+
+#info-container{
+    background-color: white;
+    border-radius: 15px;
+    color: black;
+    width: 40%;
+    padding: 10px;
+    margin-left: 200px;
+    height: 650px;
+
+}
+
+.seattx{
+    width: 250px;
+    height: 200px;
+    float: left;
+    margin-left: 5%;
+}
+
+#info-container h2{
+    width: 100%;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.info-section{
+    width: 100%;
+    text-align: center;
+    overflow: auto;
+}
+
+.seat-section {
+    perspective: 1000px;
+    margin-right: 200px;
+    height: 600px;
+    width: 1000px;
+}
+.seat-section2 {
+    perspective: 1000px;
+    margin-bottom: 100px;
+    margin-right: 100px;
+}
+.seat-section3 {
+    perspective: 1000px;
+    margin-bottom: 100px;
+    margin-right: 100px;
+    float: left;
+}
+
+.seat {
+    cursor: pointer;
+    background-color: white;
+    height: 35px;
+    margin: 5px;
+    width: 35px;
+    color: black;
+    text-align: center;
+}
+
+
+.seat2{
+    cursor: pointer;
+    background-color: black;
+    height: 20px;
+    width: 25px;
+    margin: 3px;
+    color: white;
+    float: left;
+    text-align: center;
+    border-radius: 5px;
+}
+.seat2:active{
+    cursor: pointer;
+    background-color: black;
+    height: 20px;
+    width: 25px;
+    margin: 3px;
+    color: red;
+    float: left;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.moveall{
+    margin-top: 400px;
+    width: 450px;
+    height: 50px;
+    margin-left: 30px;
+}
+
+.seat3{
+    height: 20px;
+    width: 55px;
+    margin: 3px;
+    color: black;
+    float: left;
+    text-align: center;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/*.seat3:focus{*/
+/*    background-color: red;*/
+/*}*/
+
+
+.seat.selected {
+    background-color: #eb1333;
+    width: 35px;
+    height: 25px;
+}
+
+.seat.okay{
+    background-color: white;
+    width: 35px;
+    height: 25px;
+}
+
+.seat.occupied {
+    background-color: #444451;
+    color: white;
+    width: 35px;
+    height: 25px;
+}
+
+.seat:nth-of-type(2) {
+    margin-right: 18px;
+}
+.seat:nth-last-of-type(2) {
+    margin-left: 18px;
+}
+
+.showcase {
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #777;
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+}
+
+.showcase li {
+    display: flex; /*make horizontal*/
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+}
+
+.showcase li small {
+    margin-left: 2px;
+}
+
+section .seat:not(.occupied):hover {
+    cursor: pointer;
+    transform: scale(1.2);
+}
+.row{
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+}
+.seatboxes{
+    width: 500px;
+    height: 450px;
+    margin: auto;
+}
+
+.screen {
+    background-color: white;
+    height: 70px;
+    width: 60%;
+    margin-left: 20%;
+    margin-bottom: 45px;
+    margin-top: 50px;
+    transform: rotateX(-45deg); /*make screen thiner*/
+    box-shadow: 0 3px 10px rgba(255,255,255,0.7); /*0.7 makes screen looks lighter*/
+}
+p.text {
+    margin: 5px 0;
+}
+
+p.text span {
+    color: #f7a6b2;
+}
+
+/* Reset button */
+#reset-btn {
+    border: none;
+    border-radius: 8px;
+    background-color: #bf1b36;
+    color: white;
+    padding: 4px 6px;
+    margin: 20px 0;
+    float: left;
+    margin-right: 20px;
+    width: 120px;
+    line-height: 40px;
+    padding-top: 5px;
+}
+#reset-btn2 {
+    border: none;
+    border-radius: 8px;
+    background-color: blue;
+    color: white;
+    padding: 4px 6px;
+    margin: 20px 0;
+    float: left;
+    width: 120px;
+    line-height: 40px;
+    padding-top: 5px;
+}
+button{
+    background-color: #242333;
+    border: 0;
+}
+button .seat{
+}
+button.seat:focus {
+    background-color: red;
+}
+button.seat2:focus {
+    background-color: red;
+}
+
+#movie{
+    text-align: center;
+    width: 150px;
+    font-size: 20px;
+}
+
+.seatposter{
+    margin-top: 20px;
+    margin-bottom: 40px;
+    margin-left: 90px;
+    width: 150px;
+    height: 200px;
+    border: 1px solid gray;
+    /*background-image: url("/src/image/joker.jpg");*/
+    /*background-size: cover;*/
+    border-radius: 10px;
+    float: left;
+
+}

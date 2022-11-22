@@ -1,8 +1,10 @@
+
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import "./Login.css"
 import {Button} from "@mui/material";
+import Swal from "sweetalert2";
 
 
 function LoginMain(props) {
@@ -16,31 +18,67 @@ function LoginMain(props) {
         let url = localStorage.url + "/login/check";
         axios.post(url, {u_id, u_pass})
             .then(res => {
-                if (res.data.yesOrNo === 1) {
+                if (res.data.loginOk === 1) {
                     sessionStorage.login_status = 'ok';
                     sessionStorage.u_id = u_id;
                     sessionStorage.u_name = res.data.u_name;
-                    sessionStorage.pwUdtDate = res.data.pwUdtDate;
-                    //sessionStorage.u_pk = res.data.u_pk;
+                    sessionStorage.u_passDateDiff = res.data.u_passDateDiff;
+                    sessionStorage.user_pk = res.data.user_pk;
 
-                    if(res.data.pwUdtDate>30)
+                    if(res.data.u_passDateDiff>30)
                     {
+                        // Swal.fire({
+                        //     title: '비밀번호를 변경 한지 30일이 지났습니다.',
+                        //     text: "보안을 위해 변경해주세요",
+                        //     icon: 'warning',
+                        //     showCancelButton: true,
+                        //     confirmButtonColor: '#3085d6',
+                        //     cancelButtonColor: '#d33',
+                        //     confirmButtonText: '네',
+                        //     cancelButtonText:'다음에 변경 할게요'
+                        // }).then((result) => {
+                        //     if (result.isConfirmed) {
+                        //         navi("/login/find");
+                        //     }else{
+                        //         const upurl = localStorage.url + "/login/updatepassdate?u_id=" + u_id;
+                        //         axios.get(upurl)
+                        //             .then((res)=>{
+                        //                 Swal.fire({
+                        //                     icon: "info",
+                        //                     text: "한달 뒤에 다시 물어볼께영"
+                        //                 });
+                        //             });
+                        //     }
+                        // })
                         if(window.confirm("비밀번호를 변경 한지 30일이 지났습니다. 변경 하시겠습니까?"))
                         {
                             navi("/login/find");
+                            return;
                         }else{
                             const upurl = localStorage.url + "/login/updatepassdate?u_id=" + u_id;
                             axios.get(upurl)
                                 .then((res)=>{
-                                    alert("한달 뒤에 다시 물어볼께영");
+                                    Swal.fire({
+                                        icon: "info",
+                                        text: "한달 뒤에 다시 물어볼께영"
+                                    });
+                                    navi("/");
+                                    window.location.reload();
                                 });
+                            return;
                         }
                     }
+                    Swal.fire({
+                        icon:"success",
+                        text:"로그인 성공!"
+                    })
                     navi("/");
                     window.location.reload();
                 } else {
-                    alert("아이디 또는 비밀번호가 맞지 않습니다");
-                    setU_id('');
+                    Swal.fire({
+                        icon: "warning",
+                        text: "아이디 또는 비밀번호가 맞지 않습니다"
+                    });
                     setU_pass('');
                 }
             })

@@ -1,7 +1,9 @@
 package data.controller.api;
 
 import data.service.api.TheMovieService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,70 +17,59 @@ import java.net.URL;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class TheMovieController {
 
-    @Autowired
-    TheMovieService theMovieService;
+    private final TheMovieService theMovieService;
 
-//
-//        const json = await (
-//            await fetch(
-//            `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${key}&targetDt=${targetDT}`
-//    )
-//        ).json();
     @GetMapping("/TMDBapi")
     @ResponseBody
+    @Scheduled(cron="0 0 1 * * *", zone = "Asia/Seoul")
     public String TMDBapi(){
 
         /*
-        * db 에 저장시킬 번호를 입력 숫자 1당 20개씩 저장.
-        * 예시) 숫자 1 입력시 순위 1~20인 영화가 저장
-        *     숫자 2 입력시 순위 21~40인 영화가 저장
-        * */
-        int page_num = 1;
+         * db 에 저장시킬 번호를 입력 숫자 1당 20개씩 저장.
+         * 예시) 숫자 1 입력시 순위 1~20인 영화가 저장
+         *     숫자 2 입력시 순위 21~40인 영화가 저장
+         * */
+        int page_num = 3;
 
         //해당 페이지에 있는 영화 id를 반환
         List<Object> movie_id_list = theMovieService.movieListApi(page_num);
-        System.out.println("controller: list "+movie_id_list);
+//        System.out.println("controller: list "+movie_id_list);
 
-        // movie_id 를 통해 더무비 에서 제공해주는 영화 상세정보를 db에 저장
-        boolean bool_movie_save = theMovieService.movieDataSave(movie_id_list);
-
-        // 1. movie list 를 불러와 movie id 를 list 에 담아준다.
-
-
-//        String TMDB_LIST_URL = TMDB_URL + "movie/popular?api_key="+TMDB_KEY+TMDB_KO;
-//        System.out.println(TMDB_LIST_URL);
-//        try {
-//            URL url = new URL(TMDB_LIST_URL);
-//            BufferedReader bf = new BufferedReader(new InputStreamReader(url.openStream()));
-//            String data = bf.readLine();
-//            System.out.println("next: "+ data);
-//            movie_id_list = theMovieService.movieListApi(data); //movie id list 를 반환
-//
-//            // 2. movie_id_list 를 통해
-//
-//        } catch (MalformedURLException e) {
-//            throw new RuntimeException(e);
-//        } catch (IOException ex){
-//            throw new RuntimeException(ex);
-//        }
+        for (int i = 0; i < movie_id_list.size(); i++) {
+            // movie_id 를 통해 더무비 에서 제공해주는 영화 상세정보를 db에 저장
+            theMovieService.movieDataSave(movie_id_list.get(i));
+            // movie_id 를 통해 더무비 포스터를 db에 저장
+            theMovieService.updatePhoto(movie_id_list.get(i));
+            // 영어 이름 저장
+            theMovieService.updateEnName(movie_id_list.get(i));
+            // 영화 트레일러 저장
+            theMovieService.updateVideo(movie_id_list.get(i));
+            // 해당 영화의 등장인물 정보 저장
+            theMovieService.personDataList(movie_id_list.get(i));
+        }
 
 
+        //해당 페이지에 있는 영화 id를 반환
+        List<Object> movie_upcoming_list = theMovieService.movieUpcomoingList(page_num);
+//        System.out.println("controller: list "+movie_id_list);
 
-        // 2. list 로 반복문을 돌려 해당 영화의 상세 정보를 가져온다.
-        // 영화 기본 정보 가져오기
+        for (int i = 0; i < movie_upcoming_list.size(); i++) {
+            // movie_id 를 통해 더무비 에서 제공해주는 영화 상세정보를 db에 저장
+            theMovieService.movieDataSave(movie_upcoming_list.get(i));
+            // movie_id 를 통해 더무비 포스터를 db에 저장
+            theMovieService.updatePhoto(movie_upcoming_list.get(i));
+            // 영어 이름 저장
+            theMovieService.updateEnName(movie_upcoming_list.get(i));
+            // 영화 트레일러 저장
+            theMovieService.updateVideo(movie_upcoming_list.get(i));
+            // 해당 영화의 등장인물 정보 저장
+            theMovieService.personDataList(movie_upcoming_list.get(i));
+        }
 
-
-        // 영화 등장인물 정보 가져오기
-
-        return "작업중";
+        return "TMDB 작업";
     }
-
-
-
-
-
-
 
 }

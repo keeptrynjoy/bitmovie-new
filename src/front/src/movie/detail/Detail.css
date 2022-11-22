@@ -1,68 +1,87 @@
-.dtall{
+.detail-div {
     width: 1500px;
-    height: 2000px;
+    height: 3000px;
+    display: flex;
+    align-content: start;
+    flex-wrap: wrap;
     margin: auto;
 }
 
-.dtposter{
-    width: 500px;
-    height: 670px;
-    border: 1px solid gray;
+.detail-div .detail-upper-div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+
+.dtposter {
+    width: 350px;
+    height: 500px;
+    border-radius: 10px;
+}
+
+.detail-content-div {
+    width: 900px;
+    height: 600px;
     margin-left: 3%;
-    margin-top: 5%;
-    background-image: url("/src/image/joker.jpg");
-    background-size: cover;
-    border-radius: 20px;
-    float: left;
-
 }
 
-.dtcontent{
-    width: 800px;
-    height: 750px;
-    float: left;
-    margin-left: 5%;
-    margin-top: 3%;
-
-}
-
-.dtname{
-    width: 700px;
+.detail-contents {
+    width: 100%;
     height: 600px;
     border: 1px solid gray;
     margin-left: 6%;
     padding-left: 5%;
-    margin-top: 3%;
     font-size: 20px;
     line-height:60px;
     border-radius: 20px;
-
-
 }
 
-.dtbt{
+.detail-contents .detail-contents-summary {
+    width: 90%;
+    height: 187px;
+    overflow: hidden;
+    white-space: normal;
+    line-height: 1.8;
+    text-align: left;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+}
+
+.detail-contents .detail-contents-title {
+    font-size: 35px;
+    margin-top: 30px;
+}
+
+.detail-div .detail-upper-div .poster-and-btn{
+    text-align: center;
+}
+
+
+.bookingBtn{
+    margin-top: 30px;
     background-color: white;
-    width: 300px;
-    height: 70px;
-    margin-top: 50px;
-    margin-left: 30%;
-    display: block;
+    width: 250px;
+    height: 60px;
     border: 1px solid gray;
     border-radius: 20px;
 }
 
-.prevideo{
-    width: 1000px;
-    height: 500px;
-    border: 1px solid gray;
-    clear: both;
-    margin-left: 15%;
-    margin-top: 10%;
-    float: left;
-    text-align: center;
-    line-height: 500px;
-    font-size: 50px;
-}
+/*.prevideo{*/
+/*    width: 1000px;*/
+/*    height: 500px;*/
+/*    border: 1px solid gray;*/
+/*    clear: both;*/
+/*    margin-left: 15%;*/
+/*    margin-top: 10%;*/
+/*    float: left;*/
+/*    text-align: center;*/
+/*    line-height: 500px;*/
+/*    font-size: 50px;*/
+/*}*/
 
 .story{
     width: 1000px;
@@ -76,18 +95,186 @@
     line-height: 300px;
     font-size: 50px;
     margin-bottom: 5%;
-
 }
+
 .dtreview{
     width: 1000px;
-    height: 300px;
-    border: 1px solid gray;
     clear: both;
     margin-left: 15%;
     margin-top: 5%;
     float: left;
     text-align: center;
-    line-height: 300px;
-    font-size: 50px;
+    line-height: 100px;
     margin-bottom: 5%;
+}
+
+.review-header {
+    display: flex;
+}
+
+.review-textarea {
+    margin-top: 20px;
+    width: 600px;
+    height: 150px;
+}
+
+/*리뷰 리스트*/
+.review-ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.review-ul li {
+    margin-top: 20px;
+    position: relative;
+    width: 100%;
+}
+
+.review-items {
+    width: 100%;
+    height: 100px;
+    display: block;
+}
+
+.review-items .review-user-div {
+    position: relative;
+    float: left;
+    width: 105px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.review-items .review-user-div .review-user-photo{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+    overflow: hidden;
+    border: 2px solid green;
+}
+
+.review-items .review-user-div .review-user-name{
+    margin: 0;
+    width: 105px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: .9333em;
+    line-height: 1.1;
+}
+
+.review-items .review-text-box {
+    float: right;
+    position: relative;
+    width: calc(100% - 105px);
+    height: 84px;
+    padding: 0;
+}
+
+.review-items .review-text-box .review-text-wrap {
+    display: block;
+    width: 100%;
+    height: 84px;
+}
+
+.review-items .review-text-box .review-text-wrap .guanlam{
+    float: left;
+    height: 84px;
+    width: 105px;
+    line-height: 82px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 0 0 0 10px;
+}
+
+.review-items .review-text-box .review-text-wrap .neoyong {
+    background-color: #f8f8fa;
+    border-radius: 0 10px 10px 0;
+    display: table;
+    float: left;
+    width: 850px;
+    height: 84px;
+    padding: 0;
+    vertical-align: middle;
+}
+
+.review-text-wrap .neoyong .review-text-content {
+    width: 600px;
+    display: table-cell;
+    position: relative;
+    padding: 0 20px 0 30px;
+    text-align: left;
+    color: #666;
+    vertical-align: middle;
+    font-size: .9333em;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.review-text-wrap .neoyong .review-star {
+    display: table-cell;
+    width: 70px;
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 5px;
+}
+
+.review-text-wrap .neoyong .review-report{
+    color: red;
+    display: table-cell;
+    width: 70px;
+    text-align: center;
+    vertical-align: middle;
+    padding-bottom: 5px;
+}
+
+.cast-div {
+    width: 1500px;
+    height: 550px;
+    margin-top: 7%;
+    clear: both;
+    float: left;
+    text-align: center;
+}
+
+.cast-div h1 {
+    height: 100px;
+}
+
+.cast-info .person-name{
+    font-size: 27px;
+}
+
+.cast-info .cast-type {
+    font-size: 20px;
+}
+
+.cast-img {
+    width: 230px;
+    height: 333px;
+    border-radius: 10px;
+}
+
+.tab-menu-container {
+    width: 1500px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+}
+
+.menu-contents-div {
+    width: 1500px;
+    height: 5000px;
+    border: 2px solid red;
+}
+
+.select-date-div {
+    display: flex;
+    justify-content: center;
+}
+
+ul.date-item-wrap {
+    list-style: none;
+
 }
