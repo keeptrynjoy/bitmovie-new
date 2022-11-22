@@ -48,30 +48,55 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
     // const [checkedInputs, setCheckedInputs] = useState([]);
     //
-    const changeHandler = (e) => {
 
-        if(selected_seat.length>totalp || totalp==0){
+
+ const [tg,setTg]= useState(null);
+
+
+    console.log(selected_seat);
+
+        const changeHandler = (e) => {
+
+
+            // if (selected_seat.length >= totalp) {
+            //     Swal.fire({
+            //         icon: "warning",
+            //         text: "안돼"
+            //     })
+            //     e.target.checked = false;
+            //
+            //
+            //     // setSelected_seat(selected_seat.filter((a) => a !== e.target.value));
+            //     // e.target.checked(false);
+            // }
+            // }else if (selected_seat.length)
+
+            setTg(e.target);
+            if (e.target.checked) {
+                setSelected_seat([...selected_seat, e.target.value]);
+            } else {
+                // 체크 해제
+                setSelected_seat(selected_seat.filter((a) => a !== e.target.value));
+            }
+
+        };
+
+    useEffect(()=>{
+
+        if (selected_seat.length > totalp && selected_seat.length!=0) {
             Swal.fire({
-                icon:"warning",
-                text:"안돼"
+                icon: "warning",
+                text: "안돼"
             })
-            e.target.checked=false;
-
+                tg.checked=false;
+            // selected_seat.slice((a) => a !== e.target.value);
+                    console.log(1);
+                    setSelected_seat([
+                        ...selected_seat.slice(0,selected_seat.length-1)
+                    ])
             // setSelected_seat(selected_seat.filter((a) => a !== e.target.value));
             // e.target.checked(false);
         }
-
-        if (e.target.checked) {
-            setSelected_seat([...selected_seat, e.target.value]);
-        } else {
-            // 체크 해제
-            setSelected_seat(selected_seat.filter((a) => a !== e.target.value));
-        }
-
-    };
-
-    useEffect(()=>{
-        console.log(selected_seat);
     },[selected_seat]);
 
 
@@ -194,18 +219,19 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                                 {seats.map((list,j) => (
                                 // {seats.map((list, j) => (
                                     <input type={"checkbox"}
-                                        className={'seat'}
-                                        key={j}
-                                        // value={i + 1 + '' + (j + 1)}
-                                        value={alphabet[i].toUpperCase()+(j+1).toString()}
-                                           // onChange={(
-                                           //
-                                           // )=>{
-                                           //     changeHandler(e.currentTarget.checked, checkings)
-                                           // }}
-                                           //  checked={selected_seat.includes(this.value)}
-                                        onChange={changeHandler}
-                                />
+                                    className={'seat'}
+                                    key={j}
+                                    // value={i + 1 + '' + (j + 1)}
+                                    value={alphabet[i].toUpperCase()+(j+1).toString()}
+                                    // onChange={(
+                                    //
+                                    // )=>{
+                                    //     changeHandler(e.currentTarget.checked, checkings)
+                                    // }}
+                                    //  checked={selected_seat.includes(this.value)}
+                                    onChange = {changeHandler}
+                                    />
+
                                 ))}
                             </li>
                         ))}
