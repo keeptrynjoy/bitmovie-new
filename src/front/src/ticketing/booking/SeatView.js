@@ -17,13 +17,25 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
         window.location.reload();
     }
     const gone =()=> {
-        navi('/ticketing/payment');
+        navi('/ticketing/payment',{
+            state:{
+                input:input
+            },
+        });
     }
+
+
+    // navi("/ticketing/selectseat", {
+    //     state: {
+    //         input: input
+    //     },
+    //
+    // });
 
 
 
 const obj = JSON.parse(movieData.movie);
-    const obj2 = JSON.parse(movieData.location);
+const obj2 = JSON.parse(movieData.location);
 
 
 

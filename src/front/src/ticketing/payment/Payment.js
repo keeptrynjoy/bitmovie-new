@@ -1,6 +1,12 @@
 import React from 'react';
+import {useLocation} from "react-router-dom";
+
+
 
 const Payment = () => {
+
+    console.log();
+
     return (
         <div>
             <h1>결제페이지</h1>
