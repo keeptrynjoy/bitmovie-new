@@ -34,14 +34,19 @@ function MovieDetail(props) {
     const [menu,setMenu]=useState("info");
 
     const user_pk = sessionStorage.user_pk;
-    const getDaysArray = function(start, end) {
-        for(const dt=new Date(start); dt<=new Date(end); dt.setDate(dt.getDate()+1)){
-            setDateArray({
-                ...dateArray,
-                dt
-            })
+
+    const getDaysArray=(end)=>{
+        setDateArray([]);
+        let arr=new Array();
+        for(let dt=new Date(); dt<= new Date(end); dt.setDate(dt.getDate()+1))
+        {
+            // console.log(dt.toISOString().split("T")[0]);
+            const date = dt.toISOString().split("T")[0];
+            const day = dt.getDay();
+            arr.push(day);
         }
-    };
+        setDateArray(arr);
+    }
 
     const getData =()=>{
         const getMovieUrl = localStorage.url + "/movie/selectMovieData?movie_pk=" + movie_pk;
@@ -51,7 +56,7 @@ function MovieDetail(props) {
                 setMovie_photo(res.data.data.m_photo.split(","));
                 setMovie_review(res.data.revw);
                 setCast_data(res.data.cast);
-                getDaysArray(new Date(),res.data.data.m_edate);
+                getDaysArray(res.data.data.m_edate);
                 console.log(res.data);
             })
     }
@@ -139,7 +144,6 @@ function MovieDetail(props) {
         event: React.MouseEvent<HTMLElement>,
         newMenu: string | null,
     ) => {
-        console.log(dateArray);
         setMenu(newMenu);
     };
 
@@ -258,10 +262,15 @@ function MovieDetail(props) {
                             menu === "timetable"?
                                 <div className={"timetable-div"}>
                                     <div className={"select-date-div"}>
-                                        <ul className={"date-item-wrap"}></ul>
-                                        <li>
-
-                                        </li>
+                                        <ul className={"date-item-wrap"}>
+                                        {
+                                            dateArray && dateArray.map((item,i)=>(
+                                                <li key={i}>
+                                                    {item}
+                                                </li>
+                                            ))
+                                        }
+                                        </ul>
                                     </div>
                                 </div>
                                 :
@@ -306,7 +315,6 @@ function MovieDetail(props) {
                                             ))}
                                         </Swiper>
                                     </div>
-
                                 </div>
                     }
                 </div>
