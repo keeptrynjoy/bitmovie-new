@@ -42,34 +42,12 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
         }
 
 
-
-
-    //체크박스
-
-    // const [checkedInputs, setCheckedInputs] = useState([]);
-    //
-
-
  const [tg,setTg]= useState(null);
 
 
     console.log(selected_seat);
 
         const changeHandler = (e) => {
-
-
-            // if (selected_seat.length >= totalp) {
-            //     Swal.fire({
-            //         icon: "warning",
-            //         text: "안돼"
-            //     })
-            //     e.target.checked = false;
-            //
-            //
-            //     // setSelected_seat(selected_seat.filter((a) => a !== e.target.value));
-            //     // e.target.checked(false);
-            // }
-            // }else if (selected_seat.length)
 
             setTg(e.target);
             if (e.target.checked) {
@@ -89,71 +67,12 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                 text: "안돼"
             })
                 tg.checked=false;
-            // selected_seat.slice((a) => a !== e.target.value);
                     console.log(1);
                     setSelected_seat([
                         ...selected_seat.slice(0,selected_seat.length-1)
                     ])
-            // setSelected_seat(selected_seat.filter((a) => a !== e.target.value));
-            // e.target.checked(false);
         }
     },[selected_seat]);
-
-
-
-
-
-
-
-
-
-
-    // const CheckBox = () => {
-    //     const [checkedList, setCheckedLists] = useState([]);
-
-
-    // 개별 체크 클릭 시 발생하는 함수
-//     const onCheckedElement = useCallback(
-//         (checked, list) => {
-//             if (checked) {
-//                 setCheckedLists([...checkedList, list]);
-//             }else {
-//                 setCheckedLists(checkedList.filter((el) => el !== list));
-//             }
-//         },
-//         [checkedList]
-//     );
-// };
-
-
-        // const value=e.value;
-        //
-        // document.getElementsByClassName('result3').innerText=  e.target.value;
-        //
-
-
-
-    //
-    //     console.log(e.target.value);
-    //     if (e.target.value!==0) {
-    //         document.getElementById('result3').innerText = e.target.value;
-    //     }
-    //
-    // }
-    //
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     return (
         <div className={'seatchoose'}>
@@ -201,7 +120,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                 <article id="info-container">
                     <img alt={obj.m_name} src={`https://image.tmdb.org/t/p/w500${obj.m_photo}`} className={'seatposter'}/>
                     <div className={'seattx'}>
-                        <p style={{fontSize:'25px'}}>{obj.m_name}</p>
+                        <p style={{fontSize:'20px'}}>{obj.m_name}</p>
                         <p><b style={{fontSize:'20px'}}>상영관</b> {obj2.the_name} 관</p>
                             <p><b style={{fontSize:'20px'}}>날짜</b> 2022.11.{movieData.calender}일 </p>
                             <p><b style={{fontSize:'20px'}}>시간</b> {obj.m_runtime}분</p>
@@ -217,18 +136,10 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                         {rowSeats.map((list, i) => (
                             <li className={'row'} key={i} >
                                 {seats.map((list,j) => (
-                                // {seats.map((list, j) => (
                                     <input type={"checkbox"}
                                     className={'seat'}
                                     key={j}
-                                    // value={i + 1 + '' + (j + 1)}
                                     value={alphabet[i].toUpperCase()+(j+1).toString()}
-                                    // onChange={(
-                                    //
-                                    // )=>{
-                                    //     changeHandler(e.currentTarget.checked, checkings)
-                                    // }}
-                                    //  checked={selected_seat.includes(this.value)}
                                     onChange = {changeHandler}
                                     />
 
