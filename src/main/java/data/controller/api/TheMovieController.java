@@ -3,6 +3,7 @@ package data.controller.api;
 import data.service.api.TheMovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,6 +24,7 @@ public class TheMovieController {
 
     @GetMapping("/TMDBapi")
     @ResponseBody
+    @Scheduled(cron="0 0 1 * * *", zone = "Asia/Seoul")
     public String TMDBapi(){
 
         /*
