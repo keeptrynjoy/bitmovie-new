@@ -63,6 +63,7 @@ function JoinInfo(props) {
             return;
         }
 
+
         if(input.u_birth===""){
             Swal.fire({
                 icon:"warning",

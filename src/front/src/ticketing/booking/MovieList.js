@@ -32,7 +32,7 @@ const MovieList = (props) => {
 
             <div className={'mvcolor'}>
                 {mvlist.map((list,i)=>(
-                    <ul>
+                    <ul key={i}>
                         <li style={{listStyle:'none'}}>
                             <div>
                                 <img src={age} style={{width:'30px', float:'left'}}/>

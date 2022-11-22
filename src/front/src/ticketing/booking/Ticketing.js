@@ -6,6 +6,7 @@ import Calender from "./Calender";
 import MovieList from "./MovieList";
 import Location from "./Location";
 import TimeTable from "../timetable/TimeTable";
+import Swal from "sweetalert2";
 
 function Ticketing(props) {
 
@@ -16,7 +17,12 @@ function Ticketing(props) {
 
     const navi = useNavigate();
 
-    const [input,setInput]=useState([]);
+    const [input,setInput]=useState({
+        movie:"",
+        calender:"",
+        time:"",
+        location:""
+    });
 
     const changeData=(e)=>{
         let {name,value}=e.target;
@@ -28,13 +34,55 @@ function Ticketing(props) {
     }
 
     const goSeat = ()=> {
+        if (input.movie===''){
+            Swal.fire({
+                icon:"warning",
+                text:"영화선택해"
+            })
 
-        navi("/ticketing/selectseat", {
-            state: {
-                input: input
-            },
+            return
 
-        });
+        }
+        if (input.location===''){
+            Swal.fire({
+                icon:"warning",
+                text:"위치선택해"
+            })
+            return
+        }
+        if (input.calender===''){
+            Swal.fire({
+                icon:"warning",
+                text:"상영일선택해"
+            })
+            return
+        }
+        if (input.time===''){
+            Swal.fire({
+                icon:"warning",
+                text:"상영시간선택해"
+            })
+            return
+        }
+        //
+        // if (input.length===3)
+        // {
+
+            navi("/ticketing/selectseat", {
+                state: {
+                    input: input
+                },
+
+            });
+
+        // }else{
+        //         Swal.fire({
+        //             icon:"warning",
+        //             text:"잘 선택해"
+        //         })
+        // }
+
+
     }
 
 
@@ -57,15 +105,15 @@ function Ticketing(props) {
                     <button className={'tkmenu2'} onClick={()=>refresh()}>초기화</button>
                 </div>
                 <div className={'together'}>
-                <div className={'selectmv'}>
-                    <MovieList input={input} setInput={setInput} changeData={changeData}/>
-                </div>
-                <div className={"movielocation"}>
-                <Location input={input} setInput={setInput} changeData={changeData} />
-                </div>
-                <div className={'selectday'}><Calender input={input} setInput={setInput} changeData={changeData} /></div>
+                    <div className={'selectmv'}>
+                        <MovieList input={input} setInput={setInput} changeData={changeData}/>
+                    </div>
+                    <div className={"movielocation"}>
+                        <Location input={input} setInput={setInput} changeData={changeData} />
+                    </div>
+                    <div className={'selectday'}><Calender input={input} setInput={setInput} changeData={changeData} /></div>
 
-                <div className={'selecttime'}><TimeTable input={input} setInput={setInput} changeData={changeData} /></div>
+                    <div className={'selecttime'}><TimeTable input={input} setInput={setInput} changeData={changeData} /></div>
                 </div>
                 {/*<button type={"button"} className={'selectseat'} onClick={() => navi("/ticketing/selectseat",{input, setInput})} input={input} setInput={setInput} changeData={changeData} >좌석선택</button>*/}
                 <button type={"button"} className={'selectseat'} onClick={goSeat} >좌석선택</button>
