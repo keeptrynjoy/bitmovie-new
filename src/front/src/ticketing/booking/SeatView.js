@@ -11,13 +11,20 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     const [totalp, setTotalp] =useState(0);
     const [selected_seat, setSelected_seat]=useState([]);
     const alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-    console.log('state',location.state);
+    console.log('state확인용',location.state);
 
     const reset=()=>{
         window.location.reload();
     }
-    const obj = JSON.parse(movieData.movie);
+    const gone =()=> {
+        navi('/ticketing/payment');
+    }
+
+
+
+const obj = JSON.parse(movieData.movie);
     const obj2 = JSON.parse(movieData.location);
+
 
 
 
@@ -39,6 +46,8 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
             setTotalp(parseInt(e.target.value) + parseInt(document.getElementById('adult_select').value));
 
         }
+
+
 
 
  const [tg,setTg]= useState(null);
@@ -157,9 +166,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
             <div id={'btns'}>
                 <button id="reset-btn" onClick={reset}>예매 다시하기</button>
-                <button id="reset-btn2" onClick={() => navi('/ticketing/payment')}>
-                    예매 완료하기
-                </button>
+                <button id="reset-btn2" onClick={gone}>예매 완료하기</button>
             </div>
         </div>
     );
