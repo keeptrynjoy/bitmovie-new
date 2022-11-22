@@ -2,6 +2,7 @@ package data.service.user;
 
 import data.domain.movie.*;
 import data.repository.movie.*;
+import data.repository.user.MWishRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class MainService {
     private final PersonRepository personRepository;
     private final JoinCastRepository joinCastRepository;
     private final JoinTimeRepository joinTimeRepository;
+    private final MWishRepository mWishRepository;
 
     // 가장 최신 등록된 평점을 'count'갯수 만큼 반환
     public List<JoinRevw> selectRecentRevw(int count) {
@@ -32,6 +34,12 @@ public class MainService {
         Map<String, Object> map = new HashMap<>();
         // 영화 정보 출력
         List<JoinMovie> movie_list = joinMovieRepository.selectSearchMovie(search);
+        // 영화 평점정보 등록
+        for(int i=0; i<movie_list.size(); i++){
+            int movie_pk = movie_list.get(i).getMovie_pk();
+            int wish = mWishRepository.selectWishCnt(movie_pk);
+            movie_list.get(i).setWish_cnt(wish);
+        }
         // 인물 정보 출력
         List<Person> people_list = personRepository.selectSearchList(search);
         // 출력되는 첫번째 인물의 상세 정보 출력

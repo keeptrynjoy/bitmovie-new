@@ -22,7 +22,6 @@ public class PageHandler {
         this(1, 1, 1, 1);
     }
 
-
     public PageHandler(int totalCnt, int currentPage, int perPage, int perBlock){
         this.totalCnt = totalCnt;
         this.currentPage = currentPage;
@@ -50,6 +49,4 @@ public class PageHandler {
         }
         System.out.println(nextview ? "[다음]" : "");
     }
-
-
 }

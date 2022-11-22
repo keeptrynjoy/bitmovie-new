@@ -14,6 +14,7 @@
             mv.m_age_grd,
             mv.m_info,
             mv.m_photo,
+            mv.m_enname,
             ifnull(round(AVG(re.revw_star)),0) AS revw_avgstar,
             ifnull(round(sum_paycnt/sum(sum_paycnt)*100),0) AS reserve_rate
         FROM
