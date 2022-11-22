@@ -3,7 +3,7 @@
 <mapper namespace="data.repository.movie.JoinMovieRepository">
 
     <!--  영화 정보 + 예매율, 평균평점 정보 가져오기  -->
-    <select id="selectMovieList" resultType="JoinMovie" parameterType="Map">
+    <select id="selectMovieList" parameterType="Map" resultType="JoinMovie">
         SELECT
             mv.movie_pk,
             mv.m_name,
@@ -14,6 +14,7 @@
             mv.m_age_grd,
             mv.m_info,
             mv.m_photo,
+            mv.m_enname,
             ifnull(round(AVG(re.revw_star)),0) AS revw_avgstar,
             ifnull(round(sum_paycnt/sum(sum_paycnt)*100),0) AS reserve_rate
         FROM
@@ -25,6 +26,7 @@
              FROM
                  payment_tb pay LEFT OUTER JOIN booking_tb book ON pay.payment_pk = book.payment_pk
                                 LEFT OUTER JOIN screentime_tb tim ON book.scrtime_pk = tim.scrtime_pk
+
              WHERE
                  #{now_date} >= pay.pay_date
                AND pay.pay_date > #{before_date}
@@ -69,7 +71,7 @@
                 payment_tb pay LEFT OUTER JOIN booking_tb book ON pay.payment_pk = book.payment_pk
             LEFT OUTER JOIN screentime_tb tim ON book.scrtime_pk = tim.scrtime_pk
             ) sub ON sub.movie_pk = mv.movie_pk
-        WHERE m_name like CONCAT('%',#{search},'%')
+        WHERE m_name LIKE CONCAT('%',#{search},'%') OR m_enname LIKE CONCAT('%',#{search},'%')
         GROUP BY movie_pk
         ORDER BY m_sdate;
     </select>

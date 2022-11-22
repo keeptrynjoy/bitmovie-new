@@ -2,10 +2,9 @@ package data.service.movie;
 
 import data.domain.movie.JoinTime;
 import data.domain.movie.ScreenTime;
-import data.repository.movie.JoinTimeRepositroy;
+import data.repository.movie.JoinTimeRepository;
 import data.repository.movie.ScreenTimeRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -17,7 +16,7 @@ import java.util.Map;
 public class ScreenTimeService {
 
     private final ScreenTimeRepository screenTimeRepository;
-    private final JoinTimeRepositroy joinTimeRepositroy;
+    private final JoinTimeRepository joinTimeRepository;
 
     public ScreenTime selectScrTimeByTheater(int theater_pk){
         return screenTimeRepository.selectScrTimeByTheater(theater_pk);
@@ -39,6 +38,6 @@ public class ScreenTimeService {
         Map<String, Object> map = new HashMap<>();
         map.put("movie_pk", movie_pk);
         map.put("date", date);
-        return joinTimeRepositroy.selectTimeByMovie(map);
+        return joinTimeRepository.selectTimeByMovie(map);
     }
 }

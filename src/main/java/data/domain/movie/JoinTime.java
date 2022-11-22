@@ -1,5 +1,6 @@
 package data.domain.movie;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import java.sql.Time;
 
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class JoinTime {
     private int screen_pk;      // screentime - 상영시간표 고유키
     private int movie_pk;       // screentime - 영화 고유키
@@ -19,4 +21,5 @@ public class JoinTime {
     private int scr_tot_seat;   // screen - 상영관의 총 좌석수
     private String the_name;    // theater - 극장명
     private int booked;         // booking - 예매된 좌석 수
+
 }

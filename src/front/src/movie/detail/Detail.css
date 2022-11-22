@@ -255,3 +255,26 @@
     height: 333px;
     border-radius: 10px;
 }
+
+.tab-menu-container {
+    width: 1500px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+}
+
+.menu-contents-div {
+    width: 1500px;
+    height: 5000px;
+    border: 2px solid red;
+}
+
+.select-date-div {
+    display: flex;
+    justify-content: center;
+}
+
+ul.date-item-wrap {
+    list-style: none;
+
+}
