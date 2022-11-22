@@ -40,6 +40,15 @@ public class MainService {
             int wish = mWishRepository.selectWishCnt(movie_pk);
             movie_list.get(i).setWish_cnt(wish);
         }
+
+//        String m_sdate = movie_list.get(0).getM_sdate();
+//        String m_edate = movie_list.get(0).getM_edate();
+//        LocalDate now = LocalDate.now();
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        String now_date = now.format(dtf);
+//        int sdate = Integer.parseInt(m_sdate);
+//        System.out.println("sdate"+ sdate);
+
         // 인물 정보 출력
         List<Person> people_list = personRepository.selectSearchList(search);
         // 출력되는 첫번째 인물의 상세 정보 출력

@@ -71,7 +71,7 @@
                 payment_tb pay LEFT OUTER JOIN booking_tb book ON pay.payment_pk = book.payment_pk
             LEFT OUTER JOIN screentime_tb tim ON book.scrtime_pk = tim.scrtime_pk
             ) sub ON sub.movie_pk = mv.movie_pk
-        WHERE m_name like CONCAT('%',#{search},'%') OR en_name CONCAT('%',#{search},'%')
+        WHERE m_name LIKE CONCAT('%',#{search},'%') OR m_enname LIKE CONCAT('%',#{search},'%')
         GROUP BY movie_pk
         ORDER BY m_sdate;
     </select>
