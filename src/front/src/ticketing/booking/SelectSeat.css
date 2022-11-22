@@ -4,7 +4,9 @@
     }
 }
 
-
+.allboxes{
+    margin: 0;
+}
 .seatchoose {
     box-sizing: border-box;
     border-radius: 20px;
@@ -201,6 +203,7 @@ main{
     list-style-type: none;
     display: flex;
     justify-content: space-between;
+    margin: 0;
 }
 
 .showcase li {

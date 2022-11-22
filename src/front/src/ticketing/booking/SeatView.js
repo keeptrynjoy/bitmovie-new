@@ -18,25 +18,31 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
         window.location.reload();
     }
     const obj = JSON.parse(movieData.movie);
+    const obj2 = JSON.parse(movieData.location);
 
     //성인
-    const handleOnchangePerson=(e)=>{
 
-        const value= e.value;
 
-        document.getElementById('result').innerText=e.target.value;
-        setTotalp(parseInt(e.target.value)+parseInt(document.getElementById('student_select').value));
+        const handleOnchangePerson = (e) => {
 
-    }
+            const value = e.value;
 
-    //청소년
-    const handleOnchangePerson2=(e)=>{
+            document.getElementById('result').innerText = e.target.value;
+            setTotalp(parseInt(e.target.value) + parseInt(document.getElementById('student_select').value));
+            console.log(totalp.length);
 
-        const value= e.value;
+        }
 
-        document.getElementById('result2').innerText=e.target.value;
-        setTotalp(parseInt(e.target.value)+parseInt(document.getElementById('adult_select').value));
-    }
+        //청소년
+        const handleOnchangePerson2 = (e) => {
+
+            const value = e.value;
+
+            document.getElementById('result2').innerText = e.target.value;
+            setTotalp(parseInt(e.target.value) + parseInt(document.getElementById('adult_select').value));
+            console.log("최초개수" + totalp);
+        }
+
 
 
 
@@ -46,12 +52,13 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     //
     const changeHandler = (e) => {
 
-        if(selected_seat.length>totalp){
+        if(selected_seat.length>totalp || totalp==0){
             Swal.fire({
                 icon:"warning",
                 text:"안돼"
             })
-            return;
+            // setSelected_seat(selected_seat.filter((a) => a !== e.target.value));
+            // e.target.checked(false);
         }
 
         if (e.target.checked) {
@@ -126,7 +133,6 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     return (
         <div className={'seatchoose'}>
             <h1>인원 및 좌석선택</h1>
-            <br/>
             <section>
                 <label>성인</label>&nbsp;
                 <select name={'adult'} id={"adult_select"} defaultValue={0} onChange={handleOnchangePerson}>
@@ -166,15 +172,15 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                     <small>예매완료</small>
                 </li>
             </ul>
-            <main>
+            <main className={'allboxes'}>
                 <article id="info-container">
                     <img alt={obj.m_name} src={`https://image.tmdb.org/t/p/w500${obj.m_photo}`} className={'seatposter'}/>
                     <div className={'seattx'}>
                         <p style={{fontSize:'30px'}}>{obj.m_name}</p>
-                        <p><b style={{fontSize:'20px'}}>상영관</b> {movieData.location}관</p>
+                        <p><b style={{fontSize:'20px'}}>상영관</b> {obj2.the_name} 관</p>
                             <p><b style={{fontSize:'20px'}}>날짜</b> 2022.11.{movieData.calender}일 </p>
                             <p><b style={{fontSize:'20px'}}>시간</b> {obj.m_runtime}분</p>
-                            <p><b style={{fontSize:'20px'}}>인원</b>성인 :  <span id={'result'}></span>&nbsp;청소년 : <span id={'result2'}></span></p>
+                            <p><b style={{fontSize:'20px'}}>인원</b> 성인 :  <span id={'result'}></span>&nbsp;청소년 : <span id={'result2'}></span></p>
                             <p><b style={{fontSize:'20px'}}>좌석</b> <span id={checkedArr}></span> </p>
                             <p id="selected-seats"></p>
                     </div>
