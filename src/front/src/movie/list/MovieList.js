@@ -6,6 +6,7 @@ import MovieCard from "./MovieCard";
 import {Button, ButtonGroup, Divider, Pagination, ScopedCssBaseline, Switch} from "@mui/material";
 import {ChevronRight, FavoriteBorderOutlined} from "@material-ui/icons";
 import usePagination from "../../service/UsePagination";
+import Age from "../../service/Age";
 
 function MovieList(props) {
     const navi = useNavigate();
@@ -156,7 +157,7 @@ function MovieList(props) {
                             <div className={"movie-card-text"}>
                                 <div className={"tit-area"}>
                                     <ScopedCssBaseline/>
-                                    <span className={"movie-grade"}>12</span>
+                                    <span className={"movie-grade"}><Age age={item.m_age_grd} size={20}/></span>
                                     <span className={"tit"}>{item.m_name}</span>
                                 </div>
                                 <div className={"rate-date"}>

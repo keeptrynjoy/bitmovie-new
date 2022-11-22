@@ -16,6 +16,7 @@ function Home(props) {
     const [selected_movie,setSelected_movie] = useState("");
     const [selected_movie_data,setSelected_movie_data] = useState([]);
     const [reviews, setReviews] = useState([]);
+    const [index,setIndex] = useState(0);
 
     // kobis 영화진흥원 key
     // const key ='3e56c5d518bc82f65d4d1d16806fdd37';
@@ -38,6 +39,7 @@ function Home(props) {
             .then((res)=>{
                 console.log(res.data);
                 setMovies(res.data.results);
+                setIndex(0);
                 setSelected_movie(res.data.results[0].id);
             })
     };
@@ -85,6 +87,9 @@ function Home(props) {
     }
 
     useEffect(()=>{
+        if(selected_movie===""){
+            return;
+        }
         setVideo_loading(true);
         selectMovie().then(r=>{
             setVideo_loading(false);
@@ -108,6 +113,10 @@ function Home(props) {
                             playing={true}
                             muted={true}
                             controls={true}
+                            onEnded={()=>{
+                                setIndex(index+1);
+                                setSelected_movie(movies[index].id);
+                            }}
                         />
                 }
             </div>

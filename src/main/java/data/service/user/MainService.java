@@ -32,11 +32,11 @@ public class MainService {
         // 인물 정보 출력
         List<Person> people_list = personRepository.selectSearchList(search);
         // 출력되는 첫번째 인물의 상세 정보 출력
-        if(people_list.size()!=0){
-            int person_pk = people_list.get(0).getPerson_pk();
-            List<JoinCast> person_detail = joinCastRepository.selectCastDetail(person_pk);
-            map.put("person_detail", person_detail);
-        }
+//        if(people_list.size()!=0){
+//            int person_pk = people_list.get(0).getPerson_pk();
+//            List<JoinCast> person_detail = joinCastRepository.selectCastDetail(person_pk);
+//            map.put("person_detail", person_detail);
+//        }
         // controller 로 데이터 전달
         map.put("people_list", people_list);
         map.put("movie_list", movie_list);

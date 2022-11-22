@@ -9,15 +9,16 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import MovieReview from "./MovieReview";
 import {
-    Button,
+    Button, ButtonGroup,
     Dialog,
     DialogActions,
     DialogContent,
     DialogTitle,
     FormControl, ScopedCssBaseline,
 } from "@mui/material";
-import {Rating} from "@mui/lab";
+import {Rating, ToggleButton, ToggleButtonGroup} from "@mui/lab";
 import Swal from "sweetalert2";
+import Age from "../../service/Age";
 
 function MovieDetail(props) {
     const p = useParams();
@@ -29,8 +30,18 @@ function MovieDetail(props) {
     const [review_open, setReview_Open] = useState(false);
     const [review_star,setReview_star]=useState(0);
     const [review_text,setReview_text]=useState("");
+    const [dateArray,setDateArray] = useState([]);
+    const [menu,setMenu]=useState("info");
 
     const user_pk = sessionStorage.user_pk;
+    const getDaysArray = function(start, end) {
+        for(const dt=new Date(start); dt<=new Date(end); dt.setDate(dt.getDate()+1)){
+            setDateArray({
+                ...dateArray,
+                dt
+            })
+        }
+    };
 
     const getData =()=>{
         const getMovieUrl = localStorage.url + "/movie/selectMovieData?movie_pk=" + movie_pk;
@@ -40,6 +51,7 @@ function MovieDetail(props) {
                 setMovie_photo(res.data.data.m_photo.split(","));
                 setMovie_review(res.data.revw);
                 setCast_data(res.data.cast);
+                getDaysArray(new Date(),res.data.data.m_edate);
                 console.log(res.data);
             })
     }
@@ -123,6 +135,14 @@ function MovieDetail(props) {
         }
     }
 
+    const handleMenu = (
+        event: React.MouseEvent<HTMLElement>,
+        newMenu: string | null,
+    ) => {
+        console.log(dateArray);
+        setMenu(newMenu);
+    };
+
     return (
         <div>
             <div className={'detail-div'}>
@@ -154,7 +174,7 @@ function MovieDetail(props) {
                                 <b>{movie_data.m_name}</b>
                                 ({moment(movie_data.m_sdate).format("YYYY")})
                             </div>
-                            <b>기본 : </b> {movie_data.m_age_grd==="0"?"All":movie_data.m_age_grd} | {movie_data.m_country} | {movie_data.m_runtime===0?"미정":`${movie_data.m_runtime}분`}<br/>
+                            <b>기본 : </b> <Age age={movie_data.m_age_grd} size={20}/> | {movie_data.m_country} | {movie_data.m_runtime===0?"미정":`${movie_data.m_runtime}분`}<br/>
                             <b>장르 : </b> {movie_data.m_type}<br/>
                             <b>개봉일 : </b> {movie_data.m_sdate}<br/>
                             <b>줄거리 : </b>
@@ -163,55 +183,38 @@ function MovieDetail(props) {
                         </div>
                     </div>
                 </div>
-                <div className={"story"}>
-                    <ReactPlayer
-                        url={process.env.PUBLIC_URL + `https://www.youtube.com/watch?v=${movie_data.m_video}`}
-                        width='100%'
-                        height='400px'
-                        playing={true}
-                        muted={true}
-                        controls={true}
-                        loop={true}
-                    />
-                </div>
-                <div className={"cast-div"}>
-                    <h1>출연/제작진</h1>
-                    <Swiper className="castswiper"
-                            modules={[Navigation, Pagination, Autoplay]}
-                            pagination={{ clickable: true }}
-                            navigation
-                            effect
-                            speed={800}
-                            loop={false}
-                            slidesPerView={4}
+                <div className={"tab-menu-container"}>
+                    <ToggleButtonGroup
+                        value={menu}
+                        exclusive
+                        sx={{height:"50px",marginTop:"40px"}}
+                        onChange={handleMenu}
+                        color={"primary"}
+                        size={"large"}
                     >
-                        {cast_data.map((item, idx) => (
-                            <SwiperSlide key={idx}>
-                                <div className={"cast-card"}>
-                                    <img alt={""} src={`https://image.tmdb.org/t/p/w500/${item.per_photo}`}
-                                         className={"cast-img"}/>
-                                    <div className={"cast-info"}>
-                                        <div className={"person-name"}>
-                                            {item.per_name}
-                                        </div>
-                                        <div className={"cast-type"}>
-                                            {getCastType(item.cast_type)}
-                                        </div>
-                                    </div>
-                                </div>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
+                        <ToggleButton value="info">
+                            주요 정보
+                        </ToggleButton>
+                        <ToggleButton value="review">
+                            평점 리뷰
+                        </ToggleButton>
+                        <ToggleButton value="timetable">
+                            상영 시간표
+                        </ToggleButton>
+                    </ToggleButtonGroup>
                 </div>
-                <div className={"dtreview"}>
-                    <h1>영화리뷰</h1>
-                    <Button variant={"contained"} color={"secondary"} onClick={handleOpen}>영화 평점 등록</Button>
-                    <Dialog open={review_open} onClose={handleClose} maxWidth={"1000px"}>
-                        <DialogTitle>평점 작성</DialogTitle>
-                        <DialogContent>
-                            <div className={"review-header"}>
-                                <span style={{fontSize:"1.5em"}}>{movie_data.m_name}</span>
-                                <span style={{marginLeft:"150px",marginTop:"7px"}}>
+                <div className={"menu-contents-div"}>
+                    {
+                        menu === "review"?
+                            <div className={"dtreview"}>
+                                <h1>영화리뷰</h1>
+                                <Button variant={"contained"} color={"secondary"} onClick={handleOpen}>영화 평점 등록</Button>
+                                <Dialog open={review_open} onClose={handleClose} maxWidth={"1000px"}>
+                                    <DialogTitle>평점 작성</DialogTitle>
+                                    <DialogContent>
+                                        <div className={"review-header"}>
+                                            <span style={{fontSize:"1.5em"}}>{movie_data.m_name}</span>
+                                            <span style={{marginLeft:"150px",marginTop:"7px"}}>
                                     <Rating
                                         name="review-star"
                                         value={review_star}
@@ -220,8 +223,8 @@ function MovieDetail(props) {
                                         }}
                                     />
                                 </span>
-                            </div>
-                            <FormControl>
+                                        </div>
+                                        <FormControl>
                                 <textarea
                                     className={"review-textarea"}
                                     placeholder={"이 영화를 평가해주세요"}
@@ -230,26 +233,82 @@ function MovieDetail(props) {
                                     }}
                                     value={review_text}
                                 />
-                            </FormControl>
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={handleClose}>취소</Button>
-                            <Button onClick={()=>{
-                                submitReview();
-                                handleClose();
-                            }
-                            }>리뷰 작성</Button>
-                        </DialogActions>
-                    </Dialog>
-                    <ul className={"review-ul"}>
-                        {
-                            movie_review && movie_review.map((review,i)=>(
-                                <li key={i}>
-                                    <MovieReview review={review}/>
-                                </li>
-                            ))
-                        }
-                    </ul>
+                                        </FormControl>
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button onClick={handleClose}>취소</Button>
+                                        <Button onClick={()=>{
+                                            submitReview();
+                                            handleClose();
+                                        }
+                                        }>리뷰 작성</Button>
+                                    </DialogActions>
+                                </Dialog>
+                                <ul className={"review-ul"}>
+                                    {
+                                        movie_review && movie_review.map((review,i)=>(
+                                            <li key={i}>
+                                                <MovieReview review={review}/>
+                                            </li>
+                                        ))
+                                    }
+                                </ul>
+                            </div>
+                            :
+                            menu === "timetable"?
+                                <div className={"timetable-div"}>
+                                    <div className={"select-date-div"}>
+                                        <ul className={"date-item-wrap"}></ul>
+                                        <li>
+
+                                        </li>
+                                    </div>
+                                </div>
+                                :
+                                <div>
+                                    <div className={"story"}>
+                                        <ReactPlayer
+                                            url={process.env.PUBLIC_URL + `https://www.youtube.com/watch?v=${movie_data.m_video}`}
+                                            width='100%'
+                                            height='400px'
+                                            playing={true}
+                                            muted={true}
+                                            controls={true}
+                                            loop={true}
+                                        />
+                                    </div>
+                                    <div className={"cast-div"}>
+                                        <h1>출연/제작진</h1>
+                                        <Swiper className="castswiper"
+                                                modules={[Navigation, Pagination, Autoplay]}
+                                                pagination={{ clickable: true }}
+                                                navigation
+                                                effect
+                                                speed={800}
+                                                loop={false}
+                                                slidesPerView={4}
+                                        >
+                                            {cast_data.map((item, idx) => (
+                                                <SwiperSlide key={idx}>
+                                                    <div className={"cast-card"}>
+                                                        <img alt={""} src={`https://image.tmdb.org/t/p/w500/${item.per_photo}`}
+                                                             className={"cast-img"}/>
+                                                        <div className={"cast-info"}>
+                                                            <div className={"person-name"}>
+                                                                {item.per_name}
+                                                            </div>
+                                                            <div className={"cast-type"}>
+                                                                {getCastType(item.cast_type)}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </SwiperSlide>
+                                            ))}
+                                        </Swiper>
+                                    </div>
+
+                                </div>
+                    }
                 </div>
             </div>
         </div>
