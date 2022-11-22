@@ -10,7 +10,6 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     const movieData= location.state.input;
     const [totalp, setTotalp] =useState(0);
     const [selected_seat, setSelected_seat]=useState([]);
-    const [checkedArr, setCheckedArr] = useState([]);
     const alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
     console.log('state',location.state);
 
@@ -20,7 +19,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     const obj = JSON.parse(movieData.movie);
     const obj2 = JSON.parse(movieData.location);
 
-    //성인
+
 
     console.log("현재개수" + totalp);
         const handleOnchangePerson = (e) => {
@@ -32,7 +31,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
         }
 
-        //청소년
+
         const handleOnchangePerson2 = (e) => {
             const value = e.value;
 
@@ -43,11 +42,13 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
 
  const [tg,setTg]= useState(null);
-
+    console.log("체크용"+[...selected_seat]);
 
     console.log(selected_seat);
 
         const changeHandler = (e) => {
+
+
 
             setTg(e.target);
             if (e.target.checked) {
@@ -60,6 +61,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
         };
 
     useEffect(()=>{
+
 
         if (selected_seat.length > totalp && selected_seat.length!=0) {
             Swal.fire({
@@ -120,12 +122,13 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                 <article id="info-container">
                     <img alt={obj.m_name} src={`https://image.tmdb.org/t/p/w500${obj.m_photo}`} className={'seatposter'}/>
                     <div className={'seattx'}>
-                        <p style={{fontSize:'20px'}}>{obj.m_name}</p>
-                        <p><b style={{fontSize:'20px'}}>상영관</b> {obj2.the_name} 관</p>
-                            <p><b style={{fontSize:'20px'}}>날짜</b> 2022.11.{movieData.calender}일 </p>
-                            <p><b style={{fontSize:'20px'}}>시간</b> {obj.m_runtime}분</p>
-                            <p><b style={{fontSize:'20px'}}>인원</b> 성인 :  <span id={'result'}></span>&nbsp;청소년 : <span id={'result2'}></span></p>
-                            <p><b style={{fontSize:'20px'}}>좌석</b> <span id={checkedArr}></span> </p>
+                        <br/>
+                        <p style={{fontSize:'20px'}}><b>상영 영화</b> {obj.m_name}</p>
+                        <p><b style={{fontSize:'20px'}}>상영지역</b> {obj2.the_name}</p>
+                            <p><b style={{fontSize:'20px'}}>예매 날짜</b> 2022.11.{movieData.calender}</p>
+                            <p><b style={{fontSize:'20px'}}>상영 시간</b> {obj.m_runtime}분</p>
+                            <p><b style={{fontSize:'20px'}}>선택 인원</b> 성인 :  <span id={'result'}></span>&nbsp;청소년 : <span id={'result2'}></span></p>
+                            <p><b style={{fontSize:'20px'}}>선택 좌석</b> <span id={'result3'}>{[...selected_seat.join(",")]}</span> </p>
                             <p id="selected-seats"></p>
                     </div>
                 </article>
@@ -140,7 +143,8 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                                     className={'seat'}
                                     key={j}
                                     value={alphabet[i].toUpperCase()+(j+1).toString()}
-                                    onChange = {changeHandler}
+                                           name={'seat'} id={"seat_select"}
+                                           onChange = {changeHandler}
                                     />
 
                                 ))}
