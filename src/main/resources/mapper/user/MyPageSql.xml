@@ -57,7 +57,8 @@
             JOIN screentime_tb st ON b.scrtime_pk = st.scrtime_pk
             JOIN screen_tb s ON s.screen_pk = st.screen_pk
             JOIN movie_tb m ON st.movie_pk = m.movie_pk
-        WHERE u.user_pk = #{user_pk};
+        WHERE u.user_pk = #{user_pk}
+        GROUP BY title;
     </select>
     <!--마이페이지 포인트 조회-->
     <select id="selectPoint" parameterType="int" resultType="int">
