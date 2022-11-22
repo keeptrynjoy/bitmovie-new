@@ -1,4 +1,4 @@
-import {json, useLocation, useNavigate} from "react-router-dom";
+import {json, Link, useLocation, useNavigate} from "react-router-dom";
 
 import './SelectSeat.css';
 import {useCallback, useEffect, useState} from "react";
@@ -11,32 +11,38 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     const [totalp, setTotalp] =useState(0);
     const [selected_seat, setSelected_seat]=useState([]);
     const alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-    console.log('state확인용',location.state);
+    const [gopay,setGopay]= useState([]);
+
+
+    console.log('state확인용',location.state.input);
+
+    console.log("?",location.state);
+
+
+
 
     const reset=()=>{
         window.location.reload();
     }
-    const gone =()=> {
-        navi('/ticketing/payment',{
-            state:{
-                input:input
-            },
-        });
-    }
 
-
-    // navi("/ticketing/selectseat", {
-    //     state: {
-    //         input: input
-    //     },
-    //
-    // });
 
 
 
 const obj = JSON.parse(movieData.movie);
 const obj2 = JSON.parse(movieData.location);
 
+console.log('뭐야',obj);
+console.log('뭐야2',obj2);
+console.log('뭐야3',movieData);
+
+
+    const saveGo=(props)=>{
+        navi('/ticketing/payment',{
+            state : location.state.input
+
+        })
+
+    }
 
 
 
@@ -64,6 +70,7 @@ const obj2 = JSON.parse(movieData.location);
 
  const [tg,setTg]= useState(null);
     console.log("체크용"+[...selected_seat]);
+
 
     console.log(selected_seat);
 
@@ -178,7 +185,7 @@ const obj2 = JSON.parse(movieData.location);
 
             <div id={'btns'}>
                 <button id="reset-btn" onClick={reset}>예매 다시하기</button>
-                <button id="reset-btn2" onClick={gone}>예매 완료하기</button>
+                <button id="reset-btn2" onClick={saveGo}>예매 완료하기</button>
             </div>
         </div>
     );

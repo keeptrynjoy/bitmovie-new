@@ -1,45 +1,43 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useLocation} from "react-router-dom";
 
 
 
 const Payment = () => {
+    //
+    const location = useLocation();
 
-    console.log();
+    const datas=location.state;
+    console.log('알려줘',datas);
+
+
+    const obj = JSON.parse(datas.movie);
+    // console.log('??',obj);
+    const obj2 = JSON.parse(datas.location);
+    // // console.log('??!!',obj2);
+    // const obj3 = JSON.parse(datas.time);
+    //
+    // console.log("됫냐?",datas);
+    //
+    // const result = location.state.input;
+    //
+
 
     return (
         <div>
             <h1>결제페이지</h1>
-
+            영화제목 : {obj.m_name}
+            <br/>
+           날짜 :  {datas.calender}
+            <br/>
+           상영시간표 : {datas.time}
+            <br/>
+            상영지점 : {obj2.the_name}
         </div>
     );
 };
 
 export default Payment;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // import React, {useEffect, useRef, useState} from 'react';
