@@ -22,25 +22,23 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
     //성인
 
-
+    console.log("현재개수" + totalp);
         const handleOnchangePerson = (e) => {
 
             const value = e.value;
 
             document.getElementById('result').innerText = e.target.value;
             setTotalp(parseInt(e.target.value) + parseInt(document.getElementById('student_select').value));
-            console.log(totalp.length);
 
         }
 
         //청소년
         const handleOnchangePerson2 = (e) => {
-
             const value = e.value;
 
             document.getElementById('result2').innerText = e.target.value;
             setTotalp(parseInt(e.target.value) + parseInt(document.getElementById('adult_select').value));
-            console.log("최초개수" + totalp);
+
         }
 
 
@@ -57,6 +55,8 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                 icon:"warning",
                 text:"안돼"
             })
+            e.target.checked=false;
+
             // setSelected_seat(selected_seat.filter((a) => a !== e.target.value));
             // e.target.checked(false);
         }
@@ -176,7 +176,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                 <article id="info-container">
                     <img alt={obj.m_name} src={`https://image.tmdb.org/t/p/w500${obj.m_photo}`} className={'seatposter'}/>
                     <div className={'seattx'}>
-                        <p style={{fontSize:'30px'}}>{obj.m_name}</p>
+                        <p style={{fontSize:'25px'}}>{obj.m_name}</p>
                         <p><b style={{fontSize:'20px'}}>상영관</b> {obj2.the_name} 관</p>
                             <p><b style={{fontSize:'20px'}}>날짜</b> 2022.11.{movieData.calender}일 </p>
                             <p><b style={{fontSize:'20px'}}>시간</b> {obj.m_runtime}분</p>
