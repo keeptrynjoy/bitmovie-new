@@ -24,15 +24,16 @@ const Payment = () => {
 
 
     return (
-        <div>
+        <div style={{textAlign:'center', backgroundColor:'gray', width:'300px', height:'300px', margin:'auto', paddingTop:'50px'}}>
             <h1>결제페이지</h1>
-            영화제목 : {obj.m_name}
             <br/>
-           날짜 :  {datas.calender}
+            <b>영화제목</b> : {obj.m_name}
             <br/>
-           상영시간표 : {datas.time}
+           <b>날짜</b> : {datas.calender}
             <br/>
-            상영지점 : {obj2.the_name}
+           <b>상영시간표</b> : {datas.time}
+            <br/>
+            <b>상영지점</b> : {obj2.the_name}
         </div>
     );
 };
