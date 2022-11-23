@@ -7,8 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -84,5 +83,18 @@ public class CouponService {
 
             couponRepository.insertJoinCoupon(coupon); //가입한 회원에게 생성된 쿠폰 넣기
         }
+    }
+
+    public Coupon selectCouponState(String coupon_pk){
+        return couponRepository.selectCouponState(coupon_pk);
+    }
+
+    /* 결제 또는 결제 취소로 발생한 쿠폰 상태 업데이트 */
+    public void updateCouponByPayment(int use_state, String coupon_pk){
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("use_state",use_state);
+        map.put("coupon_pk",coupon_pk);
+        couponRepository.updateCouponByPayment(map);
     }
 }

@@ -17,4 +17,12 @@
         FROM screentime_tb tim, screen_tb s
         WHERE tim.screen_pk = s.screen_pk AND tim.scrt_date > #{begin_date} AND #{now_date} >= tim.scrt_date
     </select>
+    <!--예매번호와 유저고유키로 결제번호 조회 -->
+    <select id="selectPayByUserAndBookPK" resultType="payment" parameterType="Map">
+        SELECT bt.payment_pk, pt.user_pk , pt.imp_uid
+        FROM booking_tb bt
+                 LEFT JOIN payment_tb pt ON bt.payment_pk =pt.payment_pk
+        WHERE bt.booking_pk=#{booking_pk}
+        AND pt.user_pk=#{user_pk}
+    </select>
 </mapper>
