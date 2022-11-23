@@ -276,5 +276,8 @@
 
 ul.date-item-wrap {
     list-style: none;
+}
 
+ul.date-item-wrap li{
+    float:left;
 }
