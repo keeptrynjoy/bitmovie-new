@@ -15,6 +15,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     const alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
     const [aprice,setAprice]=useState(0);
     const [sprice,setSprice]=useState(0);
+    const [finalPay,setFinalPay]=useState(0);
 
 
 
@@ -45,15 +46,38 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     console.log('학생금액',sprice);
 
 
+   //  const letGo=()=>{
+   //      navi('/ticketing/payment', {
+   //          state: {obj, obj2, adults, students, selected_seat, finalPay : (sprice * 8000) + (aprice * 10000)}
+   //
+   //      })
+   //  }
+   //
+   //
+   // const saveGo=() => {
+   //
+   //      let totalPrice =(sprice * 8000) + (aprice * 10000);
+   //
+   //     setFinalPay(totalPrice);
+   //
+   //
+   //      letGo();
+   //
+   //  }
 
+    const saveGo=() => {
 
-    const saveGo=()=>{
+        const totalPrice = (sprice * 8000) + (aprice * 10000);
 
         navi('/ticketing/payment', {
-            state : {obj,obj2,adults, students, selected_seat}
-
+            state: {obj, obj2, adults, students, selected_seat, finalPay: totalPrice}
         })
     }
+
+
+    console.log('얼마',finalPay);
+
+
 
     // navi('/ticketing/payment',{
     //     state :

@@ -203,7 +203,9 @@ const Payment = (effect, deps) => {
 
 
 
-    console.log(dbData);
+    // console.log(dbData);
+    console.log(location.state);
+
 
     return (
         <>
