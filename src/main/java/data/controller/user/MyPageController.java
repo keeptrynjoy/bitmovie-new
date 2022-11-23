@@ -7,7 +7,9 @@ import data.domain.user.User;
 import data.service.user.MyPageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -71,5 +73,10 @@ public class MyPageController {
     @GetMapping("/coupondetail")
     public List<Coupon> selectCouponDetail (int user_pk) {
         return myPageService.selectCouponDetail(user_pk);
+    }
+    //프로필 사진 업로드
+    @GetMapping("/uploadphoto")
+    public void updateUserPhoto (User user, MultipartFile photoFile, HttpServletRequest request) {
+        myPageService.updateUserPhoto(user, photoFile, request);
     }
 }

@@ -20,6 +20,7 @@
             b.booking_pk AS booknumber,
             b.book_the_name AS theater,
             b.book_issu_date AS issue,
+            b.book_seat_num AS seat,
             b.book_adult_cnt AS adult,
             b.book_youth_cnt AS youth,
             st.scrt_date AS date,
@@ -34,7 +35,7 @@
             JOIN booking_tb b ON p.payment_pk = b.payment_pk
             JOIN screentime_tb st ON b.scrtime_pk = st.scrtime_pk
             JOIN screen_tb s ON s.screen_pk = st.screen_pk
-            JOIN movie_tb m ON st.movie_pk = m.movie_pk
+            JOIN movie_tb m ON st.movie_pk = m.movie_pkx
         WHERE u.user_pk = #{user_pk} AND DATEDIFF(now(), b.book_issu_date) &lt; 30;
     </select>
     <!--마이페이지 무비로그 조회-->
@@ -57,7 +58,8 @@
             JOIN screentime_tb st ON b.scrtime_pk = st.scrtime_pk
             JOIN screen_tb s ON s.screen_pk = st.screen_pk
             JOIN movie_tb m ON st.movie_pk = m.movie_pk
-        WHERE u.user_pk = #{user_pk};
+        WHERE u.user_pk = #{user_pk}
+        GROUP BY title;
     </select>
     <!--마이페이지 포인트 조회-->
     <select id="selectPoint" parameterType="int" resultType="int">
@@ -95,4 +97,12 @@
         SELECT coupon_pk, c_class, c_amount, c_issue_date, c_exp_date, c_use_date, c_use_state
         FROM coupon_tb WHERE user_pk = #{user_pk}
     </select>
+    <!--사진 파일명 조회-->
+    <select id="selectPhotoName" parameterType="User" resultType="String">
+        SELECT u_photo FROM user_tb WHERE user_pk = #{user_pk}
+    </select>
+    <!--프로필드 사진 업로드-->
+    <update id="updateUserPhoto" parameterType="User">
+        UPDATE user_tb SET u_photo = #{u_photo} WHERE user_pk = #{user_pk}
+    </update>
 </mapper>
