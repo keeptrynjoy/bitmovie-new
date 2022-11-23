@@ -13,13 +13,17 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     const [students, setStudents]= useState(0);
     const [selected_seat, setSelected_seat]=useState([]);
     const alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-    const [price,setPrice]=useState(0);
+    const [aprice,setAprice]=useState(0);
+    const [sprice,setSprice]=useState(0);
+
 
 
     // console.log('state확인용',location.state.input);
 
     // console.log("?",location.state);
     console.log('좌석 리스트',selected_seat);
+
+
 
     console.log('학생수',students);
     console.log('성인수',adults);
@@ -35,6 +39,12 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 // console.log('뭐야',obj);
 // console.log('뭐야2',obj2);
 // console.log('뭐야3',movieData);
+
+
+    console.log('성인금액',aprice);
+    console.log('학생금액',sprice);
+
+
 
 
     const saveGo=()=>{
@@ -67,6 +77,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
         // setAdults(parseInt(e.target.value) + parseInt(document.getElementById('adult_select').value));
         setAdults(parseInt(document.getElementById('adult_select').value));
 
+        setAprice(parseInt(document.getElementById('adult_select').value));
 
 
 
@@ -84,6 +95,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
         setTotalp(parseInt(e.target.value) + parseInt(document.getElementById('adult_select').value));
         // setStudents(parseInt(e.target.value) + parseInt(document.getElementById('student_select').value));
         setStudents(parseInt(document.getElementById('student_select').value));
+        setSprice(parseInt(document.getElementById('student_select').value));
     }
 
 
