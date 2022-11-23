@@ -13,6 +13,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     const [students, setStudents]= useState(0);
     const [selected_seat, setSelected_seat]=useState([]);
     const alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+    const [price,setPrice]=useState(0);
 
 
     // console.log('state확인용',location.state.input);
@@ -57,9 +58,13 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
         const value = e.value;
         const adults = e.target.value;
 
+
         document.getElementById('result').innerText = e.target.value;
         setTotalp(parseInt(e.target.value) + parseInt(document.getElementById('student_select').value));
         setAdults(parseInt(e.target.value) + parseInt(document.getElementById('student_select').value));
+
+
+
 
     }
 
@@ -67,6 +72,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     const handleOnchangePerson2 = (e) => {
         const value = e.value;
         const students = e.target.value;
+
 
         document.getElementById('result2').innerText = e.target.value;
         setTotalp(parseInt(e.target.value) + parseInt(document.getElementById('adult_select').value));
