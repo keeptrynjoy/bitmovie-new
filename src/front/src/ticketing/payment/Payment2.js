@@ -1,78 +1,7 @@
-// import React, {useState} from 'react';
-// import {useLocation} from "react-router-dom";
-//
-//
-//
-// const Payment = () => {
-//     //
-//     const location = useLocation();
-//
-//     console.log(location);
-//
-//
-//     // const datas=location.state;
-//     // console.log('알려줘',datas);
-//     //
-//     //
-//     // const obj = JSON.parse(datas.movie);
-//     // // console.log('??',obj);
-//     // const obj2 = JSON.parse(datas.location);
-//     // // console.log('??!!',obj2);
-//     // const obj3 = JSON.parse(datas.time);
-//     //
-//     // console.log("됫냐?",datas);
-//     //
-//     // const result = location.state.input;
-//     //
-//
-//
-//     return (
-//         <div style={{textAlign:'center', backgroundColor:'gray', width:'300px', height:'300px', margin:'auto', paddingTop:'50px'}}>
-//            <div>
-//                <h1>예매내역</h1>
-//             영화 제목 : {location.state.obj.m_name} ({location.state.obj.m_enname})
-//            <br/>
-//            영화 관람가 : {location.state.obj.m_age_grd}세
-//                <br/>
-//             성인 : {location.state.adults}명,
-//             학생 : {location.state.students}명
-//             <br/>
-//             예매된 좌석 : {location.state.selected_seat[0]},{location.state.selected_seat[1]},{location.state.selected_seat[2]}
-//            <br/>
-//            상영 지점 : {location.state.obj2.the_name}
-//            <br/>료
-//            상영 타임 : {location.state.obj2.theater_pk}번째 타임
-//                <br/>
-//                상영 시간 : {location.state.obj.m_runtime}분
-//
-//
-//
-//            </div>
-//            {/* <h1>결제페이지</h1>*/}
-//            {/* <br/>*/}
-//            {/* <b>영화제목</b> : {obj.m_name}*/}
-//            {/* <br/>*/}
-//            {/*<b>날짜</b> : {datas.calender}*/}
-//            {/* <br/>*/}
-//            {/*<b>상영시간표</b> : {datas.time}*/}
-//            {/* <br/>*/}
-//            {/* <b>상영지점</b> : {obj2.the_name}*/}
-//         </div>
-//     );
-// };
-//
-// export default Payment;
-
-
 import React, {useEffect, useRef, useState} from 'react';
 import axios from "axios";
-import {json} from "react-router-dom";
-import {useLocation} from "react-router-dom";
 
-const Payment = (effect, deps) => {
-
-
-    const location = useLocation();
+const Payment2 = (effect, deps) => {
     const [userId, setUserId] = useState();
     const userIdRef = useRef(userId);
     const [userName, setUserName] = useState();
@@ -91,8 +20,7 @@ const Payment = (effect, deps) => {
     const [book_issu_date,setIssuDate] = useState();
     const [book_adult_cnt,setBookAdultCnt] = useState();
     const [book_youth_cnt,setBookYouthCnt] = useState();
-    const [dbData,setDbdata]= useState('');
-    const user_pk=sessionStorage.user_pk;
+
     const {IMP} = window;
     IMP.init('imp02023053');
 
@@ -105,12 +33,9 @@ const Payment = (effect, deps) => {
             console.log(now)
             console.log(
                 "페이버튼",
-                dbData.u_id,
-                dbData.u_name,
-
-                // userIdRef.current,
-                // userEmailRef.current,
-                // userNameRef.current,
+                userIdRef.current,
+                userEmailRef.current,
+                userNameRef.current,
             );
 
             IMP.request_pay(
@@ -126,7 +51,6 @@ const Payment = (effect, deps) => {
                 },(rsp) => {
                     // callback
                     if (rsp.success) {
-
                         const paymentData = {
                             payment_pk: rsp.merchant_uid,
                             user_pk: userIdRef.current,
@@ -180,31 +104,6 @@ const Payment = (effect, deps) => {
         return arr;
     }
 
-
-    //db에서 유저정보 받아오자
-    const comeDb=()=>{
-        let user_pk=sessionStorage.user_pk;
-    axios.get('http://localhost:8282/mypage/information?user_pk='+user_pk)
-            .then((res)=> {
-                    // alert('굿잡베이베')
-                    setDbdata(res.data);
-                }
-
-            );
-    }
-
-
-    useEffect(()=>{
-        comeDb();
-    },[])
-
-
-
-
-
-
-    console.log(dbData);
-
     return (
         <>
             <div>
@@ -212,10 +111,7 @@ const Payment = (effect, deps) => {
                 좌석번호&nbsp;
                 <select value={book_seat_num} onChange={(e)=>{
                     setBookSeatNum(e.target.value)
-                }}>{createSeatNum()}
-                    defaultValue={location.state.selected_seat}
-                </select>
-                <br/>
+                }}>{createSeatNum()}</select><br/>
                 상영시간표 고유키(int)
                 <input type={'number'}  onChange={(e) => (
                     setScrTimePk(e.target.value)
@@ -223,41 +119,27 @@ const Payment = (effect, deps) => {
                 극장명(String)
                 <input type={'text'}  onChange={(e) => (
                     setBookTheName(e.target.value)
-                )}
-                       defaultValue={location.state.obj2.the_name}
-                />
-                <br/>
+                )}/><br/>
                 일반수(int)
                 <input type={'number'} onChange={(e) => (
                     setBookAdultCnt(e.target.value)
-                )}defaultValue={location.state.adults}
-                />
-                <br/>
+                )}/><br/>
                 청소년수(int)
                 <input type={'number'}onChange={(e) => (
                     setBookYouthCnt(e.target.value)
-                )}
-                       defaultValue={location.state.students}
-                />
-                <br/>
+                )}/><br/>
             </div>
-
             <br/>
             <div>
                 <h1>결제정보</h1>
                 user_pk(int)
                 <input type={'text'} ref={userIdRef} onChange={(e) => (
                     userIdRef.current = e.target.value
-                )}
-                       defaultValue={user_pk}
-                />
-                <br/>
+                )}/><br/>
                 포인트 사용(int)
                 <input type={'number'} onChange={(e) => (
                    setUsePoint(e.target.value)
-                )}
-                defaultValue={dbData.u_point}
-                /><br/>
+                )}/><br/>
                 결제금액(int)
                 <input type={'number'} ref={finalPriceRef}onChange={(e) => (
                     finalPriceRef.current = e.target.value
@@ -265,19 +147,16 @@ const Payment = (effect, deps) => {
                 구매자 이름(String)
                 <input type={'text'} ref={userNameRef}  onChange={(e) => (
                     userNameRef.current = e.target.value
-                )} defaultValue={sessionStorage.u_name}/><br/>
+                )}/><br/>
                 구매자 연락처
                 <input type={'text'} ref={userPhoneRef}  onChange={(e) => (
                     userPhoneRef.current = e.target.value
-                )}
-                       defaultValue={dbData.u_phone}
-                /><br/>
+
+                )}/><br/>
                 구매자 이메일
                 <input type={'email'} ref={userEmailRef}  onChange={(e) => (
                     userEmailRef.current = e.target.value
-                )}
-                defaultValue={sessionStorage.u_id}
-                /><br/>
+                )}/><br/>
 
             </div>
 
@@ -285,4 +164,4 @@ const Payment = (effect, deps) => {
         </>
     );
 }
-export default Payment;
+export default Payment2;

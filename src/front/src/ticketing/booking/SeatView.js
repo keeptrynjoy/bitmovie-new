@@ -1,4 +1,4 @@
-import {json, useLocation, useNavigate} from "react-router-dom";
+import {json, Link, useLocation, useNavigate} from "react-router-dom";
 
 import './SelectSeat.css';
 import {useCallback, useEffect, useState} from "react";
@@ -9,77 +9,97 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     const location = useLocation();
     const movieData= location.state.input;
     const [totalp, setTotalp] =useState(0);
+    const [adults, setAdults]= useState(0);
+    const [students, setStudents]= useState(0);
     const [selected_seat, setSelected_seat]=useState([]);
     const alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-    console.log('state확인용',location.state);
+    const [price,setPrice]=useState(0);
+
+
+    // console.log('state확인용',location.state.input);
+
+    // console.log("?",location.state);
+
+    console.log('성인 수',adults);
+    console.log('학생 수',students);
+    console.log('좌석 리스트',selected_seat);
 
     const reset=()=>{
         window.location.reload();
     }
-    const gone =()=> {
-        navi('/ticketing/payment',{
-            state:{
-                input:input
-            },
-        });
+
+
+    const obj = JSON.parse(movieData.movie);
+    const obj2 = JSON.parse(movieData.location);
+
+// console.log('뭐야',obj);
+// console.log('뭐야2',obj2);
+// console.log('뭐야3',movieData);
+
+
+    const saveGo=()=>{
+
+        navi('/ticketing/payment', {
+            state : {obj,obj2,adults, students, selected_seat}
+
+        })
+    }
+
+    // navi('/ticketing/payment',{
+    //     state :
+    //     location.state.input,
+
+
+
+    // console.log("현재개수",totalp);
+
+    const handleOnchangePerson = (e) => {
+
+        const value = e.value;
+        const adults = e.target.value;
+
+
+        document.getElementById('result').innerText = e.target.value;
+        setTotalp(parseInt(e.target.value) + parseInt(document.getElementById('student_select').value));
+        setAdults(parseInt(e.target.value) + parseInt(document.getElementById('student_select').value));
+
+
+
+
     }
 
 
-    // navi("/ticketing/selectseat", {
-    //     state: {
-    //         input: input
-    //     },
+    const handleOnchangePerson2 = (e) => {
+        const value = e.value;
+        const students = e.target.value;
+
+
+        document.getElementById('result2').innerText = e.target.value;
+        setTotalp(parseInt(e.target.value) + parseInt(document.getElementById('adult_select').value));
+        setStudents(parseInt(e.target.value) + parseInt(document.getElementById('student_select').value));
+    }
+
+
+
+    const [tg,setTg]= useState(null);
+    // console.log("체크용"+[...selected_seat]);
     //
-    // });
+    //
+    // console.log('값체크용',selected_seat);
+
+    const changeHandler = (e) => {
 
 
 
-const obj = JSON.parse(movieData.movie);
-const obj2 = JSON.parse(movieData.location);
-
-
-
-
-    console.log("현재개수" + totalp);
-        const handleOnchangePerson = (e) => {
-
-            const value = e.value;
-
-            document.getElementById('result').innerText = e.target.value;
-            setTotalp(parseInt(e.target.value) + parseInt(document.getElementById('student_select').value));
-
+        setTg(e.target);
+        if (e.target.checked) {
+            setSelected_seat([...selected_seat, e.target.value]);
+        } else {
+            // 체크 해제
+            setSelected_seat(selected_seat.filter((a) => a !== e.target.value));
         }
 
-
-        const handleOnchangePerson2 = (e) => {
-            const value = e.value;
-
-            document.getElementById('result2').innerText = e.target.value;
-            setTotalp(parseInt(e.target.value) + parseInt(document.getElementById('adult_select').value));
-
-        }
-
-
-
-
- const [tg,setTg]= useState(null);
-    console.log("체크용"+[...selected_seat]);
-
-    console.log(selected_seat);
-
-        const changeHandler = (e) => {
-
-
-
-            setTg(e.target);
-            if (e.target.checked) {
-                setSelected_seat([...selected_seat, e.target.value]);
-            } else {
-                // 체크 해제
-                setSelected_seat(selected_seat.filter((a) => a !== e.target.value));
-            }
-
-        };
+    };
 
     useEffect(()=>{
 
@@ -89,11 +109,11 @@ const obj2 = JSON.parse(movieData.location);
                 icon: "warning",
                 text: "인원 확인 부탁드립니다"
             })
-                tg.checked=false;
-                    console.log(1);
-                    setSelected_seat([
-                        ...selected_seat.slice(0,selected_seat.length-1)
-                    ])
+            tg.checked=false;
+            console.log(1);
+            setSelected_seat([
+                ...selected_seat.slice(0,selected_seat.length-1)
+            ])
         }
     },[selected_seat]);
 
@@ -145,12 +165,12 @@ const obj2 = JSON.parse(movieData.location);
                     <div className={'seattx'}>
                         <p style={{fontSize:'20px'}}><b>상영 영화</b> {obj.m_name} (<span style={{fontStyle:'italic'}}>{obj.m_enname} </span> )</p>
                         <p><b style={{fontSize:'20px'}}>상영 지점</b> {obj2.the_name}</p>
-                            <p><b style={{fontSize:'20px'}}>예매 날짜</b> {movieData.calender}</p>
-                            <p><b style={{fontSize:'20px'}}>러닝 타임</b> {obj.m_runtime}분</p>
-                            <p><b style={{fontSize:'20px'}}>상영 시간</b> {movieData.time}타임</p>
-                            <p><b style={{fontSize:'20px'}}>선택 인원</b> 성인 :  <span id={'result'}></span>&nbsp;청소년 : <span id={'result2'}></span></p>
-                            <p><b style={{fontSize:'20px'}}>선택 좌석</b> <span id={'result3'}>{[...selected_seat.join(",")]}</span> </p>
-                            <p id="selected-seats"></p>
+                        <p><b style={{fontSize:'20px'}}>예매 날짜</b> {movieData.calender}</p>
+                        <p><b style={{fontSize:'20px'}}>러닝 타임</b> {obj.m_runtime}분</p>
+                        <p><b style={{fontSize:'20px'}}>상영 시간</b> {movieData.time}타임</p>
+                        <p><b style={{fontSize:'20px'}}>선택 인원</b> 성인 :  <span id={'result'}></span>&nbsp;청소년 : <span id={'result2'}></span></p>
+                        <p><b style={{fontSize:'20px'}}>선택 좌석</b> <span id={'result3'}>{[...selected_seat.join(",")]}</span> </p>
+                        <p id="selected-seats"></p>
                     </div>
                 </article>
 
@@ -161,9 +181,9 @@ const obj2 = JSON.parse(movieData.location);
                             <li className={'row'} key={i} >
                                 {seats.map((list,j) => (
                                     <input type={"checkbox"}
-                                    className={'seat'}
-                                    key={j}
-                                    value={alphabet[i].toUpperCase()+(j+1).toString()}
+                                           className={'seat'}
+                                           key={j}
+                                           value={alphabet[i].toUpperCase()+(j+1).toString()}
                                            name={'seat'} id={"seat_select"}
                                            onChange = {changeHandler}
                                     />
@@ -178,7 +198,7 @@ const obj2 = JSON.parse(movieData.location);
 
             <div id={'btns'}>
                 <button id="reset-btn" onClick={reset}>예매 다시하기</button>
-                <button id="reset-btn2" onClick={gone}>예매 완료하기</button>
+                <button id="reset-btn2" onClick={saveGo}>예매 완료하기</button>
             </div>
         </div>
     );

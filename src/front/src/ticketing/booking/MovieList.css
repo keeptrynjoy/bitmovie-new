@@ -1,6 +1,14 @@
 .mvbtn {
     background-color: white;
+}
+.mvbtn:focus{
+    background-color: gray;
+}
 
+.txt{
+    text-align: left;
+    pointer-events : none;
+    float: right;
 }
 
 /*.mvcolor{*/
