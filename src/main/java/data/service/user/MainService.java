@@ -22,6 +22,7 @@ public class MainService {
     private final JoinCastRepository joinCastRepository;
     private final JoinTimeRepository joinTimeRepository;
     private final MWishRepository mWishRepository;
+    private final MovieRepository movieRepository;
 
     // 가장 최신 등록된 평점을 'count'갯수 만큼 반환
     public List<JoinRevw> selectRecentRevw(int count) {
@@ -34,11 +35,41 @@ public class MainService {
         Map<String, Object> map = new HashMap<>();
         // 영화 정보 출력
         List<JoinMovie> movie_list = joinMovieRepository.selectSearchMovie(search);
-        // 영화 평점정보 등록
-        for(int i=0; i<movie_list.size(); i++){
+
+        String movie_state = "before";
+        for(int i= movie_list.size()-1; i>=0; i--){
             int movie_pk = movie_list.get(i).getMovie_pk();
+            // 영화 평점정보 등록
             int wish = mWishRepository.selectWishCnt(movie_pk);
             movie_list.get(i).setWish_cnt(wish);
+
+            // 영화 상영 예정인지 여부 확인
+            LocalDate now = LocalDate.now();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String date = now.format(dtf);
+            Map<String, Object> temp = new HashMap<>();
+            map.put("movie_pk", movie_pk);
+            map.put("date", date);
+            // movie_list 가 개봉일 기준으로 정렬되어 있어 아래와 같이 코드를 작성.
+            int state;
+            switch (movie_state){
+                case "before" :
+                    state = movieRepository.selectComingorNot(temp);
+                    System.out.println(state);
+                    if(state==1){
+                        movie_list.get(i).setIng_or_not(movie_state);
+                        break;
+                    } else movie_state = "ing";
+                case "ing" :
+                    state = movieRepository.selectIngOrNot(temp);
+                    if(state==1){
+                        movie_list.get(i).setIng_or_not(movie_state);
+                        break;
+                    } else movie_state = "after";
+                case "after" : 
+                    movie_list.get(i).setIng_or_not(movie_state);
+                    break;
+            }
         }
 
 //        String m_sdate = movie_list.get(0).getM_sdate();
