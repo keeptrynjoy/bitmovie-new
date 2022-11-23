@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import './MovieList.css';
-import age from './bookingIMG/15age.png';
+import './MovieList.css'
 import axios from "axios";
 import Age from "../../service/Age";
 
@@ -38,8 +37,10 @@ const MovieList = (props) => {
                         <li style={{listStyle:'none'}}>
 
                                 {/*<img src={age} style={{width:'30px', float:'left'}}/>*/}
-                    <button className={'mvbtn'} key={i} style={{fontSize:'20px', float:'left',clear:'both'}} value={JSON.stringify(list)} name={'movie'} onClick={changeData} >
-                        <Age age={list.m_age_grd} size={20}/> {list.m_name}
+                            <Age age={list.m_age_grd} size={20}/>
+                            <button className={'mvbtn'} key={i} style={{fontSize:'15px'}} value={JSON.stringify(list)} name={'movie'} onClick={changeData} >
+                        <span className={'txt'}>{list.m_name}</span>
+
                     </button>
                         </li>
                     </ul>
