@@ -131,6 +131,13 @@ public class UserService {
         reportRepository.deleteReport(report);
     }
 
+    // 평점 신고 유무 확인
+    public boolean selectReportYorN(Report report) {
+        int yorN = reportRepository.selectReportYorN(report);
+        return yorN==1?true:false;
+
+    }
+
     // 영화 좋아요 기능
     public void isnertMWish(MWish mWish) {
         mWishRepository.isnertMWish(mWish);
@@ -140,4 +147,6 @@ public class UserService {
     public void deleteMWish(MWish mWish) {
         mWishRepository.deleteMWish(mWish);
     }
+
+
 }

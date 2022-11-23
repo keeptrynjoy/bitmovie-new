@@ -10,5 +10,7 @@ public interface ReportRepository {
 
     public void deleteReport(Report report);    // 평점 신고 취소하기
 
+    public int selectReportYorN(Report report);    // 평점 신고 유무 확인
+
 
 }
