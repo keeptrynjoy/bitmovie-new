@@ -9,6 +9,8 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     const location = useLocation();
     const movieData= location.state.input;
     const [totalp, setTotalp] =useState(0);
+    const [adults, setAdults]= useState(0);
+    const [students, setStudents]= useState(0);
     const [selected_seat, setSelected_seat]=useState([]);
     const alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 
@@ -17,14 +19,13 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
     // console.log("?",location.state);
 
-    console.log(location);
-
+    console.log('성인 수',adults);
+    console.log('학생 수',students);
+    console.log('좌석 리스트',selected_seat);
 
     const reset=()=>{
         window.location.reload();
     }
-
-
 
 
     const obj = JSON.parse(movieData.movie);
@@ -36,15 +37,16 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
 
     const saveGo=()=>{
-        navi('/ticketing/payment',{
-            state :
-            location.state.input,
 
+        navi('/ticketing/payment', {
+            state : {obj,obj2,adults, students, selected_seat}
 
         })
     }
 
-
+    // navi('/ticketing/payment',{
+    //     state :
+    //     location.state.input,
 
 
 
@@ -57,6 +59,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
         document.getElementById('result').innerText = e.target.value;
         setTotalp(parseInt(e.target.value) + parseInt(document.getElementById('student_select').value));
+        setAdults(parseInt(e.target.value) + parseInt(document.getElementById('student_select').value));
 
     }
 
@@ -67,7 +70,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
         document.getElementById('result2').innerText = e.target.value;
         setTotalp(parseInt(e.target.value) + parseInt(document.getElementById('adult_select').value));
-
+        setStudents(parseInt(e.target.value) + parseInt(document.getElementById('student_select').value));
     }
 
 

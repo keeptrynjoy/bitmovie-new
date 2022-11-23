@@ -7,13 +7,16 @@ const Payment = () => {
     //
     const location = useLocation();
 
-    const datas=location.state;
-    console.log('알려줘',datas);
+    console.log(location);
 
 
-    const obj = JSON.parse(datas.movie);
-    // console.log('??',obj);
-    const obj2 = JSON.parse(datas.location);
+    // const datas=location.state;
+    // console.log('알려줘',datas);
+    //
+    //
+    // const obj = JSON.parse(datas.movie);
+    // // console.log('??',obj);
+    // const obj2 = JSON.parse(datas.location);
     // // console.log('??!!',obj2);
     // const obj3 = JSON.parse(datas.time);
     //
@@ -25,15 +28,35 @@ const Payment = () => {
 
     return (
         <div style={{textAlign:'center', backgroundColor:'gray', width:'300px', height:'300px', margin:'auto', paddingTop:'50px'}}>
-            <h1>결제페이지</h1>
+           <div>
+               <h1>예매내역</h1>
+            영화 제목 : {location.state.obj.m_name} ({location.state.obj.m_enname})
+           <br/>
+           영화 관람가 : {location.state.obj.m_age_grd}세
+               <br/>
+            성인 : {location.state.adults}명,
+            학생 : {location.state.students}명
             <br/>
-            <b>영화제목</b> : {obj.m_name}
-            <br/>
-           <b>날짜</b> : {datas.calender}
-            <br/>
-           <b>상영시간표</b> : {datas.time}
-            <br/>
-            <b>상영지점</b> : {obj2.the_name}
+            예매된 좌석 : {location.state.selected_seat[0]},{location.state.selected_seat[1]},{location.state.selected_seat[2]}
+           <br/>
+           상영 지점 : {location.state.obj2.the_name}
+           <br/>
+           상영 타임 : {location.state.obj2.theater_pk}번째 타임
+               <br/>
+               상영 시간 : {location.state.obj.m_runtime}분
+
+
+
+           </div>
+           {/* <h1>결제페이지</h1>*/}
+           {/* <br/>*/}
+           {/* <b>영화제목</b> : {obj.m_name}*/}
+           {/* <br/>*/}
+           {/*<b>날짜</b> : {datas.calender}*/}
+           {/* <br/>*/}
+           {/*<b>상영시간표</b> : {datas.time}*/}
+           {/* <br/>*/}
+           {/* <b>상영지점</b> : {obj2.the_name}*/}
         </div>
     );
 };
