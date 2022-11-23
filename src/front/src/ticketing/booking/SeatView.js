@@ -11,14 +11,13 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     const [totalp, setTotalp] =useState(0);
     const [selected_seat, setSelected_seat]=useState([]);
     const alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-    const [gopay,setGopay]= useState([]);
 
 
-    console.log('state확인용',location.state.input);
+    // console.log('state확인용',location.state.input);
 
-    console.log("?",location.state);
+    // console.log("?",location.state);
 
-
+    console.log(location);
 
 
     const reset=()=>{
@@ -28,65 +27,70 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
 
 
-const obj = JSON.parse(movieData.movie);
-const obj2 = JSON.parse(movieData.location);
+    const obj = JSON.parse(movieData.movie);
+    const obj2 = JSON.parse(movieData.location);
 
-console.log('뭐야',obj);
-console.log('뭐야2',obj2);
-console.log('뭐야3',movieData);
+// console.log('뭐야',obj);
+// console.log('뭐야2',obj2);
+// console.log('뭐야3',movieData);
 
 
-    const saveGo=(props)=>{
+    const saveGo=()=>{
         navi('/ticketing/payment',{
-            state : location.state.input
+            state :
+            location.state.input,
+
 
         })
+    }
+
+
+
+
+
+    // console.log("현재개수",totalp);
+
+    const handleOnchangePerson = (e) => {
+
+        const value = e.value;
+        const adults = e.target.value;
+
+        document.getElementById('result').innerText = e.target.value;
+        setTotalp(parseInt(e.target.value) + parseInt(document.getElementById('student_select').value));
+
+    }
+
+
+    const handleOnchangePerson2 = (e) => {
+        const value = e.value;
+        const students = e.target.value;
+
+        document.getElementById('result2').innerText = e.target.value;
+        setTotalp(parseInt(e.target.value) + parseInt(document.getElementById('adult_select').value));
 
     }
 
 
 
-    console.log("현재개수" + totalp);
-        const handleOnchangePerson = (e) => {
+    const [tg,setTg]= useState(null);
+    // console.log("체크용"+[...selected_seat]);
+    //
+    //
+    // console.log('값체크용',selected_seat);
 
-            const value = e.value;
+    const changeHandler = (e) => {
 
-            document.getElementById('result').innerText = e.target.value;
-            setTotalp(parseInt(e.target.value) + parseInt(document.getElementById('student_select').value));
 
+
+        setTg(e.target);
+        if (e.target.checked) {
+            setSelected_seat([...selected_seat, e.target.value]);
+        } else {
+            // 체크 해제
+            setSelected_seat(selected_seat.filter((a) => a !== e.target.value));
         }
 
-
-        const handleOnchangePerson2 = (e) => {
-            const value = e.value;
-
-            document.getElementById('result2').innerText = e.target.value;
-            setTotalp(parseInt(e.target.value) + parseInt(document.getElementById('adult_select').value));
-
-        }
-
-
-
-
- const [tg,setTg]= useState(null);
-    console.log("체크용"+[...selected_seat]);
-
-
-    console.log(selected_seat);
-
-        const changeHandler = (e) => {
-
-
-
-            setTg(e.target);
-            if (e.target.checked) {
-                setSelected_seat([...selected_seat, e.target.value]);
-            } else {
-                // 체크 해제
-                setSelected_seat(selected_seat.filter((a) => a !== e.target.value));
-            }
-
-        };
+    };
 
     useEffect(()=>{
 
@@ -96,11 +100,11 @@ console.log('뭐야3',movieData);
                 icon: "warning",
                 text: "인원 확인 부탁드립니다"
             })
-                tg.checked=false;
-                    console.log(1);
-                    setSelected_seat([
-                        ...selected_seat.slice(0,selected_seat.length-1)
-                    ])
+            tg.checked=false;
+            console.log(1);
+            setSelected_seat([
+                ...selected_seat.slice(0,selected_seat.length-1)
+            ])
         }
     },[selected_seat]);
 
@@ -152,12 +156,12 @@ console.log('뭐야3',movieData);
                     <div className={'seattx'}>
                         <p style={{fontSize:'20px'}}><b>상영 영화</b> {obj.m_name} (<span style={{fontStyle:'italic'}}>{obj.m_enname} </span> )</p>
                         <p><b style={{fontSize:'20px'}}>상영 지점</b> {obj2.the_name}</p>
-                            <p><b style={{fontSize:'20px'}}>예매 날짜</b> {movieData.calender}</p>
-                            <p><b style={{fontSize:'20px'}}>러닝 타임</b> {obj.m_runtime}분</p>
-                            <p><b style={{fontSize:'20px'}}>상영 시간</b> {movieData.time}타임</p>
-                            <p><b style={{fontSize:'20px'}}>선택 인원</b> 성인 :  <span id={'result'}></span>&nbsp;청소년 : <span id={'result2'}></span></p>
-                            <p><b style={{fontSize:'20px'}}>선택 좌석</b> <span id={'result3'}>{[...selected_seat.join(",")]}</span> </p>
-                            <p id="selected-seats"></p>
+                        <p><b style={{fontSize:'20px'}}>예매 날짜</b> {movieData.calender}</p>
+                        <p><b style={{fontSize:'20px'}}>러닝 타임</b> {obj.m_runtime}분</p>
+                        <p><b style={{fontSize:'20px'}}>상영 시간</b> {movieData.time}타임</p>
+                        <p><b style={{fontSize:'20px'}}>선택 인원</b> 성인 :  <span id={'result'}></span>&nbsp;청소년 : <span id={'result2'}></span></p>
+                        <p><b style={{fontSize:'20px'}}>선택 좌석</b> <span id={'result3'}>{[...selected_seat.join(",")]}</span> </p>
+                        <p id="selected-seats"></p>
                     </div>
                 </article>
 
@@ -168,9 +172,9 @@ console.log('뭐야3',movieData);
                             <li className={'row'} key={i} >
                                 {seats.map((list,j) => (
                                     <input type={"checkbox"}
-                                    className={'seat'}
-                                    key={j}
-                                    value={alphabet[i].toUpperCase()+(j+1).toString()}
+                                           className={'seat'}
+                                           key={j}
+                                           value={alphabet[i].toUpperCase()+(j+1).toString()}
                                            name={'seat'} id={"seat_select"}
                                            onChange = {changeHandler}
                                     />
