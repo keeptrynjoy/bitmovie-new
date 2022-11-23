@@ -33,8 +33,8 @@ const MovieList = (props) => {
 
             <div className={'mvcolor'}>
                 {mvlist.map((list,i)=>(
-                    <ul key={i}>
-                        <li style={{listStyle:'none'}}>
+                    <ul key={i} style={{paddingLeft:'10px'}}>
+                        <li style={{listStyle:'none' ,width:'400px'}}>
 
                                 {/*<img src={age} style={{width:'30px', float:'left'}}/>*/}
                             <Age age={list.m_age_grd} size={20}/>
