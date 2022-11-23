@@ -22,12 +22,12 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     // console.log('state확인용',location.state.input);
 
     // console.log("?",location.state);
-    console.log('좌석 리스트',selected_seat);
-
-
-
-    console.log('학생수',students);
-    console.log('성인수',adults);
+    // console.log('좌석 리스트',selected_seat);
+    //
+    //
+    //
+    // console.log('학생수',students);
+    // console.log('성인수',adults);
 
     const reset=()=>{
         window.location.reload();
@@ -42,8 +42,8 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 // console.log('뭐야3',movieData);
 
 
-    console.log('성인금액',aprice);
-    console.log('학생금액',sprice);
+    // console.log('성인금액',aprice);
+    // console.log('학생금액',sprice);
 
 
    //  const letGo=()=>{
@@ -75,7 +75,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     }
 
 
-    console.log('얼마',finalPay);
+    // console.log('얼마',finalPay);
 
 
 
@@ -154,7 +154,6 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                 text: "인원 확인 부탁드립니다"
             })
             tg.checked=false;
-            console.log(1);
             setSelected_seat([
                 ...selected_seat.slice(0,selected_seat.length-1)
             ])
