@@ -47,6 +47,12 @@ public class MovieController {
     public List<JoinTime> selectTimeByMovie(int movie_pk, String date){
         System.out.println("controller movie_pk: " + movie_pk);
         System.out.println("controller date: " + date);
+        System.out.println(screenTimeService.selectTimeByMovie(movie_pk, date));
         return screenTimeService.selectTimeByMovie(movie_pk, date);
+    }
+
+    @GetMapping("selectTimetest")
+    public List<Map<String,Object>> selectTimeTest(@RequestParam(defaultValue = "284054") int movie_pk){
+        return movieService.selectTimeByMovieTest(movie_pk);
     }
 }

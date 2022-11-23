@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
+//@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class JoinMovie {
 
     private int movie_pk;
@@ -23,5 +23,6 @@ public class JoinMovie {
     private int revw_avgstar;
     private int reserve_rate;
     private int wish_cnt;
+    private String ing_or_not;  // 현재 상영중인지 여부 (상영중: ing 상영전: before 끝: after)
 
 }

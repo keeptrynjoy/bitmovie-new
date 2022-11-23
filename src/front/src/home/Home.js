@@ -6,6 +6,7 @@ import {Autoplay, Navigation, Pagination} from "swiper";
 import ReactPlayer from "react-player";
 import axios from "axios";
 import {CircularProgress} from "@mui/material";
+import MovieReview from "../movie/detail/MovieReview";
 
 function Home(props) {
     localStorage.url=process.env.REACT_APP_URL;
@@ -44,11 +45,21 @@ function Home(props) {
             })
     };
 
+    const getReviews =()=>{
+        const getMovieUrl = `${localStorage.url}/main/selectRecentRevw`;
+        axios.get(getMovieUrl)
+            .then((res)=>{
+                console.log(res.data);
+                setReviews(res.data);
+            })
+    }
+
     //페이지 로딩시 데이터 가져오기
     useEffect(() => {
         getMovies("popular").then(r=>{
             setLoading(false);
         });
+        getReviews();
     }, []);
 
     const movieChart = () =>{
@@ -81,7 +92,6 @@ function Home(props) {
         const getMovieUrl = `${localStorage.url}/movie/selectMovieData?movie_pk=${selected_movie}`;
         await axios.get(getMovieUrl)
             .then((res)=>{
-                console.log(res.data);
                 setSelected_movie_data(res.data.data);
             })
     }
@@ -159,13 +169,15 @@ function Home(props) {
                     }
                 </div>
             </div>
-            <h1 style={{textAlign:'center',marginTop:'100px'}}>Movie Review</h1>
-            <div className={"testt"}>
-                {reviews.map((review,i) => (
-                    <div className={'rvv'} key={i}>
-                        {review.name}
-                    </div>
-                ))}
+            <h1 style={{textAlign:'center'}}>Movie Review</h1>
+            <div className={"recent-revw"}>
+                <div className={"recent-revw-list"}>
+                    {reviews.map((review,i) => (
+                        <div key={i}>
+                            <MovieReview review={review}/>
+                        </div>
+                    ))}
+                </div>
             </div>
 
         </div>

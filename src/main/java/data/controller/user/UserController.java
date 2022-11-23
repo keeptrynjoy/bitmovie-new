@@ -74,10 +74,10 @@ public class UserController {
     @GetMapping("/insertReview")
     public void insertReview(String movie_pk, String user_pk, String revw_star,
                              @RequestParam(defaultValue = "") String revw_text) {
-        System.out.println(movie_pk);
-        System.out.println(user_pk);
-        System.out.println(revw_star);
-        System.out.println(revw_text);
+//        System.out.println(movie_pk);
+//        System.out.println(user_pk);
+//        System.out.println(revw_star);
+//        System.out.println(revw_text);
         userService.insertReview(movie_pk, user_pk, revw_star, revw_text);
 
     }
@@ -95,37 +95,42 @@ public class UserController {
     }
 
     // 평점 좋아요
-    @GetMapping("/insertLikeRevw")
+    @PostMapping("/insertLikeRevw")
     public void insertLikeRevw(@RequestBody LikeRevw likeRevw) {
         userService.insertLikeRevw(likeRevw);
     }
 
     // 평점 좋아요 취소
-    @GetMapping("/deleteLikeRevw")
+    @PostMapping("/deleteLikeRevw")
     public void deleteLikeRevw(@RequestBody LikeRevw likeRevw) {
         userService.deleteLikeRevw(likeRevw);
     }
 
     // 평점 신고하기
-    @GetMapping("/insertReport")
-    public void insertReport(@RequestBody Report report) {
-        userService.insertReport(report);
-    }
+    @PostMapping("/insertReport")
+    public void insertReport(@RequestBody Report report) {userService.insertReport(report);}
 
     // 평점 신고 취소하기
-    @GetMapping("/deleteReport")
+    @PostMapping("/deleteReport")
     public void deleteReport(@RequestBody Report report) {
         userService.deleteReport(report);
     }
 
+    // 평점 신고 유무 확인
+    @PostMapping("/selectReportYorN")
+    public boolean selectReportYorN(@RequestBody Report report) {
+        return userService.selectReportYorN(report);
+        /* 값이 없으면 false 신고했으면 true 를 반환 */
+    }
+
     // 영화 좋아요
-    @GetMapping("/insertMWish")
+    @PostMapping("/insertMWish")
     public void insertMWish(@RequestBody MWish mWish) {
         userService.isnertMWish(mWish);
     }
 
     // 영화 좋아요 취소
-    @GetMapping("/deleteMWish")
+    @PostMapping("/deleteMWish")
     public void deleteMWish(@RequestBody MWish mWish) {
         userService.deleteMWish(mWish);
     }

@@ -25,6 +25,7 @@ public class MovieService {
     private final JoinRevwRepository joinRevwRepository;
     private final JoinCastRepository joinCastRepository;
     private final MWishRepository mWishRepository;
+    private final JoinTimeRepository joinTimeRepository;
     
 
     public List<JoinMovie> selectMovieList(String order_stand, String BorA) {
@@ -74,4 +75,22 @@ public class MovieService {
         return map;
     }
 
+    public List<Map<String,Object>> selectTimeByMovieTest(int movie_pk){
+        String date = "2022-11-21";
+        Map<String, Object> map = new HashMap<>();
+        map.put("movie_pk", movie_pk);
+        map.put("date", date);
+        List<Map<String, Object>> theaters_list = joinTimeRepository.selectTimeByMovieTest(map);
+        for (int i = 0; i < theaters_list.size(); i++) {
+//            System.out.println(theaters_list);
+            Object theater = theaters_list.get(i).get("theater_pk");
+            System.out.println("tt"+theater);
+            int theater_pk = Integer.parseInt(theater.toString());
+            map.put("theater_pk", theater_pk);
+            List<Map<String, Object>> maps = joinTimeRepository.selectTimeByTheater(map);
+            System.out.println("time"+maps);
+        }
+
+        return joinTimeRepository.selectTimeByMovieTest(map);
+    }
 }
