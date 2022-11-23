@@ -40,7 +40,7 @@ const Payment = () => {
             예매된 좌석 : {location.state.selected_seat[0]},{location.state.selected_seat[1]},{location.state.selected_seat[2]}
            <br/>
            상영 지점 : {location.state.obj2.the_name}
-           <br/>
+           <br/>료
            상영 타임 : {location.state.obj2.theater_pk}번째 타임
                <br/>
                상영 시간 : {location.state.obj.m_runtime}분

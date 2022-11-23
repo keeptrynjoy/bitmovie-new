@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import './MovieList.css';
 import age from './bookingIMG/15age.png';
 import axios from "axios";
+import Age from "../../service/Age";
 
 const MovieList = (props) => {
 
@@ -14,6 +15,7 @@ const MovieList = (props) => {
         axios.get('http://localhost:8282/booking/screening_list')
             .then((response) =>{
                 setMvlist(response.data);
+                console.log('보자',response.data);
 
             });
     }
@@ -34,11 +36,10 @@ const MovieList = (props) => {
                 {mvlist.map((list,i)=>(
                     <ul key={i}>
                         <li style={{listStyle:'none'}}>
-                            <div>
-                                <img src={age} style={{width:'30px', float:'left'}}/>
-                            </div>
+
+                                {/*<img src={age} style={{width:'30px', float:'left'}}/>*/}
                     <button className={'mvbtn'} key={i} style={{fontSize:'15px'}} value={JSON.stringify(list)} name={'movie'} onClick={changeData} >
-                        {list.m_name}
+                        <Age age={list.m_age_grd} size={20}/> {list.m_name}
                     </button>
                         </li>
                     </ul>
