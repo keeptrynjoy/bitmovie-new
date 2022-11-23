@@ -116,6 +116,13 @@ public class UserController {
         userService.deleteReport(report);
     }
 
+    // 평점 신고 유무 확인
+    @PostMapping("/selectReportYorN")
+    public boolean selectReportYorN(@RequestBody Report report) {
+        return userService.selectReportYorN(report);
+        /* 값이 없으면 false 신고했으면 true 를 반환 */
+    }
+
     // 영화 좋아요
     @PostMapping("/insertMWish")
     public void insertMWish(@RequestBody MWish mWish) {
