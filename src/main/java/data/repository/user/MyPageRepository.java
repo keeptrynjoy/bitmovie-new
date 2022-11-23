@@ -22,4 +22,6 @@ public interface MyPageRepository {
     public List<Coupon> selectMyCouponDetail (int user_pk); //마이페이지 사용가능 쿠폰 조회
     public int selectExpCoupon (int user_pk); //마이페이지 만료예정 쿠폰 개수 조회
     public List<Coupon> selectCouponDetail (int user_pk); //마이페이지 쿠폰 발급/사용 내역 조회
+    public String selectPhotoName (User user); //사진 파일명 조회
+    public void updateUserPhoto (User user); //프로필사진 업로드
 }

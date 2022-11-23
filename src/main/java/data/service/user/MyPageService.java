@@ -5,11 +5,16 @@ import data.domain.user.MyPage;
 import data.domain.user.Point;
 import data.domain.user.User;
 import data.repository.user.MyPageRepository;
+import data.util.ChangeName;
+import data.util.DeletePhotoFile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -58,5 +63,24 @@ public class MyPageService {
     //마이페이지 쿠폰 발급/사용 내역 조회
     public List<Coupon> selectCouponDetail (int user_pk) {
         return myPageRepository.selectCouponDetail(user_pk);
+    }
+    //프로필 사진 업로드
+    public void updateUserPhoto (User user, MultipartFile photoFile, HttpServletRequest request) {
+        String path = request.getSession().getServletContext().getRealPath("/image");
+        String photoName = photoFile.getOriginalFilename();
+        if( photoName.equals("")) {
+            user.setU_photo("noimage.png");
+        } else {
+            try {
+                String original = myPageRepository.selectPhotoName(user);
+                DeletePhotoFile.deletePhotoFile(path, original);
+                photoName = ChangeName.changeFileName(photoName);
+                photoFile.transferTo(new File(path + "/" + photoName));
+                user.setU_photo(photoName);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        myPageRepository.updateUserPhoto(user);
     }
 }
