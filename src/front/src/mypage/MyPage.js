@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState, useCallback} from 'react';
 import "./Mypage.css"
 import {useParams} from "react-router-dom";
 import photo from "../image/16.png"
@@ -28,17 +28,36 @@ function MyPage(props) {
         getData();
     }, []);
 
-    const triggerInputPhoto=()=>{
+    //프로필 사진 업로드
+    const inputRef = useRef<HTMLInputElement | null>(null);
+
+    const onUploadImage = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files) {
+            return;
+        }
+        const formData = new FormData();
+        formData.append('image', e.target.files[0]);
+        console.log(e.target.files[0].name);
+    }, []);
+
+    const triggerCLick=()=>{
         document.getElementById("profile-photo").click();
     }
+
+    // const onUploadImageButtonClick = useCallback(() => {
+    //     if (!inputRef.current) {
+    //         return;
+    //     }
+    //     inputRef.current.click();
+    // }, []);
 
     return (
         <div className={"mypage-div"}>
             <div className={"upper-info-div"}>
                 <div className={"photo-div"}>
                     <img alt={"프로필 사진"} src={photo} className={"profile-photo"}/>
-                    <input type={"file"} hidden={true} id={"profile-photo"}/>
-                    <div className={"photo-fix-icon"} onClick={triggerInputPhoto}>
+                    <input type={"file"} hidden={true} id={"profile-photo"} onChange={onUploadImage}/>
+                    <div className={"photo-fix-icon"} onClick={triggerCLick}>
                         <EditIcon/>
                     </div>
                 </div>

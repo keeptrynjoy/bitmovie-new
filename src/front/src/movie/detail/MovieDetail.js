@@ -9,7 +9,7 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import MovieReview from "./MovieReview";
 import {
-    Button, ButtonGroup,
+    Button,
     Dialog,
     DialogActions,
     DialogContent,
@@ -19,6 +19,7 @@ import {
 import {Rating, ToggleButton, ToggleButtonGroup} from "@mui/lab";
 import Swal from "sweetalert2";
 import Age from "../../service/Age";
+import DatePicker from "react-datepicker"
 
 function MovieDetail(props) {
     const p = useParams();
@@ -31,19 +32,40 @@ function MovieDetail(props) {
     const [review_star,setReview_star]=useState(0);
     const [review_text,setReview_text]=useState("");
     const [dateArray,setDateArray] = useState([]);
+    const [selected_date,setSelected_date] = useState(moment().format("YYYY-MM-DD"));
     const [menu,setMenu]=useState("info");
+    const [timetable,setTimetable]=useState([]);
 
     const user_pk = sessionStorage.user_pk;
+    const days = ["일","월","화","수","목","금","토"]
 
-    const getDaysArray=(end)=>{
+    //끝나는 날짜기준
+    // const getDaysArray=(end)=>{
+    //     setDateArray([]);
+    //     let arr=new Array();
+    //     for(let dt=new Date(); dt<= new Date(end); dt.setDate(dt.getDate()+1))
+    //     {
+    //         // console.log(dt.toISOString().split("T")[0]);
+    //         const date = dt.toISOString().split("T")[0];
+    //         const day = dt.getDay();
+    //         arr.push(date + "/" + day);
+    //     }
+    //     setDateArray(arr);
+    // }
+
+    //시작 날짜
+    const getDaysArray=()=>{
+        const ON_SCRREN_DAYS = 16;
+
         setDateArray([]);
         let arr=new Array();
-        for(let dt=new Date(); dt<= new Date(end); dt.setDate(dt.getDate()+1))
+        for(let i=0; i<ON_SCRREN_DAYS; i++)
         {
-            // console.log(dt.toISOString().split("T")[0]);
-            const date = dt.toISOString().split("T")[0];
-            const day = dt.getDay();
-            arr.push(day);
+            const Ndate =new Date();
+            Ndate.setDate(Ndate.getDate()+i);
+            const date = Ndate.toISOString().split("T")[0];
+            const day = Ndate.getDay();
+            arr.push(date + "/" + day);
         }
         setDateArray(arr);
     }
@@ -56,15 +78,30 @@ function MovieDetail(props) {
                 setMovie_photo(res.data.data.m_photo.split(","));
                 setMovie_review(res.data.revw);
                 setCast_data(res.data.cast);
-                getDaysArray(res.data.data.m_edate);
+                getDaysArray();
                 console.log(res.data);
             })
     }
+
+    const onChangeDate = (date) => {
+        const newDate = moment(new Date(date.target.value)).format("YYYY-MM-DD");
+        setSelected_date(newDate);
+    };
 
     //레이지로딩시 최초 1회 실행
     useEffect(() => {
         getData();
     }, []);
+
+    //날짜가 변할때마다 상영시간표 가져오기
+    useEffect(()=>{
+        if (movie_data===[])
+            return
+        axios.get(`${localStorage.url}/movie/selectTimeByMovie?movie_pk=${movie_data.movie_pk}&date=${selected_date}`)
+            .then((res)=>{
+                setTimetable(res.data);
+            })
+    },[selected_date])
 
     //리뷰 작성 함수
     const checkMovieLog=()=>{
@@ -102,7 +139,7 @@ function MovieDetail(props) {
         setReview_text(e.target.value);
     };
     const submitReview = (e) =>{
-        const insertReviewUrl = `${localStorage.url}/user/insertReview?movie_pk=${movie_pk}&user_pk=${sessionStorage.user_pk}&revw_star=${review_star}&revw_text=${review_text}`;
+        const insertReviewUrl = `${localStorage.url}/user/insertReview?movie_pk=${parseInt(movie_pk)}&user_pk=${sessionStorage.user_pk}&revw_star=${review_star}&revw_text=${review_text}`;
         axios.get(insertReviewUrl)
             .then((res)=>{
                 setReview_text("");
@@ -144,6 +181,7 @@ function MovieDetail(props) {
         event: React.MouseEvent<HTMLElement>,
         newMenu: string | null,
     ) => {
+        // console.log(timetable);
         setMenu(newMenu);
     };
 
@@ -262,11 +300,20 @@ function MovieDetail(props) {
                             menu === "timetable"?
                                 <div className={"timetable-div"}>
                                     <div className={"select-date-div"}>
+                                        {/*<ScopedCssBaseline/>*/}
+                                        {/*<input type={"date"}*/}
+                                        {/*    value={selected_date}*/}
+                                        {/*    onChange={onChangeDate}*/}
+                                        {/*    min={movie_data.m_sdate}*/}
+                                        {/*    max={movie_data.m_edate}*/}
+                                        {/*/>*/}
                                         <ul className={"date-item-wrap"}>
                                         {
                                             dateArray && dateArray.map((item,i)=>(
-                                                <li key={i}>
-                                                    {item}
+                                                <li key={i} className={"date-item"} value={i}>
+                                                    <span>{item.substring(5,7)}월</span>
+                                                    <em>{days[parseInt(item.split("/")[1])]}</em>
+                                                    <strong>{item.substring(8,10)}</strong>
                                                 </li>
                                             ))
                                         }

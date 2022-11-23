@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Rating} from "@mui/lab";
 import axios from "axios";
 import {Flag, Report} from "@material-ui/icons";
+import Swal from "sweetalert2";
 
 function MovieReview(props) {
     const review=props.review;
@@ -12,6 +13,25 @@ function MovieReview(props) {
         axios.get(url)
             .then((res)=>{
                 setUser_data(res.data);
+            })
+    }
+
+    const reportReview=()=>{
+        if (sessionStorage.login_status==null) {
+            Swal.fire({
+                icon:"warning",
+                text:"로그인후 이용해주세요"
+            });
+            return;
+        }
+
+        const reportUrl = `${localStorage.url}/user/insertReport`;
+        axios.get(reportUrl,{params:{user_pk: sessionStorage.user_pk, review_pk:review.review_pk}})
+            .then((res)=>{
+                Swal.fire({
+                    icon:"success",
+                    text:"신고가 접수 되었습니다"
+                })
             })
     }
 
@@ -46,12 +66,11 @@ function MovieReview(props) {
                             />
                         </div>
                         <div className={"review-report"}>
-                            <Flag fontSize={"large"}/>
+                            <Flag fontSize={"large"} onClick={reportReview}/>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     );
 }
