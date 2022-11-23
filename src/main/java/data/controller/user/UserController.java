@@ -108,9 +108,7 @@ public class UserController {
 
     // 평점 신고하기
     @GetMapping("/insertReport")
-    public void insertReport(@RequestBody Report report) {
-        userService.insertReport(report);
-    }
+    public void insertReport(@RequestBody Report report) {userService.insertReport(report);}
 
     // 평점 신고 취소하기
     @GetMapping("/deleteReport")
