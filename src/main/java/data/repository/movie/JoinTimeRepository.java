@@ -19,4 +19,6 @@ public interface JoinTimeRepository {
     public List<JoinTime> selectScrtFirstInfo(ScreenTime screenTime);
 
     public List<Map<String,Object>> selectTimeByMovieTest(Map<String, Object> map);
+
+    public List<Map<String, Object>> selectTimeByTheater(Map<String,Object> map);
 }

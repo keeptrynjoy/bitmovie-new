@@ -23,8 +23,10 @@
 
     <!--  영화 페이지에서 상영 시간표 출력 배열안에 배열형태 -->
     <select id="selectTimeByMovieTest" parameterType="Map" resultType="Map">
-        SELECT tim.screen_pk,
-               tim.movie_pk,
+        SELECT
+--             tim.screen_pk,
+--                tim.scrtime_pk,
+--                tim.movie_pk,
                th.theater_pk,
                th.the_name
 --                scr.*,
@@ -42,9 +44,11 @@
     <!--  상영시간표 - 상영관하고 그안에 시간 배열형태로 반환-->
     <select id="selectTimeByTheater" parameterType="Map" resultType="Map">
         select scr.*,
+               tim.*,
                (sum(book.book_youth_cnt) + sum(book.book_adult_cnt)) AS booked
         from screen_tb scr, booking_tb book, screentime_tb tim
-        where tim.scrtime_pk = #{scrtime_pk} and scr.screen_pk = tim.screen_pk and tim.scrtime_pk = book.scrtime_pk
+        where tim.theater_pk = #{theater_pk} and tim.movie_pk = #{movie_pk} and tim.scrt_date = #{date}
+          and tim.screen_pk = scr.screen_pk and tim.scrtime_pk = book.scrtime_pk
     </select>
 
 

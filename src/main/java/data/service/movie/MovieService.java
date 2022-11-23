@@ -82,8 +82,13 @@ public class MovieService {
         map.put("date", date);
         List<Map<String, Object>> theaters_list = joinTimeRepository.selectTimeByMovieTest(map);
         for (int i = 0; i < theaters_list.size(); i++) {
+//            System.out.println(theaters_list);
             Object theater = theaters_list.get(i).get("theater_pk");
-            int theateer_pk = Integer.parseInt(theater.toString());
+            System.out.println("tt"+theater);
+            int theater_pk = Integer.parseInt(theater.toString());
+            map.put("theater_pk", theater_pk);
+            List<Map<String, Object>> maps = joinTimeRepository.selectTimeByTheater(map);
+            System.out.println("time"+maps);
         }
 
         return joinTimeRepository.selectTimeByMovieTest(map);
