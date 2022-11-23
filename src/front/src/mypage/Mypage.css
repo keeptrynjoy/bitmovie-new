@@ -230,7 +230,7 @@ table.mypage-table {
 
 table.mypage-table thead th {
     background-color: #e2e2e0;
-    font-size: 25px;
+    font-size: 20px;
     width: auto;
     height: 100px;
 }
@@ -238,33 +238,56 @@ table.mypage-table thead th {
 table.mypage-table tbody tr{
     height: 70px;
     border-bottom: 1px solid #d6d4ca;
-
 }
 
 table.mypage-table tbody tr td {
-    font-size: 20px;
+    font-size: 15px;
 }
 
-.movie-log ul.movie-log-list {
+ul.movie-log-list {
     list-style: none;
 }
 
-.movie-log ul.movie-log-list li {
+ul.booking-list {
+    list-style: none;
+}
+
+ul.booking-list li {
     width: 720px;
-    height: 260px;
+    height: 240px;
     padding-bottom: 15px;
     border-bottom: 1px solid #d6d4ca;
 }
 
-.movie-log ul.movie-log-list li .article-movie-info {
+ul.movie-log-list li {
+    width: 720px;
+    height: 240px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #d6d4ca;
+}
+
+.booking-info {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+ul.movie-log-list li .article-movie-info {
     margin-top: 30px;
     display: flex;
 }
 
-.movie-log ul.movie-log-list li .article-movie-info .box-image {
+.box-image {
     float: left;
     width: 150px;
     margin-right: 22px;
+}
+
+.booking-info .box-image {
+    float: left;
+    width: 100px;
+    margin-right: 22px;
+    padding-top: 10px;
 }
 
 span.thumb-image {
@@ -282,13 +305,34 @@ span.thumb-image {
 }
 
 .box-contents .movie-title{
-    height: 90px;
-    margin: 10px 0;
+    height: 60px;
+}
+
+.box-contents .contents-info{
+    border-top: 2px solid gainsboro;
+    width: 590px;
+    height: 100px;
+    display: flex;
+    padding-top: 5px;
+    flex-wrap: wrap;
+}
+
+.box-contents .contents-info div {
+    width: 280px;
 }
 
 .box-contents .movie-title .movie-title-kr {
-    font-size: 40px;
+    font-size: 35px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 60px;
 }
+
+.box-contents .movie-title .movie-title-en {
+    height: 40px;
+}
+
 
 .box-contents .movie-title p {
     margin-left: 3px;
