@@ -177,6 +177,7 @@ const Payment = (effect, deps) => {
         return arr;
     }
 
+    console.log(sessionStorage);
     return (
         <>
             <div>
@@ -185,7 +186,7 @@ const Payment = (effect, deps) => {
                 {/*<select value={book_seat_num} onChange={(e)=>{*/}
                 {/*    setBookSeatNum(e.target.value)*/}
                 {/*}}>{createSeatNum()}</select><br/>*/}
-                <input type={'text'} value={location.state.selected_seat}/>
+                <input type={'text'} defaultValue={location.state.selected_seat}/>
                 <br/>
                 상영시간표 고유키(int)
                 <input type={'number'}  onChange={(e) => (
@@ -195,19 +196,19 @@ const Payment = (effect, deps) => {
                 {/*<input type={'text'}  onChange={(e) => (*/}
                 {/*    setBookTheName(e.target.value)*/}
                 {/*)}/>*/}
-                <input type={'text'} value={location.state.obj2.the_name}/>
+                <input type={'text'}  defaultValue={location.state.obj2.the_name}/>
                 <br/>
                 일반수(int)
                 {/*<input type={'number'} onChange={(e) => (*/}
                 {/*    setBookAdultCnt(e.target.value)*/}
                 {/*)}/><br/>*/}
-                <input type={'number'} value={location.state.adults}/>
+                <input type={'number'} defaultValue={location.state.adults}/>
                 <br/>
                 청소년수(int)
                 {/*<input type={'number'}onChange={(e) => (*/}
                 {/*    setBookYouthCnt(e.target.value)*/}
                 {/*)}/>*/}
-                <input type={'number'} value={location.state.students}/>
+                <input type={'number'} defaultValue={location.state.students}/>
                 <br/>
             </div>
 
@@ -215,9 +216,11 @@ const Payment = (effect, deps) => {
             <div>
                 <h1>결제정보</h1>
                 user_pk(int)
-                <input type={'text'} ref={userIdRef} onChange={(e) => (
-                    userIdRef.current = e.target.value
-                )}/><br/>
+                {/*<input type={'text'} ref={userIdRef} onChange={(e) => (*/}
+                {/*    userIdRef.current = e.target.value*/}
+                {/*)}/>*/}
+                <input type={'text'} defaultValue={sessionStorage.user_pk}/>
+                <br/>
                 포인트 사용(int)
                 <input type={'number'} onChange={(e) => (
                    setUsePoint(e.target.value)
@@ -229,16 +232,18 @@ const Payment = (effect, deps) => {
                 구매자 이름(String)
                 <input type={'text'} ref={userNameRef}  onChange={(e) => (
                     userNameRef.current = e.target.value
-                )}/><br/>
+                )} defaultValue={sessionStorage.u_name}/><br/>
                 구매자 연락처
                 <input type={'text'} ref={userPhoneRef}  onChange={(e) => (
                     userPhoneRef.current = e.target.value
-
-                )}/><br/>
+                )}
+                /><br/>
                 구매자 이메일
                 <input type={'email'} ref={userEmailRef}  onChange={(e) => (
                     userEmailRef.current = e.target.value
-                )}/><br/>
+                )}
+                defaultValue={sessionStorage.u_id}
+                /><br/>
 
             </div>
 
