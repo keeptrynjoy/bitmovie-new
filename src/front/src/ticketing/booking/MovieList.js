@@ -32,14 +32,17 @@ const MovieList = (props) => {
         <div>
 
             <div className={'mvcolor'}>
+                <p style={{paddingLeft:'20px', paddingTop:'10px',fontSize:'20px'}}>영화</p>
                 {mvlist.map((list,i)=>(
-                    <ul key={i} style={{paddingLeft:'10px', marginBottom:'5px'}}>
+                    <ul key={i} style={{paddingLeft:'15px', marginBottom:'5px'}}>
                         <li style={{listStyle:'none' ,width:'400px' ,wordBreak: 'break-all'}} >
 
                                 {/*<img src={age} style={{width:'30px', float:'left'}}/>*/}
-                            <Age age={list.m_age_grd} size={20}/>
+
                             <button className={'mvbtn'} key={i} style={{fontSize:'15px'}} onClick={changeData}  value={JSON.stringify(list)} name={'movie'}>
-                        <div style={{width:'200px'}} className={'txt'} >{list.m_name}</div>
+                                <Age age={list.m_age_grd} size={20}/>&nbsp;
+                        <div style={{width:'200px'}} className={'txt'} >&nbsp;{list.m_name}</div>
+
 
                     </button>
                         </li>
