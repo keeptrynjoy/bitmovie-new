@@ -10,6 +10,7 @@
 
 .txt{
 text-align: left;
+    pointer-events : none;
 }
 
 /*.mvcolor{*/
