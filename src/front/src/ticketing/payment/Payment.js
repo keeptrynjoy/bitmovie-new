@@ -209,19 +209,20 @@ const Payment = (effect, deps) => {
 
     return (
         <>
+            <div style={{width:'500px', height:'600px', border:'1px solid gray', margin:'0 auto', justifyContent:'center', display:'flex'}}>
             <div>
                 <h1>예매정보</h1>
                 좌석번호&nbsp;
-                <select value={book_seat_num} onChange={(e)=>{
-                    setBookSeatNum(e.target.value)
-                }}>{createSeatNum()}
-                    defaultValue={location.state.selected_seat}
-                </select>
+                <input type={'text'} onChange={(e)=>(setBookSeatNum(e.target.value))}
+                       defaultValue={location.state.selected_seat}></input>
+
                 <br/>
                 상영시간표 고유키(int)
                 <input type={'number'}  onChange={(e) => (
                     setScrTimePk(e.target.value)
-                )}/><br/>
+                )}
+                defaultValue={location.state.movieData.time}
+                /><br/>
                 극장명(String)
                 <input type={'text'}  onChange={(e) => (
                     setBookTheName(e.target.value)
@@ -263,7 +264,9 @@ const Payment = (effect, deps) => {
                 결제금액(int)
                 <input type={'number'} ref={finalPriceRef}onChange={(e) => (
                     finalPriceRef.current = e.target.value
-                )}/><br/>
+                )}
+                defaultValue={location.state.finalPay}
+                /><br/>
                 구매자 이름(String)
                 <input type={'text'} ref={userNameRef}  onChange={(e) => (
                     userNameRef.current = e.target.value
@@ -282,8 +285,10 @@ const Payment = (effect, deps) => {
                 /><br/>
 
             </div>
-
-            <button onClick={requestPay}>결제하기</button>
+                <div style={{alignItems:'center', display:'flex', justifyContent:'center',marginTop:'30px'}}>
+                <button onClick={requestPay} style={{backgroundColor:'white', border:'1px solid gray'}}>결제하기</button>
+                </div>
+            </div>
         </>
     );
 }

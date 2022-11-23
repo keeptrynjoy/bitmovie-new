@@ -70,7 +70,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
         const totalPrice = (sprice * 8000) + (aprice * 10000);
 
         navi('/ticketing/payment', {
-            state: {obj, obj2, adults, students, selected_seat, finalPay: totalPrice}
+            state: {obj, obj2, adults, students, selected_seat, finalPay: totalPrice ,movieData}
         })
     }
 
