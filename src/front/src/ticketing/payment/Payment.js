@@ -91,11 +91,11 @@ const Payment = (effect, deps) => {
     const [book_issu_date,setIssuDate] = useState();
     const [book_adult_cnt,setBookAdultCnt] = useState();
     const [book_youth_cnt,setBookYouthCnt] = useState();
-
+    const [dbData,setDbdata]= useState('');
+    const user_pk=sessionStorage.user_pk;
     const {IMP} = window;
     IMP.init('imp02023053');
 
-    console.log(location);
     // IMP.request_pay(param, callback) 결제창 호출
     const requestPay = () => {
 
@@ -105,9 +105,12 @@ const Payment = (effect, deps) => {
             console.log(now)
             console.log(
                 "페이버튼",
-                userIdRef.current,
-                userEmailRef.current,
-                userNameRef.current,
+                dbData.u_id,
+                dbData.u_name,
+
+                // userIdRef.current,
+                // userEmailRef.current,
+                // userNameRef.current,
             );
 
             IMP.request_pay(
@@ -177,38 +180,65 @@ const Payment = (effect, deps) => {
         return arr;
     }
 
-    console.log(sessionStorage);
+
+    //db에서 유저정보 받아오자
+    const comeDb=()=>{
+        let user_pk=sessionStorage.user_pk;
+    axios.get('http://localhost:8282/mypage/information?user_pk='+user_pk)
+            .then((res)=> {
+                    // alert('굿잡베이베')
+                    setDbdata(res.data);
+                }
+
+            );
+    }
+
+
+    useEffect(()=>{
+        comeDb();
+    },[])
+
+
+
+
+
+
+    console.log(dbData);
+
     return (
         <>
             <div>
                 <h1>예매정보</h1>
                 좌석번호&nbsp;
-                {/*<select value={book_seat_num} onChange={(e)=>{*/}
-                {/*    setBookSeatNum(e.target.value)*/}
-                {/*}}>{createSeatNum()}</select><br/>*/}
-                <input type={'text'} defaultValue={location.state.selected_seat}/>
+                <select value={book_seat_num} onChange={(e)=>{
+                    setBookSeatNum(e.target.value)
+                }}>{createSeatNum()}
+                    defaultValue={location.state.selected_seat}
+                </select>
                 <br/>
                 상영시간표 고유키(int)
                 <input type={'number'}  onChange={(e) => (
                     setScrTimePk(e.target.value)
                 )}/><br/>
                 극장명(String)
-                {/*<input type={'text'}  onChange={(e) => (*/}
-                {/*    setBookTheName(e.target.value)*/}
-                {/*)}/>*/}
-                <input type={'text'}  defaultValue={location.state.obj2.the_name}/>
+                <input type={'text'}  onChange={(e) => (
+                    setBookTheName(e.target.value)
+                )}
+                       defaultValue={location.state.obj2.the_name}
+                />
                 <br/>
                 일반수(int)
-                {/*<input type={'number'} onChange={(e) => (*/}
-                {/*    setBookAdultCnt(e.target.value)*/}
-                {/*)}/><br/>*/}
-                <input type={'number'} defaultValue={location.state.adults}/>
+                <input type={'number'} onChange={(e) => (
+                    setBookAdultCnt(e.target.value)
+                )}defaultValue={location.state.adults}
+                />
                 <br/>
                 청소년수(int)
-                {/*<input type={'number'}onChange={(e) => (*/}
-                {/*    setBookYouthCnt(e.target.value)*/}
-                {/*)}/>*/}
-                <input type={'number'} defaultValue={location.state.students}/>
+                <input type={'number'}onChange={(e) => (
+                    setBookYouthCnt(e.target.value)
+                )}
+                       defaultValue={location.state.students}
+                />
                 <br/>
             </div>
 
@@ -216,15 +246,18 @@ const Payment = (effect, deps) => {
             <div>
                 <h1>결제정보</h1>
                 user_pk(int)
-                {/*<input type={'text'} ref={userIdRef} onChange={(e) => (*/}
-                {/*    userIdRef.current = e.target.value*/}
-                {/*)}/>*/}
-                <input type={'text'} defaultValue={sessionStorage.user_pk}/>
+                <input type={'text'} ref={userIdRef} onChange={(e) => (
+                    userIdRef.current = e.target.value
+                )}
+                       defaultValue={user_pk}
+                />
                 <br/>
                 포인트 사용(int)
                 <input type={'number'} onChange={(e) => (
                    setUsePoint(e.target.value)
-                )}/><br/>
+                )}
+                defaultValue={dbData.u_point}
+                /><br/>
                 결제금액(int)
                 <input type={'number'} ref={finalPriceRef}onChange={(e) => (
                     finalPriceRef.current = e.target.value
@@ -237,6 +270,7 @@ const Payment = (effect, deps) => {
                 <input type={'text'} ref={userPhoneRef}  onChange={(e) => (
                     userPhoneRef.current = e.target.value
                 )}
+                       defaultValue={dbData.u_phone}
                 /><br/>
                 구매자 이메일
                 <input type={'email'} ref={userEmailRef}  onChange={(e) => (
