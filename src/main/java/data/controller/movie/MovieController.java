@@ -50,4 +50,9 @@ public class MovieController {
         System.out.println(screenTimeService.selectTimeByMovie(movie_pk, date));
         return screenTimeService.selectTimeByMovie(movie_pk, date);
     }
+
+    @GetMapping("selectTimetest")
+    public List<Map<String,Object>> selectTimeTest(@RequestParam(defaultValue = "284054") int movie_pk){
+        return movieService.selectTimeByMovieTest(movie_pk);
+    }
 }

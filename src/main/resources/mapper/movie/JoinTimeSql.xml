@@ -21,6 +21,33 @@
           AND tim.scrtime_pk = book.scrtime_pk;
     </select>
 
+    <!--  영화 페이지에서 상영 시간표 출력 배열안에 배열형태 -->
+    <select id="selectTimeByMovieTest" parameterType="Map" resultType="Map">
+        SELECT tim.screen_pk,
+               tim.movie_pk,
+               th.theater_pk,
+               th.the_name
+--                scr.*,
+--                group_concat(concat(scr.*))
+--                group_concat(concat('{'))
+--                group_concat(concat('{scrt_stime:"',tim.scrt_stime,'",booked:"',0,'"}')) two
+        FROM screentime_tb tim, theater_tb th
+        WHERE tim.movie_pk= #{movie_pk}
+          AND tim.scrt_date = #{date}
+--           AND scr.screen_pk = tim.screen_pk
+          AND tim.theater_pk = th.theater_pk
+--           AND tim.scrtime_pk = book.scrtime_pk
+        group by th.theater_pk;
+    </select>
+    <!--  상영시간표 - 상영관하고 그안에 시간 배열형태로 반환-->
+    <select id="selectTimeByTheater" parameterType="Map" resultType="Map">
+        select scr.*,
+               (sum(book.book_youth_cnt) + sum(book.book_adult_cnt)) AS booked
+        from screen_tb scr, booking_tb book, screentime_tb tim
+        where tim.scrtime_pk = #{scrtime_pk} and scr.screen_pk = tim.screen_pk and tim.scrtime_pk = book.scrtime_pk
+    </select>
+
+
     <!--  영화 상영 시간표 - 영화,극장,날짜에따라 반응  테스트중-->
     <select id="selectTimeByClick" parameterType="Map" resultType="JoinTime">
         SELECT tim.screen_pk,
@@ -74,9 +101,9 @@
         SELECT
            scr.screen_pk ,scr.scr_name, mt.m_name, mt.m_age_grd, scr.scr_tot_seat
         FROM screentime_tb scrt, movie_tb mt, screen_tb scr
-        WHERE scrt.movie_pk=#{movie_pk}
-          AND scrt.scrt_date =#{scrt_date}
-          AND scrt.theater_pk =#{theater_pk}
+        WHERE scrt.movie_pk = #{movie_pk}
+          AND scrt.scrt_date = #{scrt_date}
+          AND scrt.theater_pk = #{theater_pk}
           AND mt.movie_pk = scrt.movie_pk
           AND scr.screen_pk = scrt.screen_pk;
     </select>

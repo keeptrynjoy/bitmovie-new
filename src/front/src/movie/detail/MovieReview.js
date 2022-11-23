@@ -24,9 +24,12 @@ function MovieReview(props) {
             });
             return;
         }
-
+        const data={
+            user_pk: sessionStorage.user_pk,
+            review_pk:review.review_pk
+        }
         const reportUrl = `${localStorage.url}/user/insertReport`;
-        axios.get(reportUrl,{params:{user_pk: sessionStorage.user_pk, review_pk:review.review_pk}})
+        axios.post(reportUrl,data)
             .then((res)=>{
                 Swal.fire({
                     icon:"success",

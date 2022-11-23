@@ -95,35 +95,35 @@ public class UserController {
     }
 
     // 평점 좋아요
-    @GetMapping("/insertLikeRevw")
+    @PostMapping("/insertLikeRevw")
     public void insertLikeRevw(@RequestBody LikeRevw likeRevw) {
         userService.insertLikeRevw(likeRevw);
     }
 
     // 평점 좋아요 취소
-    @GetMapping("/deleteLikeRevw")
+    @PostMapping("/deleteLikeRevw")
     public void deleteLikeRevw(@RequestBody LikeRevw likeRevw) {
         userService.deleteLikeRevw(likeRevw);
     }
 
     // 평점 신고하기
-    @GetMapping("/insertReport")
+    @PostMapping("/insertReport")
     public void insertReport(@RequestBody Report report) {userService.insertReport(report);}
 
     // 평점 신고 취소하기
-    @GetMapping("/deleteReport")
+    @PostMapping("/deleteReport")
     public void deleteReport(@RequestBody Report report) {
         userService.deleteReport(report);
     }
 
     // 영화 좋아요
-    @GetMapping("/insertMWish")
+    @PostMapping("/insertMWish")
     public void insertMWish(@RequestBody MWish mWish) {
         userService.isnertMWish(mWish);
     }
 
     // 영화 좋아요 취소
-    @GetMapping("/deleteMWish")
+    @PostMapping("/deleteMWish")
     public void deleteMWish(@RequestBody MWish mWish) {
         userService.deleteMWish(mWish);
     }
