@@ -35,7 +35,7 @@
             JOIN booking_tb b ON p.payment_pk = b.payment_pk
             JOIN screentime_tb st ON b.scrtime_pk = st.scrtime_pk
             JOIN screen_tb s ON s.screen_pk = st.screen_pk
-            JOIN movie_tb m ON st.movie_pk = m.movie_pkx
+            JOIN movie_tb m ON st.movie_pk = m.movie_pk
         WHERE u.user_pk = #{user_pk} AND DATEDIFF(now(), b.book_issu_date) &lt; 30;
     </select>
     <!--마이페이지 무비로그 조회-->
