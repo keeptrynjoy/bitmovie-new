@@ -19,10 +19,10 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     // console.log('state확인용',location.state.input);
 
     // console.log("?",location.state);
-
-    console.log('성인 수',adults);
-    console.log('학생 수',students);
     console.log('좌석 리스트',selected_seat);
+
+    console.log('학생수',students);
+    console.log('성인수',adults);
 
     const reset=()=>{
         window.location.reload();
@@ -53,6 +53,9 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
     // console.log("현재개수",totalp);
 
+
+    //성인
+
     const handleOnchangePerson = (e) => {
 
         const value = e.value;
@@ -61,13 +64,16 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
         document.getElementById('result').innerText = e.target.value;
         setTotalp(parseInt(e.target.value) + parseInt(document.getElementById('student_select').value));
-        setAdults(parseInt(e.target.value) + parseInt(document.getElementById('student_select').value));
+        // setAdults(parseInt(e.target.value) + parseInt(document.getElementById('adult_select').value));
+        setAdults(parseInt(document.getElementById('adult_select').value));
 
 
 
 
     }
 
+
+    //학생
 
     const handleOnchangePerson2 = (e) => {
         const value = e.value;
@@ -76,8 +82,10 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
         document.getElementById('result2').innerText = e.target.value;
         setTotalp(parseInt(e.target.value) + parseInt(document.getElementById('adult_select').value));
-        setStudents(parseInt(e.target.value) + parseInt(document.getElementById('student_select').value));
+        // setStudents(parseInt(e.target.value) + parseInt(document.getElementById('student_select').value));
+        setStudents(parseInt(document.getElementById('student_select').value));
     }
+
 
 
 
