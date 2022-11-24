@@ -75,8 +75,12 @@ public class MyPageController {
         return myPageService.selectCouponDetail(user_pk);
     }
     //프로필 사진 업로드
-    @GetMapping("/uploadphoto")
-    public void updateUserPhoto (User user, MultipartFile photoFile, HttpServletRequest request) {
+    @PostMapping("/uploadphoto")
+    public void updateUserPhoto (@RequestBody int user_pk, MultipartFile photoFile, HttpServletRequest request) {
+        User user = myPageService.selectUser(user_pk);
+        System.out.println(user_pk);
+        System.out.println(photoFile);
+        System.out.println(request);
         myPageService.updateUserPhoto(user, photoFile, request);
     }
 }
