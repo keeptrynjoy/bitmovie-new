@@ -30,7 +30,12 @@ public class UserController {
         userService.insertUser(user);
         couponService.insertJoinCoupon();
     }
-    //회원가입 시 본인 인증
+    //중복 닉네임 확인
+    @GetMapping("/checkNick")
+    public int selectNickname (String u_nick) {
+        return userService.selectNickname(u_nick);
+    }
+    //본인 인증
     @GetMapping("/sendSMS")
     public String sendSMS (@RequestParam String u_phone) {
         Random rnd  = new Random();
@@ -39,8 +44,8 @@ public class UserController {
             buffer.append(rnd.nextInt(10));
         }
         String cerNum = buffer.toString();
-        System.out.println("수신자 번호 : " + u_phone);
-        System.out.println("인증번호 : " + cerNum);
+//        System.out.println("수신자 번호 : " + u_phone);
+//        System.out.println("인증번호 : " + cerNum);
         userService.certifiedPhoneNumber(u_phone, cerNum);
         return cerNum;
     }

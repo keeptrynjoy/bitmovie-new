@@ -78,7 +78,7 @@ function MyPage(props) {
     //사용 가능 쿠폰 개수 조회
     const expCouponUrl =localStorage.url + "/mypage/expcoupon"
     const eexpCoupon = () => {
-        axios.get(eCouponUrl, {params:{user_pk:user_pk}})
+        axios.get(expCouponUrl, {params:{user_pk:user_pk}})
             .then(res => {
                 setExpCoupon(res.data)
             })

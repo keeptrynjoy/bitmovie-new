@@ -14,6 +14,7 @@ function JoinInfo(props) {
     const [passwordtwo,setPasswordtwo]=useState("");
     const [boolpw2,setBoolpw2]=useState(false);
     const [boolhp,setBoolhp]=useState(false);
+    const [boolNick, setBoolNick] = useState(false);
 
     //입력할 데이터폼
     const [input,setInput] = useState({
@@ -25,7 +26,8 @@ function JoinInfo(props) {
         u_birth:"",
         u_gender:"",
         checkSMS:"",
-        randomNum:"0"
+        randomNum:"0",
+        checkNick:""
     })
 
     //onSubmit전에 null값 체크
@@ -114,6 +116,16 @@ function JoinInfo(props) {
                 icon:"warning",
                 text:"휴대전화 인증을 완료 해주세요"
             })
+            return;
+        }
+
+        if(!boolNick)
+        {
+            Swal.fire({
+                icon:"warning",
+                text:"닉네임 중복확인을 해주세요"
+            })
+            return;
         }
         
         let url = localStorage.url + "/user/insert";
@@ -198,7 +210,7 @@ function JoinInfo(props) {
     }
 
     const checkSMS = () => {
-        if (input.randomNum === input.checkSMS) {
+        if (parseInt(input.randomNum) === parseInt(input.checkSMS)) {
             setBoolhp(true);
             Swal.fire({
                 icon:"success",
@@ -210,6 +222,27 @@ function JoinInfo(props) {
                 text:"인증번호가 올바르지 않습니다."
             })
         }
+    }
+
+    const checkNick = () => {
+        const nickUrl = localStorage.url + "/user/checkNick"
+        axios.get(nickUrl, {params:{u_nick:input.u_nick}})
+            .then(res => {
+                if(res.data === 1){
+                    setBoolNick(false);
+                    Swal.fire({
+                        icon : "error",
+                        text : "중복된 닉네임입니다"
+                    })
+                    return;
+                }else{
+                    setBoolNick(true);
+                    Swal.fire({
+                        icon : "success",
+                        text : "사용 가능한 닉네임입니다"
+                    })
+                }
+            })
     }
 
     return (
@@ -292,9 +325,22 @@ function JoinInfo(props) {
                     </tr>
                     <tr>
                         <th style={{width:'130px',backgroundColor:'#ddd'}}>닉네임</th>
-                        <td>
-                            <input type={'text'} className={'form-control'} style={{marginLeft:"20px",width:'300px'}}
+                        <td style={{display:"flex"}}>
+                            <input type={'text'} className={'form-control'} style={{marginLeft:"20px",width:'200px'}}
                                    name={"u_nick"} value={input.u_nick} onChange={changeData}/>
+                            <Button variant={"outlined"} color={"success"}
+                                    sx={{marginLeft:"10px"}}
+                                    onClick={() => {
+                                        checkNick();
+                                    }}>
+                                중복확인
+                            </Button>
+                            {
+                                !boolNick?
+                                    <CloseIcon style={{color:"red", float:"right", marginTop:"7px", marginLeft:"7px"}}/>
+                                    :
+                                    <CheckIcon style={{color:"green", float:"right", marginTop:"7px", marginLeft:"7px"}}/>
+                            }
                         </td>
                     </tr>
                     <tr>
@@ -336,7 +382,7 @@ function JoinInfo(props) {
                     <tr>
                         <th style={{width:'130px',backgroundColor:'#ddd'}}>인증번호</th>
                         <td style={{display:"flex"}}>
-                            <input type={'text'} className={'form-control'} style={{marginLeft:"20px",width:'200px'}}
+                            <input type={'text'} className={'form-control'} value={input.checkSMS} style={{marginLeft:"20px",width:'200px'}}
                                    name={"checkSMS"} onChange={changeData}/>
                             <Button variant={"outlined"} color={"success"}
                                     sx={{marginLeft:"30px"}}
