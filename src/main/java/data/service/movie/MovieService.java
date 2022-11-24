@@ -1,10 +1,17 @@
 package data.service.movie;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import data.domain.movie.*;
 import data.repository.movie.*;
 import data.repository.user.MWishRepository;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -90,13 +97,41 @@ public class MovieService {
             map.put("theater_pk", theater_pk);
             List<Map<String, Object>> maps = joinTimeRepository.selectTimeByTheater(map);
             System.out.println(maps.size());
-            System.out.println("time"+maps);
+
+            System.out.println("time"+maps);        //time
             theaters_list.get(i).put("scrren", maps);
+//            System.out.println(mpas.get(i).get("tim"));
+//            ObjectMapper om = new ObjectMapper();
+//            String str;
+//            try {
+//
+//                str = om.writeValueAsString(maps.get(0).get("tim"));
+//            } catch (JsonProcessingException e) {
+//                throw new RuntimeException(e);
+//            }
+//            //test
+//            System.out.println(str); //성공
 
-            //test
-            System.out.println(maps.get(i).get("tim"));
-//            JSONArray tim = maps.get(i).get("tim");
+//            Object tim = maps.get(0).get("tim");
+//            J
+//            System.out.println("array: "+array);
+//            Object obtest = (Object) array;
+//            System.out.println("ob"+obtest);
+//            JSONObject jsonob = (JSONObject) obtest;
+//            System.out.println("jsonob"+jsonob);
 
+
+
+//            Gson gson = new Gson();
+//            JSONObject.fromObject(array);
+//
+//            JSONObject test1 = (JSONObject) array;
+//            System.out.println("test1: "+test1);
+
+//
+//            JSONObject tim1 = (JSONObject) maps.get(0).get("tim");
+//            System.out.println("tim1"+tim1);
+//
 //            System.out.println("pk"+maps.get(i).get("scrtime_pk"));
 
         }

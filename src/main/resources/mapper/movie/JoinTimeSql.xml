@@ -55,12 +55,14 @@
 -- --                    'adult',book.book_adult_cnt
 -- --                    'booked' , (sum(book.book_youth_cnt) + sum(book.book_adult_cnt))
 --                    )),']') as tim
+               concat('[',
                       group_concat(json_object(
 --                           '{scrtime_pk:"',scrtime_pk,'",scrt_stime"',scrt_stime,'"}'))
-                              "scrtime_pk", tim.scrtime_pk,
-                              "scrt_stime",tim.scrt_stime,
-                              "scrt_etime",tim.scrt_etime
-            ))as tim
+                              'scrtime_pk', tim.scrtime_pk,
+                              'scrt_stime',tim.scrt_stime,
+                              'scrt_etime',tim.scrt_etime
+            )),
+                   ']')as tim
 
 --                ifnull((sum(book.book_youth_cnt) + sum(book.book_adult_cnt)),0) AS booked
         from screen_tb scr, screentime_tb tim
