@@ -8,6 +8,16 @@
     background-color: whitesmoke;
 }
 
+.find-div {
+    text-align: center;
+    display: block;
+    width: 1500px;
+    height: 600px;
+    margin: 0 auto;
+    position: relative;
+    background-color: whitesmoke;
+}
+
 .login-div .login-title {
     width: 400px;
     height: 70px;
@@ -24,6 +34,17 @@
     height: 700px;
     margin: 0 auto 0;
     padding: 80px 170px;
+}
+
+.find-box {
+    width: 700px;
+    height: 700px;
+    margin: 0 auto 0;
+    padding: 80px 170px;
+}
+
+.find-id-box{
+    height: 200px;
 }
 
 .login-div table.login-table {
