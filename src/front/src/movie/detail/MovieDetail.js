@@ -97,9 +97,11 @@ function MovieDetail(props) {
     useEffect(()=>{
         if (movie_data===[])
             return
-        axios.get(`${localStorage.url}/movie/selectTimeByMovie?movie_pk=${movie_data.movie_pk}&date=${selected_date}`)
+        axios.get(`${localStorage.url}/movie/selectTimetest`)
             .then((res)=>{
                 setTimetable(res.data);
+                console.log(res.data);
+                console.log("wtf",(JSON.parse(res.data[0].scrren[0].tim)[0].scrt_etime).substring(0,5));
             })
     },[selected_date])
 
@@ -310,7 +312,8 @@ function MovieDetail(props) {
                                         <ul className={"date-item-wrap"}>
                                         {
                                             dateArray && dateArray.map((item,i)=>(
-                                                <li key={i} className={"date-item"} value={i}>
+                                                <li key={i} className={"date-item"} value={i}
+                                                    onClick={()=>setSelected_date("a")}>
                                                     <span>{item.substring(5,7)}월</span>
                                                     <em>{days[parseInt(item.split("/")[1])]}</em>
                                                     <strong>{item.substring(8,10)}</strong>

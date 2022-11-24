@@ -51,7 +51,7 @@ public class MovieController {
         return screenTimeService.selectTimeByMovie(movie_pk, date);
     }
 
-    @GetMapping("selectTimetest")
+    @GetMapping("/selectTimetest")
     public List<Map<String,Object>> selectTimeTest(@RequestParam(defaultValue = "49046") int movie_pk){
         return movieService.selectTimeByMovieTest(movie_pk);
     }

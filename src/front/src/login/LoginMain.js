@@ -62,8 +62,8 @@ function LoginMain(props) {
                                         icon: "info",
                                         text: "한달 뒤에 다시 물어볼께영"
                                     });
-                                    navi("/");
-                                    window.location.reload();
+                                    setTimeout(navi("/"),3000);
+
                                 });
                             return;
                         }
