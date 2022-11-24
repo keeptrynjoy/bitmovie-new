@@ -24,51 +24,27 @@
     <!--  영화 페이지에서 상영 시간표 출력 배열안에 배열형태 -->
     <select id="selectTimeByMovieTest" parameterType="Map" resultType="Map">
         SELECT
---             tim.screen_pk,
---                tim.scrtime_pk,
---                tim.movie_pk,
                th.theater_pk,
                th.the_name
---                scr.*,
---                group_concat(concat(scr.*))
---                group_concat(concat('{'))
---                group_concat(concat('{scrt_stime:"',tim.scrt_stime,'",booked:"',0,'"}')) two
         FROM screentime_tb tim, theater_tb th
         WHERE tim.movie_pk= #{movie_pk}
           AND tim.scrt_date = #{date}
---           AND scr.screen_pk = tim.screen_pk
           AND tim.theater_pk = th.theater_pk
---           AND tim.scrtime_pk = book.scrtime_pk
-        group by th.theater_pk;
+        GROUP BY th.theater_pk;
     </select>
     <!--  상영시간표 - 상영관하고 그안에 시간 배열형태로 반환-->
     <select id="selectTimeByTheater" parameterType="Map" resultType="Map">
-        select scr.*,
---                tim.*,
+        SELECT scr.*,
 --                concat('[',
---                group_concat(json_object(
---                    'scrtime_pk', tim.scrtime_pk,
---                    'scrt_stime',tim.scrt_stime,
---                    'scrt_etime',tim.scrt_etime
--- --                    'book_pk',book.booking_pk,
--- --                    'booked', book.book_youth_cnt,
--- --                    'adult',book.book_adult_cnt
--- --                    'booked' , (sum(book.book_youth_cnt) + sum(book.book_adult_cnt))
---                    )),']') as tim
-               concat('[',
-                      group_concat(json_object(
---                           '{scrtime_pk:"',scrtime_pk,'",scrt_stime"',scrt_stime,'"}'))
-                              'scrtime_pk', tim.scrtime_pk,
-                              'scrt_stime',tim.scrt_stime,
-                              'scrt_etime',tim.scrt_etime
-            )),
-                   ']')as tim
-
---                ifnull((sum(book.book_youth_cnt) + sum(book.book_adult_cnt)),0) AS booked
-        from screen_tb scr, screentime_tb tim
-             where tim.theater_pk = #{theater_pk} and tim.movie_pk = #{movie_pk} and tim.scrt_date = #{date}
-          and tim.screen_pk = scr.screen_pk;
--- group by scrtime_pk;
+--                       group_concat(json_object(
+--                               'scrtime_pk', tim.scrtime_pk,
+--                               'scrt_stime',tim.scrt_stime,
+--                               'scrt_etime',tim.scrt_etime
+--                                 )),
+--                    ']')as tim
+        FROM screen_tb scr, screentime_tb tim
+             WHERE tim.theater_pk = #{theater_pk} AND tim.movie_pk = #{movie_pk} AND tim.scrt_date = #{date}
+          AND tim.screen_pk = scr.screen_pk;
     </select>
 
 
