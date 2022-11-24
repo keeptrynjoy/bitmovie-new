@@ -11,6 +11,7 @@ import moment from "moment";
 
 function Ticketing(props) {
 
+    const [st,setSt]=useState(false);
 
     const refresh=()=>{
         window.location.reload();
@@ -32,6 +33,7 @@ function Ticketing(props) {
                 [name]:value //name키에 입력값넣기
             }
         )
+        setSt(!st);
     }
 
     const goSeat = ()=> {
@@ -114,7 +116,7 @@ function Ticketing(props) {
                     </div>
                     <div className={'selectday'}><Calender input={input} setInput={setInput} changeData={changeData} /></div>
 
-                    <div className={'selecttime'}><TimeTable input={input} setInput={setInput} changeData={changeData} /></div>
+                    <div className={'selecttime'}><TimeTable input={input} setInput={setInput} changeData={changeData} st={st}/></div>
                 </div>
                 {/*<button type={"button"} className={'selectseat'} onClick={() => navi("/ticketing/selectseat",{input, setInput})} input={input} setInput={setInput} changeData={changeData} >좌석선택</button>*/}
                 <button type={"button"} className={'selectseat'} onClick={goSeat} >좌석선택</button>

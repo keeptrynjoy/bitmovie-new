@@ -12,6 +12,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 
 const TimeTable = (props) => {
 
+    const {st}=props;
     // const navi=useNavigate();
     // const location = useLocation();
     const [table,setTable]= useState([])
@@ -40,10 +41,17 @@ const TimeTable = (props) => {
 
 
     useEffect(()=>{
+        console.log('확인해보자');
         get();
-    },[])
+    },[st])
 
     const get=()=>{
+        if (mvpk.length ===0 || loc.length ===0 || day.length ===0)
+        {
+            console.log('값이 없어서 실행못함');
+            return;
+        }
+
         axios.get(`http://localhost:8282/screentime/screen_times?movie=${mvpk}&theater=${loc}&date=${day}`)
             .then((response) =>{
                 setTable(response.data);
