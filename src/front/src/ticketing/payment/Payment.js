@@ -230,13 +230,13 @@ const Payment = (effect, deps) => {
                        defaultValue={location.state.obj2.the_name}
                 />
                 <br/>
-                일반수(int)
+                성인(₩10,000)
                 <input type={'number'} onChange={(e) => (
                     setBookAdultCnt(e.target.value)
                 )}defaultValue={location.state.adults}
                 />
                 <br/>
-                청소년수(int)
+                청소년(₩8,000)
                 <input type={'number'}onChange={(e) => (
                     setBookYouthCnt(e.target.value)
                 )}

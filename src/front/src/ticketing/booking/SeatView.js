@@ -37,9 +37,9 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     const obj = JSON.parse(movieData.movie);
     const obj2 = JSON.parse(movieData.location);
 
-// console.log('뭐야',obj);
-// console.log('뭐야2',obj2);
-// console.log('뭐야3',movieData);
+console.log('뭐야',obj);
+console.log('뭐야2',obj2);
+console.log('뭐야3',movieData);
 
 
     // console.log('성인금액',aprice);
