@@ -12,18 +12,16 @@ import Age from "../../service/Age";
 const MovieList = (props) => {
 
     const {input,setInput,changeData}=props;
-
-
     const [mvlist,setMvlist] = useState([]);
 
     const get=()=>{
         axios.get('http://localhost:8282/booking/screening_list')
             .then((response) =>{
                 setMvlist(response.data);
-                console.log('보자',response.data);
 
             });
     }
+
 
 
     useEffect(()=>{
@@ -49,9 +47,8 @@ const MovieList = (props) => {
                             <button className={'mvbtn'} key={i} style={{fontSize:'15px'}} onClick={changeData}  value={JSON.stringify(list)} name={'movie'}>
                                 <Age age={list.m_age_grd} size={20}/>&nbsp;
                         <div style={{width:'200px'}} className={'txt'} >&nbsp;{list.m_name}</div>
-
-
                     </button>
+
                         </li>
                     </ul>
                 ))}
