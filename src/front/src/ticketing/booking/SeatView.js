@@ -191,11 +191,11 @@ console.log('뭐야3',movieData);
             <ul className="showcase">
                 <li>
                     <div className="seat okay"></div>
-                    <small>선택가능</small>
+                    <small>예매가능</small>
                 </li>
                 <li>
                     <div className="seat selected"></div>
-                    <small>선택불가</small>
+                    <small>선택좌석</small>
                 </li>
                 <li>
                     <div className="seat occupied"></div>

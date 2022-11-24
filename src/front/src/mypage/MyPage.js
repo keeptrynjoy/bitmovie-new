@@ -14,6 +14,8 @@ function MyPage(props) {
     const [contents,setContents]=useState("");
     //유저정보
     const [data,setData] = useState("");
+    const [eCoupon, setECoupon] = useState("");
+    const [expCoupon, setExpCoupon] = useState("");
 
     const infoUrl = localStorage.url + "/mypage/information?user_pk=" + user_pk;
 
@@ -27,6 +29,8 @@ function MyPage(props) {
     //페이지 로딩시 데이터 가져오기
     useEffect(() => {
         getData();
+        enableCoupon();
+        eexpCoupon();
     }, []);
 
     //프로필 사진 업로드
@@ -62,11 +66,30 @@ function MyPage(props) {
     //     inputRef.current.click();
     // }, []);
 
+    //사용 가능 쿠폰 개수 조회
+    const eCouponUrl =localStorage.url + "/mypage/mycouponcount"
+    const enableCoupon = () => {
+        axios.get(eCouponUrl, {params:{user_pk:user_pk}})
+            .then(res => {
+                setECoupon(res.data)
+            })
+    }
+
+    //사용 가능 쿠폰 개수 조회
+    const expCouponUrl =localStorage.url + "/mypage/expcoupon"
+    const eexpCoupon = () => {
+        axios.get(eCouponUrl, {params:{user_pk:user_pk}})
+            .then(res => {
+                setExpCoupon(res.data)
+            })
+    }
+
     return (
         <div className={"mypage-div"}>
             <div className={"upper-info-div"}>
                 <div className={"photo-div"}>
-                    <img alt={"프로필 사진"} src={`${localStorage.url}/image/${data.u_photo}` } className={"profile-photo"}/>
+
+                    <img alt={"프로필 사진"} src={`${localStorage.url}/image/${data.u_photo}`} className={"profile-photo"}/>
                     <input type={"file"} hidden={true} id={"profile-photo"} onChange={onUploadImage}/>
                     <div className={"photo-fix-icon"} onClick={triggerCLick}>
                         <EditIcon/>
@@ -86,11 +109,11 @@ function MyPage(props) {
                             <ul>
                                 <li>
                                     <strong>사용 가능 쿠폰</strong>
-                                    <span className={"benefit-li-count"}>0 개</span>
+                                    <span className={"benefit-li-count"}>{eCoupon} 개</span>
                                 </li>
                                 <li>
                                     <strong>만료 예정 쿠폰</strong>
-                                    <span className={"benefit-li-count"}>0 개</span>
+                                    <span className={"benefit-li-count"}>{expCoupon} 개</span>
                                 </li>
                             </ul>
                         </div>

@@ -66,10 +66,9 @@ public class MyPageService {
     }
     //프로필 사진 업로드
     public void updateUserPhoto (User user, MultipartFile photoFile, HttpServletRequest request) {
-
         String path = request.getSession().getServletContext().getRealPath("/image");
         String photoName = photoFile.getOriginalFilename();
-        if( photoName.equals("")) {
+        if (photoName.equals("")) {
             user.setU_photo("noimage.png");
         } else {
             try {

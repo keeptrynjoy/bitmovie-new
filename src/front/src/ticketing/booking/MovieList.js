@@ -3,6 +3,12 @@ import './MovieList.css'
 import axios from "axios";
 import Age from "../../service/Age";
 
+
+
+
+
+
+
 const MovieList = (props) => {
 
     const {input,setInput,changeData}=props;

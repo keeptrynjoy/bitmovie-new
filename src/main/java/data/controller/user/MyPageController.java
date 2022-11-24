@@ -57,6 +57,7 @@ public class MyPageController {
     //마이페이지 사용가능 쿠폰 개수 조회
     @GetMapping("/mycouponcount")
     public int selectMyCouponCount (int user_pk) {
+        System.out.println(myPageService.selectMyCouponCount(user_pk));
         return myPageService.selectMyCouponCount(user_pk);
     }
     //마이페이지 사용가능 쿠폰 조회
@@ -76,11 +77,8 @@ public class MyPageController {
     }
     //프로필 사진 업로드
     @PostMapping("/uploadphoto")
-    public void updateUserPhoto (@RequestBody int user_pk, MultipartFile photoFile, HttpServletRequest request) {
+    public void updateUserPhoto (int user_pk, MultipartFile photoFile, HttpServletRequest request) {
         User user = myPageService.selectUser(user_pk);
-        System.out.println(user_pk);
-        System.out.println(photoFile);
-        System.out.println(request);
         myPageService.updateUserPhoto(user, photoFile, request);
     }
 }
