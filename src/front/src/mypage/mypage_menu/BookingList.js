@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import {Pagination} from "@mui/material";
+import {Button, Pagination} from "@mui/material";
 import usePagination from "../../service/UsePagination";
 import moment from "moment";
+import axios from "axios";
 
 function BookingList(props) {
     const list=props.booking_list;
@@ -16,7 +17,24 @@ function BookingList(props) {
         _DATA.jump(p);
     };
 
-    const test=(e)=>{
+    const cancelReserve=(bookingnum)=>{
+        axios.get(`${localStorage.url}/payment/cancel_payment?user=${sessionStorage.user_pk}&booking=${bookingnum}`)
+            .then((res)=>{
+                alert("!!");
+            })
+    }
+
+    const chkCancelAble=(day)=>{
+        const today = new Date().getTime();
+        const rDay = new Date(day).getTime();
+        if(rDay-today<=7200000){
+            return true
+        }else{
+            return false;
+        }
+    }
+
+    const test=()=>{
         console.log(list);
     }
 
@@ -56,7 +74,19 @@ function BookingList(props) {
                     list && _DATA.currentData().map((item,i)=>(
                             <li key={i}>
                                 <div className={"booking-info"}>
-                                    <span style={{width:"100%"}}>예매 번호: {item.booknumber}</span>
+                                    <span style={{width:"100%"}}>
+                                        예매 번호: {item.booknumber}
+                                        <span style={{float:"right"}}>
+                                            <Button color={"error"}
+                                                    variant={"contained"}
+                                                    onClick={()=>{
+                                                        cancelReserve(item.booknumber)
+                                                    }}
+                                                    disabled={chkCancelAble(item.date)}
+                                            >예매 취소
+                                            </Button>
+                                        </span>
+                                    </span>
                                     <div className={"box-image"}>
                                         <span className={"thumb-image"}>
                                             <img alt={""} src={`https://image.tmdb.org/t/p/w500${item.poster.split(",")[0]}`}/>
