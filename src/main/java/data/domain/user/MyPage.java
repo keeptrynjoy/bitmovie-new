@@ -25,6 +25,7 @@ public class MyPage {
     private Timestamp date;
     private Time begin;
     private Time endtime;
+    private int movie_pk;
     private String screen;
     private String title;
     private String engtitle;

@@ -135,7 +135,6 @@ public class UserService {
     public boolean selectReportYorN(Report report) {
         int yorN = reportRepository.selectReportYorN(report);
         return yorN==1?true:false;
-
     }
 
     // 영화 좋아요 기능

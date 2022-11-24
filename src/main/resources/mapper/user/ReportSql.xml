@@ -14,7 +14,7 @@
 
     <!--  평점 신고 유무 확인  -->
     <select id="selectReportYorN" parameterType="Report" resultType="int">
-        SELECT count(*) FROM report_tb WHERE report_pk = #{report_pk} AND user_pk = #{user_pk}
+        SELECT count(*) FROM report_tb WHERE review_pk = #{review_pk} AND user_pk = #{user_pk}
     </select>
 
 </mapper>
