@@ -21,8 +21,8 @@
           AND tim.scrtime_pk = book.scrtime_pk;
     </select>
 
-    <!--  영화 페이지에서 상영 시간표 출력 배열안에 배열형태 -->
-    <select id="selectTimeByMovieTest" parameterType="Map" resultType="Map">
+    <!--  영화 상세 - 상영 시간표 - 영화,날짜에 따른 극장정보반환 -->
+    <select id="selectTheaterByTime" parameterType="Map" resultType="Map">
         SELECT
                th.theater_pk,
                th.the_name
@@ -32,9 +32,9 @@
           AND tim.theater_pk = th.theater_pk
         GROUP BY th.theater_pk;
     </select>
-    <!--  상영시간표 - 상영관하고 그안에 시간 배열형태로 반환-->
-    <select id="selectTimeByTheater" parameterType="Map" resultType="Map">
-        SELECT scr.*,
+    <!--  영화 상세 - 상영시간표 - 극장에 따른 상영관 정보 반환-->
+    <select id="selectScreenByTheater" parameterType="Map" resultType="Map">
+        SELECT scr.*
 --                concat('[',
 --                       group_concat(json_object(
 --                               'scrtime_pk', tim.scrtime_pk,
@@ -45,6 +45,20 @@
         FROM screen_tb scr, screentime_tb tim
              WHERE tim.theater_pk = #{theater_pk} AND tim.movie_pk = #{movie_pk} AND tim.scrt_date = #{date}
           AND tim.screen_pk = scr.screen_pk;
+    </select>
+    <!-- 영화 상세 - 상영 시간표 - 상영관에 따른 상영시간 정보 반환  -->
+    <select id="selectTimeByScreen" parameterType="Map" resultType="Map">
+        SELECT tim.*,
+               (sum(book.book_adult_cnt) + sum(book.book_youth_cnt)) AS booked,
+               group_concat(book.book_seat_num)                      AS seat
+        FROM screentime_tb tim,
+             booking_tb book
+        WHERE tim.movie_pk = #{movie_pk}
+          AND tim.scrt_date = #{date}
+          AND tim.theater_pk = #{theater_pk}
+          AND tim.screen_pk = #{screen_pk}
+          AND book.scrtime_pk = tim.scrtime_pk
+        GROUP BY tim.scrtime_pk;
     </select>
 
 
@@ -95,7 +109,6 @@
                 AND theater_pk = #{theater_pk}
             </if>
     </select>
-
     <!-- 상영시간 데이터(상영관명,영화명,관람등급,총좌석수) 조회 -->
     <select id="selectScrtFirstInfo" resultType="JoinTime" parameterType="screentime">
         SELECT

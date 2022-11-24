@@ -51,8 +51,10 @@ public class MovieController {
         return screenTimeService.selectTimeByMovie(movie_pk, date);
     }
 
+    // 영화 상세페이지 - 상영시간표
     @GetMapping("/selectTimetest")
-    public List<Map<String,Object>> selectTimeTest(@RequestParam(defaultValue = "49046") int movie_pk){
-        return movieService.selectTimeByMovieTest(movie_pk);
+    public List<Map<String,Object>> selectTselectTimeByMovieDetail(@RequestParam(defaultValue = "49046") int movie_pk,
+                                                                   @RequestParam(defaultValue = "2022-11-09") String date){
+        return movieService.selectTimeByMovieDetail(movie_pk, date);
     }
 }
