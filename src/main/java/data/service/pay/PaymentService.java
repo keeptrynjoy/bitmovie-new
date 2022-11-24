@@ -45,11 +45,8 @@ public class PaymentService {
     @ToString
     @Getter
     private class PaymentInfo{
-        public int getAmount() {
-            return amount;
-        }
-
         private int amount;
+        private String status;
     }
 
 
@@ -116,8 +113,12 @@ public class PaymentService {
 
         Gson gson = new Gson();
 
+//        System.out.println(br.readLine());
+
         //json -> Object
         Response response = gson.fromJson(br.readLine(), Response.class);
+
+        System.out.println(response);
 
         br.close();//버퍼 닫기
         conn.disconnect();//HttpURLConnection 연결 끊기.
