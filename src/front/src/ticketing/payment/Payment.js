@@ -98,6 +98,14 @@ const Payment = (effect, deps) => {
 
     console.log('좌석보여줘',location.state.selected_seat);
 
+    // let selector=JSON.stringify(location.state.selected_seat);
+
+    let selector=location.state.selected_seat.join();
+
+
+    console.log('보자',selector);
+
+
     // IMP.request_pay(param, callback) 결제창 호출
     const requestPay = () => {
 
@@ -119,7 +127,7 @@ const Payment = (effect, deps) => {
                 {
                     pg: 'kakaopay',
                     // merchant_uid: `${now}_${userIdRef.current}`,
-                    merchant_uid: `${now}_${userId}`,
+                    merchant_uid: `${now}_${user_pk}`,
                     name: '제발결제제발',
                     // amount: finalPriceRef.current - usePoint,
                     amount: location.state.finalPay,
@@ -150,7 +158,7 @@ const Payment = (effect, deps) => {
                             payment_pk: rsp.merchant_uid,
                             // scrtime_pk,
                             scrtime_pk : location.state.movieData.time,
-                            book_seat_num : location.state.selected_seat,
+                            book_seat_num : selector,
                             book_the_name : location.state.obj2.the_name,
                             book_issu_date: date,
                             book_adult_cnt : location.state.adults,
