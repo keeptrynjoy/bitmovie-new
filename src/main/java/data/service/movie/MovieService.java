@@ -96,7 +96,7 @@ public class MovieService {
             //test
             System.out.println(maps.get(i).get("tim"));
 //            JSONArray tim = maps.get(i).get("tim");
-            
+
 //            System.out.println("pk"+maps.get(i).get("scrtime_pk"));
 
         }
