@@ -2,12 +2,16 @@ import React, {useState} from 'react';
 import moment from "moment/moment";
 import usePagination from "../../service/UsePagination";
 import {Pagination} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 function MovieLog(props) {
     const list = props.movie_log;
+    const navi = useNavigate();
     let [page, setPage] = useState(1);
     const PER_PAGE = 3;
 
+
+    console.log(list);
     const count = Math.ceil(list.length / PER_PAGE);
     const _DATA = usePagination(list, PER_PAGE);
 
@@ -28,7 +32,10 @@ function MovieLog(props) {
                                 <div className={"article-movie-info"}>
                                     <div className={"box-image"}>
                                         <span className={"thumb-image"}>
-                                            <img alt={""} src={`https://image.tmdb.org/t/p/w500${item.poster.split(",")[0]}`}/>
+                                            <img alt={""} src={`https://image.tmdb.org/t/p/w500${item.poster.split(",")[0]}`}
+                                                style={{cursor:"pointer"}} onClick={()=>{
+                                                    navi(`/movie/detail/${item.movie_pk}`);
+                                            }}/>
                                         </span>
                                     </div>
                                     <div className={"box-contents"}>

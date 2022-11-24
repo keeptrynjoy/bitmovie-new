@@ -51,7 +51,8 @@
             m.m_name AS title,
             m.m_enname AS engtitle,
             m.m_age_grd AS grade,
-            m.m_photo AS poster
+            m.m_photo AS poster,
+            m.movie_pk AS movie_pk
         FROM
             user_tb u JOIN payment_tb p ON u.user_pk = p.user_pk
             JOIN booking_tb b ON p.payment_pk = b.payment_pk
