@@ -29,7 +29,10 @@ public class UserService {
     public void insertUser (User user) {
         userRepository.insertUser(user);
     }
-    //회원가입 시 본인 인증
+    public int selectNickname (String u_nick) {
+        return userRepository.selectNickname(u_nick);
+    }
+    //본인 인증
     public void certifiedPhoneNumber(String u_phone, String cerNum) {
         String api_key = "NCSOX3D8XBNLOEGI";
         String api_secret = "XS5PNYO2EUDRLMH3I7NMVV478Z62KPRZ";

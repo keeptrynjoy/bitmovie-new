@@ -21,7 +21,7 @@ public class LoginService {
             u_name = loginRepository.selectName(user.getU_id()); //로그인 성공하면 이름 가져오기
             u_passDateDiff = loginRepository.selectPwUdtDate(user); //로그인 성공하면 비밀번호 변경 후 지난 기간 가져오기
         }
-        System.out.println(u_passDateDiff);
+//        System.out.println(u_passDateDiff);
         User userDto = new User();
         userDto.setLoginOk(loginOk);
         userDto.setU_name(u_name);

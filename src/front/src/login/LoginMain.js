@@ -50,7 +50,7 @@ function LoginMain(props) {
                         //             });
                         //     }
                         // })
-                        if(window.confirm("비밀번호를 변경 한지 30일이 지났습니다. 변경 하시겠습니까?"))
+                        if(window.confirm("비밀번호를 변경 한지 30일이 지났습니다. 변경 하시겠습니까? (취소하면 30일 연장됩니다.)"))
                         {
                             navi("/login/find");
                             return;
