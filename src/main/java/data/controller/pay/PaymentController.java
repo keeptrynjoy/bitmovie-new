@@ -52,6 +52,9 @@ public class PaymentController {
         Payment payment = mapper.treeToValue(object_node.get("payment"),Payment.class);
         Booking booking = mapper.treeToValue(object_node.get("booking"),Booking.class);
 
+        System.out.println("user_pk : "+ payment.getUser_pk());
+        System.out.println(booking);
+
         //일시가 9시간전으로 변환되는 오류때문에 9시간 추가.
         payment.setPay_date(payment.getPay_date().plusHours(9));
         booking.setBook_issu_date(booking.getBook_issu_date().plusHours(9));
@@ -75,22 +78,22 @@ public class PaymentController {
                 return new ResponseEntity<String>("[결제 취소] 사용 가능한 포인트가 부족합니다.", HttpStatus.BAD_REQUEST);
             }
 
-            String used_coupon = payment.getMycoupon_pk();
-
-            //4-1. 사용한 쿠폰 유효성 검사
-            try {
-                Coupon my_coupon = couponService.selectCouponState(used_coupon);
-                //4-2. 사용한 쿠폰 유효성 검사
-                if(my_coupon.getC_use_state()==1){
-                    //System.out.println(my_coupon.getC_use_state());
-                    paymentService.paymentCancel(token, payment.getImp_uid(), amount,"사용되었거나 유효기간이 지난 쿠폰 사용");
-                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("[결제 취소] 선택한 쿠폰은 이미 사용되었거나 유효기간이 지난 쿠폰입니다.");
-                }
-            } catch (NullPointerException e){
-                System.out.println("DB에 없는 쿠폰 번호 요청");
-                paymentService.paymentCancel(token, payment.getImp_uid(), amount,"유효하지 않은 쿠폰 사용");
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("[결제 취소] 선택한 쿠폰은 유효하지 않은 쿠폰입니다.");
-            }
+//            String used_coupon = payment.getMycoupon_pk();
+//
+//            //4-1. 사용한 쿠폰 유효성 검사
+//            try {
+//                Coupon my_coupon = couponService.selectCouponState(used_coupon);
+//                //4-2. 사용한 쿠폰 유효성 검사
+//                if(my_coupon.getC_use_state()==1){
+//                    //System.out.println(my_coupon.getC_use_state());
+//                    paymentService.paymentCancel(token, payment.getImp_uid(), amount,"사용되었거나 유효기간이 지난 쿠폰 사용");
+//                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("[결제 취소] 선택한 쿠폰은 이미 사용되었거나 유효기간이 지난 쿠폰입니다.");
+//                }
+//            } catch (NullPointerException e){
+//                System.out.println("DB에 없는 쿠폰 번호 요청");
+//                paymentService.paymentCancel(token, payment.getImp_uid(), amount,"유효하지 않은 쿠폰 사용");
+//                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("[결제 취소] 선택한 쿠폰은 유효하지 않은 쿠폰입니다.");
+//            }
 
             //5. 예매한 좌석 유효성 검사
             if(bookingService.reservedSeatCheck(booking)){
@@ -100,7 +103,7 @@ public class PaymentController {
 
             //6. 포인트 차감 및 쿠폰 사용 처리
             pointService.deductionPoint(payment);
-            couponService.updateCouponByPayment(1,used_coupon);
+//            couponService.updateCouponByPayment(1,used_coupon);
 
             //6. payment(결제) 데이터 저장
             paymentService.insertPaymentData(payment);

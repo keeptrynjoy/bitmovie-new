@@ -96,6 +96,7 @@ const Payment = (effect, deps) => {
     const {IMP} = window;
     IMP.init('imp02023053');
 
+    console.log('좌석보여줘',location.state.selected_seat);
 
     // IMP.request_pay(param, callback) 결제창 호출
     const requestPay = () => {
@@ -119,7 +120,7 @@ const Payment = (effect, deps) => {
                     pg: 'kakaopay',
                     // merchant_uid: `${now}_${userIdRef.current}`,
                     merchant_uid: `${now}_${userId}`,
-                    name: '결제테스트',
+                    name: '제발결제제발',
                     // amount: finalPriceRef.current - usePoint,
                     amount: location.state.finalPay,
                     // buyer_email: userEmailRef.current,
@@ -135,7 +136,7 @@ const Payment = (effect, deps) => {
 
                         const paymentData = {
                             payment_pk: rsp.merchant_uid,
-                            user_pk: userIdRef.current,
+                            user_pk: user_pk,
                             pay_type: rsp.pay_method,
                             pay_price: rsp.paid_amount,
                             pay_date: date,
@@ -147,12 +148,13 @@ const Payment = (effect, deps) => {
 
                         const bookingData = {
                             payment_pk: rsp.merchant_uid,
-                            scrtime_pk,
-                            book_seat_num,
-                            book_the_name,
+                            // scrtime_pk,
+                            scrtime_pk : location.state.movieData.time,
+                            book_seat_num : location.state.selected_seat,
+                            book_the_name : location.state.obj2.the_name,
                             book_issu_date: date,
-                            book_adult_cnt,
-                            book_youth_cnt
+                            book_adult_cnt : location.state.adults,
+                            book_youth_cnt : location.state.students
                         }
 
                         axios.post("http://localhost:8282/payment/complete",
