@@ -63,7 +63,8 @@ public class PaymentController {
         //System.out.println("토큰 : " + token);
 
         //2. 토큰으로 결제 완료된 주문 정보 호출하여 취소시 사용할 amount 선언
-        int amount = paymentService.paymentInfo(payment.getImp_uid(), token);
+        Map<String,Object> map = paymentService.paymentInfo(payment.getImp_uid(), token);
+        int amount = (int)map.get("amount");
         System.out.println("아임포트 amount : " + amount);
 
         try {
@@ -134,22 +135,30 @@ public class PaymentController {
 
         //유저고유키와 예매 고유키로 결제 고유키 및 아임포트 결제번호 조회
         Payment payment = paymentService.selectPayByUserAndBookPK(user,booking);
-//        System.out.println(payment);
 
         //아임포트 토큰 생성
         String token = paymentService.getToken();
         //System.out.println("토큰 : " + token);
 
-        //아임포트 결제취소
         paymentService.paymentCancel(token,payment.getImp_uid(),payment.getPay_price(),"결제 취소 정상 처리");
 
         //아임포트 결제 정상 취소 확인
-        paymentService.paymentInfo(payment.getImp_uid(), token);
-
+        Map<String,Object> map = paymentService.paymentInfo(payment.getImp_uid(), token);
+        String status = (String) map.get("status");
+//        System.out.println("결제 취소 결과 : "+status);
         // 정상적으로 이루어진 후 예매 취소
+        if(status.equals("cancelled")){
+
+            //결제 취소일자 입력
 
 
-        return ResponseEntity.ok("결제취소완료");
+            //예매내역 제거
+
+            return ResponseEntity.ok("결제 취소가 정상적으로 처리되었습니다.");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("결제 취소가 정상적으로 이루어지지 않았습니다.");
+        }
+
     }
 
     //리뷰 메크로 처리 프로그램

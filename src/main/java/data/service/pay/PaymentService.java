@@ -97,7 +97,7 @@ public class PaymentService {
         return token;
     }
 
-    public int paymentInfo(String imp_uid, String access_token) throws IOException {
+    public Map<String,Object> paymentInfo(String imp_uid, String access_token) throws IOException {
         HttpsURLConnection conn = null;
 
         //아임포트 결제정보 API 호출(결제번호)
@@ -123,8 +123,12 @@ public class PaymentService {
         br.close();//버퍼 닫기
         conn.disconnect();//HttpURLConnection 연결 끊기.
 
+        Map<String,Object> map = new HashMap<>();
 
-        return response.getResponse().getAmount();
+        map.put("amount",response.getResponse().getAmount());
+        map.put("status",response.getResponse().getStatus());
+
+        return map;
     }
 
 
@@ -161,7 +165,6 @@ public class PaymentService {
         json.addProperty("amount", amount);
         json.addProperty("checksum", amount);
 
-
         // stream 참고 : https://csw7432.tistory.com/entry/Java-Input-Output-Stream
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
 
@@ -172,7 +175,7 @@ public class PaymentService {
         bw.flush();
         bw.close();
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
+        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"utf-8"));
 
         br.close();
         conn.disconnect();
