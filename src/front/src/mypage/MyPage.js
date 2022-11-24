@@ -36,7 +36,13 @@ function MyPage(props) {
             return;
         }
         const formData = new FormData();
-        formData.append('image', e.target.files[0]);
+        formData.append('photoFile', e.target.files[0]);
+        formData.append("user_pk",user_pk);
+        const photoUrl = localStorage.url + "/mypage/uploadphoto";
+        axios.post(photoUrl,formData)
+            .then((res) => {
+                console.log(e.target.files[0].name);
+            })
         console.log(e.target.files[0].name);
     }, []);
 
