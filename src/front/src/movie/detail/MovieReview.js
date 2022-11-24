@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Rating} from "@mui/lab";
 import axios from "axios";
-import {Flag, Report} from "@material-ui/icons";
+import {Flag, Report, ThumbUp} from "@material-ui/icons";
 import Swal from "sweetalert2";
 
 function MovieReview(props) {
@@ -17,6 +17,10 @@ function MovieReview(props) {
     }
 
     const reportReview=()=>{
+        const data={
+            user_pk: sessionStorage.user_pk,
+            review_pk:review.review_pk
+        }
         if (sessionStorage.login_status==null) {
             Swal.fire({
                 icon:"warning",
@@ -24,10 +28,16 @@ function MovieReview(props) {
             });
             return;
         }
-        const data={
-            user_pk: sessionStorage.user_pk,
-            review_pk:review.review_pk
-        }
+        axios.post(`${localStorage.url}/user/selectReportYorN`,data)
+            .then((res)=>{
+                if(res.data){
+                    Swal.fire({
+                        icon:"warning",
+                        text:"이미 신고한 댓글 입니다"
+                    });
+                    return;
+                }
+            })
         const reportUrl = `${localStorage.url}/user/insertReport`;
         axios.post(reportUrl,data)
             .then((res)=>{
@@ -60,6 +70,10 @@ function MovieReview(props) {
                     <div className={"neoyong"}>
                         <div className={"review-text-content"}>
                             {review.revw_text}
+                        </div>
+                        <div className={"review-like"}>
+                            <ThumbUp color={"primary"}/>
+                            {review.count_like}
                         </div>
                         <div className={"review-star"}>
                             <Rating

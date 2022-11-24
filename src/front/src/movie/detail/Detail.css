@@ -212,6 +212,11 @@
     text-overflow: ellipsis;
 }
 
+.review-text-wrap .neoyong .review-like {
+    margin-top: 25px;
+    width: 30px;
+}
+
 .review-text-wrap .neoyong .review-star {
     display: table-cell;
     width: 70px;
@@ -266,8 +271,7 @@
 
 .menu-contents-div {
     width: 1500px;
-    height: 5000px;
-    border: 2px solid red;
+    height: 1500px;
 }
 
 .select-date-div {
