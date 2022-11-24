@@ -56,7 +56,8 @@ function MovieReview(props) {
         <div className={"review-items"}>
             <div className={"review-user-div"}>
                 <div className={"review-user-photo"}>
-                    {user_data.u_photo}
+                    <img className={"revie-profile-photo"} alt={"오류!"}
+                         src={`${localStorage.url}/image/${user_data.u_photo}`}/>
                 </div>
                 <div className={"review-user-name"}>
                     {user_data.u_nick}

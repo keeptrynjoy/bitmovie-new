@@ -137,11 +137,11 @@ public class PaymentController {
 //        System.out.println(payment);
 
         //아임포트 토큰 생성
-        String token = paymentService.getToken();
+        //String token = paymentService.getToken();
         //System.out.println("토큰 : " + token);
 
         //아임포트 결제취소
-        paymentService.paymentCancel(token,payment.getImp_uid(),payment.getPay_price(),"결제 취소 정상 처리");
+        //paymentService.paymentCancel(token,payment.getImp_uid(),payment.getPay_price(),"결제 취소 정상 처리");
 
         //아임포트 결제 정상 취소 확인
         paymentService.paymentInfo(payment.getImp_uid(), token);

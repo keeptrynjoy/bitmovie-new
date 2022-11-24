@@ -26,7 +26,6 @@
              FROM
                  payment_tb pay LEFT OUTER JOIN booking_tb book ON pay.payment_pk = book.payment_pk
                                 LEFT OUTER JOIN screentime_tb tim ON book.scrtime_pk = tim.scrtime_pk
-
              WHERE
                  #{now_date} >= pay.pay_date
                AND pay.pay_date > #{before_date}

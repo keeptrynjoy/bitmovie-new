@@ -4,6 +4,7 @@ import data.domain.movie.*;
 import data.repository.movie.*;
 import data.repository.user.MWishRepository;
 import lombok.RequiredArgsConstructor;
+import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -76,7 +77,7 @@ public class MovieService {
     }
 
     public List<Map<String,Object>> selectTimeByMovieTest(int movie_pk){
-        String date = "2022-11-21";
+        String date = "2022-11-09";
         Map<String, Object> map = new HashMap<>();
         map.put("movie_pk", movie_pk);
         map.put("date", date);
@@ -88,9 +89,18 @@ public class MovieService {
             int theater_pk = Integer.parseInt(theater.toString());
             map.put("theater_pk", theater_pk);
             List<Map<String, Object>> maps = joinTimeRepository.selectTimeByTheater(map);
+            System.out.println(maps.size());
             System.out.println("time"+maps);
+            theaters_list.get(i).put("scrren", maps);
+
+            //test
+            System.out.println(maps.get(i).get("tim"));
+//            JSONArray tim = maps.get(i).get("tim");
+
+//            System.out.println("pk"+maps.get(i).get("scrtime_pk"));
+
         }
 
-        return joinTimeRepository.selectTimeByMovieTest(map);
+        return theaters_list;
     }
 }

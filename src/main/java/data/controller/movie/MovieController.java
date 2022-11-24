@@ -52,7 +52,7 @@ public class MovieController {
     }
 
     @GetMapping("selectTimetest")
-    public List<Map<String,Object>> selectTimeTest(@RequestParam(defaultValue = "284054") int movie_pk){
+    public List<Map<String,Object>> selectTimeTest(@RequestParam(defaultValue = "49046") int movie_pk){
         return movieService.selectTimeByMovieTest(movie_pk);
     }
 }

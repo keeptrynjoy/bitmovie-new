@@ -6,6 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import axios from "axios";
 import {ScopedCssBaseline} from "@mui/material";
 import MyPageContents from "./MyPageContents";
+import Swal from "sweetalert2";
 
 function MyPage(props) {
     const p = useParams();
@@ -45,7 +46,11 @@ function MyPage(props) {
         const photoUrl = localStorage.url + "/mypage/uploadphoto";
         axios.post(photoUrl,formData)
             .then((res) => {
-                console.log(e.target.files[0].name);
+                Swal.fire({
+                    icon:"success",
+                    text:"프로필 사진 변경 성공!"
+                })
+                document.location.reload();
             })
         // console.log(e.target.files[0].name);
     }, []);
@@ -83,6 +88,7 @@ function MyPage(props) {
         <div className={"mypage-div"}>
             <div className={"upper-info-div"}>
                 <div className={"photo-div"}>
+
                     <img alt={"프로필 사진"} src={`${localStorage.url}/image/${data.u_photo}`} className={"profile-photo"}/>
                     <input type={"file"} hidden={true} id={"profile-photo"} onChange={onUploadImage}/>
                     <div className={"photo-fix-icon"} onClick={triggerCLick}>
