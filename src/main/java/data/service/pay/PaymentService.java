@@ -2,11 +2,8 @@ package data.service.pay;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import data.domain.movie.Movie;
-import data.domain.movie.Review;
+import data.domain.pay.Booking;
 import data.domain.pay.Payment;
-import data.repository.movie.MovieRepository;
-import data.repository.movie.ReviewRepository;
 import data.repository.pay.PaymentRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -56,7 +50,6 @@ public class PaymentService {
         }
 
         private int amount;
-
     }
 
 
@@ -66,7 +59,6 @@ public class PaymentService {
 
     public void insertPaymentData(Payment payment) {
         paymentRepository.insertPaymentData(payment);
-
     }
 
     public String getToken() throws IOException {
@@ -135,7 +127,7 @@ public class PaymentService {
     }
 
 
-    public void paymentCancle(String access_token, String imp_uid, int amount ,String reason) throws IOException {
+    public void paymentCancel(String access_token, String imp_uid, int amount , String reason) throws IOException {
 
         //HttpURLConnection 인스턴스 객체 생성
         HttpsURLConnection conn = null;
@@ -183,6 +175,14 @@ public class PaymentService {
 
         br.close();
         conn.disconnect();
+    }
+
+    public Payment selectPayByUserAndBookPK(int user, String booking_pk){
+
+        Map <String,Object> map = new HashMap<>();
+        map.put("user_pk",user);
+        map.put("booking_pk",booking_pk);
+        return paymentRepository.selectPayByUserAndBookPK(map);
     }
 
 //    private final MovieRepository movieRepository;

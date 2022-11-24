@@ -13,7 +13,7 @@
         SELECT * FROM movie_tb mt WHERE mt.m_sdate &lt;= now() order by m_name desc;
     </select>
 
-    <!-- 현재 예매되어 있는 좌석번호 조회-->
+    <!-- 상영시간기준 예매완료된 좌석 조회-->
     <select id="selectSeatNumData" resultType="String" parameterType="int">
         SELECT group_concat(book_seat_num)
             AS seat_num

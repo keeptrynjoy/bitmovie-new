@@ -5,6 +5,8 @@ import data.domain.user.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @Mapper
 public interface CouponRepository {
@@ -14,4 +16,7 @@ public interface CouponRepository {
     public void updateCouponState (); //쿠폰 사용기간 만료되면 사용불가
     public int selectUserKey (); //회원가입 후 유저키 조회
     public void insertJoinCoupon (Coupon coupon); //가입 쿠폰 생성
+    public Coupon selectCouponState(String coupon_pk);
+
+    public void updateCouponByPayment(Map<String, Object> map);
 }

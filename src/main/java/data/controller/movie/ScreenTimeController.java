@@ -37,7 +37,7 @@ public class ScreenTimeController {
         ScreenTime  screenTime = ScreenTime.builder()
                                     .movie_pk(movie)
                                     .theater_pk(theater)
-                                   .scrt_date(date)
+                                    .scrt_date(date)
                                     .build();
 
         return ResponseEntity.ok(screenTimeService.selectScrtInfo(screenTime));
