@@ -61,12 +61,27 @@ const TimeTable = (props) => {
 
 
 
-
     console.log('정보가져옴',table);
 
     return (
         <div>
-            <button onClick={get}>저장해보자</button>
+
+            {
+
+                table.length==0?
+
+                "현재 상영중인 리스트가 존재하지 않습니다"
+
+                :
+
+                table.map((list,i)=>(
+                    <div>
+                        {list.m_name}
+                    </div>
+                ))
+            }
+
+
             {/*{table.map((list,i)=>(*/}
             {/*    <div key={i}>*/}
             {/*        <button key={i} value={i+1} className={"time-table"} name={"time"} onClick={changeData}>상영시간표</button>*/}
