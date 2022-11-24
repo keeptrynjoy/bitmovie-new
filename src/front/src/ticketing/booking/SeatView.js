@@ -13,16 +13,21 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     const [students, setStudents]= useState(0);
     const [selected_seat, setSelected_seat]=useState([]);
     const alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-    const [price,setPrice]=useState(0);
+    const [aprice,setAprice]=useState(0);
+    const [sprice,setSprice]=useState(0);
+    const [finalPay,setFinalPay]=useState(0);
+
 
 
     // console.log('state확인용',location.state.input);
 
     // console.log("?",location.state);
-
-    console.log('성인 수',adults);
-    console.log('학생 수',students);
-    console.log('좌석 리스트',selected_seat);
+    // console.log('좌석 리스트',selected_seat);
+    //
+    //
+    //
+    // console.log('학생수',students);
+    // console.log('성인수',adults);
 
     const reset=()=>{
         window.location.reload();
@@ -32,18 +37,47 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     const obj = JSON.parse(movieData.movie);
     const obj2 = JSON.parse(movieData.location);
 
-// console.log('뭐야',obj);
-// console.log('뭐야2',obj2);
-// console.log('뭐야3',movieData);
+console.log('뭐야',obj);
+console.log('뭐야2',obj2);
+console.log('뭐야3',movieData);
 
 
-    const saveGo=()=>{
+    // console.log('성인금액',aprice);
+    // console.log('학생금액',sprice);
+
+
+   //  const letGo=()=>{
+   //      navi('/ticketing/payment', {
+   //          state: {obj, obj2, adults, students, selected_seat, finalPay : (sprice * 8000) + (aprice * 10000)}
+   //
+   //      })
+   //  }
+   //
+   //
+   // const saveGo=() => {
+   //
+   //      let totalPrice =(sprice * 8000) + (aprice * 10000);
+   //
+   //     setFinalPay(totalPrice);
+   //
+   //
+   //      letGo();
+   //
+   //  }
+
+    const saveGo=() => {
+
+        const totalPrice = (sprice * 8000) + (aprice * 10000);
 
         navi('/ticketing/payment', {
-            state : {obj,obj2,adults, students, selected_seat}
-
+            state: {obj, obj2, adults, students, selected_seat, finalPay: totalPrice ,movieData}
         })
     }
+
+
+    // console.log('얼마',finalPay);
+
+
 
     // navi('/ticketing/payment',{
     //     state :
@@ -53,6 +87,9 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
     // console.log("현재개수",totalp);
 
+
+    //성인
+
     const handleOnchangePerson = (e) => {
 
         const value = e.value;
@@ -61,13 +98,17 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
         document.getElementById('result').innerText = e.target.value;
         setTotalp(parseInt(e.target.value) + parseInt(document.getElementById('student_select').value));
-        setAdults(parseInt(e.target.value) + parseInt(document.getElementById('student_select').value));
+        // setAdults(parseInt(e.target.value) + parseInt(document.getElementById('adult_select').value));
+        setAdults(parseInt(document.getElementById('adult_select').value));
 
+        setAprice(parseInt(document.getElementById('adult_select').value));
 
 
 
     }
 
+
+    //학생
 
     const handleOnchangePerson2 = (e) => {
         const value = e.value;
@@ -76,8 +117,11 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
         document.getElementById('result2').innerText = e.target.value;
         setTotalp(parseInt(e.target.value) + parseInt(document.getElementById('adult_select').value));
-        setStudents(parseInt(e.target.value) + parseInt(document.getElementById('student_select').value));
+        // setStudents(parseInt(e.target.value) + parseInt(document.getElementById('student_select').value));
+        setStudents(parseInt(document.getElementById('student_select').value));
+        setSprice(parseInt(document.getElementById('student_select').value));
     }
+
 
 
 
@@ -110,7 +154,6 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                 text: "인원 확인 부탁드립니다"
             })
             tg.checked=false;
-            console.log(1);
             setSelected_seat([
                 ...selected_seat.slice(0,selected_seat.length-1)
             ])

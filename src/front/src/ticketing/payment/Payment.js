@@ -96,6 +96,7 @@ const Payment = (effect, deps) => {
     const {IMP} = window;
     IMP.init('imp02023053');
 
+
     // IMP.request_pay(param, callback) 결제창 호출
     const requestPay = () => {
 
@@ -116,12 +117,17 @@ const Payment = (effect, deps) => {
             IMP.request_pay(
                 {
                     pg: 'kakaopay',
-                    merchant_uid: `${now}_${userIdRef.current}`,
+                    // merchant_uid: `${now}_${userIdRef.current}`,
+                    merchant_uid: `${now}_${userId}`,
                     name: '결제테스트',
-                    amount: finalPriceRef.current - usePoint,
-                    buyer_email: userEmailRef.current,
-                    buyer_name: userNameRef.current,
-                    buyer_tel: userPhoneRef.current,
+                    // amount: finalPriceRef.current - usePoint,
+                    amount: location.state.finalPay,
+                    // buyer_email: userEmailRef.current,
+                    buyer_email: sessionStorage.u_id,
+                    // buyer_name: userNameRef.current,
+                    buyer_name: sessionStorage.u_name,
+                    // buyer_tel: userPhoneRef.current,
+                    buyer_tel: dbData.u_phone,
                     buyer_addr: "",
                 },(rsp) => {
                     // callback
@@ -166,19 +172,19 @@ const Payment = (effect, deps) => {
             );
     }
 
-    const createSeatNum = ()=>{
-        const arr = [];
-        for(let i = 65; i <= 90; i++){
-            let seatNum="";
-            for(let j= 1; j<10; j++) {
-                seatNum += String.fromCharCode(i);
-                seatNum += j;
-                arr.push(<option key={seatNum} value={seatNum}>{seatNum}</option>);
-                seatNum="";
-            }
-        }
-        return arr;
-    }
+    // const createSeatNum = ()=>{
+    //     const arr = [];
+    //     for(let i = 65; i <= 90; i++){
+    //         let seatNum="";
+    //         for(let j= 1; j<10; j++) {
+    //             seatNum += String.fromCharCode(i);
+    //             seatNum += j;
+    //             arr.push(<option key={seatNum} value={seatNum}>{seatNum}</option>);
+    //             seatNum="";
+    //         }
+    //     }
+    //     return arr;
+    // }
 
 
     //db에서 유저정보 받아오자
@@ -203,23 +209,26 @@ const Payment = (effect, deps) => {
 
 
 
-    console.log(dbData);
+    // console.log(dbData);
+    // console.log(location.state);
+
 
     return (
         <>
+            <div style={{width:'500px', height:'600px', border:'1px solid gray', margin:'0 auto', justifyContent:'center', display:'flex'}}>
             <div>
                 <h1>예매정보</h1>
                 좌석번호&nbsp;
-                <select value={book_seat_num} onChange={(e)=>{
-                    setBookSeatNum(e.target.value)
-                }}>{createSeatNum()}
-                    defaultValue={location.state.selected_seat}
-                </select>
+                <input type={'text'} onChange={(e)=>(setBookSeatNum(e.target.value))}
+                       defaultValue={location.state.selected_seat}></input>
+
                 <br/>
                 상영시간표 고유키(int)
                 <input type={'number'}  onChange={(e) => (
                     setScrTimePk(e.target.value)
-                )}/><br/>
+                )}
+                defaultValue={location.state.movieData.time}
+                /><br/>
                 극장명(String)
                 <input type={'text'}  onChange={(e) => (
                     setBookTheName(e.target.value)
@@ -227,13 +236,13 @@ const Payment = (effect, deps) => {
                        defaultValue={location.state.obj2.the_name}
                 />
                 <br/>
-                일반수(int)
+                성인(₩10,000)
                 <input type={'number'} onChange={(e) => (
                     setBookAdultCnt(e.target.value)
                 )}defaultValue={location.state.adults}
                 />
                 <br/>
-                청소년수(int)
+                청소년(₩8,000)
                 <input type={'number'}onChange={(e) => (
                     setBookYouthCnt(e.target.value)
                 )}
@@ -261,7 +270,9 @@ const Payment = (effect, deps) => {
                 결제금액(int)
                 <input type={'number'} ref={finalPriceRef}onChange={(e) => (
                     finalPriceRef.current = e.target.value
-                )}/><br/>
+                )}
+                defaultValue={location.state.finalPay}
+                /><br/>
                 구매자 이름(String)
                 <input type={'text'} ref={userNameRef}  onChange={(e) => (
                     userNameRef.current = e.target.value
@@ -280,8 +291,10 @@ const Payment = (effect, deps) => {
                 /><br/>
 
             </div>
-
-            <button onClick={requestPay}>결제하기</button>
+                <div style={{alignItems:'center', display:'flex', justifyContent:'center',marginTop:'30px'}}>
+                <button onClick={requestPay} style={{backgroundColor:'white', border:'1px solid gray'}}>결제하기</button>
+                </div>
+            </div>
         </>
     );
 }
