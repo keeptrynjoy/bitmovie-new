@@ -13,6 +13,7 @@ function JoinInfo(props) {
     const email=props.email;
     const [passwordtwo,setPasswordtwo]=useState("");
     const [boolpw2,setBoolpw2]=useState(false);
+    const [boolhp,setBoolhp]=useState(false);
 
     //입력할 데이터폼
     const [input,setInput] = useState({
@@ -24,7 +25,7 @@ function JoinInfo(props) {
         u_birth:"",
         u_gender:"",
         checkSMS:"",
-        randomNum:""
+        randomNum:"0"
     })
 
     //onSubmit전에 null값 체크
@@ -107,6 +108,14 @@ function JoinInfo(props) {
             return;
         }
         
+        if(!boolhp)
+        {
+            Swal.fire({
+                icon:"warning",
+                text:"휴대전화 인증을 완료 해주세요"
+            })
+        }
+        
         let url = localStorage.url + "/user/insert";
         axios.post(url, input)
             .then(res => {
@@ -165,20 +174,41 @@ function JoinInfo(props) {
     }
 
     const sendSMS = () => {
+        const hppattern = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
+        if(!hppattern.test(input.u_phone))
+        {
+            Swal.fire({
+                icon:"warning",
+                text:"전화번호는 \"-\" 을 포함해 휴대전화 형식에 맞게 입력해주세요"
+            })
+            return;
+        }
+
         let url = localStorage.url + "/user/sendSMS?u_phone=" + input.u_phone;
         console.log(input.u_phone);
         axios.get(url)
             .then(res => {
                 console.log("ph: "+res.data);
                 input.randomNum = res.data;
+                Swal.fire({
+                    icon:"success",
+                    text:"인증 번호 발송 완료!"
+                })
             })
     }
 
     const checkSMS = () => {
-        if (input.randomNum == input.checkSMS) {
-            alert("휴대폰 인증이 정상적으로 완료되었습니다.");
+        if (input.randomNum === input.checkSMS) {
+            setBoolhp(true);
+            Swal.fire({
+                icon:"success",
+                text:"휴대폰 인증이 정상적으로 완료되었습니다."
+            })
         } else {
-            alert("인증번호가 올바르지 않습니다.")
+            Swal.fire({
+                icon:"error",
+                text:"인증번호가 올바르지 않습니다."
+            })
         }
     }
 
@@ -291,30 +321,37 @@ function JoinInfo(props) {
                     </tr>
                     <tr>
                         <th style={{width:'130px',backgroundColor:'#ddd'}}>전화번호</th>
-                        <td>
-                            <input type={'text'} className={'form-control'} style={{marginLeft:"20px",width:'300px'}}
+                        <td style={{display:"flex"}}>
+                            <input type={'text'} className={'form-control'} style={{marginLeft:"20px",width:'200px'}}
                                    name={"u_phone"} value={input.u_phone} onChange={changeData}/>
+                            <Button variant={"outlined"} color={"success"}
+                                    sx={{marginLeft:"30px"}}
+                                    onClick={() => {
+                                        sendSMS();
+                                    }}>
+                                전송
+                            </Button>
                         </td>
-                        <button type={"button"} variant={"outlined"} color={"success"}
-                                onClick={() => {
-                                    sendSMS();
-                                    alert("인증번호 발송 완료!!");
-                                }}>
-                            인증번호 전송
-                        </button>
                     </tr>
                     <tr>
                         <th style={{width:'130px',backgroundColor:'#ddd'}}>인증번호</th>
-                        <td>
-                            <input type={'text'} className={'form-control'} style={{marginLeft:"20px",width:'300px'}}
+                        <td style={{display:"flex"}}>
+                            <input type={'text'} className={'form-control'} style={{marginLeft:"20px",width:'200px'}}
                                    name={"checkSMS"} onChange={changeData}/>
+                            <Button variant={"outlined"} color={"success"}
+                                    sx={{marginLeft:"30px"}}
+                                    onClick={() => {
+                                        checkSMS();
+                                    }}>
+                                확인
+                            </Button>
+                            {
+                                !boolhp?
+                                    <CloseIcon style={{color:"red", float:"right", marginTop:"7px", marginLeft:"7px"}}/>
+                                    :
+                                    <CheckIcon style={{color:"green", float:"right", marginTop:"7px", marginLeft:"7px"}}/>
+                            }
                         </td>
-                        <button type={"button"} variant={"outlined"} color={"success"}
-                                onClick={() => {
-                                    checkSMS();
-                                }}>
-                            인증번호 확인
-                        </button>
                     </tr>
                     </tbody>
                 </table>
