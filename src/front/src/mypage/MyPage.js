@@ -43,7 +43,7 @@ function MyPage(props) {
             .then((res) => {
                 console.log(e.target.files[0].name);
             })
-        console.log(e.target.files[0].name);
+        // console.log(e.target.files[0].name);
     }, []);
 
     const triggerCLick=()=>{
@@ -61,7 +61,7 @@ function MyPage(props) {
         <div className={"mypage-div"}>
             <div className={"upper-info-div"}>
                 <div className={"photo-div"}>
-                    <img alt={"프로필 사진"} src={photo} className={"profile-photo"}/>
+                    <img alt={"프로필 사진"} src={`../webapp/image/${data.u_photo}`} className={"profile-photo"}/>
                     <input type={"file"} hidden={true} id={"profile-photo"} onChange={onUploadImage}/>
                     <div className={"photo-fix-icon"} onClick={triggerCLick}>
                         <EditIcon/>

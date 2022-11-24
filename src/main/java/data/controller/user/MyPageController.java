@@ -76,7 +76,7 @@ public class MyPageController {
     }
     //프로필 사진 업로드
     @PostMapping("/uploadphoto")
-    public void updateUserPhoto (@RequestBody int user_pk, MultipartFile photoFile, HttpServletRequest request) {
+    public void updateUserPhoto (int user_pk, MultipartFile photoFile, HttpServletRequest request) {
         User user = myPageService.selectUser(user_pk);
         System.out.println(user_pk);
         System.out.println(photoFile);
