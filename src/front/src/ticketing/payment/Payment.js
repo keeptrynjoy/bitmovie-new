@@ -96,6 +96,7 @@ const Payment = (effect, deps) => {
     const {IMP} = window;
     IMP.init('imp02023053');
 
+
     // IMP.request_pay(param, callback) 결제창 호출
     const requestPay = () => {
 
@@ -116,12 +117,17 @@ const Payment = (effect, deps) => {
             IMP.request_pay(
                 {
                     pg: 'kakaopay',
-                    merchant_uid: `${now}_${userIdRef.current}`,
+                    // merchant_uid: `${now}_${userIdRef.current}`,
+                    merchant_uid: `${now}_${userId}`,
                     name: '결제테스트',
-                    amount: finalPriceRef.current - usePoint,
-                    buyer_email: userEmailRef.current,
-                    buyer_name: userNameRef.current,
-                    buyer_tel: userPhoneRef.current,
+                    // amount: finalPriceRef.current - usePoint,
+                    amount: location.state.finalPay,
+                    // buyer_email: userEmailRef.current,
+                    buyer_email: sessionStorage.u_id,
+                    // buyer_name: userNameRef.current,
+                    buyer_name: sessionStorage.u_name,
+                    // buyer_tel: userPhoneRef.current,
+                    buyer_tel: dbData.u_phone,
                     buyer_addr: "",
                 },(rsp) => {
                     // callback
