@@ -172,19 +172,19 @@ const Payment = (effect, deps) => {
             );
     }
 
-    const createSeatNum = ()=>{
-        const arr = [];
-        for(let i = 65; i <= 90; i++){
-            let seatNum="";
-            for(let j= 1; j<10; j++) {
-                seatNum += String.fromCharCode(i);
-                seatNum += j;
-                arr.push(<option key={seatNum} value={seatNum}>{seatNum}</option>);
-                seatNum="";
-            }
-        }
-        return arr;
-    }
+    // const createSeatNum = ()=>{
+    //     const arr = [];
+    //     for(let i = 65; i <= 90; i++){
+    //         let seatNum="";
+    //         for(let j= 1; j<10; j++) {
+    //             seatNum += String.fromCharCode(i);
+    //             seatNum += j;
+    //             arr.push(<option key={seatNum} value={seatNum}>{seatNum}</option>);
+    //             seatNum="";
+    //         }
+    //     }
+    //     return arr;
+    // }
 
 
     //db에서 유저정보 받아오자
