@@ -37,5 +37,4 @@
           AND scrt.theater_pk=#{theater_pk}
           AND scrt.scrt_date=#{scrt_date};
     </select>
-
 </mapper>

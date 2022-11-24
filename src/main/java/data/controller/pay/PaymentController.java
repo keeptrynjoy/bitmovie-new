@@ -134,7 +134,7 @@ public class PaymentController {
 
         //유저고유키와 예매 고유키로 결제 고유키 및 아임포트 결제번호 조회
         Payment payment = paymentService.selectPayByUserAndBookPK(user,booking);
-        System.out.println(payment);
+//        System.out.println(payment);
 
         //아임포트 토큰 생성
         String token = paymentService.getToken();
@@ -144,7 +144,7 @@ public class PaymentController {
         paymentService.paymentCancel(token,payment.getImp_uid(),payment.getPay_price(),"결제 취소 정상 처리");
 
         //아임포트 결제 정상 취소 확인
-
+        paymentService.paymentInfo(payment.getImp_uid(), token);
 
         // 정상적으로 이루어진 후 예매 취소
 
