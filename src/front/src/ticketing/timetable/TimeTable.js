@@ -67,10 +67,11 @@ const TimeTable = (props) => {
         <div>
 
             {
-
-                table.length==0?
-
-                "현재 상영중인 리스트가 존재하지 않습니다"
+                table &&
+                // table[1]!==null && table[?
+                // input.length==5 && table.length==0?
+                input.location != "" && input.movie != "" && table.length==0 ?
+                    <p>"현재 상영중인 리스트가 존재하지 않습니다"</p>
 
                 :
 
