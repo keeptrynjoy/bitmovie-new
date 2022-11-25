@@ -21,7 +21,6 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     const [bookedSeat,setBookedSeat]=useState("");
 
 
-
     // console.log('state확인용',location.state.input);
 
     // console.log("?",location.state);
@@ -86,7 +85,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
             const totalPrice = (sprice * 8000) + (aprice * 10000);
 
             navi('/ticketing/payment', {
-                state: {obj, obj2, obj3, adults, students, selected_seat, finalPay: totalPrice, movieData}
+                state: {obj, obj2, obj3, adults, students, selected_seat, finalPay: totalPrice, movieData, coupon}
             })
         }else {
             Swal.fire({
@@ -115,10 +114,13 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
         axios.get(`http://localhost:8282/payment/coupon?user_pk=${user_pk}`)
             .then((res) => {
                 setCoupon(res.data);
+                // console.log(res.data);
             }).catch((error) => {
             console.log('쿠폰이 존재하지 않아요')
         });
     }
+
+
 
     // console.log('얼마',finalPay);
 
@@ -257,7 +259,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
             ])
         }
     },[selected_seat]);
-
+    console.log(coupon);
     return (
         <div className={'seatchoose'}>
             <h1>인원 및 좌석선택</h1>

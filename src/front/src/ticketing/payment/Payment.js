@@ -217,28 +217,29 @@ const Payment = (effect, deps) => {
 
     useEffect(()=>{
         comeDb();
+        take();
     },[])
 
 
-    // console.log('db정보',dbData);
+    console.log('db정보',dbData);
     // console.log("쿠폰이다",coupon[0].c_amount);
+    console.log('???',coupon);
+    // 쿠폰 받아오기
+    const take=()=> {
+        axios.get(`http://localhost:8282/payment/coupon?user_pk=${user_pk}`)
+            .then((res) => {
+                setCoupon(res.data);
+                // console.log('쿠폰',res.data);
+            }).catch((error) => {
+            console.log('쿠폰이 존재하지 않아요')
+        });
+    }
 
-    //쿠폰 받아오기
-    // const take=()=> {
-    //     axios.get(`http://localhost:8282/payment/coupon?user_pk=${user_pk}`)
-    //         .then((res) => {
-    //             setCoupon(res.data);
-    //             // console.log('쿠폰',res.data);
-    //         }).catch((error) => {
-    //         console.log('쿠폰이 존재하지 않아요')
-    //     });
-    // }
 
+    console.log(dbData);
+    console.log(location.state);
 
-    // console.log(dbData);
-    // console.log(location.state);
-
-  // console.log('쿠폰',coupon);
+  console.log('쿠폰',coupon);
     return (
         <>
             <div style={{width:'500px', height:'600px', border:'1px solid gray', margin:'0 auto', justifyContent:'center', display:'flex'}}>
@@ -246,33 +247,33 @@ const Payment = (effect, deps) => {
                 <h1>예매정보</h1>
                 좌석번호&nbsp;
                 <input type={'text'} onChange={(e)=>(setBookSeatNum(e.target.value))}
-                       defaultValue={location.state.selected_seat}></input>
+                       disabled      defaultValue={location.state.selected_seat}></input>
 
                 <br/>
                 상영시간표 고유키(int)
                 <input type={'number'}  onChange={(e) => (
                     setScrTimePk(e.target.value)
                 )}
-                defaultValue={timePk}
+                       disabled defaultValue={timePk}
                 /><br/>
                 극장명(String)
                 <input type={'text'}  onChange={(e) => (
                     setBookTheName(e.target.value)
                 )}
-                       defaultValue={location.state.obj2.the_name}
+                       disabled defaultValue={location.state.obj2.the_name}
                 />
                 <br/>
                 성인(₩10,000)
                 <input type={'number'} onChange={(e) => (
                     setBookAdultCnt(e.target.value)
-                )}defaultValue={location.state.adults}
+                )}defaultValue={location.state.adults} disabled
                 />
                 <br/>
                 청소년(₩8,000)
                 <input type={'number'}onChange={(e) => (
                     setBookYouthCnt(e.target.value)
                 )}
-                       defaultValue={location.state.students}
+                       defaultValue={location.state.students} disabled
                 />
                 <br/>
             </div>
@@ -284,7 +285,7 @@ const Payment = (effect, deps) => {
                 <input type={'text'} ref={userIdRef} onChange={(e) => (
                     userIdRef.current = e.target.value
                 )}
-                       defaultValue={user_pk}
+                       defaultValue={user_pk} disabled
                 />
                 <br/>
                 사용가능 잔여포인트: {dbData.u_point}
@@ -293,40 +294,54 @@ const Payment = (effect, deps) => {
                 )}
 
                 /> <br/><br/>
-                <select  type={'number'}>
-                <option>
-                    쿠폰선택
-                </option>
-                    <option>
-                        {/*defaultValue={coupon[0].c_amount}*/}
-                    </option>
-                    <option>
-                        {/*defaultValue={coupon[0].c_amount}*/}
-                    </option>
+                보유한 쿠폰<br/>
+                <select type={'number'}>
+                    {coupon &&
+                    coupon.map((list,i)=>(
+
+
+                        <option key={i}>
+                            {list.c_amount}
+                        </option>
+
+                    ))
+                    }
                 </select>
-                    <br/><br/>
+                <br/>
+                {/*<select  type={'number'}>*/}
+                {/*<option>*/}
+                {/*    쿠폰선택*/}
+                {/*</option>*/}
+                {/*    <option>*/}
+                {/*        /!*defaultValue={coupon[0].c_amount}*!/*/}
+                {/*    </option>*/}
+                {/*    <option>*/}
+                {/*        /!*defaultValue={coupon[0].c_amount}*!/*/}
+                {/*    </option>*/}
+                {/*</select>*/}
+                {/*    <br/><br/>*/}
 
                 결제금액(int)
                 <input type={'number'} ref={finalPriceRef}onChange={(e) => (
                     finalPriceRef.current = e.target.value
                 )}
-                defaultValue={location.state.finalPay}
+                defaultValue={location.state.finalPay} disabled
                 /><br/>
                 구매자 이름(String)
                 <input type={'text'} ref={userNameRef}  onChange={(e) => (
                     userNameRef.current = e.target.value
-                )} defaultValue={sessionStorage.u_name}/><br/>
+                )} defaultValue={sessionStorage.u_name} disabled /><br/>
                 구매자 연락처
                 <input type={'text'} ref={userPhoneRef}  onChange={(e) => (
                     userPhoneRef.current = e.target.value
                 )}
-                       defaultValue={dbData.u_phone}
+                       defaultValue={dbData.u_phone} disabled
                 /><br/>
                 구매자 이메일
                 <input type={'email'} ref={userEmailRef}  onChange={(e) => (
                     userEmailRef.current = e.target.value
                 )}
-                defaultValue={sessionStorage.u_id}
+                defaultValue={sessionStorage.u_id} disabled
                 /><br/>
 
             </div>
