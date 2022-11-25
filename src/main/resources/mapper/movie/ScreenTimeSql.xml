@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.repository.movie.ScreenTimeRepository">
-    <insert id="insertScrTime" parameterType="screenTime">
-        INSERT INTO screentime_tb VALUES
-               (null,#{movie_pk},#{scrt_date},#{scrt_stime},#{scrt_etime})
-    </insert>
+
+<!--    <insert id="insertScrTime" parameterType="screenTime">-->
+<!--        INSERT INTO screentime_tb VALUES-->
+<!--               (null,#{movie_pk},#{scrt_date},#{scrt_stime},#{scrt_etime})-->
+<!--    </insert>-->
     <select id="selectScrTimeByScreen" resultType="screenTime" parameterType="int">
         SELECT * FROM screentime_tb WHERE screen_pk=#{screen_pk}
     </select>

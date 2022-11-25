@@ -29,11 +29,6 @@
         WHERE movie_pk = #{movie_pk}
     </update>
 
-    <!-- DB에 저장된 영화 PK 전부 출력 -->
-    <select id="selectTotalMovie" resultType="movie">
-        SELECT * FROM movie_tb WHERE m_sdate &lt; now();
-    </select>
-
     <!--  영화 상영중인지 여부 확인  -->
     <select id="selectIngOrNot" parameterType="Map" resultType="int">
         SELECT count(*) FROM movie_tb WHERE movie_pk = #{movie_pk} AND #{date} > m_sdate  AND m_edate > #{date}
