@@ -168,6 +168,11 @@ public class PaymentController {
         }
 
     }
+    //쿠폰 조회
+    @GetMapping("/coupon")
+    public Coupon selectCoupon (int user_pk) {
+        return couponService.selectCoupon(user_pk);
+    }
 
     //리뷰 메크로 처리 프로그램
 //    @GetMapping("/review_macro")

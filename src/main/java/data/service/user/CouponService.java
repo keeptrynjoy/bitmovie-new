@@ -84,6 +84,10 @@ public class CouponService {
             couponRepository.insertJoinCoupon(coupon); //가입한 회원에게 생성된 쿠폰 넣기
         }
     }
+    //쿠폰 조회
+    public Coupon selectCoupon (int user_pk) {
+        return couponRepository.selectCoupon(user_pk);
+    }
 
     public Coupon selectCouponState(String coupon_pk){
         return couponRepository.selectCouponState(coupon_pk);

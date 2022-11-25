@@ -27,6 +27,11 @@
     <update id="updateCouponState">
         UPDATE coupon_tb SET c_use_state = 1 WHERE c_exp_date = CURDATE();
     </update>
+    <!--쿠폰 조회-->
+    <select id="selectCoupon" parameterType="int" resultType="Coupon">
+        SELECT coupon_pk, c_class, c_amount, c_issue_date, c_exp_date
+        FROM coupon_tb WHERE user_pk = #{user_pk} AND c_use_state = 0
+    </select>
     <!-- 쿠폰 보유 및 사용 여부 조회 -->
     <select id="selectCouponState" resultType="coupon" parameterType="String">
         SELECT coupon_pk,c_use_state FROM coupon_tb WHERE coupon_pk = #{coupon_pk};
