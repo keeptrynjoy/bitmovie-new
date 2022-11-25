@@ -16,7 +16,7 @@ public interface JoinTimeRepository {
 
     public List<JoinTime> testMovieTime(Map<String, Object> map);           // 테스트 중
 
-    public List<JoinTime> selectScrtFirstInfo(ScreenTime screenTime);
+    public List<JoinTime> selectScrtForBook(ScreenTime screenTime);
 
     public List<Map<String,Object>> selectTheaterByTime(Map<String, Object> map);       //영화 상세 - 상영 시간표 - 영화,날짜에 따른 극장정보반환
 
