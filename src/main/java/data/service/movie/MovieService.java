@@ -26,7 +26,7 @@ public class MovieService {
     private final MWishRepository mWishRepository;
     private final JoinTimeRepository joinTimeRepository;
     private final LikeRevwRepository likeRevwRepository;
-    
+
 
     public List<JoinMovie> selectMovieList(String order_stand, String BorA, int user_pk) {
 //        System.out.println(order_stand);
@@ -53,7 +53,11 @@ public class MovieService {
             int wish = mWishRepository.selectWishCnt(movie_pk);
             data.get(i).setWish_cnt(wish);
             // 영화 좋아요 선택 유무 정보 저장
-
+            Map<String, Object> tmepmap = new HashMap<>();
+            tmepmap.put("movie_pk", movie_pk);
+            tmepmap.put("user_pk", user_pk);
+            boolean mWishYorN = mWishRepository.mWishYorN(tmepmap);
+            data.get(i).setMwhishYorN(mWishYorN);
 
         }
         return data;

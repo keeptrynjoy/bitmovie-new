@@ -56,7 +56,6 @@
         GROUP BY tim.scrtime_pk;
     </select>
 
-
     <!--  영화 상영 시간표 - 영화,극장,날짜에따라 반응  테스트중-->
     <select id="selectTimeByClick" parameterType="Map" resultType="JoinTime">
         SELECT tim.screen_pk,
