@@ -142,7 +142,7 @@ const Payment = (effect, deps) => {
                 merchant_uid: `${now}_${user_pk}`,
                 name: '제발결제제발',
                 // amount: finalPriceRef.current - usePoint,
-                amount: location.state.finalPay,
+                amount: {final},
                 // buyer_email: userEmailRef.current,
                 buyer_email: sessionStorage.u_id,
                 // buyer_name: userNameRef.current,
@@ -160,7 +160,7 @@ const Payment = (effect, deps) => {
                         pay_type: rsp.pay_method,
                         pay_price: rsp.paid_amount,
                         pay_date: date,
-                        mycoupon_pk: 'N',
+                        coupon_pk: '',
                         pay_use_point: usePoint,
                         pay_state: rsp.status,
                         imp_uid: rsp.imp_uid
