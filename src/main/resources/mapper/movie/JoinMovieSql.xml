@@ -6,7 +6,7 @@
     <select id="selectMovieList" parameterType="Map" resultType="JoinMovie">
         SELECT
             mv.movie_pk,
-            mv.m_name,
+            mv.m_name,됨
             mv.m_type,
             mv.m_sdate,
             mv.m_edate,
