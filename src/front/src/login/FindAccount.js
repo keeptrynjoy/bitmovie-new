@@ -24,21 +24,28 @@ function FindAccount(props) {
             .then((res)=>{
                 Swal.fire({
                     icon:"info",
-                    text:`${res.data}`
+                    text:`아이디 : ${res.data}`
                 })
             })
     }
 
     const findPwSubmit=(e)=>{
         e.preventDefault();
-        const findPwUrl = localStorage.url + "/user/findpass?u_id=" + findPwInputId + "&u_phone=" + findPwInputHp;
-        axios.get(findPwUrl)
-            .then((res)=>{
-                Swal.fire({
-                    icon:"info",
-                    text:`${res.data}`
+        if(boolhp) {
+            const findPwUrl = localStorage.url + "/user/findpass?u_id=" + findPwInputId + "&u_phone=" + findPwInputHp;
+            axios.get(findPwUrl)
+                .then((res) => {
+                    Swal.fire({
+                        icon: "info",
+                        text: `비밀번호 : ${res.data}`
+                    })
                 })
+        }else{
+            Swal.fire({
+                icon:"warning",
+                text:"본인인증을 진행해 주세요"
             })
+        }
     }
 
     const changeData=(e)=>{
@@ -74,7 +81,7 @@ function FindAccount(props) {
     }
 
     const checkSMS = () => {
-        if (input.randomNum === input.checkSMS) {
+        if (parseInt(input.randomNum) === parseInt(input.checkSMS)) {
             setBoolhp(true);
             Swal.fire({
                 icon:"success",
@@ -101,18 +108,24 @@ function FindAccount(props) {
                 </div>
                 <form onSubmit={findPwSubmit}>
                     <h1>비번 찾기</h1>
-                    <input style={{marginTop:"10px"}} className={'form-control'} type={"text"} name={"find-pw-id"} placeholder={"아이디를 입력하세요"} onChange={(e)=>setFindPwInputId(e.target.value)}/>
+                    <input style={{marginTop:"10px"}} className={'form-control'} type={"text"} name={"find-pw-id"}
+                           placeholder={"아이디를 입력하세요"}
+                           onChange={(e)=>setFindPwInputId(e.target.value)}/>
                     <br/>
-                    <input style={{marginTop:"10px"}} className={'form-control'} type={"text"} name={"find-pw-hp"} placeholder={"전화번호를 입력하세요"} onChange={(e)=>setFindPwInputHp(e.target.value)}/>
-                    <Button variant={"outlined"} color={"success"}
-                            sx={{marginLeft:"30px"}}
-                            onClick={() => {
-                                sendSMS();
-                            }}>
-                        전송
-                    </Button>
+                    <div style={{marginTop:"10px", display:"flex", height:"38px"}}>
+                        <input style={{width:"230px"}} className={'form-control'} type={"text"} name={"find-pw-hp"} placeholder={"전화번호를 입력하세요"}
+                               onChange={(e)=>setFindPwInputHp(e.target.value)}/>
+                        <Button variant={"outlined"} color={"success"}
+                                sx={{marginLeft:"30px"}}
+                                onClick={() => {
+                                    sendSMS();
+                                }}>
+                            전송
+                        </Button>
+                    </div>
+                    <div style={{marginTop:"10px", display:"flex", height:"38px"}}>
                     <input type={'text'} className={'form-control'} placeholder={"인증번호를 입력하세요"}
-                           name={"u_phone"} value={input.u_phone} onChange={changeData}/>
+                           name={"checkSMS"} value={input.checkSMS} onChange={changeData} style={{width:"230px"}}/>
                     <Button variant={"outlined"} color={"success"}
                             sx={{marginLeft:"30px"}}
                             onClick={() => {
@@ -126,6 +139,7 @@ function FindAccount(props) {
                             :
                             <CheckIcon style={{color:"green", float:"right", marginTop:"7px", marginLeft:"7px"}}/>
                     }
+                    </div>
                     <br/>
                     <Button style={{marginTop:"10px"}}  color={"inherit"} variant={"contained"} type={"submit"}>비밀번호찾기</Button>
                 </form>

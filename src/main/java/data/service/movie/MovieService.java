@@ -107,7 +107,7 @@ public class MovieService {
             map.put("theater_pk", theater_pk);
             // 극장에 해당하는 상영관 정보 불러와 극장 정보에 삽입
             List<Map<String, Object>> screen_list = joinTimeRepository.selectScreenByTheater(map);
-            theaters_list.get(i).put("scrren", screen_list);
+            theaters_list.get(i).put("screen", screen_list);
             // 상영관 안에 상영시간표 배열형태로 데이터 삽입
             for (int k = 0; k < screen_list.size(); k++) {
                 // 상영관 pk 읽어들이기

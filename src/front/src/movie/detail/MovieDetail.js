@@ -14,12 +14,13 @@ import {
     DialogActions,
     DialogContent,
     DialogTitle,
-    FormControl, ScopedCssBaseline,
+    FormControl, ScopedCssBaseline, Tooltip, tooltipClasses,
 } from "@mui/material";
 import {Rating, ToggleButton, ToggleButtonGroup} from "@mui/lab";
 import Swal from "sweetalert2";
 import Age from "../../service/Age";
-import DatePicker from "react-datepicker"
+import {ArrowRight} from "@material-ui/icons";
+import { styled } from '@mui/material/styles';
 
 function MovieDetail(props) {
     const p = useParams();
@@ -97,11 +98,10 @@ function MovieDetail(props) {
     useEffect(()=>{
         if (movie_data===[])
             return
-        axios.get(`${localStorage.url}/movie/selectTimetest`)
+        axios.get(`${localStorage.url}/movie/timeByMovieDetail?movie_pk=${parseInt(movie_pk)}&date=${selected_date}`)
             .then((res)=>{
                 setTimetable(res.data);
-                console.log(res.data);
-                console.log("wtf",(JSON.parse(res.data[0].scrren[0].tim)[0].scrt_etime).substring(0,5));
+                console.log("tt",res.data);
             })
     },[selected_date])
 
@@ -154,6 +154,31 @@ function MovieDetail(props) {
         document.window.reload();
     }
 
+    //영화 좌석 툴팁
+    const getPlot=(type)=>{
+        let arr=[];
+        const rows=["A","B","C","D","E","F","G","H","I","J","K"];
+        const columns=["1","2","3","4","5","6","7","8","9","10","11","12"];
+
+        if(type==="A"){
+            for(let i=0; i<8; i++)
+            {
+                let rowarr=[]
+                for(let j=0; j<12; j++)
+                {
+                    if(j===2||j===9){
+                        rowarr.push("S");
+                    }else{
+                        rowarr.push(rows[i]+columns[j]);
+                    }
+                }
+                arr.push(rowarr);
+            }
+            console.log(arr);
+            return arr;
+        }
+    }
+
     const getCastType=(i)=>{
         switch (i) {
             case "Writing":
@@ -186,6 +211,25 @@ function MovieDetail(props) {
         // console.log(timetable);
         setMenu(newMenu);
     };
+
+    const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
+        <Tooltip {...props} classes={{ popper: className }}
+            // arrow
+                 placement={"top"}/>
+    ))(({ theme }) => ({
+        [`& .${tooltipClasses.tooltip}`]: {
+            backgroundColor: theme.palette.common.white,
+            color: 'rgba(0, 0, 0, 0.87)',
+            boxShadow: theme.shadows[1],
+            fontSize: 11,
+            width:"150px",
+            height:"160px",
+            border:"1px solid black"
+        },
+        // [`& .${tooltipClasses.arrow}`]: {
+        //     color: theme.palette.common.white,
+        // }
+    }));
 
     return (
         <div>
@@ -302,25 +346,120 @@ function MovieDetail(props) {
                             menu === "timetable"?
                                 <div className={"timetable-div"}>
                                     <div className={"select-date-div"}>
-                                        {/*<ScopedCssBaseline/>*/}
-                                        {/*<input type={"date"}*/}
-                                        {/*    value={selected_date}*/}
-                                        {/*    onChange={onChangeDate}*/}
-                                        {/*    min={movie_data.m_sdate}*/}
-                                        {/*    max={movie_data.m_edate}*/}
-                                        {/*/>*/}
                                         <ul className={"date-item-wrap"}>
+                                            <Swiper className="myswiper"
+                                                    modules={[Pagination]}
+                                                    pagination={{ clickable: true }}
+                                                    effect
+                                                    speed={800}
+                                                    loop={false}
+                                                    slidesPerView={8}
+                                            >
+                                                {
+                                                    dateArray && dateArray.map((item,i)=>(
+                                                        <SwiperSlide key={i}>
+                                                            <li className={"date-item"} value={i}
+                                                                onClick={()=>setSelected_date(item.split("/")[0])}>
+                                                                <span>{item.substring(5,7)}월</span>
+                                                                <em>{days[parseInt(item.split("/")[1])]}</em>
+                                                                <strong>{item.substring(8,10)}</strong>
+                                                            </li>
+                                                        </SwiperSlide>
+                                                    ))
+                                                }
+                                            </Swiper>
+                                        </ul>
+                                    </div>
+                                    <div className={"screens"}>
                                         {
-                                            dateArray && dateArray.map((item,i)=>(
-                                                <li key={i} className={"date-item"} value={i}
-                                                    onClick={()=>setSelected_date("a")}>
-                                                    <span>{item.substring(5,7)}월</span>
-                                                    <em>{days[parseInt(item.split("/")[1])]}</em>
-                                                    <strong>{item.substring(8,10)}</strong>
-                                                </li>
+                                            timetable && timetable.map((theater,i)=>(
+                                                <div className={"theaters"} key={i}>
+                                                    <div className={"theaters-wrap"}>
+                                                        <div className={"theaters-title"}>
+                                                            <div className={"theaters-title-text"}>
+                                                                {theater.the_name}
+                                                            </div>
+                                                        </div>
+                                                        <div className={"theaters-contents"}>
+                                                            {
+                                                                theater.screen.map((screen,j)=>(
+                                                                    <div className={"theaters-contents-a"} key={j}>
+                                                                        <div className={"a-upper"}>
+                                                                            <ArrowRight/> {screen.scr_name} {screen.scr_floor} | 총 {screen.scr_tot_seat}석
+                                                                        </div>
+                                                                        <div className={"a-under"}>
+                                                                            {screen.time.map((time,k)=>(
+                                                                                <LightTooltip key={k}
+                                                                                              title={
+                                                                                                  <React.Fragment>
+                                                                                                      <div className={"mini-theater"}>
+                                                                                                          <div className={"mini-theater-upper"}>
+                                                                                                              <div style={{fontSize:"1.5em",marginTop:"3px"}}>
+                                                                                                                  {theater.the_name}
+                                                                                                              </div>
+                                                                                                              <div>
+                                                                                                                  {screen.scr_name} {screen.scr_floor} (총 {screen.scr_tot_seat}석)
+                                                                                                              </div>
+                                                                                                          </div>
+                                                                                                          <div className={"mini-theater-map"}>
+                                                                                                              <div className={"mini-container"}>
+                                                                                                                  <div className={"mini-screen"}>SCREEN</div>
+                                                                                                                  <div className={"mini-seats"} onClick={()=>{
+                                                                                                                      console.log(time.seat);
+                                                                                                                  }
+                                                                                                                  }>
+                                                                                                                      {
+                                                                                                                          getPlot("A").map((row,r)=>(
+                                                                                                                              <React.Fragment key={r}>
+                                                                                                                              {
+                                                                                                                                  row.map((col,c)=>(
+                                                                                                                                      <div key={c} className={"mini-seat"}
+                                                                                                                                           onClick={()=>{
+                                                                                                                                               console.log(col);
+                                                                                                                                           }}
+                                                                                                                                           style={{
+                                                                                                                                               top:`${parseInt(r)*6}px`,
+                                                                                                                                               left:`${parseInt(c)*6}px`,
+                                                                                                                                               border:`${parseInt(c)===2 || parseInt(c)===9?"":"1px solid black"}`,
+                                                                                                                                               backgroundColor:`${String(time.seat).includes(col)?"black":"white"}`
+                                                                                                                                      }}>
+                                                                                                                                          <span></span>
+                                                                                                                                      </div>
+                                                                                                                                  ))
+                                                                                                                              }
+                                                                                                                              </React.Fragment>
+                                                                                                                          ))
+                                                                                                                      }
+                                                                                                                  </div>
+                                                                                                              </div>
+                                                                                                          </div>
+                                                                                                          <div className={"mini-theater-under"}>
+                                                                                                              {time.scrt_stime.substring(0,5)} ~ {time.scrt_etime.substring(0,5)}
+                                                                                                          </div>
+                                                                                                      </div>
+                                                                                                  </React.Fragment>
+                                                                                              }>
+                                                                                    <div className={"time"} >
+                                                                                        <div className={"time-upper"}>
+                                                                                            {time.scrt_stime.substring(0,5)}
+                                                                                        </div>
+                                                                                        <div className={"time-under"}>
+                                                                                            <div>
+                                                                                                {parseInt(screen.scr_tot_seat)-parseInt(time.booked)}석
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </LightTooltip>
+                                                                            ))}
+                                                                        </div>
+                                                                    </div>
+                                                                ))
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             ))
                                         }
-                                        </ul>
                                     </div>
                                 </div>
                                 :
