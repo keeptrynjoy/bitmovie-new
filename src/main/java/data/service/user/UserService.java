@@ -74,8 +74,12 @@ public class UserService {
     //아이디 찾기
     public String selectId (String u_phone) {
         String id = userRepository.selectFindId(u_phone);
-        String resultId = id.substring(0,2) + "**" + id.substring(4);
-        return resultId;
+        if (id != null){
+            String resultId = id.substring(0,2) + "**" + id.substring(4);
+            return resultId;
+        } else {
+            return "일치하는 회원 정보가 없습니다.";
+        }
     }
     //비밀번호 찾기 (아이디, 핸드폰 번호 확인)
     public int selectFindPass (User user) {

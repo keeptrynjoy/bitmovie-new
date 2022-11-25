@@ -22,7 +22,8 @@ function Ticketing(props) {
     const [input,setInput]=useState({
         movie:"",
         calender:today,
-        location:""
+        location:"",
+        time: ""
     });
 
     const changeData=(e)=>{
@@ -35,7 +36,24 @@ function Ticketing(props) {
         setSt(!st);
     }
 
+
+
+    const checkId=()=>{
+
+        if (sessionStorage.user_pk!=null)
+        goSeat();
+        else
+            alert("로그인 부탁드려요!")
+
+    }
+
+
+
     const goSeat = ()=> {
+
+
+
+
         if (input.movie===''){
             Swal.fire({
                 icon:"warning",
@@ -70,6 +88,8 @@ function Ticketing(props) {
         // if (input.length===3)
         // {
 
+        // if (sessionStorage.u_id !==)
+
             navi("/ticketing/selectseat", {
                 state: {
                     input: input
@@ -103,8 +123,8 @@ function Ticketing(props) {
 
             <div className={'tktable'}>
                 <div className={'tkbt'}>
-                    <button className={'tkmenu'} onClick={()=> navi("/ticketing/timetable")}>상영시간표</button>
-                    <button className={'tkmenu2'} onClick={()=>refresh()}>초기화</button>
+                    {/*<button className={'tkmenu'} onClick={()=> navi("/ticketing/timetable")}>상영시간표</button>*/}
+                    <button className={'tkmenu2'} onClick={()=>refresh()}>예매 다시하기</button>
                 </div>
                 <div className={'together'}>
                     <div className={'selectmv'}>
@@ -118,7 +138,7 @@ function Ticketing(props) {
                     <div className={'selecttime'}><TimeTable input={input} setInput={setInput} changeData={changeData} st={st}/></div>
                 </div>
                 {/*<button type={"button"} className={'selectseat'} onClick={() => navi("/ticketing/selectseat",{input, setInput})} input={input} setInput={setInput} changeData={changeData} >좌석선택</button>*/}
-                <button type={"button"} className={'selectseat'} onClick={goSeat} >좌석선택</button>
+                <button type={"button"} className={'selectseat'} onClick={checkId} >좌석선택</button>
 
 
             </div>

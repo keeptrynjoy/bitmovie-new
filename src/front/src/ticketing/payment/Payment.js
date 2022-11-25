@@ -96,14 +96,18 @@ const Payment = (effect, deps) => {
     const {IMP} = window;
     IMP.init('imp02023053');
 
-    console.log('좌석보여줘',location.state.selected_seat);
+    // console.log('좌석보여줘',location.state.selected_seat);
 
     // let selector=JSON.stringify(location.state.selected_seat);
 
     let selector=location.state.selected_seat.join();
 
 
-    console.log('보자',selector);
+    // console.log('보자',location.state.obj3.scrtime_pk);
+
+    const timePk= location.state.obj3.scrtime_pk;
+
+    // console.log(timePk);
 
 
     // IMP.request_pay(param, callback) 결제창 호출
@@ -157,7 +161,7 @@ const Payment = (effect, deps) => {
                         const bookingData = {
                             payment_pk: rsp.merchant_uid,
                             // scrtime_pk,
-                            scrtime_pk : location.state.movieData.time,
+                            scrtime_pk : timePk,
                             book_seat_num : selector,
                             book_the_name : location.state.obj2.the_name,
                             book_issu_date: date,
@@ -215,6 +219,7 @@ const Payment = (effect, deps) => {
     },[])
 
 
+    console.log(dbData);
 
 
 
@@ -237,7 +242,7 @@ const Payment = (effect, deps) => {
                 <input type={'number'}  onChange={(e) => (
                     setScrTimePk(e.target.value)
                 )}
-                defaultValue={location.state.movieData.time}
+                defaultValue={timePk}
                 /><br/>
                 극장명(String)
                 <input type={'text'}  onChange={(e) => (
@@ -271,12 +276,19 @@ const Payment = (effect, deps) => {
                        defaultValue={user_pk}
                 />
                 <br/>
-                포인트 사용(int)
+                사용가능 잔여포인트: {dbData.u_point}
                 <input type={'number'} onChange={(e) => (
                    setUsePoint(e.target.value)
                 )}
-                defaultValue={dbData.u_point}
-                /><br/>
+
+                /> <br/>
+                {/*쿠폰적용: {dbData.u_point}*/}
+                {/*<input type={'number'} onChange={(e) => (*/}
+                {/*    setUsePoint(e.target.value)*/}
+                {/*)}*/}
+
+                {/*/> <br/>*/}
+
                 결제금액(int)
                 <input type={'number'} ref={finalPriceRef}onChange={(e) => (
                     finalPriceRef.current = e.target.value
