@@ -21,9 +21,10 @@ public class MovieController {
 
     // 영화 상세 정보 출력
     @GetMapping("/selectMovieData")
-    public Map<String, Object> selectMovieData(int movie_pk) {
+    public Map<String, Object> selectMovieData(int movie_pk,
+                                               @RequestParam(defaultValue = "0")int user_pk) {
 
-        return movieService.selectMovieData(movie_pk);
+        return movieService.selectMovieData(movie_pk,user_pk);
     }
 
     // 영화 리스트 출력
@@ -45,9 +46,9 @@ public class MovieController {
     // 영화 페이지 - 상영시간표 출력
     @GetMapping("/selectTimeByMovie")
     public List<JoinTime> selectTimeByMovie(int movie_pk, String date){
-        System.out.println("controller movie_pk: " + movie_pk);
-        System.out.println("controller date: " + date);
-        System.out.println(screenTimeService.selectTimeByMovie(movie_pk, date));
+//        System.out.println("controller movie_pk: " + movie_pk);
+//        System.out.println("controller date: " + date);
+//        System.out.println(screenTimeService.selectTimeByMovie(movie_pk, date));
         return screenTimeService.selectTimeByMovie(movie_pk, date);
     }
 
