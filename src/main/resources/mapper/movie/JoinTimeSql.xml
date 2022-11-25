@@ -49,15 +49,13 @@
     <!-- 영화 상세 - 상영 시간표 - 상영관에 따른 상영시간 정보 반환  -->
     <select id="selectTimeByScreen" parameterType="Map" resultType="Map">
         SELECT tim.*,
-               (sum(book.book_adult_cnt) + sum(book.book_youth_cnt)) AS booked,
+               NULLIF((sum(book.book_adult_cnt) + sum(book.book_youth_cnt)),0) AS booked,
                group_concat(book.book_seat_num)                      AS seat
-        FROM screentime_tb tim,
-             booking_tb book
+        FROM screentime_tb tim LEFT OUTER JOIN booking_tb book ON book.scrtime_pk = tim.scrtime_pk
         WHERE tim.movie_pk = #{movie_pk}
           AND tim.scrt_date = #{date}
           AND tim.theater_pk = #{theater_pk}
           AND tim.screen_pk = #{screen_pk}
-          AND book.scrtime_pk = tim.scrtime_pk
         GROUP BY tim.scrtime_pk;
     </select>
 
