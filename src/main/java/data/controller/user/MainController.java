@@ -21,8 +21,9 @@ public class MainController {
 
     // 가장 최신 등록된 평점을 'count'갯수 만큼 반환
     @GetMapping("/selectRecentRevw")
-    public List<JoinRevw> selectRecentRevw(@RequestParam(defaultValue = "10") int count) {
-        List<JoinRevw> joinRevws = mainService.selectRecentRevw(count);
+    public List<JoinRevw> selectRecentRevw(@RequestParam(defaultValue = "20") int count,
+                                           @RequestParam(defaultValue = "0")int user_pk) {
+        List<JoinRevw> joinRevws = mainService.selectRecentRevw(count,user_pk);
         System.out.println(joinRevws);
         return joinRevws;
     }

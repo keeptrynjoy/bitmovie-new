@@ -25,8 +25,14 @@ public class MainService {
     private final MovieRepository movieRepository;
 
     // 가장 최신 등록된 평점을 'count'갯수 만큼 반환
-    public List<JoinRevw> selectRecentRevw(int count) {
-        return joinRevwRepository.selectRecentRevw(count);
+    public List<JoinRevw> selectRecentRevw(int count, int user_pk) {
+        List<JoinRevw> joinRevws = joinRevwRepository.selectRecentRevw(count);
+        if(user_pk!=0){
+            for (int i = 0; i < joinRevws.size(); i++) {
+
+            }
+        }
+        return joinRevws;
     }
 
     // 검색 기능 - 영화 , 인물정보 검색

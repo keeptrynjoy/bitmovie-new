@@ -1,20 +1,10 @@
 package data.service.movie;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import data.domain.movie.*;
 import data.repository.movie.*;
 import data.repository.user.MWishRepository;
 import lombok.RequiredArgsConstructor;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -83,59 +73,32 @@ public class MovieService {
         return map;
     }
 
-    public List<Map<String,Object>> selectTimeByMovieTest(int movie_pk){
-        String date = "2022-11-09";
+    // 영화 상세페이지 - 상영시간표
+    public List<Map<String,Object>> selectTimeByMovieDetail(int movie_pk, String date){
         Map<String, Object> map = new HashMap<>();
         map.put("movie_pk", movie_pk);
         map.put("date", date);
-        List<Map<String, Object>> theaters_list = joinTimeRepository.selectTimeByMovieTest(map);
+        // 극장 정보 반환
+        List<Map<String, Object>> theaters_list = joinTimeRepository.selectTheaterByTime(map);
+        // 극장 정보 안에 배열형태로 데이터 삽입
         for (int i = 0; i < theaters_list.size(); i++) {
-//            System.out.println(theaters_list);
-            Object theater = theaters_list.get(i).get("theater_pk");
-            System.out.println("tt"+theater);
-            int theater_pk = Integer.parseInt(theater.toString());
+            // 극장pk 읽어들이기
+            int theater_pk = Integer.parseInt(theaters_list.get(i).get("theater_pk").toString());
             map.put("theater_pk", theater_pk);
-            List<Map<String, Object>> maps = joinTimeRepository.selectTimeByTheater(map);
-            System.out.println(maps.size());
-
-            System.out.println("time"+maps);        //time
-            theaters_list.get(i).put("scrren", maps);
-//            System.out.println(mpas.get(i).get("tim"));
-//            ObjectMapper om = new ObjectMapper();
-//            String str;
-//            try {
-//
-//                str = om.writeValueAsString(maps.get(0).get("tim"));
-//            } catch (JsonProcessingException e) {
-//                throw new RuntimeException(e);
-//            }
-//            //test
-//            System.out.println(str); //성공
-
-//            Object tim = maps.get(0).get("tim");
-//            J
-//            System.out.println("array: "+array);
-//            Object obtest = (Object) array;
-//            System.out.println("ob"+obtest);
-//            JSONObject jsonob = (JSONObject) obtest;
-//            System.out.println("jsonob"+jsonob);
-
-
-
-//            Gson gson = new Gson();
-//            JSONObject.fromObject(array);
-//
-//            JSONObject test1 = (JSONObject) array;
-//            System.out.println("test1: "+test1);
-
-//
-//            JSONObject tim1 = (JSONObject) maps.get(0).get("tim");
-//            System.out.println("tim1"+tim1);
-//
-//            System.out.println("pk"+maps.get(i).get("scrtime_pk"));
-
+            // 극장에 해당하는 상영관 정보 불러와 극장 정보에 삽입
+            List<Map<String, Object>> screen_list = joinTimeRepository.selectScreenByTheater(map);
+            theaters_list.get(i).put("scrren", screen_list);
+            // 상영관 안에 상영시간표 배열형태로 데이터 삽입
+            for (int j = 0; j < screen_list.size(); j++) {
+                // 상영관 pk 읽어들이기
+                int screen_pk = Integer.parseInt(screen_list.get(i).get("screen_pk").toString());
+                System.out.println("map"+map);
+                map.put("screen_pk", screen_pk);
+                // 상영관에 해당하는 상영 시간표 정보 반환
+                List<Map<String, Object>> time_list = joinTimeRepository.selectTimeByScreen(map);
+                screen_list.get(i).put("time", time_list);
+            }
         }
-
         return theaters_list;
     }
 }
