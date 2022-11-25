@@ -30,7 +30,8 @@ public class MovieController {
     // 영화 리스트 출력
     @GetMapping("/selectMovieList")
     public List<JoinMovie> selectMovieList(@RequestParam(defaultValue = "null") String order_stand,
-                                           @RequestParam(defaultValue = "null") String BorA) {
+                                           @RequestParam(defaultValue = "null") String BorA,
+                                           @RequestParam(defaultValue = "0") int user_pk) {
         /*  front 에서 넘겨줄 값 - 아래의 형식으로 전달 바랍니다
             order_stand : 정렬 기준
             - 예매율순 인경우 "reserve_rate"
@@ -39,7 +40,7 @@ public class MovieController {
             - 상영중 "after"
             - 개봉예정 "before"
         */
-        List<JoinMovie> movie_data_list = movieService.selectMovieList(order_stand, BorA);
+        List<JoinMovie> movie_data_list = movieService.selectMovieList(order_stand, BorA, user_pk);
         return movie_data_list;
     }
 

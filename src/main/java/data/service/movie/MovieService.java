@@ -28,8 +28,8 @@ public class MovieService {
     private final LikeRevwRepository likeRevwRepository;
     
 
-    public List<JoinMovie> selectMovieList(String order_stand, String BorA) {
-        System.out.println(order_stand);
+    public List<JoinMovie> selectMovieList(String order_stand, String BorA, int user_pk) {
+//        System.out.println(order_stand);
 
         // 오늘 날짜를 기준으로 1주일 기간 을 설정해 예매율을 계산
         LocalDate date = LocalDate.now();
@@ -46,10 +46,15 @@ public class MovieService {
 
         List<JoinMovie> data = joinMovieRepository.selectMovieList(map);
 
+        // 영화 좋아요 갯수 & 좋아요 유무 구해서 data에 넣어주기
         for(int i=0; i<data.size(); i++){
             int movie_pk = data.get(i).getMovie_pk();
+            // 영화 좋아요 갯수 정보 저장
             int wish = mWishRepository.selectWishCnt(movie_pk);
             data.get(i).setWish_cnt(wish);
+            // 영화 좋아요 선택 유무 정보 저장
+
+
         }
         return data;
     }

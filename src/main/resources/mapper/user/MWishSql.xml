@@ -17,4 +17,9 @@
         SELECT count(*) FROM mwish_tb WHERE movie_pk = #{movie_pk}
     </select>
 
+    <!--  영화 좋아요 선택 유무 출력  -->
+    <select id="mWishYorN">
+
+    </select>
+
 </mapper>
