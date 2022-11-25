@@ -219,6 +219,7 @@ const Payment = (effect, deps) => {
     },[])
 
 
+    console.log(dbData);
 
 
 
@@ -275,12 +276,19 @@ const Payment = (effect, deps) => {
                        defaultValue={user_pk}
                 />
                 <br/>
-                포인트 사용(int)
+                사용가능 잔여포인트: {dbData.u_point}
                 <input type={'number'} onChange={(e) => (
                    setUsePoint(e.target.value)
                 )}
-                defaultValue={dbData.u_point}
-                /><br/>
+
+                /> <br/>
+                {/*쿠폰적용: {dbData.u_point}*/}
+                {/*<input type={'number'} onChange={(e) => (*/}
+                {/*    setUsePoint(e.target.value)*/}
+                {/*)}*/}
+
+                {/*/> <br/>*/}
+
                 결제금액(int)
                 <input type={'number'} ref={finalPriceRef}onChange={(e) => (
                     finalPriceRef.current = e.target.value

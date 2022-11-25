@@ -3,6 +3,7 @@ import {json, Link, useLocation, useNavigate} from "react-router-dom";
 import './SelectSeat.css';
 import {useCallback, useEffect, useState} from "react";
 import Swal from "sweetalert2";
+import axios from "axios";
 export default function SeatView({people, seats, rowSeats, onClickPeople,input ,setInput,changeData }) {
 
     const navi=useNavigate();
@@ -16,6 +17,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     const [aprice,setAprice]=useState(0);
     const [sprice,setSprice]=useState(0);
     const [finalPay,setFinalPay]=useState(0);
+    const [bookedSeat,setBookedSeat]=useState("");
 
 
 
@@ -28,6 +30,10 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     //
     // console.log('학생수',students);
     // console.log('성인수',adults);
+
+
+
+
 
     const reset=()=>{
         window.location.reload();
@@ -138,6 +144,58 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
         setSprice(parseInt(document.getElementById('student_select').value));
     }
 
+    useEffect(()=>{
+
+        take();
+
+
+    },[])
+
+    const take=()=> {
+        //     axios.get(`http://localhost:8282/booking/reserved_seat?screentime=${obj3.scrtime_pk}`)
+            axios.get(`http://localhost:8282/booking/reserved_seat?screentime=${obj3.scrtime_pk}`)
+            .then((res) => {
+                setBookedSeat(res.data);
+                console.log('?',res.data);
+            }).catch((error) => {
+               console.log('예매된 좌석이 없습니다')
+            });
+    }
+
+    // //test
+    // const getMovies = async (type) => {
+    //     // kobis 영화진흥원 박스 오피스 api
+    //     // const json = await (
+    //     //     await fetch(
+    //     //         `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${key}&targetDt=${targetDT}`
+    //     //     )
+    //     // ).json();
+    //     // setMovies(json.boxOfficeResult.dailyBoxOfficeList);
+    //     // setLoading(false);
+    //
+    //     //더 무비 api
+    //     await axios.get(`https://api.themoviedb.org/3/movie/${type}?api_key=${key}&language=ko&page=1&region=kr`)
+    //         .then((res)=>{
+    //             console.log(res.data);
+    //             setMovies(res.data.results);
+    //             setIndex(0);
+    //             setSelected_movie(res.data.results[0].id);
+    //         })
+    //
+
+
+
+
+    //
+    // const get=()=>{
+    //     axios.get('http://localhost:8282/theater/')
+    //         .then((response) =>{
+    //             setMloc(response.data);
+    //             console.log(response.data);
+    //
+    //         });
+
+
 
 
 
@@ -243,6 +301,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                             <li className={'row'} key={i} >
                                 {seats.map((list,j) => (
                                     <input type={"checkbox"}
+                                           disabled={bookedSeat.includes(alphabet[i].toUpperCase()+(j+1).toString())}
                                            className={'seat'}
                                            key={j}
                                            value={alphabet[i].toUpperCase()+(j+1).toString()}
