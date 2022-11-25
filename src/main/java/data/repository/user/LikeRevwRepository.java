@@ -10,4 +10,6 @@ public interface LikeRevwRepository {
     public void insertLikeRevw(LikeRevw likeRevw);      // 평점 좋아요
 
     public void deleteLikeRevw(LikeRevw likeRevw);      // 평점 좋아요 취소
+
+//    public Like
 }

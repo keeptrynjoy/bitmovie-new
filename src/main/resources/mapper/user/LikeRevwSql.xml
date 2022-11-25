@@ -12,4 +12,9 @@
         DELETE likerevw_tb WHERE review_pk = #{review_pk} AND user_pk = #{user_pk}
     </insert>
 
+    <!--  평점 좋아요 여부 확인  -->
+    <select id="likeYorN" parameterType="LikeRevw" resultType="boolean">
+        SELECT IF(count(*)=1, 1, 0) FROM likerevw_tb WHERE review_pk = #{review_pk} and user_pk = #{user_pk}
+    </select>
+
 </mapper>

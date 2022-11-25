@@ -52,9 +52,8 @@ public class MovieController {
     }
 
     // 영화 상세페이지 - 상영시간표
-    @GetMapping("/selectTimetest")
-    public List<Map<String,Object>> selectTselectTimeByMovieDetail(@RequestParam(defaultValue = "49046") int movie_pk,
-                                                                   @RequestParam(defaultValue = "2022-11-09") String date){
+    @GetMapping("/timeByMovieDetail")
+    public List<Map<String,Object>> selectTimeByMovieDetail(@RequestParam int movie_pk, @RequestParam String date){
         return movieService.selectTimeByMovieDetail(movie_pk, date);
     }
 }
