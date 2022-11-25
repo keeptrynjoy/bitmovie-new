@@ -16,8 +16,6 @@ public interface PaymentRepository {
 
     public void insertPaymentData(Payment payment);
 
-    public void insertReviewMacro(Review review);
-
     public Payment selectPayByUserAndBookPK(Map<String,Integer> map);
 
     public void updatePayCnclDate(String payment_pk);

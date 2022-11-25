@@ -23,9 +23,7 @@ public class MainController {
     @GetMapping("/selectRecentRevw")
     public List<JoinRevw> selectRecentRevw(@RequestParam(defaultValue = "20") int count,
                                            @RequestParam(defaultValue = "0")int user_pk) {
-        List<JoinRevw> joinRevws = mainService.selectRecentRevw(count,user_pk);
-        System.out.println(joinRevws);
-        return joinRevws;
+        return mainService.selectRecentRevw(count,user_pk);
     }
 
     // 검색 기능

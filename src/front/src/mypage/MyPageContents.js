@@ -120,7 +120,7 @@ function MyPageContents(props) {
     const contentSelector =()=>{
         switch (contents) {
             case "booking":
-                return <BookingList booking_list={datas.booking_list}/>
+                return <BookingList booking_list={datas.booking_list} getDatas={getDatas()}/>
             case "usableCoupon":
                 return usableCoupon()
             case "couponHistory":

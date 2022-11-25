@@ -21,15 +21,17 @@ public class MovieController {
 
     // 영화 상세 정보 출력
     @GetMapping("/selectMovieData")
-    public Map<String, Object> selectMovieData(int movie_pk) {
+    public Map<String, Object> selectMovieData(int movie_pk,
+                                               @RequestParam(defaultValue = "0")int user_pk) {
 
-        return movieService.selectMovieData(movie_pk);
+        return movieService.selectMovieData(movie_pk,user_pk);
     }
 
     // 영화 리스트 출력
     @GetMapping("/selectMovieList")
     public List<JoinMovie> selectMovieList(@RequestParam(defaultValue = "null") String order_stand,
-                                           @RequestParam(defaultValue = "null") String BorA) {
+                                           @RequestParam(defaultValue = "null") String BorA,
+                                           @RequestParam(defaultValue = "0") int user_pk) {
         /*  front 에서 넘겨줄 값 - 아래의 형식으로 전달 바랍니다
             order_stand : 정렬 기준
             - 예매율순 인경우 "reserve_rate"
@@ -38,16 +40,16 @@ public class MovieController {
             - 상영중 "after"
             - 개봉예정 "before"
         */
-        List<JoinMovie> movie_data_list = movieService.selectMovieList(order_stand, BorA);
+        List<JoinMovie> movie_data_list = movieService.selectMovieList(order_stand, BorA, user_pk);
         return movie_data_list;
     }
 
     // 영화 페이지 - 상영시간표 출력
     @GetMapping("/selectTimeByMovie")
     public List<JoinTime> selectTimeByMovie(int movie_pk, String date){
-        System.out.println("controller movie_pk: " + movie_pk);
-        System.out.println("controller date: " + date);
-        System.out.println(screenTimeService.selectTimeByMovie(movie_pk, date));
+//        System.out.println("controller movie_pk: " + movie_pk);
+//        System.out.println("controller date: " + date);
+//        System.out.println(screenTimeService.selectTimeByMovie(movie_pk, date));
         return screenTimeService.selectTimeByMovie(movie_pk, date);
     }
 

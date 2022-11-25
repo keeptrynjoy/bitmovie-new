@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {Button, Pagination} from "@mui/material";
 import usePagination from "../../service/UsePagination";
 import moment from "moment";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function BookingList(props) {
     const list=props.booking_list;
@@ -18,10 +19,34 @@ function BookingList(props) {
     };
 
     const cancelReserve=(bookingnum)=>{
-        axios.get(`${localStorage.url}/payment/cancel_payment?user=${sessionStorage.user_pk}&booking=${bookingnum}`)
-            .then((res)=>{
-                alert("!!");
-            })
+
+        Swal.fire({
+            title: "진짜?",
+            text: "예매 취소 하시겠습니까?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '네',
+            cancelButtonText: '아니오',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.get(`${localStorage.url}/payment/cancel_payment?user=${sessionStorage.user_pk}&booking=${bookingnum}`)
+                    .then((res)=>{
+                        Swal.fire({
+                            icon:"success",
+                            text:res.data
+                        })
+                        props.getDatas().then(r=>{});
+                    })
+                    .catch((e)=>{
+                        Swal.fire({
+                            icon:"error",
+                            text:e.response.data
+                        })
+                    })
+            }
+        })
     }
 
     const chkCancelAble=(day)=>{

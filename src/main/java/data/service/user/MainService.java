@@ -1,7 +1,9 @@
 package data.service.user;
 
 import data.domain.movie.*;
+import data.domain.user.LikeRevw;
 import data.repository.movie.*;
+import data.repository.user.LikeRevwRepository;
 import data.repository.user.MWishRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,13 +25,17 @@ public class MainService {
     private final JoinTimeRepository joinTimeRepository;
     private final MWishRepository mWishRepository;
     private final MovieRepository movieRepository;
+    private final LikeRevwRepository likeRevwRepository;
 
     // 가장 최신 등록된 평점을 'count'갯수 만큼 반환
     public List<JoinRevw> selectRecentRevw(int count, int user_pk) {
         List<JoinRevw> joinRevws = joinRevwRepository.selectRecentRevw(count);
         if(user_pk!=0){
             for (int i = 0; i < joinRevws.size(); i++) {
-
+                // 좋아요 클릭 여부를 판단해
+                boolean yorN = likeRevwRepository.likeYorN(joinRevws.get(i));
+                // 해당 값을 joinRevws 에 담아 반환한다
+                joinRevws.get(i).setLikeYorN(yorN);
             }
         }
         return joinRevws;

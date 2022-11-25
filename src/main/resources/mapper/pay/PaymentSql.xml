@@ -12,11 +12,11 @@
     </select>
 
     <!--  영화 출력시 필요한 예매울 분모 계산 (날짜기준 총 결제 매수)  -->
-    <select id="selectTotalPay" parameterType="Map" resultType="int">
-        SELECT sum(s.scr_tot_seat)
-        FROM screentime_tb tim, screen_tb s
-        WHERE tim.screen_pk = s.screen_pk AND tim.scrt_date > #{begin_date} AND #{now_date} >= tim.scrt_date
-    </select>
+<!--    <select id="selectTotalPay" parameterType="Map" resultType="int">-->
+<!--        SELECT sum(s.scr_tot_seat)-->
+<!--        FROM screentime_tb tim, screen_tb s-->
+<!--        WHERE tim.screen_pk = s.screen_pk AND tim.scrt_date > #{begin_date} AND #{now_date} >= tim.scrt_date-->
+<!--    </select>-->
     <!--예매번호와 유저고유키로 결제번호 조회 -->
     <select id="selectPayByUserAndBookPK" resultType="payment" parameterType="Map">
         SELECT pt.user_pk , pt.imp_uid , pt.pay_price, pt.payment_pk

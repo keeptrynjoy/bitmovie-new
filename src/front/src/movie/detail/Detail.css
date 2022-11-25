@@ -328,3 +328,131 @@ ul.date-item-wrap li strong{
     font-weight: 300;
 }
 
+.timetable-div .screens{
+    height: 1800px;
+}
+
+.timetable-div .screens .theaters{
+    margin-top: 30px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+}
+
+.theaters .theaters-wrap{
+    width: 1000px;
+    height: 280px;
+    display: flex;
+    border: 1px solid lightgray;
+}
+
+.theaters-wrap .theaters-title{
+    margin-top: 30px;
+    text-align: center;
+    width: 300px;
+    border-right: 3px solid gainsboro;
+    height: 220px;
+    font-size: 35px;
+}
+
+.theaters-wrap .theaters-title-text {
+    margin-top: 60px;
+}
+
+.theaters-contents {
+    margin-left: 30px;
+    margin-top: 20px;
+    width: 650px;
+    height: 260px;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    overflow-x: hidden;
+}
+
+.theaters-contents::-webkit-scrollbar{
+    display: none;
+}
+
+.theaters-contents-a{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.a-upper{
+    margin-top: 20px;
+    margin-left: 50px;
+
+}
+
+.a-under{
+    display: flex;
+    width: 550px;
+    margin-left: 50px;
+    margin-top: 7px;
+    flex-wrap: wrap;
+}
+
+.a-under .time{
+    width: 100px;
+    margin-left: 10px;
+    margin-top: 5px;
+    border: 2px solid gray;
+    height: 60px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.time .time-upper{
+    font-size: 20px;
+}
+
+.time .time-under{
+    font-size: 15px;
+    color: #2275A4;
+}
+
+.mini-theater-upper {
+    height: 45px;
+    border-bottom: 1px solid gray;
+    text-align: center;
+}
+
+.mini-theater-map {
+    margin-top: 5px;
+    height: 75px;
+    border-bottom: 1px solid black;
+    position: relative;
+}
+
+.mini-theater-map .mini-container{
+    width: 110px;
+    height: 80px;
+    position: relative;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.mini-theater-map .mini-container .mini-screen{
+    text-align: center;
+    padding-top: 2px;
+    text-decoration: underline;
+    font-size: 9px;
+}
+
+.mini-theater-map .mini-container .mini-seats{
+    position: absolute;
+    top:20px;
+}
+
+.mini-theater-map .mini-container .mini-seats .mini-seat{
+    position: absolute;
+    display: block;
+    width: 5px;
+    height: 5px;
+}
+
+.mini-theater-under{
+    top:5px;
+    text-align: center;
+}
