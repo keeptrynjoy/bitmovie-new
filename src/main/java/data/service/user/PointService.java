@@ -15,7 +15,6 @@ public class PointService {
 
     private final PointRepository pointRepository;
 
-    private final MyPageRepository myPageRepository;
 
     private static final int POINT_RATE = 3;
 
@@ -47,7 +46,7 @@ public class PointService {
         pointRepository.insertPointData(point);
 
         //user 테이블에 포인트 추가 업데이트
-        myPageRepository.updatePoint(point);
+        pointRepository.updatePoint(point);
     }
 
     /* 포인트 차감 */
@@ -68,7 +67,17 @@ public class PointService {
         pointRepository.insertPointData(point);
 
         //user 테이블에 포인트 추가 업데이트
-        myPageRepository.updatePoint(point);
+        pointRepository.updatePoint(point);
 
     }
+
+    //유저 보유 포인트 조회
+    public int selectPoint (int user_pk) {
+        return pointRepository.selectPoint(user_pk);
+    }
+    //유저 보유 포인트 갱신
+    public void updatePoint (Point point) {
+        pointRepository.updatePoint(point);
+    }
+
 }

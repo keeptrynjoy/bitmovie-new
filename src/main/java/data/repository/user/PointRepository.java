@@ -9,4 +9,8 @@ public interface PointRepository {
     public int selectPointByUser(int user_pk);
 
     public void insertPointData(Point point);
+
+    public int selectPoint (int user_pk); //유저 보유 포인트 조회
+    public void updatePoint (Point point); //유저 보유 포인트 갱신
+
 }

@@ -7,4 +7,12 @@
     <insert id="insertPointData" parameterType="point" >
         INSERT INTO point_tb VALUES (#{point_pk},#{user_pk},#{po_point},#{po_date});
     </insert>
+    <!--회원 보유 포인트 조회-->
+    <select id="selectPoint" parameterType="int" resultType="int">
+        SELECT u_point FROM user_tb WHERE user_pk = #{user_pk}
+    </select>
+    <!--유저 보유 포인트 갱신-->
+    <update id="updatePoint" parameterType="point">
+        UPDATE user_tb SET u_point = u_point + #{po_point} WHERE user_pk = #{user_pk}
+    </update>
 </mapper>
