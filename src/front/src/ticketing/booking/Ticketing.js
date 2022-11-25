@@ -22,7 +22,8 @@ function Ticketing(props) {
     const [input,setInput]=useState({
         movie:"",
         calender:today,
-        location:""
+        location:"",
+        time: ""
     });
 
     const changeData=(e)=>{

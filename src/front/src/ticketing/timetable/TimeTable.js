@@ -76,9 +76,13 @@ const TimeTable = (props) => {
                 :
 
                 table.map((list,i)=>(
-                    <div>
+                    <ul>
+                        <li>
+                            <button key={i} name={'time'} value={JSON.stringify(list)} onClick={changeData} >
                         {list.m_name}
-                    </div>
+                            </button>
+                        </li>
+                    </ul>
                 ))
             }
 
