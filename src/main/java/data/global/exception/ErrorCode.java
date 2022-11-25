@@ -15,8 +15,6 @@ public enum ErrorCode {
 
     /* 400 BAD_REQUEST : 잘못된 요청 */
     MISMATCH_PASSWORD(BAD_REQUEST, "비밀번호가 일치하지 않습니다."),
-    TOKEN_TYPE(BAD_REQUEST, "토큰 타입이 올바르지 않습니다."),
-    UNAVAILABLE_REFRESH_TOKEN(BAD_REQUEST, "사용할 수 없는 토큰 입니다."),
     UNABLE_CHANGE_GRADE(BAD_REQUEST, "동일한 등급으로 변경할 수 없습니다."),
     INVALID_TICKET_ID(BAD_REQUEST, "잘못된 티켓 ID가 존재합니다."),
     BAD_REQUEST_MOVIE_TIME(BAD_REQUEST, "동일한 상영시간만 결제 가능합니다."),
@@ -59,14 +57,6 @@ public enum ErrorCode {
         throw new BitmovieException(MISMATCH_PASSWORD);
     }
 
-    public static BitmovieException throwTokenType() {
-        throw new BitmovieException(TOKEN_TYPE);
-    }
-
-    public static BitmovieException throwUnavailableRefreshToken() {
-        throw new BitmovieException(UNAVAILABLE_REFRESH_TOKEN);
-    }
-
     public static BitmovieException throwUnableChangeGrade() {
         throw new BitmovieException(UNABLE_CHANGE_GRADE);
     }
@@ -74,6 +64,7 @@ public enum ErrorCode {
     public static BitmovieException throwBadRequestPaymentComplete() {
         throw new BitmovieException(BAD_REQUEST_PAYMENT_COMPLETE);
     }
+
 
     public static BitmovieException throwBadRequestPaymentReady() {
         throw new BitmovieException(BAD_REQUEST_PAYMENT_READY);
