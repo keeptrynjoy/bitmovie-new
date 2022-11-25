@@ -76,10 +76,12 @@ const TimeTable = (props) => {
                     :
 
                     table.map((list,i)=>(
-                        <ul>
-                            <li>
-                                <button key={i} name={'time'} value={(list.scrt_detail[i].scrt_stime,list.scrt_detail[i].scrt_etime)} onClick={changeData} style={{fontSize:'25px', backgroundColor:'white', border:'1px solid black'}}>
-                                    {list.scrt_detail[i].scrt_stime.substring(0,5)}~{list.scrt_detail[i].scrt_etime.substring(0,5)}
+                        <ul key={i}>
+                            <li style={{listStyle:'none'}}>
+                                {/*<button key={i} name={'time'} value={(list.scrt_detail[i].scrt_stime,list.scrt_detail[i].scrt_etime)} onClick={changeData} style={{fontSize:'25px', backgroundColor:'white', border:'1px solid black'}}>*/}
+                                <button key={i} name={'time'} value={JSON.stringify(list)} onClick={changeData} style={{fontSize:'25px', backgroundColor:'white', border:'1px solid black'}}>
+                                    {/*{list.scrt_detail[i].scrt_stime.substring(0,5)}~{list.scrt_detail[i].scrt_etime.substring(0,5)}*/}
+                               {list.scrt_stime.substring(0,5)}~{list.scrt_etime.substring(0,5)}
                                 </button>
                             </li>
                         </ul>

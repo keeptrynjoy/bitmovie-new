@@ -36,7 +36,13 @@ function Ticketing(props) {
         setSt(!st);
     }
 
+
+
     const goSeat = ()=> {
+
+
+
+
         if (input.movie===''){
             Swal.fire({
                 icon:"warning",
@@ -70,6 +76,8 @@ function Ticketing(props) {
         //
         // if (input.length===3)
         // {
+
+        // if (sessionStorage.u_id !==)
 
             navi("/ticketing/selectseat", {
                 state: {

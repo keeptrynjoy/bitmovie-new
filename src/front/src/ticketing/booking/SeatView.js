@@ -36,6 +36,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
     const obj = JSON.parse(movieData.movie);
     const obj2 = JSON.parse(movieData.location);
+    const obj3 = JSON.parse(movieData.time);
 
 
     // console.log('뭐야',obj);
@@ -43,8 +44,9 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     // console.log('뭐야3',movieData);
     // console.log('뭘까요?',obj3);
     // console.log(movieData.time);
-    console.log(totalp);
-    console.log(selected_seat.length);
+    // console.log(totalp);
+    // console.log(selected_seat.length);
+    // console.log(obj3.scrt_etime);
 
 
     // console.log('성인금액',aprice);
@@ -77,7 +79,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
             const totalPrice = (sprice * 8000) + (aprice * 10000);
 
             navi('/ticketing/payment', {
-                state: {obj, obj2, adults, students, selected_seat, finalPay: totalPrice, movieData}
+                state: {obj, obj2, obj3, adults, students, selected_seat, finalPay: totalPrice, movieData}
             })
         }else {
             Swal.fire({
@@ -222,7 +224,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                         <p style={{fontSize:'20px'}}><b>상영 영화</b> {obj.m_name} (<span style={{fontStyle:'italic'}}>{obj.m_enname} </span> )</p>
                         <p><b style={{fontSize:'20px'}}>상영 지점</b> {obj2.the_name}</p>
                         <p><b style={{fontSize:'20px'}}>예매 날짜</b> {movieData.calender}</p>
-                        <p><b style={{fontSize:'20px'}}>러닝 타임</b> {movieData.time.substring(0,5)}</p>
+                        <p><b style={{fontSize:'20px'}}>러닝 타임</b> {obj3.scrt_stime.substring(0,5)}~{obj3.scrt_etime.substring(0,5)}</p>
                         {/*<p><b style={{fontSize:'20px'}}>러닝 타임</b>*/}
                         {/*    &nbsp;{obj3.scrt_detail[0].scrt_stime.substring(0,5)}~{obj3.scrt_detail[0].scrt_etime.substring(0,5)} ({obj.m_runtime}분)&nbsp;*/}
                         {/*</p>*/}
