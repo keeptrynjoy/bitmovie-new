@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="data.repository.movie.LikeRevwRepository">
+<mapper namespace="data.repository.user.LikeRevwRepository">
 
     <!--  평점 좋아요  -->
     <insert id="insertLikeRevw" parameterType="LikeRevw">
@@ -13,8 +13,8 @@
     </insert>
 
     <!--  평점 좋아요 여부 확인  -->
-    <select id="likeYorN" parameterType="LikeRevw" resultType="boolean">
-        SELECT IF(count(*)=1, 1, 0) FROM likerevw_tb WHERE review_pk = #{review_pk} and user_pk = #{user_pk}
+    <select id="likeYorN" parameterType="JoinRevw" resultType="boolean">
+        SELECT count(*) FROM likerevw_tb WHERE review_pk = #{review_pk} AND user_pk = #{user_pk}
     </select>
 
 </mapper>
