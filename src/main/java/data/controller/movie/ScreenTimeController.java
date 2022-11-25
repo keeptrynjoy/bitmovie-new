@@ -1,8 +1,6 @@
 package data.controller.movie;
 
-import data.domain.movie.Movie;
 import data.domain.movie.ScreenTime;
-import data.service.movie.MovieService;
 import data.service.movie.ScreenTimeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,12 +32,12 @@ public class ScreenTimeController {
                                          @RequestParam int theater,
                                          @RequestParam Date date){
 
-        ScreenTime  screenTime = ScreenTime.builder()
+        ScreenTime screenTime = ScreenTime.builder()
                                     .movie_pk(movie)
                                     .theater_pk(theater)
                                     .scrt_date(date)
                                     .build();
 
-        return ResponseEntity.ok(screenTimeService.selectScrtInfo(screenTime));
+        return ResponseEntity.ok(screenTimeService.selectScrtForBook(screenTime));
     }
 }

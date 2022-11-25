@@ -5,6 +5,11 @@
         INSERT INTO screentime_tb VALUES
                (null,#{movie_pk},#{scrt_date},#{scrt_stime},#{scrt_etime})
     </insert>
+
+    <select id="selectScrTimeByScrtimePK" resultType="boolean" parameterType="int">
+        SELECT count(*) FROM screentime_tb WHERE scrtime_pk=#{scrtime_pk}
+    </select>
+
     <select id="selectScrTimeByScreen" resultType="screenTime" parameterType="int">
         SELECT * FROM screentime_tb WHERE screen_pk=#{screen_pk}
     </select>
