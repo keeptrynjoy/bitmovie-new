@@ -42,7 +42,9 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     // console.log('뭐야2',obj2);
     // console.log('뭐야3',movieData);
     // console.log('뭘까요?',obj3);
-    console.log(movieData.time);
+    // console.log(movieData.time);
+    console.log(totalp);
+    console.log(selected_seat.length);
 
 
     // console.log('성인금액',aprice);
@@ -70,11 +72,19 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
     const saveGo=() => {
 
-        const totalPrice = (sprice * 8000) + (aprice * 10000);
+        if (totalp===selected_seat.length) {
 
-        navi('/ticketing/payment', {
-            state: {obj, obj2, adults, students, selected_seat, finalPay: totalPrice ,movieData}
-        })
+            const totalPrice = (sprice * 8000) + (aprice * 10000);
+
+            navi('/ticketing/payment', {
+                state: {obj, obj2, adults, students, selected_seat, finalPay: totalPrice, movieData}
+            })
+        }else {
+            Swal.fire({
+                icon: "warning",
+                text: "선택한 인원을 확인해주세요"
+            })
+        }
     }
 
 
@@ -151,7 +161,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     useEffect(()=>{
 
 
-        if (selected_seat.length > totalp) {
+        if (selected_seat.length > totalp ) {
             Swal.fire({
                 icon: "warning",
                 text: "인원 확인 부탁드립니다"
