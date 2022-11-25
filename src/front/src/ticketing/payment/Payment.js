@@ -96,14 +96,18 @@ const Payment = (effect, deps) => {
     const {IMP} = window;
     IMP.init('imp02023053');
 
-    console.log('좌석보여줘',location.state.selected_seat);
+    // console.log('좌석보여줘',location.state.selected_seat);
 
     // let selector=JSON.stringify(location.state.selected_seat);
 
     let selector=location.state.selected_seat.join();
 
 
-    console.log('보자',selector);
+    // console.log('보자',location.state.obj3.scrtime_pk);
+
+    const timePk= location.state.obj3.scrtime_pk;
+
+    // console.log(timePk);
 
 
     // IMP.request_pay(param, callback) 결제창 호출
@@ -237,7 +241,7 @@ const Payment = (effect, deps) => {
                 <input type={'number'}  onChange={(e) => (
                     setScrTimePk(e.target.value)
                 )}
-                defaultValue={location.state.movieData.time}
+                defaultValue={timePk}
                 /><br/>
                 극장명(String)
                 <input type={'text'}  onChange={(e) => (

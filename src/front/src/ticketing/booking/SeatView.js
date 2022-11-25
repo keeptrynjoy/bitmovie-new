@@ -47,6 +47,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     // console.log(totalp);
     // console.log(selected_seat.length);
     // console.log(obj3.scrt_etime);
+    console.log(obj3.scrtime_pk);
 
 
     // console.log('성인금액',aprice);
