@@ -79,7 +79,7 @@ const TimeTable = (props) => {
                     <ul>
                         <li>
                             <button key={i} name={'time'} value={JSON.stringify(list)} onClick={changeData} >
-                        {list.m_name}
+                        {list.scrt_detail[i].scrt_stime}
                             </button>
                         </li>
                     </ul>
