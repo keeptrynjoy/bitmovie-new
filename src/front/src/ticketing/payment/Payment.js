@@ -73,6 +73,7 @@ const Payment = (effect, deps) => {
 
 
     const location = useLocation();
+    const [coupon,setCoupon]=useState('');
     const [userId, setUserId] = useState();
     const userIdRef = useRef(userId);
     const [userName, setUserName] = useState();
@@ -219,15 +220,25 @@ const Payment = (effect, deps) => {
     },[])
 
 
-    console.log(dbData);
+    // console.log('db정보',dbData);
+    // console.log("쿠폰이다",coupon[0].c_amount);
 
-
+    //쿠폰 받아오기
+    // const take=()=> {
+    //     axios.get(`http://localhost:8282/payment/coupon?user_pk=${user_pk}`)
+    //         .then((res) => {
+    //             setCoupon(res.data);
+    //             // console.log('쿠폰',res.data);
+    //         }).catch((error) => {
+    //         console.log('쿠폰이 존재하지 않아요')
+    //     });
+    // }
 
 
     // console.log(dbData);
     // console.log(location.state);
 
-
+  // console.log('쿠폰',coupon);
     return (
         <>
             <div style={{width:'500px', height:'600px', border:'1px solid gray', margin:'0 auto', justifyContent:'center', display:'flex'}}>
@@ -281,13 +292,19 @@ const Payment = (effect, deps) => {
                    setUsePoint(e.target.value)
                 )}
 
-                /> <br/>
-                {/*쿠폰적용: {dbData.u_point}*/}
-                {/*<input type={'number'} onChange={(e) => (*/}
-                {/*    setUsePoint(e.target.value)*/}
-                {/*)}*/}
-
-                {/*/> <br/>*/}
+                /> <br/><br/>
+                <select  type={'number'}>
+                <option>
+                    쿠폰선택
+                </option>
+                    <option>
+                        {/*defaultValue={coupon[0].c_amount}*/}
+                    </option>
+                    <option>
+                        {/*defaultValue={coupon[0].c_amount}*/}
+                    </option>
+                </select>
+                    <br/><br/>
 
                 결제금액(int)
                 <input type={'number'} ref={finalPriceRef}onChange={(e) => (

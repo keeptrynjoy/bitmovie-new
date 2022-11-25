@@ -4,6 +4,15 @@
     }
 }
 
+input[type="checkbox"]:disabled{
+    background: blue;
+}
+
+.seat:disabled{
+    background-color: blue;
+}
+
+
 .allboxes{
     margin: 0;
 }

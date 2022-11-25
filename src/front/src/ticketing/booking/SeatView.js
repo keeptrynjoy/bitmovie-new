@@ -8,6 +8,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
     const navi=useNavigate();
     const location = useLocation();
+    const [coupon,setCoupon]=useState('');
     const movieData= location.state.input;
     const [totalp, setTotalp] =useState(0);
     const [adults, setAdults]= useState(0);
@@ -53,7 +54,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     // console.log(totalp);
     // console.log(selected_seat.length);
     // console.log(obj3.scrt_etime);
-    console.log(obj3.scrtime_pk);
+    // console.log(obj3.scrtime_pk);
 
 
     // console.log('성인금액',aprice);
@@ -80,7 +81,6 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     //  }
 
     const saveGo=() => {
-
         if (totalp===selected_seat.length) {
 
             const totalPrice = (sprice * 8000) + (aprice * 10000);
@@ -96,6 +96,29 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
         }
     }
 
+    // //유저정보
+    // const comeDb=()=>{
+    //     let user_pk=sessionStorage.user_pk;
+    //     axios.get('http://localhost:8282/mypage/information?user_pk='+user_pk)
+    //         .then((res)=> {
+    //                 // alert('굿잡베이베')
+    //                 setDbdata(res.data);
+    //             }
+    //
+    //         );
+    // }
+
+
+    //쿠폰 받아오기
+    const getCoupon=()=> {
+        let user_pk=sessionStorage.user_pk;
+        axios.get(`http://localhost:8282/payment/coupon?user_pk=${user_pk}`)
+            .then((res) => {
+                setCoupon(res.data);
+            }).catch((error) => {
+            console.log('쿠폰이 존재하지 않아요')
+        });
+    }
 
     // console.log('얼마',finalPay);
 
@@ -147,6 +170,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     useEffect(()=>{
 
         take();
+        getCoupon();
 
 
     },[])
@@ -156,7 +180,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
             axios.get(`http://localhost:8282/booking/reserved_seat?screentime=${obj3.scrtime_pk}`)
             .then((res) => {
                 setBookedSeat(res.data);
-                console.log('?',res.data);
+                // console.log('?',res.data);
             }).catch((error) => {
                console.log('예매된 좌석이 없습니다')
             });

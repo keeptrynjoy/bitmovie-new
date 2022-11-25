@@ -85,7 +85,7 @@ public class CouponService {
         }
     }
     //쿠폰 조회
-    public Coupon selectCoupon (int user_pk) {
+    public List<Coupon> selectCoupon (int user_pk) {
         return couponRepository.selectCoupon(user_pk);
     }
 

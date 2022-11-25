@@ -22,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 
@@ -171,7 +172,7 @@ public class PaymentController {
     }
     //쿠폰 조회
     @GetMapping("/coupon")
-    public Coupon selectCoupon (int user_pk) {
+    public List<Coupon> selectCoupon (int user_pk) {
         return couponService.selectCoupon(user_pk);
     }
 
