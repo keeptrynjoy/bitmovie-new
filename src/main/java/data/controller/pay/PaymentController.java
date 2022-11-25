@@ -130,8 +130,8 @@ public class PaymentController {
     }
 
     @GetMapping("/cancel_payment")
-    public ResponseEntity<?> cancelPaymentRequest(@RequestParam int user,
-                                                  @RequestParam String booking) throws IOException {
+    public ResponseEntity<String> cancelPaymentRequest(@RequestParam int user,
+                                                        @RequestParam int booking) throws IOException {
 
         //유저고유키와 예매 고유키로 결제 고유키 및 아임포트 결제번호 조회
         Payment payment = paymentService.selectPayByUserAndBookPK(user,booking);
@@ -140,19 +140,27 @@ public class PaymentController {
         String token = paymentService.getToken();
         //System.out.println("토큰 : " + token);
 
-        paymentService.paymentCancel(token,payment.getImp_uid(),payment.getPay_price(),"결제 취소 정상 처리");
+        try{
+            paymentService.paymentCancel(token,payment.getImp_uid(),payment.getPay_price(),"결제 취소 정상 처리");
+        } catch (NullPointerException ne){
+            ne.printStackTrace();
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).body("유저 정보가 없습니다.");
+        }
 
         //아임포트 결제 정상 취소 확인
         Map<String,Object> map = paymentService.paymentInfo(payment.getImp_uid(), token);
         String status = (String) map.get("status");
-//        System.out.println("결제 취소 결과 : "+status);
-        // 정상적으로 이루어진 후 예매 취소
+        //System.out.println("결제 취소 결과 : "+status);
+
+        //아임포트 결제상태가 취소일 경우 데이터 처리
         if(status.equals("cancelled")){
 
-            //결제 취소일자 입력
-
+            //결제 취소일자 업데이트
+            paymentService.updatePayCnclDate(payment.getPayment_pk());
+            System.out.println(payment.getPayment_pk());
 
             //예매내역 제거
+            bookingService.deleteBookingData(booking);
 
             return ResponseEntity.ok("결제 취소가 정상적으로 처리되었습니다.");
         } else {

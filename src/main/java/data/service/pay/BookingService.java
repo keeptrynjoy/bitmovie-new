@@ -4,10 +4,7 @@ import data.domain.movie.Movie;
 import data.domain.pay.Booking;
 import data.repository.pay.BookingRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 
@@ -15,16 +12,16 @@ import java.util.*;
 @RequiredArgsConstructor
 public class BookingService {
 
-    public final BookingRepository bookingRepositorys;
+    public final BookingRepository bookingRepository;
 
     public void insertBookingData(Booking booking){
-        bookingRepositorys.insertBookingData(booking);
+        bookingRepository.insertBookingData(booking);
     }
 
     /* 영화 리스트(첫번째 포스터만 반환할 수 있도록 데이터가공)*/
     public List<Movie> selectScreeningMovieList(){
 
-        List<Movie> selectMovieList = bookingRepositorys.selectScreeningMovieList();
+        List<Movie> selectMovieList = bookingRepository.selectScreeningMovieList();
 
         for (Movie m : selectMovieList){
             String[] split = m.getM_photo().split(",", 2);
@@ -36,7 +33,7 @@ public class BookingService {
 
     /* 특정 상영시간에 해당하는 좌석번호 반환 */
     public String reservedSeatList(int screentime){
-        return bookingRepositorys.selectSeatNumData(screentime);
+        return bookingRepository.selectSeatNumData(screentime);
     }
 
 
@@ -49,7 +46,7 @@ public class BookingService {
         String booking_seat= booking.getBook_seat_num();
 
         /* 기존에 있던 좌석번호를 확인하기위해 상영시간에 해당하는 예매된 좌석 전체를 얻어 인스턴스로 선언 */
-        String reserved_seat = bookingRepositorys.selectSeatNumData(booking.getScrtime_pk());
+        String reserved_seat = bookingRepository.selectSeatNumData(booking.getScrtime_pk());
         try {
             /* 문자열로 넘어온 리스트를 split을 통해 나누어 배열로 만든뒤 List 인스턴스 객체로 선언 */
             List<String> booking_list = new ArrayList<>(Arrays.asList(booking_seat.split(",")));
@@ -71,5 +68,9 @@ public class BookingService {
             System.out.println("예매되어 있는 좌석이 없음 (상영시간 고유키 : "+ booking.getScrtime_pk());
             return false;
         }
+    }
+
+    public void deleteBookingData(int booking_pk){
+        bookingRepository.deleteBookingData(booking_pk);
     }
 }

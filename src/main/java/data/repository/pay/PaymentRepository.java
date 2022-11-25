@@ -18,8 +18,8 @@ public interface PaymentRepository {
 
     public void insertReviewMacro(Review review);
 
-    public Payment selectPayByUserAndBookPK(Map<String,Object> map);
+    public Payment selectPayByUserAndBookPK(Map<String,Integer> map);
 
-    public void updatePayCnclDate(Payment payment);
+    public void updatePayCnclDate(String payment_pk);
 }
 

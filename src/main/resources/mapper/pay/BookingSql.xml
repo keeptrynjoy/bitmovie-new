@@ -21,4 +21,9 @@
         WHERE scrtime_pk=#{scrtime_pk}
         GROUP BY scrtime_pk;
     </select>
+
+    <!-- 예매 내역 삭제 -->
+    <delete id="deleteBookingData" parameterType="int">
+        DELETE FROM booking_tb WHERE booking_pk = #{booking_pk}
+    </delete>
 </mapper>

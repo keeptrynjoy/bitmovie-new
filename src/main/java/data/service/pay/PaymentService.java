@@ -118,7 +118,7 @@ public class PaymentService {
         //json -> Object
         Response response = gson.fromJson(br.readLine(), Response.class);
 
-        System.out.println(response);
+//        System.out.println(response);
 
         br.close();//버퍼 닫기
         conn.disconnect();//HttpURLConnection 연결 끊기.
@@ -181,12 +181,16 @@ public class PaymentService {
         conn.disconnect();
     }
 
-    public Payment selectPayByUserAndBookPK(int user, String booking_pk){
+    public Payment selectPayByUserAndBookPK(int user, int booking_pk){
 
-        Map <String,Object> map = new HashMap<>();
+        Map <String,Integer> map = new HashMap<>();
         map.put("user_pk",user);
         map.put("booking_pk",booking_pk);
         return paymentRepository.selectPayByUserAndBookPK(map);
+    }
+
+    public void updatePayCnclDate(String payment_pk){
+        paymentRepository.updatePayCnclDate(payment_pk);
     }
 
 //    private final MovieRepository movieRepository;
