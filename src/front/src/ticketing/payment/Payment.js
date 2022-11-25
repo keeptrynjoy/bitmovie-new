@@ -161,7 +161,7 @@ const Payment = (effect, deps) => {
                         const bookingData = {
                             payment_pk: rsp.merchant_uid,
                             // scrtime_pk,
-                            scrtime_pk : location.state.movieData.time,
+                            scrtime_pk : timePk,
                             book_seat_num : selector,
                             book_the_name : location.state.obj2.the_name,
                             book_issu_date: date,
