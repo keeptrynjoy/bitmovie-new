@@ -105,14 +105,14 @@ public class MovieService {
             List<Map<String, Object>> screen_list = joinTimeRepository.selectScreenByTheater(map);
             theaters_list.get(i).put("scrren", screen_list);
             // 상영관 안에 상영시간표 배열형태로 데이터 삽입
-            for (int j = 0; j < screen_list.size(); j++) {
+            for (int k = 0; k < screen_list.size(); k++) {
                 // 상영관 pk 읽어들이기
-                int screen_pk = Integer.parseInt(screen_list.get(i).get("screen_pk").toString());
+                int screen_pk = Integer.parseInt(screen_list.get(k).get("screen_pk").toString());
                 System.out.println("map"+map);
                 map.put("screen_pk", screen_pk);
                 // 상영관에 해당하는 상영 시간표 정보 반환
                 List<Map<String, Object>> time_list = joinTimeRepository.selectTimeByScreen(map);
-                screen_list.get(i).put("time", time_list);
+                screen_list.get(k).put("time", time_list);
             }
         }
         return theaters_list;
