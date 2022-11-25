@@ -15,5 +15,5 @@ public interface ScreenTimeRepository {
     public void updateScrTimeByPk(ScreenTime screenTime);
     public void deleteScrTime(int scrtime_pk);
     public List<ScreenTime> selectScrtDetailInfo(ScreenTime screenTime);
-
+    public boolean selectScrTimeByScrtimePK(int scrtime_pk);
 }

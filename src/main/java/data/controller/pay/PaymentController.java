@@ -52,6 +52,7 @@ public class PaymentController {
         Payment payment = mapper.treeToValue(object_node.get("payment"),Payment.class);
         Booking booking = mapper.treeToValue(object_node.get("booking"),Booking.class);
 
+
         System.out.println("user_pk : "+ payment.getUser_pk());
 
         //일시가 9시간전으로 변환되는 오류때문에 9시간 추가.
@@ -105,7 +106,7 @@ public class PaymentController {
 
             //6. 포인트 차감 및 쿠폰 사용 처리
             pointService.deductionPoint(payment);
-//            couponService.updateCouponByPayment(1,used_coupon);
+            couponService.updateCouponByPayment(1,used_coupon);
 
             //6. payment(결제) 데이터 저장
             paymentService.insertPaymentData(payment);
