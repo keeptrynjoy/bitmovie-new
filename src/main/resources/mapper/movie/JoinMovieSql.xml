@@ -48,29 +48,28 @@
 
     <!--  메인화면에서 검색 - 영화 정보 + 예매율, 평균평점 정보  -->
     <select id="selectSearchMovie" resultType="JoinMovie" parameterType="String">
-        SELECT
-        mv.movie_pk,
-        mv.m_name,
-        mv.m_type,
-        mv.m_sdate,
-        mv.m_edate,
-        mv.m_runtime,
-        mv.m_age_grd,
-        mv.m_info,
-        mv.m_photo,
-        ifnull(round(AVG(re.revw_star)),0) AS revw_avgstar,
-        ifnull(round(sum_paycnt/sum(sum_paycnt)*100),0) AS reserve_rate
-        FROM
-        movie_tb mv LEFT OUTER JOIN review_tb re ON mv.movie_pk = re.movie_pk
-        LEFT OUTER JOIN
-            (SELECT
-                tim.movie_pk,
-                sum(book.book_adult_cnt + book.book_youth_cnt) AS sum_paycnt
-            FROM
-                payment_tb pay LEFT OUTER JOIN booking_tb book ON pay.payment_pk = book.payment_pk
-            LEFT OUTER JOIN screentime_tb tim ON book.scrtime_pk = tim.scrtime_pk
-            ) sub ON sub.movie_pk = mv.movie_pk
-        WHERE m_name LIKE CONCAT('%',#{search},'%') OR m_enname LIKE CONCAT('%',#{search},'%')
+        SELECT mv.movie_pk,
+               mv.m_name,
+               mv.m_type,
+               mv.m_sdate,
+               mv.m_edate,
+               mv.m_runtime,
+               mv.m_age_grd,
+               mv.m_info,
+               mv.m_photo,
+               ifnull(round(AVG(re.revw_star)), 0)                  AS revw_avgstar,
+               ifnull(round(sum_paycnt / sum(sum_paycnt) * 100), 0) AS reserve_rate
+        FROM movie_tb mv
+                 LEFT OUTER JOIN review_tb re ON mv.movie_pk = re.movie_pk
+                 LEFT OUTER JOIN
+             (SELECT tim.movie_pk,
+                     sum(book.book_adult_cnt + book.book_youth_cnt) AS sum_paycnt
+              FROM payment_tb pay
+                       LEFT OUTER JOIN booking_tb book ON pay.payment_pk = book.payment_pk
+                       LEFT OUTER JOIN screentime_tb tim ON book.scrtime_pk = tim.scrtime_pk) sub
+             ON sub.movie_pk = mv.movie_pk
+        WHERE replace(m_name, ' ', '') LIKE CONCAT('%', replace(#{search}, ' ', ''), '%')
+           OR replace(m_enname, ' ', '') LIKE CONCAT('%', replace(#{search}, ' ', ''), '%')
         GROUP BY movie_pk
         ORDER BY m_sdate;
     </select>
