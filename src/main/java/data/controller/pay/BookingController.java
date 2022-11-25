@@ -45,7 +45,7 @@ public class BookingController {
             return new ResponseEntity<>(list,HttpStatus.OK);
         } catch (NullPointerException e){
             e.printStackTrace();
-            return new ResponseEntity<>("해당 상영시간에 예매된 좌석이 없습니다.",HttpStatus.BAD_REQUEST);
+            return ResponseEntity.ok("예매된 자석이 없습니다.");
         }
        } else {
            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("요청한 상영시간은 존재하지 않습니다.");

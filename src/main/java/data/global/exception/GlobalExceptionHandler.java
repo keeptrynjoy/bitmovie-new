@@ -22,13 +22,4 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(errorCode.getHttpStatus()).body(ErrorResponse.toErrorResponse(errorCode));
     }
 
-    private List<String> generateErrors(BindException ex) {
-        List<String> errors = new ArrayList<>();
-        List<ObjectError> allErrors = ex.getBindingResult().getAllErrors();
-
-        for (ObjectError error : allErrors) {
-            errors.add(error.getDefaultMessage());
-        }
-        return errors;
-    }
 }
