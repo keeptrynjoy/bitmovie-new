@@ -73,17 +73,17 @@ const TimeTable = (props) => {
                 input.location != "" && input.movie != "" && table.length==0 ?
                     <p>"현재 상영중인 리스트가 존재하지 않습니다"</p>
 
-                :
+                    :
 
-                table.map((list,i)=>(
-                    <ul>
-                        <li>
-                            <button key={i} name={'time'} value={JSON.stringify(list)} onClick={changeData} >
-                        {list.scrt_detail[i].scrt_stime}
-                            </button>
-                        </li>
-                    </ul>
-                ))
+                    table.map((list,i)=>(
+                        <ul>
+                            <li>
+                                <button key={i} name={'time'} value={(list.scrt_detail[i].scrt_stime,list.scrt_detail[i].scrt_etime)} onClick={changeData} style={{fontSize:'25px', backgroundColor:'white', border:'1px solid black'}}>
+                                    {list.scrt_detail[i].scrt_stime.substring(0,5)}~{list.scrt_detail[i].scrt_etime.substring(0,5)}
+                                </button>
+                            </li>
+                        </ul>
+                    ))
             }
 
 

@@ -36,36 +36,37 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
     const obj = JSON.parse(movieData.movie);
     const obj2 = JSON.parse(movieData.location);
-    const obj3 = JSON.parse(movieData.time);
 
-console.log('뭐야',obj);
-console.log('뭐야2',obj2);
-console.log('뭐야3',movieData);
-console.log('뭘까요?',obj3);
+
+    // console.log('뭐야',obj);
+    // console.log('뭐야2',obj2);
+    // console.log('뭐야3',movieData);
+    // console.log('뭘까요?',obj3);
+    console.log(movieData.time);
 
 
     // console.log('성인금액',aprice);
     // console.log('학생금액',sprice);
 
 
-   //  const letGo=()=>{
-   //      navi('/ticketing/payment', {
-   //          state: {obj, obj2, adults, students, selected_seat, finalPay : (sprice * 8000) + (aprice * 10000)}
-   //
-   //      })
-   //  }
-   //
-   //
-   // const saveGo=() => {
-   //
-   //      let totalPrice =(sprice * 8000) + (aprice * 10000);
-   //
-   //     setFinalPay(totalPrice);
-   //
-   //
-   //      letGo();
-   //
-   //  }
+    //  const letGo=()=>{
+    //      navi('/ticketing/payment', {
+    //          state: {obj, obj2, adults, students, selected_seat, finalPay : (sprice * 8000) + (aprice * 10000)}
+    //
+    //      })
+    //  }
+    //
+    //
+    // const saveGo=() => {
+    //
+    //      let totalPrice =(sprice * 8000) + (aprice * 10000);
+    //
+    //     setFinalPay(totalPrice);
+    //
+    //
+    //      letGo();
+    //
+    //  }
 
     const saveGo=() => {
 
@@ -211,10 +212,11 @@ console.log('뭘까요?',obj3);
                         <p style={{fontSize:'20px'}}><b>상영 영화</b> {obj.m_name} (<span style={{fontStyle:'italic'}}>{obj.m_enname} </span> )</p>
                         <p><b style={{fontSize:'20px'}}>상영 지점</b> {obj2.the_name}</p>
                         <p><b style={{fontSize:'20px'}}>예매 날짜</b> {movieData.calender}</p>
-                        <p><b style={{fontSize:'20px'}}>러닝 타임</b>
-                            &nbsp;{obj3.scrt_detail[0].scrt_stime.substring(0,5)}~{obj3.scrt_detail[0].scrt_etime.substring(0,5)} ({obj.m_runtime}분)&nbsp;
-                        </p>
-                        <p><b style={{fontSize:'20px'}}>상영관</b> {obj3.scr_name}</p>
+                        <p><b style={{fontSize:'20px'}}>러닝 타임</b> {movieData.time.substring(0,5)}</p>
+                        {/*<p><b style={{fontSize:'20px'}}>러닝 타임</b>*/}
+                        {/*    &nbsp;{obj3.scrt_detail[0].scrt_stime.substring(0,5)}~{obj3.scrt_detail[0].scrt_etime.substring(0,5)} ({obj.m_runtime}분)&nbsp;*/}
+                        {/*</p>*/}
+                        {/*<p><b style={{fontSize:'20px'}}>상영관</b> {obj3.scr_name}</p>*/}
                         <p><b style={{fontSize:'20px'}}>선택 인원</b> 성인 :  <span id={'result'}></span>&nbsp;청소년 : <span id={'result2'}></span></p>
                         <p><b style={{fontSize:'20px'}}>선택 좌석</b> <span id={'result3'}>{[...selected_seat.join(",")]}</span> </p>
                         <p id="selected-seats"></p>
