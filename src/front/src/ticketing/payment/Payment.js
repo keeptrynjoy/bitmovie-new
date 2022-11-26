@@ -74,7 +74,7 @@ const Payment = (effect, deps) => {
 
     const location = useLocation();
     const [coupon,setCoupon]=useState('');
-    const [discount,setDiscount]=useState(0);
+    const [discount,setDiscount]=useState('');
     const [userId, setUserId] = useState();
     const userIdRef = useRef(userId);
     const [userName, setUserName] = useState();
@@ -85,7 +85,7 @@ const Payment = (effect, deps) => {
     const userPhoneRef = useRef(userPhone);
     const [finalPrice, setFinalPrice] = useState();
     const finalPriceRef = useRef(finalPrice)
-    const [usePoint, setUsePoint] = useState(0);
+    const [usePoint, setUsePoint] = useState('');
     const usePointRef = useRef();
     const [scrtime_pk,setScrTimePk] = useState();
     const [book_seat_num,setBookSeatNum] = useState('A1');
@@ -94,9 +94,13 @@ const Payment = (effect, deps) => {
     const [book_adult_cnt,setBookAdultCnt] = useState();
     const [book_youth_cnt,setBookYouthCnt] = useState();
     const [dbData,setDbdata]= useState('');
+    const [sale,setSale]= useState('');
+    const [useCoupon,setUseCoupon]=useState('');
     const user_pk=sessionStorage.user_pk;
     const {IMP} = window;
     IMP.init('imp02023053');
+
+
 
     // console.log('좌석보여줘',location.state.selected_seat);
 
@@ -112,10 +116,23 @@ const Payment = (effect, deps) => {
     // console.log(timePk);
 
 
-    const final= (location.state.finalPay-discount-usePoint)
+    // const fixpay=(final)=>{
+    //       final=(location.state.finalPay-discount);
+    // }
 
-    console.log('결제금액',final);
+    const final=(location.state.finalPay-discount-usePoint);
 
+    // console.log(usePoint,'사용할예정포인트');
+
+    // console.log('결제금액',final);
+
+    // console.log('할인금액보여줘',discount);
+
+
+    // console.log('사용된쿠폰금액',useCoupon);
+    // console.log('사용된포인트긍맥',sale);
+    const totalDiscount=(Number(useCoupon)+Number(sale));
+    // console.log(totalDiscount,'???');
 
 
     // IMP.request_pay(param, callback) 결제창 호출
@@ -228,9 +245,9 @@ const Payment = (effect, deps) => {
     },[])
 
 
-    console.log('db정보',dbData);
+    // console.log('db정보',dbData);
     // console.log("쿠폰이다",coupon[0].c_amount);
-    console.log('???',coupon);
+    // console.log('???',coupon);
     // 쿠폰 받아오기
     const take=()=> {
         axios.get(`http://localhost:8282/payment/coupon?user_pk=${user_pk}`)
@@ -242,12 +259,12 @@ const Payment = (effect, deps) => {
         });
     }
 
-    console.log('사용할 포인트',usePoint);
-
-    console.log(dbData);
-    console.log(location.state);
-
-    console.log('쿠폰',coupon);
+    // console.log('사용할 포인트',usePoint);
+    //
+    // console.log(dbData);
+    // console.log(location.state);
+    //
+    // console.log('쿠폰',coupon);
     return (
         <>
             <div style={{width:'500px', height:'600px', border:'1px solid gray', margin:'0 auto', justifyContent:'center', display:'flex'}}>
@@ -296,28 +313,46 @@ const Payment = (effect, deps) => {
                            defaultValue={user_pk} disabled
                     />
                     <br/>
-                    <input type={'number'} onChange={(e) => (
-                        setUsePoint(e.target.value))}
+                    <input type={'number'} name={'point'} onChange={(e) => (
+                        e.target.value>dbData.u_point?(
+                            // fixpay();
+                            alert(e.target.value='잔여포인트를 초과했습니다'),
 
-                    />남은 포인트({dbData.u_point})
-                    <br/><br/>
-                    보유한 쿠폰<br/>
-                    <select type={'number'} onChange={(e) => (
-                        setDiscount(e.target.value))}>
-                        <option>선택없음</option>
-                        {coupon &&
-                            coupon.map((list,i)=>(
+                            setUsePoint(e.target.value)
+                            )
+
+                            // final=(location.state.finalPay-discount)
 
 
-                                <option key={i}>
-                                    {list.c_amount}
-                                </option>
-
-                            ))
-                        }
-                    </select>
-                    <input type={"number"} defaultValue={discount} />할인된 금액
+                            :
+                            setUsePoint(e.target.value),
+                                setSale(e.target.value)
+                            // <></>
+                    )}
+                    />
                     <br/>
+                    남은 포인트({dbData.u_point})
+                        <br/><br/>
+                        보유한 쿠폰<br/>
+                        <select type={'number'} onChange={(e) => (
+                        setDiscount(e.target.value),
+                        setUseCoupon(e.target.value)
+
+                        )}>
+                        <option value={0}>선택없음</option>
+                    {coupon &&
+                        coupon.map((list,i)=>(
+
+
+                        <option key={i} value={list.c_amount}>
+                    {list.c_amount}
+                        </option>
+
+                        ))
+                    }
+                        </select>
+                        <input type={"text"} value={totalDiscount} readOnly  />할인된 금액
+                        <br/>
                     {/*<select  type={'number'}>*/}
                     {/*<option>*/}
                     {/*    쿠폰선택*/}
@@ -331,35 +366,35 @@ const Payment = (effect, deps) => {
                     {/*</select>*/}
                     {/*    <br/><br/>*/}
 
-                    결제금액(int)
-                    <input type={'number'} ref={finalPriceRef}onChange={(e) => (
+                        결제금액(int)
+                        <input type={'number'} ref={finalPriceRef}onChange={(e) => (
                         finalPriceRef.current = e.target.value
-                    )}
-                           value={final} disabled
-                    /><br/>
-                    구매자 이름(String)
-                    <input type={'text'} ref={userNameRef}  onChange={(e) => (
+                        )}
+                        value={final} disabled
+                        /><br/>
+                        구매자 이름(String)
+                        <input type={'text'} ref={userNameRef}  onChange={(e) => (
                         userNameRef.current = e.target.value
-                    )} defaultValue={sessionStorage.u_name} disabled /><br/>
-                    구매자 연락처
-                    <input type={'text'} ref={userPhoneRef}  onChange={(e) => (
+                        )} defaultValue={sessionStorage.u_name} disabled /><br/>
+                        구매자 연락처
+                        <input type={'text'} ref={userPhoneRef}  onChange={(e) => (
                         userPhoneRef.current = e.target.value
-                    )}
-                           defaultValue={dbData.u_phone} disabled
-                    /><br/>
-                    구매자 이메일
-                    <input type={'email'} ref={userEmailRef}  onChange={(e) => (
+                        )}
+                        defaultValue={dbData.u_phone} disabled
+                        /><br/>
+                        구매자 이메일
+                        <input type={'email'} ref={userEmailRef}  onChange={(e) => (
                         userEmailRef.current = e.target.value
-                    )}
-                           defaultValue={sessionStorage.u_id} disabled
-                    /><br/>
+                        )}
+                        defaultValue={sessionStorage.u_id} disabled
+                        /><br/>
 
-                </div>
-                <div style={{alignItems:'center', display:'flex', justifyContent:'center',marginTop:'30px'}}>
-                    <button onClick={requestPay} style={{backgroundColor:'white', border:'1px solid gray'}}>결제하기</button>
-                </div>
-            </div>
-        </>
-    );
-}
-export default Payment;
+                        </div>
+                        <div style={{alignItems:'center', display:'flex', justifyContent:'center',marginTop:'30px'}}>
+                        <button onClick={requestPay} style={{backgroundColor:'white', border:'1px solid gray'}}>결제하기</button>
+                        </div>
+                        </div>
+                        </>
+                        );
+                    }
+                            export default Payment;
