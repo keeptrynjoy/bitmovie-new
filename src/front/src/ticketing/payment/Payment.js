@@ -317,8 +317,13 @@ const Payment = (effect, deps) => {
                            defaultValue={user_pk} disabled
                     />
                     <br/>
-                    <input type={'number'} name={'point'} onChange={(e) => (
+                    <input type={'number'} name={'point'} placeholder={"사용할 포인트 입력"} step={100} min={0} onChange={(e) => (
 
+
+                        e.target.value<0?
+                        alert(e.target.value="0보다 작은 수는 입력할 수 없습니다")
+
+                            :
 
 
                         e.target.value.length<4?
