@@ -338,17 +338,17 @@ const Payment = (effect, deps) => {
                         :
 
 
-                        e.target.value<1000 ?
+                        // e.target.value<1000 ?
+                        //
+                        // (
+                        // alert(e.target.value='1000 포인트부터 사용가능합니다'),
+                        // setUsePoint(e.target.value)
+                        //
+                        // )
 
-                        (
-                        alert(e.target.value='1000 포인트부터 사용가능합니다'),
-                        setUsePoint(e.target.value)
-
-                        )
 
 
-
-                        :
+                        // :
 
                         setUsePoint(e.target.value),
                         setSale(e.target.value)
