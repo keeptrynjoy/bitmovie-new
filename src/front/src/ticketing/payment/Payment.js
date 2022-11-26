@@ -120,7 +120,8 @@ const Payment = (effect, deps) => {
     //       final=(location.state.finalPay-discount);
     // }
 
-    const final=(location.state.finalPay-discount-usePoint);
+    // const final=(location.state.finalPay-discount-usePoint);
+
 
     // console.log(usePoint,'사용할예정포인트');
 
@@ -132,6 +133,9 @@ const Payment = (effect, deps) => {
     // console.log('사용된쿠폰금액',useCoupon);
     // console.log('사용된포인트긍맥',sale);
     const totalDiscount=(Number(useCoupon)+Number(sale));
+
+
+    const final=(location.state.finalPay-totalDiscount);
     // console.log(totalDiscount,'???');
 
 
@@ -318,7 +322,7 @@ const Payment = (effect, deps) => {
 
 
                         e.target.value.length<4?
-                        <></>
+                            <></>
                         :
 
                         e.target.value>dbData.u_point?
@@ -339,6 +343,7 @@ const Payment = (effect, deps) => {
                         (
                         alert(e.target.value='1000 포인트부터 사용가능합니다'),
                         setUsePoint(e.target.value)
+
                         )
 
 
