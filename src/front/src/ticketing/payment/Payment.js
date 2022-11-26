@@ -314,45 +314,65 @@ const Payment = (effect, deps) => {
                     />
                     <br/>
                     <input type={'number'} name={'point'} onChange={(e) => (
-                        e.target.value>dbData.u_point?(
-                            // fixpay();
-                            alert(e.target.value='잔여포인트를 초과했습니다'),
-
-                            setUsePoint(e.target.value)
-                            )
-
-                            // final=(location.state.finalPay-discount)
 
 
-                            :
-                            setUsePoint(e.target.value),
-                                setSale(e.target.value)
-                            // <></>
+
+                        e.target.value.length<4?
+                        <></>
+                        :
+
+                        e.target.value>dbData.u_point?
+
+
+
+                        (
+                        alert(e.target.value='잔여포인트를 초과했습니다'),
+
+                        setUsePoint(e.target.value)
+                        )
+
+                        :
+
+
+                        e.target.value<1000 ?
+
+                        (
+                        alert(e.target.value='1000 포인트부터 사용가능합니다'),
+                        setUsePoint(e.target.value)
+                        )
+
+
+
+                        :
+
+                        setUsePoint(e.target.value),
+                        setSale(e.target.value)
+
                     )}
                     />
                     <br/>
                     남은 포인트({dbData.u_point})
-                        <br/><br/>
-                        보유한 쿠폰<br/>
-                        <select type={'number'} onChange={(e) => (
+                    <br/><br/>
+                    보유한 쿠폰<br/>
+                    <select type={'number'} onChange={(e) => (
                         setDiscount(e.target.value),
-                        setUseCoupon(e.target.value)
+                            setUseCoupon(e.target.value)
 
-                        )}>
+                    )}>
                         <option value={0}>선택없음</option>
-                    {coupon &&
-                        coupon.map((list,i)=>(
+                        {coupon &&
+                            coupon.map((list,i)=>(
 
 
-                        <option key={i} value={list.c_amount}>
-                    {list.c_amount}
-                        </option>
+                                <option key={i} value={list.c_amount}>
+                                    {list.c_amount}
+                                </option>
 
-                        ))
-                    }
-                        </select>
-                        <input type={"text"} value={totalDiscount} readOnly  />할인된 금액
-                        <br/>
+                            ))
+                        }
+                    </select>
+                    <input type={"text"} value={totalDiscount} readOnly  />할인된 금액
+                    <br/>
                     {/*<select  type={'number'}>*/}
                     {/*<option>*/}
                     {/*    쿠폰선택*/}
@@ -366,35 +386,35 @@ const Payment = (effect, deps) => {
                     {/*</select>*/}
                     {/*    <br/><br/>*/}
 
-                        결제금액(int)
-                        <input type={'number'} ref={finalPriceRef}onChange={(e) => (
+                    결제금액(int)
+                    <input type={'number'} ref={finalPriceRef}onChange={(e) => (
                         finalPriceRef.current = e.target.value
-                        )}
-                        value={final} disabled
-                        /><br/>
-                        구매자 이름(String)
-                        <input type={'text'} ref={userNameRef}  onChange={(e) => (
+                    )}
+                           value={final} disabled
+                    /><br/>
+                    구매자 이름(String)
+                    <input type={'text'} ref={userNameRef}  onChange={(e) => (
                         userNameRef.current = e.target.value
-                        )} defaultValue={sessionStorage.u_name} disabled /><br/>
-                        구매자 연락처
-                        <input type={'text'} ref={userPhoneRef}  onChange={(e) => (
+                    )} defaultValue={sessionStorage.u_name} disabled /><br/>
+                    구매자 연락처
+                    <input type={'text'} ref={userPhoneRef}  onChange={(e) => (
                         userPhoneRef.current = e.target.value
-                        )}
-                        defaultValue={dbData.u_phone} disabled
-                        /><br/>
-                        구매자 이메일
-                        <input type={'email'} ref={userEmailRef}  onChange={(e) => (
+                    )}
+                           defaultValue={dbData.u_phone} disabled
+                    /><br/>
+                    구매자 이메일
+                    <input type={'email'} ref={userEmailRef}  onChange={(e) => (
                         userEmailRef.current = e.target.value
-                        )}
-                        defaultValue={sessionStorage.u_id} disabled
-                        /><br/>
+                    )}
+                           defaultValue={sessionStorage.u_id} disabled
+                    /><br/>
 
-                        </div>
-                        <div style={{alignItems:'center', display:'flex', justifyContent:'center',marginTop:'30px'}}>
-                        <button onClick={requestPay} style={{backgroundColor:'white', border:'1px solid gray'}}>결제하기</button>
-                        </div>
-                        </div>
-                        </>
-                        );
-                    }
-                            export default Payment;
+                </div>
+                <div style={{alignItems:'center', display:'flex', justifyContent:'center',marginTop:'30px'}}>
+                    <button onClick={requestPay} style={{backgroundColor:'white', border:'1px solid gray'}}>결제하기</button>
+                </div>
+            </div>
+        </>
+    );
+}
+export default Payment;
