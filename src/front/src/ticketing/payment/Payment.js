@@ -73,6 +73,7 @@ const Payment = (effect, deps) => {
 
 
 
+
     const location = useLocation();
     const [coupon,setCoupon]=useState('');
     const [discount,setDiscount]=useState('');
@@ -102,9 +103,13 @@ const Payment = (effect, deps) => {
     const {IMP} = window;
     IMP.init('imp02023053');
 
+//강제로 변환도 해보고 타입오브로 찎어서 스트링나오는거 둘다 보내도 안됨
 
     console.log(choiceCoupon,'pk보여줘');
-
+    console.log(typeof choiceCoupon,'pk보여줘');
+    const cpk=JSON.stringify(choiceCoupon);
+    console.log(cpk,'?????');
+    console.log(typeof cpk,'?????');
 
     // console.log('좌석보여줘',location.state.selected_seat);
 
@@ -140,10 +145,11 @@ const Payment = (effect, deps) => {
     const totalDiscount=(Number(useCoupon)+Number(sale));
     // const totalDiscount=(Number(choiceCoupon.c_amount)+Number(sale));
     // const totalDiscount=(Number(choiceCoupon.c_amount)+Number(sale));
-
+// console.log(useCoupon,'?');
 
 
     const final=(location.state.finalPay-totalDiscount);
+    // console.log(final,'보자');
     // console.log(totalDiscount,'???');
 
 
@@ -171,7 +177,7 @@ const Payment = (effect, deps) => {
                 merchant_uid: `${now}_${user_pk}`,
                 name: '제발결제제발',
                 // amount: finalPriceRef.current - usePoint,
-                amount: {final},
+                amount: final,
                 // buyer_email: userEmailRef.current,
                 buyer_email: sessionStorage.u_id,
                 // buyer_name: userNameRef.current,
@@ -189,7 +195,7 @@ const Payment = (effect, deps) => {
                         pay_type: rsp.pay_method,
                         pay_price: rsp.paid_amount,
                         pay_date: date,
-                        coupon_pk: '',
+                        coupon_pk: cpk,
                         pay_use_point: usePoint,
                         pay_state: rsp.status,
                         imp_uid: rsp.imp_uid
@@ -449,6 +455,7 @@ const Payment = (effect, deps) => {
                             setDiscount(target.c_amount)
                             setUseCoupon(target.c_amount)
                             setChoiceCoupon(target.coupon_pk)
+
                         }else{
                             setDiscount(0)
                             setUseCoupon(0)
@@ -459,6 +466,7 @@ const Payment = (effect, deps) => {
 
                     }
                     }
+
                     >
                         <option value={0}>선택없음</option>
 
