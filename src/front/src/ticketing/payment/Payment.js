@@ -103,6 +103,7 @@ const Payment = (effect, deps) => {
     IMP.init('imp02023053');
 
 
+    console.log(choiceCoupon,'pk보여줘');
 
 
     // console.log('좌석보여줘',location.state.selected_seat);
@@ -118,7 +119,6 @@ const Payment = (effect, deps) => {
 
     // console.log(timePk);
 
-    console.log(coupon)
 
 
     // const fixpay=(final)=>{
@@ -283,13 +283,12 @@ const Payment = (effect, deps) => {
     //
     // console.log(choiceCoupon.c_amount);
     // console.log(choiceCoupon.coupon_pk);
-console.log(choiceCoupon);
 
     // console.log(choiceCoupon.c_amount);
     //밑에서 가져온것들
 
     // setDiscount(e.target.value),
-        // setUseCoupon(e.target.value),
+    // setUseCoupon(e.target.value),
     // setChoiceCoupon(coupon[e.target.value])
 
 
@@ -387,42 +386,42 @@ console.log(choiceCoupon);
 
 
                         e.target.value<0?
-                        alert(e.target.value="0보다 작은 수는 입력할 수 없습니다")
+                            alert(e.target.value="0보다 작은 수는 입력할 수 없습니다")
 
                             :
 
 
-                        e.target.value.length<4?
-                            <></>
-                        :
+                            e.target.value.length<4?
+                                <></>
+                                :
 
-                        e.target.value>dbData.u_point?
-
-
-
-                        (
-                        alert(e.target.value='잔여포인트를 초과했습니다'),
-
-                        setUsePoint(e.target.value)
-                        )
-
-                        :
-
-
-                        // e.target.value<1000 ?
-                        //
-                        // (
-                        // alert(e.target.value='1000 포인트부터 사용가능합니다'),
-                        // setUsePoint(e.target.value)
-                        //
-                        // )
+                                e.target.value>dbData.u_point?
 
 
 
-                        // :
+                                    (
+                                        alert(e.target.value='잔여포인트를 초과했습니다'),
 
-                        setUsePoint(e.target.value),
-                        setSale(e.target.value)
+                                            setUsePoint(e.target.value)
+                                    )
+
+                                    :
+
+
+                                    // e.target.value<1000 ?
+                                    //
+                                    // (
+                                    // alert(e.target.value='1000 포인트부터 사용가능합니다'),
+                                    // setUsePoint(e.target.value)
+                                    //
+                                    // )
+
+
+
+                                    // :
+
+                                    setUsePoint(e.target.value),
+                            setSale(e.target.value)
 
                     )}
                     />
@@ -441,27 +440,27 @@ console.log(choiceCoupon);
                     {/*>*/}
                     <select onChange={(e)=> {
 
-
-                        const target = coupon?.find((couponItem) => couponItem.coupon_pk === e.target.value);
-
+                        const target =
 
 
 
-
-                        setDiscount(target.c_amount)
-                        setUseCoupon(target.c_amount)
-                        setChoiceCoupon(target.coupon_pk)
+                            coupon?.find((couponItem) => couponItem.coupon_pk === e.target.value)
+                        if (target!=null){
+                            setDiscount(target.c_amount)
+                            setUseCoupon(target.c_amount)
+                            setChoiceCoupon(target.coupon_pk)
+                        }else{
+                            setDiscount(0)
+                            setUseCoupon(0)
+                            setChoiceCoupon('')
+                        }
 
 
 
                     }
-
                     }
-
-
-
                     >
-                       <option value={0}>선택없음</option>
+                        <option value={0}>선택없음</option>
 
                         {coupon &&
                             coupon.map((list,i)=>(
