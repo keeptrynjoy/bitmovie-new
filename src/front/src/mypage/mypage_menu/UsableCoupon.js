@@ -4,7 +4,7 @@ import {Pagination} from "@mui/material";
 import usePagination from "../../service/UsePagination";
 
 function PointHistory(props) {
-    const list=props.coupon_list;
+    const list=props.usable_coupon;
     let [page, setPage] = useState(1);
     const PER_PAGE = 10;
 
@@ -26,10 +26,16 @@ function PointHistory(props) {
 
     }
 
+    const Dday=(day)=>{
+        let today = new Date().getTime();
+        let dDay = new Date(day).getTime();
+        return Math.floor((dDay-today)/(1000 * 3600 * 24));
+    }
+
     return (
         <div>
             <div className={"mypage-contents-title"}>
-                쿠폰 내역
+                사용 가능 쿠폰
             </div>
             <table className={"mypage-table"}>
                 <thead>
@@ -37,8 +43,7 @@ function PointHistory(props) {
                     <th>쿠폰 번호</th>
                     <th>쿠폰 종류</th>
                     <th>할인 금액</th>
-                    <th>발급일</th>
-                    <th>사용일</th>
+                    <th>만료일</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -49,8 +54,7 @@ function PointHistory(props) {
                                     <td>{item.coupon_pk}</td>
                                     <td>{type(item.c_class)}</td>
                                     <td>{item.c_amount}</td>
-                                    <td>{item.c_issue_date}</td>
-                                    <td>{item.c_use_date}</td>
+                                    <td>{item.c_exp_date} (D-{Dday(item.c_exp_date)})</td>
                                 </tr>
                             )
                         }
