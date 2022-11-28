@@ -1,6 +1,6 @@
 .detail-div {
     width: 1500px;
-    height: 3000px;
+    height: 2000px;
     display: flex;
     align-content: start;
     flex-wrap: wrap;
@@ -99,12 +99,12 @@
 
 .dtreview{
     width: 1000px;
+    height: 1300px;
     clear: both;
     margin-left: 15%;
     margin-top: 5%;
     float: left;
     text-align: center;
-    line-height: 100px;
     margin-bottom: 5%;
 }
 
@@ -119,6 +119,13 @@
 }
 
 /*리뷰 리스트*/
+.review-ul-div{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 100px;
+}
+
 .review-ul {
     list-style: none;
     margin: 0;
@@ -329,7 +336,7 @@ ul.date-item-wrap li strong{
 }
 
 .timetable-div .screens{
-    height: 1800px;
+    height: 1000px;
 }
 
 .timetable-div .screens .theaters{

@@ -14,6 +14,8 @@ const MovieList = (props) => {
     const {input,setInput,changeData}=props;
     const [mvlist,setMvlist] = useState([]);
 
+
+
     const get=()=>{
         axios.get('http://localhost:8282/booking/screening_list')
             .then((response) =>{
@@ -29,6 +31,8 @@ const MovieList = (props) => {
         get();
 
     },[]);
+
+
 
 
     return (

@@ -19,7 +19,7 @@ function MovieList(props) {
     const _DATA = usePagination(mlist, PER_PAGE);
 
     //정렬순서 변수
-    const [order,setOrder] = useState("");
+    const [order,setOrder] = useState("m_name");
     //개봉,상영예정 변수
     const [in_theater,setIn_theater] = useState("");
 

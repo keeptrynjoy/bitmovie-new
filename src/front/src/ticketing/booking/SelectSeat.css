@@ -3,6 +3,36 @@
         display: none;
     }
 }
+input[type="checkbox"]{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+
+input[type="checkbox"]:disabled{
+    background-color: #444451;
+}
+
+input[type='checkbox']:checked{
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    background-color: red;
+
+ }
+
+
+
+.seat:disabled{
+    background-color: blue;
+}
+
 
 .allboxes{
     margin: 0;
@@ -69,9 +99,8 @@ main{
     background-color: white;
     border-radius: 15px;
     color: black;
-    width: 40%;
     padding: 10px;
-    margin-left: 200px;
+    margin-left: 10%;
     height: 650px;
 
 }
@@ -171,22 +200,28 @@ main{
 
 
 .seat.selected {
-    background-color: #eb1333;
+    background-color: red;
     width: 35px;
-    height: 25px;
+    height: 30px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .seat.okay{
     background-color: white;
     width: 35px;
-    height: 25px;
+    height: 30px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .seat.occupied {
     background-color: #444451;
     color: white;
     width: 35px;
-    height: 25px;
+    height: 30px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .seat:nth-of-type(2) {
@@ -235,8 +270,8 @@ section .seat:not(.occupied):hover {
 .screen {
     background-color: white;
     height: 70px;
-    width: 60%;
-    margin-left: 20%;
+    width: 55%;
+    margin-left: 20.5%;
     margin-bottom: 45px;
     margin-top: 50px;
     transform: rotateX(-45deg); /*make screen thiner*/
@@ -298,7 +333,6 @@ button.seat2:focus {
 .seatposter{
     margin-top: 20px;
     margin-bottom: 40px;
-    margin-left: 90px;
     width: 150px;
     height: 200px;
     border: 1px solid gray;

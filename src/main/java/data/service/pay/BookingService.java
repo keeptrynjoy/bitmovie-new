@@ -2,10 +2,15 @@ package data.service.pay;
 
 import data.domain.movie.Movie;
 import data.domain.pay.Booking;
+import data.domain.pay.request.PaymentConfimDto;
+import data.global.exception.ErrorCode;
 import data.repository.pay.BookingRepository;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.*;
 
 @Service
@@ -38,18 +43,13 @@ public class BookingService {
 
 
     /* 예매된 좌석 여부 조회(예매된 좌석이 있을 경우 true로 반환)*/
-    public boolean reservedSeatCheck(Booking booking){
-
-        boolean result = false;
-
-        /* 파라매터를 통해 넘어온 booking 객체에서 좌석번호를 얻어 인스턴스로 선언 */
-        String booking_seat= booking.getBook_seat_num();
+    public String reservedSeatCheck(PaymentConfimDto paymentConfimDto){
 
         /* 기존에 있던 좌석번호를 확인하기위해 상영시간에 해당하는 예매된 좌석 전체를 얻어 인스턴스로 선언 */
-        String reserved_seat = bookingRepository.selectSeatNumData(booking.getScrtime_pk());
+        String reserved_seat = bookingRepository.selectSeatNumData(paymentConfimDto.getScrtime_pk());
         try {
             /* 문자열로 넘어온 리스트를 split을 통해 나누어 배열로 만든뒤 List 인스턴스 객체로 선언 */
-            List<String> booking_list = new ArrayList<>(Arrays.asList(booking_seat.split(",")));
+            List<String> booking_list = new ArrayList<>(Arrays.asList(paymentConfimDto.getSeat_num().split(",")));
             System.out.println("예매 요청한 좌석번호 : " +booking_list.toString());
 
             List<String> reserved_list = new ArrayList<>(Arrays.asList(reserved_seat.split(",")));
@@ -59,14 +59,15 @@ public class BookingService {
             reserved_list.retainAll(booking_list);
             System.out.println("예매가 불가능한 좌석번호 : " + reserved_list.toString());
 
-            /* 예매된 좌석번호 list가 0과 일치 하지 않을 경우 */
+            /* 요청한 좌석번호가 현재 예매되어 있을경우 */
             if(reserved_list.size()>0){
-                result = true;
+                throw ErrorCode.throwDuplicatePayment();
             }
-            return result;
+            return "true";
+
         } catch (NullPointerException e) {
-            System.out.println("예매되어 있는 좌석이 없음 (상영시간 고유키 : "+ booking.getScrtime_pk());
-            return false;
+            System.out.println("예매되어 있는 좌석이 없음 (상영시간 고유키 : "+ paymentConfimDto.getScrtime_pk());
+            return "true";
         }
     }
 

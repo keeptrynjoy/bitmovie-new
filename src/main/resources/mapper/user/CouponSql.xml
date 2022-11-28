@@ -55,7 +55,7 @@
         SELECT coupon_pk,c_use_state FROM coupon_tb WHERE coupon_pk = #{coupon_pk};
     </select>
     <!-- 결제/결제취소 후 쿠폰 사용가능여부 업데이트-->
-    <update id="updateCouponByPayment" parameterType="Map">
-        UPDATE coupon_tb SET c_use_state = #{use_state} WHERE coupon_pk = #{coupon_pk};
+    <update id="updateCouponByPayment" parameterType="coupon">
+        UPDATE coupon_tb SET c_use_state = #{c_use_state},c_issue_date = #{c_issue_date} WHERE coupon_pk = #{coupon_pk};
     </update>
 </mapper>

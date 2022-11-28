@@ -27,6 +27,7 @@ public class ScreenTimeController {
         return new ResponseEntity<>(screenTime,HttpStatus.OK);
     }
 
+    /* 예매 - 상영시간  */
     @GetMapping("/screen_times")
     public ResponseEntity screenTimes(@RequestParam int movie,
                                          @RequestParam int theater,

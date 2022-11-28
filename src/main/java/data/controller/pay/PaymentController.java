@@ -6,10 +6,12 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import data.domain.pay.Booking;
 import data.domain.pay.Payment;
+import data.domain.pay.request.PaymentConfimDto;
 import data.domain.user.Coupon;
 
 import data.domain.user.MyPage;
 import data.domain.user.User;
+import data.service.api.IamportService;
 import data.service.pay.BookingService;
 import data.service.pay.PaymentService;
 import data.service.user.CouponService;
@@ -21,7 +23,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 
@@ -33,6 +40,9 @@ public class PaymentController {
 
     private final PaymentService paymentService;
 
+    private final IamportService iamportService;
+
+    private final MyPageService myPageService;
 
     private final BookingService bookingService;
 
@@ -40,9 +50,17 @@ public class PaymentController {
 
     private final CouponService couponService;
 
+
+    @GetMapping("/confirm")
+    public ResponseEntity confirm(@Valid int scrtime_pk, @Valid String seat_num){
+        PaymentConfimDto paymentConfimDto = new PaymentConfimDto(scrtime_pk,seat_num);
+        String result = bookingService.reservedSeatCheck(paymentConfimDto);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
     //결제 성공 후 호출 메서드
     @PostMapping("/complete")
-    public ResponseEntity<String> paymentComplete(@RequestBody ObjectNode object_node) throws IOException {
+    public ResponseEntity<String> complete(@RequestBody ObjectNode object_node) throws IOException {
 
         // JackSon 라이브러리 사용
         ObjectMapper mapper =new ObjectMapper().registerModule(new JavaTimeModule());
@@ -59,11 +77,11 @@ public class PaymentController {
         booking.setBook_issu_date(booking.getBook_issu_date().plusHours(9));
 
         //1. 아임포트 토큰 생성
-        String token = paymentService.getToken();
+        String token = iamportService.getToken();
         //System.out.println("토큰 : " + token);
 
         //2. 토큰으로 결제 완료된 주문 정보 호출하여 취소시 사용할 amount 선언
-        Map<String,Object> map = paymentService.paymentInfo(payment.getImp_uid(), token);
+        Map<String,Object> map = iamportService.paymentInfo(payment.getImp_uid(), token);
         int amount = (int)map.get("amount");
         System.out.println("아임포트 amount : " + amount);
 
@@ -73,7 +91,7 @@ public class PaymentController {
 
             //3. 사용한 포인트 유효성 검사
             if (my_point < used_point) {
-                paymentService.paymentCancel(token, payment.getImp_uid(), amount, "사용 가능 포인트 부족");
+                iamportService.paymentCancel(token, payment.getImp_uid(), amount, "사용 가능 포인트 부족");
                 return new ResponseEntity<String>("[결제 취소] 사용 가능한 포인트가 부족합니다.", HttpStatus.BAD_REQUEST);
             }
 
@@ -87,21 +105,16 @@ public class PaymentController {
                     //4-2. 사용한 쿠폰 유효성 검사
                     if(my_coupon.getC_use_state()==1){
                         //System.out.println(my_coupon.getC_use_state());
-                        paymentService.paymentCancel(token, payment.getImp_uid(), amount,"사용되었거나 유효기간이 지난 쿠폰 사용");
+                        iamportService.paymentCancel(token, payment.getImp_uid(), amount,"사용되었거나 유효기간이 지난 쿠폰 사용");
                         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("[결제 취소] 선택한 쿠폰은 이미 사용되었거나 유효기간이 지난 쿠폰입니다.");
                     }
                 } catch (NullPointerException e){
                     System.out.println("DB에 없는 쿠폰 번호 요청");
-                    paymentService.paymentCancel(token, payment.getImp_uid(), amount,"유효하지 않은 쿠폰 사용");
+                    iamportService.paymentCancel(token, payment.getImp_uid(), amount,"유효하지 않은 쿠폰 사용");
                     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("[결제 취소] 선택한 쿠폰은 유효하지 않은 쿠폰입니다.");
                 }
             }
 
-            //5. 예매한 좌석 유효성 검사
-            if(bookingService.reservedSeatCheck(booking)){
-                paymentService.paymentCancel(token, payment.getImp_uid(), amount,"이미 예매된 좌석 예매 요청");
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("[결제 취소] 선택한 좌석은 이미 예매 완료된 좌석입니다.");
-            }
 
             //6. 포인트 차감 및 쿠폰 사용 처리
             pointService.deductionPoint(payment);
@@ -118,7 +131,7 @@ public class PaymentController {
 
             return new ResponseEntity<>("주문이 완료되었습니다", HttpStatus.OK);
         } catch (Exception e){
-            paymentService.paymentCancel(token, payment.getImp_uid(),amount,"결제 예러");
+            iamportService.paymentCancel(token, payment.getImp_uid(),amount,"결제 예러");
             e.printStackTrace();
             return new ResponseEntity<>("[결제 취소] 결제 처리중 문제가 발생했습니다. 관리자에게 문의하세요.", HttpStatus.BAD_REQUEST);
         }
@@ -129,6 +142,7 @@ public class PaymentController {
         return paymentService.selectPaymentData(payment_pk);
     }
 
+
     @GetMapping("/cancel_payment")
     public ResponseEntity<String> cancelPaymentRequest(@RequestParam int user,
                                                         @RequestParam int booking) throws IOException {
@@ -137,18 +151,18 @@ public class PaymentController {
         Payment payment = paymentService.selectPayByUserAndBookPK(user,booking);
 
         //아임포트 토큰 생성
-        String token = paymentService.getToken();
+        String token = iamportService.getToken();
         //System.out.println("토큰 : " + token);
 
         try{
-            paymentService.paymentCancel(token,payment.getImp_uid(),payment.getPay_price(),"결제 취소 정상 처리");
+            iamportService.paymentCancel(token,payment.getImp_uid(),payment.getPay_price(),"결제 취소 정상 처리");
         } catch (NullPointerException ne){
             ne.printStackTrace();
             ResponseEntity.status(HttpStatus.BAD_REQUEST).body("유저 정보가 없습니다.");
         }
 
         //아임포트 결제 정상 취소 확인
-        Map<String,Object> map = paymentService.paymentInfo(payment.getImp_uid(), token);
+        Map<String,Object> map = iamportService.paymentInfo(payment.getImp_uid(), token);
         String status = (String) map.get("status");
         //System.out.println("결제 취소 결과 : "+status);
 
@@ -170,7 +184,7 @@ public class PaymentController {
     }
     //쿠폰 조회
     @GetMapping("/coupon")
-    public Coupon selectCoupon (int user_pk) {
+    public List<Coupon> selectCoupon (int user_pk) {
         return couponService.selectCoupon(user_pk);
     }
 
