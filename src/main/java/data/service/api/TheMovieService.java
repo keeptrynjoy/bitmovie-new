@@ -48,8 +48,8 @@ public class TheMovieService {
         while(count<2){
             //url 작성
             String tmdb_list_url = (count==0)
-                                    ? TMDB_URL + "movie/popular?page=" + page_num + "&" + TMDB_KEY + TMDB_KO
-                                    : TMDB_URL + "movie/upcoming?page=" + page_num + "&" + TMDB_KEY + TMDB_KO ;
+                                    ? TMDB_URL + "movie/popular?region=kr&page=" + page_num + "&" + TMDB_KEY + TMDB_KO
+                                    : TMDB_URL + "movie/upcoming?region=kr&page=" + page_num + "&" + TMDB_KEY + TMDB_KO ;
             // url 의 데이터를 jsonobject 로 반환
             JSONObject jsonObject = getDataByURL(tmdb_list_url);
             //jsonobject 에 접근해 movie_id만 반환하기
@@ -59,6 +59,7 @@ public class TheMovieService {
                 String movie_id = jsonObject.get("id").toString();
                 // db에 들어있는지를 판단해 없는 영화만 list에 add 한다.
                 int movieYoN = movieRepository.selectMovieYoN(movie_id);
+                System.out.println("movie_id"+movie_id);
                 if (movieYoN == 0) {
                     movie_id_lsit.add(movie_id);
                 }
