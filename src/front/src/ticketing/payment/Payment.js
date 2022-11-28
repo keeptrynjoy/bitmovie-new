@@ -389,7 +389,20 @@ const Payment = (effect, deps) => {
                     />
                     <br/>
                     <input type={'number'} name={'point'} placeholder={"사용할 포인트 입력"} step={100}
-                           disabled={dbData.u_point<1000} min={1000} onChange={(e) => (
+                           disabled={dbData.u_point<1000} min={1000}
+                           onBlur={(e)=>{
+                               if (Number(e.target.value)>0 && Number(e.target.value)<1000)
+                               {
+                                   alert("1000보다 작은 수 입니다")
+                                   e.target.value='';
+                                   setUsePoint(0);
+                                   setSale(0);
+
+                               }
+                           }}
+                           onChange={(e) => (
+
+                                // compare =Number(e.target.value);
 
 
                         e.target.value<0?
@@ -414,7 +427,7 @@ const Payment = (effect, deps) => {
                                     :
 
 
-                                    e.target.value<1000 ?
+                                    Number(e.target.value)<1000 ?
 
                                     (
                                     alert(e.target.value='1000 포인트부터 사용가능합니다'),
