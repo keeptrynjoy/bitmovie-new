@@ -204,12 +204,16 @@ main{
     background-color: #eb1333;
     width: 35px;
     height: 25px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .seat.okay{
     background-color: white;
     width: 35px;
     height: 25px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .seat.occupied {
@@ -217,6 +221,8 @@ main{
     color: white;
     width: 35px;
     height: 25px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .seat:nth-of-type(2) {
