@@ -42,11 +42,11 @@ public class TheMovieController {
             // movie_id 를 통해 더무비 에서 제공해주는 영화 상세정보를 db에 저장
             theMovieService.movieDataSave(movie_id_list.get(i));
             // movie_id 를 통해 더무비 포스터를 db에 저장
-            theMovieService.updatePhoto(movie_id_list.get(i));
+//            theMovieService.updatePhoto(movie_id_list.get(i));
             // 영어 이름 저장
-            theMovieService.updateEnName(movie_id_list.get(i));
+//            theMovieService.updateEnName(movie_id_list.get(i));
             // 영화 트레일러 저장
-            theMovieService.updateVideo(movie_id_list.get(i));
+//            theMovieService.updateVideo(movie_id_list.get(i));
             // 해당 영화의 등장인물 정보 저장
             theMovieService.personDataList(movie_id_list.get(i));
         }

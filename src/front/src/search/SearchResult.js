@@ -6,6 +6,7 @@ import Age from "../service/Age";
 import usePagination from "../service/UsePagination";
 import {Pagination} from "@mui/material";
 import nodata from "../image/nodata.png"
+import {Swiper, SwiperSlide} from "swiper/react";
 
 function SearchResult(props) {
     const p=useParams();
@@ -141,21 +142,32 @@ function SearchResult(props) {
                                     />
                                 </div>
                                 <div className={"filmography"}>
-                                    필모그레피
+                                    <h1 style={{marginLeft:"50px",fontSize:"40px",height:"70px"}}>
+                                        필모그레피
+                                    </h1>
                                     <div className={"results"}>
-                                        {
-                                            sp_data.map((movie,i)=>(
-                                                <div key={i} className={"result-card"}
-                                                     onClick={()=>{navi(`/movie/detail/${movie.movie_pk}`)}}>
-                                                    {/*<img className={"result-poster"} alt={movie.m_name}*/}
-                                                    {/*     src={`https://image.tmdb.org/t/p/w500${movie.m_photo.split(",")[0]}`}/>*/}
-                                                    <div className={"result-text"}>
-                                                        <Age age={movie.m_age_grd} size={30}/><span className={"result-text-mname"}>{movie.m_name}</span>
-                                                        <span>개봉일 : {movie.m_sdate}</span>
-                                                    </div>
-                                                </div>
-                                            ))
-                                        }
+                                        {/*<Swiper className="swiper"*/}
+                                        {/*        modules={[Pagination]}*/}
+                                        {/*        pagination={{ clickable: true }}*/}
+                                        {/*        effect*/}
+                                        {/*        speed={800}*/}
+                                        {/*        loop={false}*/}
+                                        {/*        slidesPerView={4}*/}
+                                        {/*>*/}
+                                            {
+                                                sp_data && sp_data.map((movie,i)=>(
+                                                    // <SwiperSlide key={i}>
+                                                        <div className={"result-card"} key={i}
+                                                             onClick={()=>{navi(`/movie/detail/${movie.movie_pk}`)}}>
+                                                            <div className={"result-text"}>
+                                                                <Age age={movie.m_age_grd} size={30}/><span className={"result-text-mname"}>{movie.m_name}</span>
+                                                                <span>개봉일 : {movie.m_sdate}</span>
+                                                            </div>
+                                                        </div>
+                                                    // </SwiperSlide>
+                                                ))
+                                            }
+                                        {/*</Swiper>*/}
                                     </div>
                                 </div>
                                 {/*<div className={"table-pagination"}>*/}

@@ -6,21 +6,14 @@ import Swal from "sweetalert2";
 import PointHistory from "./mypage_menu/PointHistory";
 import MovieLog from "./mypage_menu/MovieLog";
 import BookingList from "./mypage_menu/BookingList";
+import CouponHistory from "./mypage_menu/CouponHistory";
+import UsableCoupon from "./mypage_menu/UsableCoupon";
 
 //사용가능쿠폰
 const usableCoupon=()=>{
     return (
         <div>
             usableCoupon
-        </div>
-    )
-}
-
-//쿠폰내역
-const couponHistory=()=>{
-    return (
-        <div>
-            couponHistory
         </div>
     )
 }
@@ -102,13 +95,17 @@ function MyPageContents(props) {
 
     const getDatas= async()=>{
         const point = await axios.get(makeUrl("pointdetail"));
-        const booking = await axios.get(makeUrl("bookinglist"))
-        const movie = await axios.get(makeUrl("movielog"))
+        const booking = await axios.get(makeUrl("bookinglist"));
+        const movie = await axios.get(makeUrl("movielog"));
+        const coupon = await axios.get(makeUrl("coupondetail"));
+        const usable_coupon = await axios.get(makeUrl("mycoupondetail"));
         setDatas({
             ...datas,
             movie_log:movie.data,
             point_list:point.data,
-            booking_list:booking.data
+            booking_list:booking.data,
+            coupon_list:coupon.data,
+            usable_coupon:usable_coupon.data
         });
     }
 
@@ -122,9 +119,9 @@ function MyPageContents(props) {
             case "booking":
                 return <BookingList booking_list={datas.booking_list} getDatas={getDatas()}/>
             case "usableCoupon":
-                return usableCoupon()
+                return <UsableCoupon usable_coupon={datas.usable_coupon}/>
             case "couponHistory":
-                return couponHistory()
+                return <CouponHistory coupon_list={datas.coupon_list}/>;
             case "pointInfo":
                 return pointInfo()
             case "pointHistory":
@@ -142,6 +139,7 @@ function MyPageContents(props) {
 
     return (
         <div className={"mypage-contents-div"}>
+            {console.log(datas)}
             {contentSelector()}
         </div>
     );

@@ -48,8 +48,8 @@ public class TheMovieService {
         while(count<2){
             //url 작성
             String tmdb_list_url = (count==0)
-                                    ? TMDB_URL + "movie/popular?page=" + page_num + "&" + TMDB_KEY + TMDB_KO
-                                    : TMDB_URL + "movie/upcoming?page=" + page_num + "&" + TMDB_KEY + TMDB_KO ;
+                                    ? TMDB_URL + "movie/popular?region=kr&page=" + page_num + "&" + TMDB_KEY + TMDB_KO
+                                    : TMDB_URL + "movie/upcoming?region=kr&page=" + page_num + "&" + TMDB_KEY + TMDB_KO ;
             // url 의 데이터를 jsonobject 로 반환
             JSONObject jsonObject = getDataByURL(tmdb_list_url);
             //jsonobject 에 접근해 movie_id만 반환하기
@@ -59,6 +59,7 @@ public class TheMovieService {
                 String movie_id = jsonObject.get("id").toString();
                 // db에 들어있는지를 판단해 없는 영화만 list에 add 한다.
                 int movieYoN = movieRepository.selectMovieYoN(movie_id);
+                System.out.println("movie_id"+movie_id);
                 if (movieYoN == 0) {
                     movie_id_lsit.add(movie_id);
                 }
@@ -141,6 +142,9 @@ public class TheMovieService {
         String edate = "";      // 상영 종료일 (시작일+3달)
         String info = "...";    // 줄거리
         int runtime = 0;        // 런타임
+        String photo = "";
+        String video = "";
+        String enname = "";   // 영어이름
         String country = "US";
 
         //url 선언
@@ -178,8 +182,37 @@ public class TheMovieService {
             type += ",";
         }
         type = type.substring(0, jsonArray.size()>0?type.length() - 1:0);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+        //영어 이름
+        // movie_id 를 가지고 api 에 접근해 데이터 가져오기
+        String enName_url = TMDB_URL + "movie/" + movie_id + "?" + TMDB_KEY;
+        jsonObject = getDataByURL(enName_url);
+        enname = jsonObject.get("title").toString();
+
+        // 영화 트레일러 정보 반환
+        // movie_id 로 트레일러가 담긴 json 데이터를 반환하기
+        String video_url = TMDB_URL + "movie/" + movie_id + "/videos?" + TMDB_KEY;
+        jsonObject = getDataByURL(video_url);
+        jsonArray = (JSONArray) jsonObject.get("results");
+        // 값이 존재하는 경우에만 읽어오기
+        if(jsonArray.size()>0){
+            video = ((JSONObject) jsonArray.get(0)).get("key").toString();
+        }
+
+        // 영화 포스터 정보
+        String tmepurl = TMDB_URL + "movie/" + movie_id + "/images?" + TMDB_KEY;
+        jsonObject = getDataByURL(tmepurl);
+        jsonArray = (JSONArray) jsonObject.get("posters");
+        //포스터 추출
+        int limts=10;   //사진 파일이 많을 경우 추출갯수를 10개로 제한
+        if(jsonArray.size()<10)
+            limts=jsonArray.size();
+        for(int j=0; j<limts; j++){
+            jsonObject = (JSONObject) jsonArray.get(j);
+            photo += jsonObject.get("file_path").toString();
+            photo += ",";
+        }
+        photo = photo.substring(0, photo.length() - 1);
 
         //Repository 를 호출해 db에 저장
         movieRepository.insertDetailData(
@@ -190,9 +223,12 @@ public class TheMovieService {
                         .m_sdate(sdate)
                         .m_edate(edate)
                         .m_runtime(runtime)
-                        .m_info(info)
-                        .m_country(country)
                         .m_age_grd(age_grd)
+                        .m_info(info)
+                        .m_photo(photo)
+                        .m_video(video)
+                        .m_enname(enname)
+                        .m_country(country)
                         .build()
         );
 
