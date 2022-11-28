@@ -6,11 +6,9 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import data.domain.pay.Booking;
 import data.domain.pay.Payment;
-import data.domain.pay.request.PaymentConfimDto;
+import data.domain.pay.request.PaymentConfirmDto;
 import data.domain.user.Coupon;
 
-import data.domain.user.MyPage;
-import data.domain.user.User;
 import data.service.api.IamportService;
 import data.service.pay.BookingService;
 import data.service.pay.PaymentService;
@@ -21,11 +19,10 @@ import lombok.*;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.util.List;
@@ -52,10 +49,9 @@ public class PaymentController {
 
 
     @GetMapping("/confirm")
-    public ResponseEntity confirm(@Valid int scrtime_pk, @Valid String seat_num){
-        PaymentConfimDto paymentConfimDto = new PaymentConfimDto(scrtime_pk,seat_num);
-        String result = bookingService.reservedSeatCheck(paymentConfimDto);
-        return ResponseEntity.status(HttpStatus.OK).body(result);
+    public ResponseEntity confirm(@RequestParam int scrtime_pk, @RequestParam String seat_num){
+        PaymentConfirmDto paymentConfirmDto = new PaymentConfirmDto(scrtime_pk, seat_num);
+        return ResponseEntity.status(HttpStatus.OK).body(bookingService.reservedSeatCheck(paymentConfirmDto));
     }
 
     //결제 성공 후 호출 메서드
