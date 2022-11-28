@@ -44,50 +44,82 @@ public class TheMovieService {
         //movie_id 를 담을 변수 선언
         List<Object> movie_id_lsit = new ArrayList<>();
 
-        //url 작성
-        String tmdb_list_url = TMDB_URL + "movie/popular?page=" + page_num + "&" + TMDB_KEY + TMDB_KO;
-
-        // url 의 데이터를 jsonobject 로 반환
-        JSONObject jsonObject = getDataByURL(tmdb_list_url);
-
-        //jsonobject 에 접근해 movie_id만 반환하기
-        JSONArray jsonArray = (JSONArray) jsonObject.get("results");
-        for (int i = 0; i < jsonArray.size(); i++) {
-            jsonObject = (JSONObject) jsonArray.get(i);
-            String movie_id = jsonObject.get("id").toString();
-            // db에 들어있는지를 판단해 없는 영화만 list에 add 한다.
-            int movieYoN = movieRepository.selectMovieYoN(movie_id);
-            if (movieYoN == 0) {
-                movie_id_lsit.add(movie_id);
+        int count =0;
+        while(count<2){
+            //url 작성
+            String tmdb_list_url = (count==0)
+                                    ? TMDB_URL + "movie/popular?page=" + page_num + "&" + TMDB_KEY + TMDB_KO
+                                    : TMDB_URL + "movie/upcoming?page=" + page_num + "&" + TMDB_KEY + TMDB_KO ;
+            // url 의 데이터를 jsonobject 로 반환
+            JSONObject jsonObject = getDataByURL(tmdb_list_url);
+            //jsonobject 에 접근해 movie_id만 반환하기
+            JSONArray jsonArray = (JSONArray) jsonObject.get("results");
+            for (int i = 0; i < jsonArray.size(); i++) {
+                jsonObject = (JSONObject) jsonArray.get(i);
+                String movie_id = jsonObject.get("id").toString();
+                // db에 들어있는지를 판단해 없는 영화만 list에 add 한다.
+                int movieYoN = movieRepository.selectMovieYoN(movie_id);
+                if (movieYoN == 0) {
+                    movie_id_lsit.add(movie_id);
+                }
             }
+            count++;
         }
+        System.out.println("movie_id_list "+movie_id_lsit);
         return movie_id_lsit;
     }//movieListApi
 
-    public List<Object> movieUpcomoingList(int page_num) {
-
-        //movie_id 를 담을 변수 선언
-        List<Object> movie_id_lsit = new ArrayList<>();
-
-        //url 작성
-        String tmdb_list_url = TMDB_URL + "movie/upcoming?page=" + page_num + "&" + TMDB_KEY + TMDB_KO;
-
-        // url 의 데이터를 jsonobject 로 반환
-        JSONObject jsonObject = getDataByURL(tmdb_list_url);
-
-        //jsonobject 에 접근해 movie_id만 반환하기
-        JSONArray jsonArray = (JSONArray) jsonObject.get("results");
-        for (int i = 0; i < jsonArray.size(); i++) {
-            jsonObject = (JSONObject) jsonArray.get(i);
-            String movie_id = jsonObject.get("id").toString();
-            // db에 들어있는지를 판단해 없는 영화만 list에 add 한다.
-            int movieYoN = movieRepository.selectMovieYoN(movie_id);
-            if (movieYoN == 0) {
-                movie_id_lsit.add(movie_id);
-            }
-        }
-        return movie_id_lsit;
-    }//movieListApi
+    //page_num 을 받아 (page_num*20+1)~(page_num*20+21)까지의 영화 고유 번호를 list에 담아 반환 - 인기 차트
+//    public List<Object> movieListApi(int page_num) {
+//
+//        //movie_id 를 담을 변수 선언
+//        List<Object> movie_id_lsit = new ArrayList<>();
+//
+//        //url 작성
+//        String tmdb_list_url = TMDB_URL + "movie/popular?page=" + page_num + "&" + TMDB_KEY + TMDB_KO;
+//
+//        // url 의 데이터를 jsonobject 로 반환
+//        JSONObject jsonObject = getDataByURL(tmdb_list_url);
+//
+//        //jsonobject 에 접근해 movie_id만 반환하기
+//        JSONArray jsonArray = (JSONArray) jsonObject.get("results");
+//        for (int i = 0; i < jsonArray.size(); i++) {
+//            jsonObject = (JSONObject) jsonArray.get(i);
+//            String movie_id = jsonObject.get("id").toString();
+//            // db에 들어있는지를 판단해 없는 영화만 list에 add 한다.
+//            int movieYoN = movieRepository.selectMovieYoN(movie_id);
+//            if (movieYoN == 0) {
+//                movie_id_lsit.add(movie_id);
+//            }
+//        }
+//        System.out.println("movie_id_list "+movie_id_lsit);
+//        return movie_id_lsit;
+//    }//movieListApi
+//
+//    public List<Object> movieUpcomoingList(int page_num) {
+//
+//        //movie_id 를 담을 변수 선언
+//        List<Object> movie_id_lsit = new ArrayList<>();
+//
+//        //url 작성
+//        String tmdb_list_url = TMDB_URL + "movie/upcoming?page=" + page_num + "&" + TMDB_KEY + TMDB_KO;
+//
+//        // url 의 데이터를 jsonobject 로 반환
+//        JSONObject jsonObject = getDataByURL(tmdb_list_url);
+//
+//        //jsonobject 에 접근해 movie_id만 반환하기
+//        JSONArray jsonArray = (JSONArray) jsonObject.get("results");
+//        for (int i = 0; i < jsonArray.size(); i++) {
+//            jsonObject = (JSONObject) jsonArray.get(i);
+//            String movie_id = jsonObject.get("id").toString();
+//            // db에 들어있는지를 판단해 없는 영화만 list에 add 한다.
+//            int movieYoN = movieRepository.selectMovieYoN(movie_id);
+//            if (movieYoN == 0) {
+//                movie_id_lsit.add(movie_id);
+//            }
+//        }
+//        return movie_id_lsit;
+//    }//movieListApi
 
     //movie id 를 통해 영화 상세정보를 db에 저장
     public void movieDataSave (Object movie_id) {
@@ -103,7 +135,7 @@ public class TheMovieService {
         Random rand = new Random();
         String age_grd = age_grade_list[rand.nextInt(age_grade_list.length)];
 
-        String movie_type="";   // 영화 장르
+        String type="";   // 영화 장르
         String name = "";       // 영화 제목
         String sdate = "";      // 상영 시작일
         String edate = "";      // 상영 종료일 (시작일+3달)
@@ -114,7 +146,6 @@ public class TheMovieService {
         //url 선언
         String detail_url = TMDB_URL + "movie/" + movie_id + "?" + TMDB_KEY + TMDB_KO;
         //url 의 데이터를 jsonobject로 반환
-
         jsonObject = getDataByURL(detail_url);
 
         name = jsonObject.get("title").toString();
@@ -140,13 +171,13 @@ public class TheMovieService {
 
         // 장르에 대한 정보 가져오기 ,로 연결해 String 에 담기
         jsonArray = (JSONArray) jsonObject.get("genres");
-        movie_type = "";
-        for (int j = 0; j < jsonArray.size(); j++) {
-            jsonObject = (JSONObject) jsonArray.get(j);
-            movie_type += jsonObject.get("name").toString();
-            movie_type += ",";
+        type = "";
+        for (int k = 0; k < jsonArray.size(); k++) {
+            jsonObject = (JSONObject) jsonArray.get(k);
+            type += jsonObject.get("name").toString();
+            type += ",";
         }
-        movie_type = movie_type.substring(0, movie_type.length() - 1);
+        type = type.substring(0, jsonArray.size()>0?type.length() - 1:0);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 
@@ -155,7 +186,7 @@ public class TheMovieService {
                 Movie.movieBuilder()
                         .movie_pk(Integer.parseInt(movie_id.toString()))
                         .m_name(name)
-                        .m_type(movie_type)
+                        .m_type(type)
                         .m_sdate(sdate)
                         .m_edate(edate)
                         .m_runtime(runtime)
