@@ -5,3 +5,7 @@
 .lcbtn:focus{
     background-color: gray;
 }
+
+.lcbtn:hover{
+    background-color:gray;
+}

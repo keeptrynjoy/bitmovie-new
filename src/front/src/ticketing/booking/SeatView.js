@@ -305,7 +305,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
             </ul>
             <main className={'allboxes'}>
                 <article id="info-container">
-                    <img alt={obj.m_name} src={`https://image.tmdb.org/t/p/w500${obj.m_photo}`} className={'seatposter'}/>
+                    {/*<img alt={obj.m_name} src={`https://image.tmdb.org/t/p/w500${obj.m_photo}`} className={'seatposter'}/>*/}
                     <div className={'seattx'}>
                         <p style={{fontSize:'20px'}}> <Age age={obj.m_age_grd} size={20}/>&nbsp;{obj.m_name}</p>
 

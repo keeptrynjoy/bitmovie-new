@@ -5,6 +5,20 @@
     background-color: gray;
 }
 
+.mvbtn:hover{
+    background-color: gray;
+
+}
+
+.mvbtn1{
+    color:gray;
+}
+
+
+.mvbtn1:hover{
+    color: black;
+}
+
 .txt{
     text-align: left;
     pointer-events : none;

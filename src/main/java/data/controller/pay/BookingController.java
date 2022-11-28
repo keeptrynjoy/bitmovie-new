@@ -1,6 +1,8 @@
 package data.controller.pay;
 
+import data.domain.movie.JoinMovie;
 import data.domain.movie.Movie;
+import data.service.movie.MovieService;
 import data.service.movie.ScreenTimeService;
 import data.service.pay.BookingService;
 import lombok.RequiredArgsConstructor;
@@ -22,13 +24,17 @@ public class BookingController {
 
     private final ScreenTimeService screenTimeService;
 
+    private final MovieService movieService;
+
     /* 상영중인 영화 리스트 */
     @GetMapping("/screening_list")
-    public ResponseEntity<List<Movie>> screeningMovieList(){
+    public ResponseEntity<Object> screeningMovieList(@RequestParam(defaultValue = "m_name") String order_stand,
+                                                          @RequestParam(defaultValue = "null") String BorA,
+                                                          @RequestParam(defaultValue = "0") int user_pk) {
 
-        List<Movie> screeningMovies = bookingService.selectScreeningMovieList();
+        List<JoinMovie> joinMovies = movieService.selectMovieList(order_stand, BorA, user_pk);
 
-        return new ResponseEntity<>(screeningMovies,HttpStatus.OK);
+        return new ResponseEntity<>(joinMovies,HttpStatus.OK);
     }
 
     /* 상영시간 고유키에 해당하는 예매된 자석리스트 조회*/

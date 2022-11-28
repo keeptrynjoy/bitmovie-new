@@ -388,7 +388,21 @@ const Payment = (effect, deps) => {
                            defaultValue={user_pk} disabled
                     />
                     <br/>
-                    <input type={'number'} name={'point'} placeholder={"사용할 포인트 입력"} step={100} min={0} onChange={(e) => (
+                    <input type={'number'} name={'point'} placeholder={"사용할 포인트 입력"} step={100}
+                           disabled={dbData.u_point<1000} min={1000}
+                           onBlur={(e)=>{
+                               if (Number(e.target.value)>0 && Number(e.target.value)<1000)
+                               {
+                                   alert("1000보다 작은 수 입니다")
+                                   e.target.value='';
+                                   setUsePoint(0);
+                                   setSale(0);
+
+                               }
+                           }}
+                           onChange={(e) => (
+
+                                // compare =Number(e.target.value);
 
 
                         e.target.value<0?
@@ -404,7 +418,6 @@ const Payment = (effect, deps) => {
                                 e.target.value>dbData.u_point?
 
 
-
                                     (
                                         alert(e.target.value='잔여포인트를 초과했습니다'),
 
@@ -414,17 +427,17 @@ const Payment = (effect, deps) => {
                                     :
 
 
-                                    // e.target.value<1000 ?
-                                    //
-                                    // (
-                                    // alert(e.target.value='1000 포인트부터 사용가능합니다'),
-                                    // setUsePoint(e.target.value)
-                                    //
-                                    // )
+                                    Number(e.target.value)<1000 ?
+
+                                    (
+                                    alert(e.target.value='1000 포인트부터 사용가능합니다'),
+                                    setUsePoint(e.target.value)
+
+                                    )
 
 
 
-                                    // :
+                                    :
 
                                     setUsePoint(e.target.value),
                             setSale(e.target.value)

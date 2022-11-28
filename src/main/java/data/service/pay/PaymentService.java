@@ -14,7 +14,6 @@ import java.util.Map;
 public class PaymentService {
 
     private final PaymentRepository paymentRepository;
-    private final ScreenTimeRepository screenTimeRepository;
 
     public Payment selectPaymentData(String payment_pk) {
         return paymentRepository.selectPaymentData(payment_pk);
