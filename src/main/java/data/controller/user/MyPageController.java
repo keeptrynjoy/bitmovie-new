@@ -61,9 +61,7 @@ public class MyPageController {
     }
     //마이페이지 사용가능 쿠폰 조회
     @GetMapping("/mycoupondetail")
-    public List<Coupon> selectMyCouponDetail (int user_pk) {
-        return myPageService.selectMyCouponDetail(user_pk);
-    }
+    public List<Coupon> selectMyCouponDetail (int user_pk) {return myPageService.selectMyCouponDetail(user_pk);}
     //마이페이지 만료예정 쿠폰 개수 조회
     @GetMapping("/expcoupon")
     public int selectExpCoupon (int user_pk) {
