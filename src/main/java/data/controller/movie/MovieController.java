@@ -1,5 +1,6 @@
 package data.controller.movie;
 
+import data.controller.api.TheMovieController;
 import data.domain.movie.*;
 import data.service.movie.MovieService;
 import data.service.movie.ScreenTimeService;
@@ -18,13 +19,21 @@ public class MovieController {
 
     private final MovieService movieService;
     private final ScreenTimeService screenTimeService;
+    private final TheMovieController theMovieController;
 
     // 영화 상세 정보 출력
     @GetMapping("/selectMovieData")
     public Map<String, Object> selectMovieData(int movie_pk,
                                                @RequestParam(defaultValue = "0")int user_pk) {
 
-        return movieService.selectMovieData(movie_pk,user_pk);
+
+        Map<String, Object> movie_detail = movieService.selectMovieData(movie_pk, user_pk);
+        System.out.println("m "+movie_detail.get("data"));
+        if(movie_detail.get("data")==null){
+            theMovieController.TMDBapi();
+            movie_detail = movieService.selectMovieData(movie_pk, user_pk);
+        }
+        return movie_detail;
     }
 
     // 영화 리스트 출력
