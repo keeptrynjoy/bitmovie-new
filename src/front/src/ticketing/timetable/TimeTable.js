@@ -80,7 +80,7 @@ const TimeTable = (props) => {
                             <li style={{listStyle:'none'}}>
                                 {/*<button key={i} name={'time'} value={(list.scrt_detail[i].scrt_stime,list.scrt_detail[i].scrt_etime)} onClick={changeData} style={{fontSize:'25px', backgroundColor:'white', border:'1px solid black'}}>*/}
 
-                                <button key={i} name={'time'} value={JSON.stringify(list)} onClick={changeData} style={{fontSize:'20px', backgroundColor:'white', border:'1px solid black', height:'50%', justifyContent:'center'}}>
+                                <button className={'ttt'} key={i} name={'time'} value={JSON.stringify(list)} onClick={changeData} style={{fontSize:'20px', border:'1px solid black', height:'50%', justifyContent:'center'}}>
                                     <span style={{fontSize:'15px'}}>{list.scr_name} {list.scr_floor}</span><br/>
                                     {/*{list.scrt_detail[i].scrt_stime.substring(0,5)}~{list.scrt_detail[i].scrt_etime.substring(0,5)}*/}
 

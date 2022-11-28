@@ -40,6 +40,7 @@ input[type='checkbox']:checked{
 .seatchoose {
     box-sizing: border-box;
     border-radius: 20px;
+    width: 100%;
 }
 
 .seatchoose{
@@ -52,7 +53,7 @@ input[type='checkbox']:checked{
     height: 100vh;
     font-family: 'Lato';
     margin: 0;
-    width: 1500px;
+    width: 80%;
     margin: auto;
 }
 
