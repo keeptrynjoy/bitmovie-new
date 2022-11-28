@@ -112,7 +112,6 @@ public class MovieService {
             for (int k = 0; k < screen_list.size(); k++) {
                 // 상영관 pk 읽어들이기
                 int screen_pk = Integer.parseInt(screen_list.get(k).get("screen_pk").toString());
-                System.out.println("map"+map);
                 map.put("screen_pk", screen_pk);
                 // 상영관에 해당하는 상영 시간표 정보 반환
                 List<Map<String, Object>> time_list = joinTimeRepository.selectTimeByScreen(map);

@@ -40,7 +40,6 @@ public class MovieController {
             - 상영중 "after"
             - 개봉예정 "before"
         */
-        System.out.println("controller "+order_stand);
         List<JoinMovie> movie_data_list = movieService.selectMovieList(order_stand, BorA, user_pk);
         return movie_data_list;
     }
@@ -48,9 +47,6 @@ public class MovieController {
     // 영화 페이지 - 상영시간표 출력
     @GetMapping("/selectTimeByMovie")
     public List<JoinTime> selectTimeByMovie(int movie_pk, String date){
-//        System.out.println("controller movie_pk: " + movie_pk);
-//        System.out.println("controller date: " + date);
-//        System.out.println(screenTimeService.selectTimeByMovie(movie_pk, date));
         return screenTimeService.selectTimeByMovie(movie_pk, date);
     }
 
