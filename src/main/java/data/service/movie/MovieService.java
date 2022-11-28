@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -65,31 +66,36 @@ public class MovieService {
 
     // 영화 상세 페이지 - 영화 정보 출력
     public Map<String,Object> selectMovieData(int movie_pk, int user_pk) {
+
+
         
         // 1. 영화 정보 출력
         Movie movie_data = movieRepository.selectMovieData(movie_pk);
-        // 2. 영화 등장인물 정보 반환
-        List<JoinCast> cast_list = joinCastRepository.selectCastByMovie(movie_pk);
-        // 3. 영화 평점 정보 반환
-        List<JoinRevw> review_list = joinRevwRepository.selectJoinRevw(movie_pk);
-        // 3-1. 유저가 로그인 한 경우 해당 영화 평점좋아요 유무를 반환
-        if (user_pk != 0) { //유저가 로그인 한 경우에만 조건 실행
-            for (JoinRevw joinRevw :review_list ) {
-                // joinRevw 에서 review_pk & user_pk 로 댓글 좋아요 유무 판단
-                boolean yorN = likeRevwRepository.likeYorN(joinRevw);
-                // joinRevw 에 해당 값을 넣어 반환
-                joinRevw.setLikeYorN(yorN);
-            }
-        }
-        // 해당 영화 좋아요 갯수
-        int wish_cnt = mWishRepository.selectWishCnt(movie_pk);
-
-        // controller 로 데이터 전달
         Map<String, Object> map = new HashMap<>();
         map.put("data", movie_data);
-        map.put("cast", cast_list);
-        map.put("revw", review_list);
-        map.put("wish_cnt", wish_cnt);
+        if (movie_data != null) {
+            System.out.println(movie_data);
+            // 2. 영화 등장인물 정보 반환
+            List<JoinCast> cast_list = joinCastRepository.selectCastByMovie(movie_pk);
+            // 3. 영화 평점 정보 반환
+            List<JoinRevw> review_list = joinRevwRepository.selectJoinRevw(movie_pk);
+            // 3-1. 유저가 로그인 한 경우 해당 영화 평점좋아요 유무를 반환
+            if (user_pk != 0) { //유저가 로그인 한 경우에만 조건 실행
+                for (JoinRevw joinRevw : review_list) {
+                    // joinRevw 에서 review_pk & user_pk 로 댓글 좋아요 유무 판단
+                    boolean yorN = likeRevwRepository.likeYorN(joinRevw);
+                    // joinRevw 에 해당 값을 넣어 반환
+                    joinRevw.setLikeYorN(yorN);
+                }
+            }
+            // 해당 영화 좋아요 갯수
+            int wish_cnt = mWishRepository.selectWishCnt(movie_pk);
+
+            map.put("cast", cast_list);
+            map.put("revw", review_list);
+            map.put("wish_cnt", wish_cnt);
+        }
+
         return map;
     }
 
@@ -112,7 +118,6 @@ public class MovieService {
             for (int k = 0; k < screen_list.size(); k++) {
                 // 상영관 pk 읽어들이기
                 int screen_pk = Integer.parseInt(screen_list.get(k).get("screen_pk").toString());
-                System.out.println("map"+map);
                 map.put("screen_pk", screen_pk);
                 // 상영관에 해당하는 상영 시간표 정보 반환
                 List<Map<String, Object>> time_list = joinTimeRepository.selectTimeByScreen(map);

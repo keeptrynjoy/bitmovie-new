@@ -101,7 +101,7 @@ function MovieDetail(props) {
         axios.get(`${localStorage.url}/movie/timeByMovieDetail?movie_pk=${parseInt(movie_pk)}&date=${selected_date}`)
             .then((res)=>{
                 setTimetable(res.data);
-                console.log("tt",res.data);
+                console.log(res.data);
             })
     },[selected_date])
 
@@ -112,12 +112,14 @@ function MovieDetail(props) {
             .then((res)=>{
                 for(let i=0;i<res.data.length;i++)
                 {
-                    if(res.data[i].movie_pk.equals(movie_pk)){
+                    console.log(res.data[i].movie_pk);
+                    console.log(movie_pk);
+                    if(res.data[i].movie_pk===movie_pk){
                         return true;
                     }
                 }
+                return false;
             })
-        return false;
     }
     const handleOpen = () => {
         if (user_pk==null){
@@ -127,7 +129,7 @@ function MovieDetail(props) {
             })
             return;
         }
-        if (!checkMovieLog()){
+        if (!checkMovieLog){
             Swal.fire({
                 icon:"error",
                 text:"영화 시청 후 리뷰 작성이 가능합니다"
@@ -332,15 +334,17 @@ function MovieDetail(props) {
                                         }>리뷰 작성</Button>
                                     </DialogActions>
                                 </Dialog>
-                                <ul className={"review-ul"}>
-                                    {
-                                        movie_review && movie_review.map((review,i)=>(
-                                            <li key={i}>
-                                                <MovieReview review={review}/>
-                                            </li>
-                                        ))
-                                    }
-                                </ul>
+                                <div className={"review-ul-div"}>
+                                    <ul className={"review-ul"}>
+                                        {
+                                            movie_review && movie_review.map((review,i)=>(
+                                                <li key={i}>
+                                                    <MovieReview review={review}/>
+                                                </li>
+                                            ))
+                                        }
+                                    </ul>
+                                </div>
                             </div>
                             :
                             menu === "timetable"?
@@ -372,93 +376,98 @@ function MovieDetail(props) {
                                     </div>
                                     <div className={"screens"}>
                                         {
-                                            timetable && timetable.map((theater,i)=>(
-                                                <div className={"theaters"} key={i}>
-                                                    <div className={"theaters-wrap"}>
-                                                        <div className={"theaters-title"}>
-                                                            <div className={"theaters-title-text"}>
-                                                                {theater.the_name}
+                                            timetable.length===0?
+                                                <div className={"theaters"} style={{fontSize:"30px"}}>
+                                                    현재 선택하신 날짜에 상영하는 영화가 없습니다.
+                                                </div>
+                                                :
+                                                timetable.map((theater,i)=>(
+                                                    <div className={"theaters"} key={i}>
+                                                        <div className={"theaters-wrap"}>
+                                                            <div className={"theaters-title"}>
+                                                                <div className={"theaters-title-text"}>
+                                                                    {theater.the_name}
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div className={"theaters-contents"}>
-                                                            {
-                                                                theater.screen.map((screen,j)=>(
-                                                                    <div className={"theaters-contents-a"} key={j}>
-                                                                        <div className={"a-upper"}>
-                                                                            <ArrowRight/> {screen.scr_name} {screen.scr_floor} | 총 {screen.scr_tot_seat}석
-                                                                        </div>
-                                                                        <div className={"a-under"}>
-                                                                            {screen.time.map((time,k)=>(
-                                                                                <LightTooltip key={k}
-                                                                                              title={
-                                                                                                  <React.Fragment>
-                                                                                                      <div className={"mini-theater"}>
-                                                                                                          <div className={"mini-theater-upper"}>
-                                                                                                              <div style={{fontSize:"1.5em",marginTop:"3px"}}>
-                                                                                                                  {theater.the_name}
-                                                                                                              </div>
-                                                                                                              <div>
-                                                                                                                  {screen.scr_name} {screen.scr_floor} (총 {screen.scr_tot_seat}석)
-                                                                                                              </div>
-                                                                                                          </div>
-                                                                                                          <div className={"mini-theater-map"}>
-                                                                                                              <div className={"mini-container"}>
-                                                                                                                  <div className={"mini-screen"}>SCREEN</div>
-                                                                                                                  <div className={"mini-seats"} onClick={()=>{
-                                                                                                                      console.log(time.seat);
-                                                                                                                  }
-                                                                                                                  }>
-                                                                                                                      {
-                                                                                                                          getPlot("A").map((row,r)=>(
-                                                                                                                              <React.Fragment key={r}>
-                                                                                                                              {
-                                                                                                                                  row.map((col,c)=>(
-                                                                                                                                      <div key={c} className={"mini-seat"}
-                                                                                                                                           onClick={()=>{
-                                                                                                                                               console.log(col);
-                                                                                                                                           }}
-                                                                                                                                           style={{
-                                                                                                                                               top:`${parseInt(r)*6}px`,
-                                                                                                                                               left:`${parseInt(c)*6}px`,
-                                                                                                                                               border:`${parseInt(c)===2 || parseInt(c)===9?"":"1px solid black"}`,
-                                                                                                                                               backgroundColor:`${String(time.seat).includes(col)?"black":"white"}`
-                                                                                                                                      }}>
-                                                                                                                                          <span></span>
-                                                                                                                                      </div>
-                                                                                                                                  ))
-                                                                                                                              }
-                                                                                                                              </React.Fragment>
-                                                                                                                          ))
-                                                                                                                      }
+                                                            <div className={"theaters-contents"}>
+                                                                {
+                                                                    theater.screen.map((screen,j)=>(
+                                                                        <div className={"theaters-contents-a"} key={j}>
+                                                                            <div className={"a-upper"}>
+                                                                                <ArrowRight/> {screen.scr_name} {screen.scr_floor} | 총 {screen.scr_tot_seat}석
+                                                                            </div>
+                                                                            <div className={"a-under"}>
+                                                                                {screen.time.map((time,k)=>(
+                                                                                    <LightTooltip key={k}
+                                                                                                  title={
+                                                                                                      <React.Fragment>
+                                                                                                          <div className={"mini-theater"}>
+                                                                                                              <div className={"mini-theater-upper"}>
+                                                                                                                  <div style={{fontSize:"1.5em",marginTop:"3px"}}>
+                                                                                                                      {theater.the_name}
+                                                                                                                  </div>
+                                                                                                                  <div>
+                                                                                                                      {screen.scr_name} {screen.scr_floor} (총 {screen.scr_tot_seat}석)
                                                                                                                   </div>
                                                                                                               </div>
+                                                                                                              <div className={"mini-theater-map"}>
+                                                                                                                  <div className={"mini-container"}>
+                                                                                                                      <div className={"mini-screen"}>SCREEN</div>
+                                                                                                                      <div className={"mini-seats"} onClick={()=>{
+                                                                                                                          console.log(time.seat);
+                                                                                                                      }
+                                                                                                                      }>
+                                                                                                                          {
+                                                                                                                              getPlot("A").map((row,r)=>(
+                                                                                                                                  <React.Fragment key={r}>
+                                                                                                                                      {
+                                                                                                                                          row.map((col,c)=>(
+                                                                                                                                              <div key={c} className={"mini-seat"}
+                                                                                                                                                   onClick={()=>{
+                                                                                                                                                       console.log(col);
+                                                                                                                                                   }}
+                                                                                                                                                   style={{
+                                                                                                                                                       top:`${parseInt(r)*6}px`,
+                                                                                                                                                       left:`${parseInt(c)*6}px`,
+                                                                                                                                                       border:`${parseInt(c)===2 || parseInt(c)===9?"":"1px solid gray"}`,
+                                                                                                                                                       backgroundColor:`${String(time.seat).includes(col)?"gray":"white"}`
+                                                                                                                                                   }}>
+                                                                                                                                                  <span></span>
+                                                                                                                                              </div>
+                                                                                                                                          ))
+                                                                                                                                      }
+                                                                                                                                  </React.Fragment>
+                                                                                                                              ))
+                                                                                                                          }
+                                                                                                                      </div>
+                                                                                                                  </div>
+                                                                                                              </div>
+                                                                                                              <div className={"mini-theater-under"}>
+                                                                                                                  {time.scrt_stime.substring(0,5)} ~ {time.scrt_etime.substring(0,5)}
+                                                                                                              </div>
                                                                                                           </div>
-                                                                                                          <div className={"mini-theater-under"}>
-                                                                                                              {time.scrt_stime.substring(0,5)} ~ {time.scrt_etime.substring(0,5)}
-                                                                                                          </div>
-                                                                                                      </div>
-                                                                                                  </React.Fragment>
-                                                                                              }>
-                                                                                    <div className={"time"} >
-                                                                                        <div className={"time-upper"}>
-                                                                                            {time.scrt_stime.substring(0,5)}
-                                                                                        </div>
-                                                                                        <div className={"time-under"}>
-                                                                                            <div>
-                                                                                                {parseInt(screen.scr_tot_seat)-parseInt(time.booked)}석
+                                                                                                      </React.Fragment>
+                                                                                                  }>
+                                                                                        <div className={"time"} >
+                                                                                            <div className={"time-upper"}>
+                                                                                                {time.scrt_stime.substring(0,5)}
+                                                                                            </div>
+                                                                                            <div className={"time-under"}>
+                                                                                                <div>
+                                                                                                    {parseInt(screen.scr_tot_seat)-parseInt(time.booked)}석
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
-                                                                                    </div>
-                                                                                </LightTooltip>
-                                                                            ))}
+                                                                                    </LightTooltip>
+                                                                                ))}
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                ))
-                                                            }
+                                                                    ))
+                                                                }
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            ))
+                                                ))
                                         }
                                     </div>
                                 </div>

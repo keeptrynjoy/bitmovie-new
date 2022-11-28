@@ -43,7 +43,6 @@ public class MainService {
 
     // 검색 기능 - 영화 , 인물정보 검색
     public Map<String,Object> selectSearchData(String search) {
-        System.out.println("search"+search);
         Map<String, Object> map = new HashMap<>();
         // 영화 정보 출력
         List<JoinMovie> movie_list = joinMovieRepository.selectSearchMovie(search);
@@ -84,22 +83,8 @@ public class MainService {
             }
         }
 
-//        String m_sdate = movie_list.get(0).getM_sdate();
-//        String m_edate = movie_list.get(0).getM_edate();
-//        LocalDate now = LocalDate.now();
-//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        String now_date = now.format(dtf);
-//        int sdate = Integer.parseInt(m_sdate);
-//        System.out.println("sdate"+ sdate);
-
         // 인물 정보 출력
         List<Person> people_list = personRepository.selectSearchList(search);
-        // 출력되는 첫번째 인물의 상세 정보 출력
-//        if(people_list.size()!=0){
-//            int person_pk = people_list.get(0).getPerson_pk();
-//            List<JoinCast> person_detail = joinCastRepository.selectCastDetail(person_pk);
-//            map.put("person_detail", person_detail);
-//        }
         // controller 로 데이터 전달
         map.put("people_list", people_list);
         map.put("movie_list", movie_list);
