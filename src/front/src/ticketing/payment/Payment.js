@@ -105,9 +105,9 @@ const Payment = (effect, deps) => {
 
 //강제로 변환도 해보고 타입오브로 찎어서 스트링나오는거 둘다 보내도 안됨
 
-    console.log(choiceCoupon,'pk보여줘');
-    console.log(typeof choiceCoupon,'pk보여줘');
-    const cpk=JSON.stringify(choiceCoupon);
+    // console.log(choiceCoupon,'pk보여줘');
+    // console.log(typeof choiceCoupon,'pk보여줘');
+    const cpk=choiceCoupon;
     console.log(cpk,'?????');
     console.log(typeof cpk,'?????');
 
@@ -195,7 +195,7 @@ const Payment = (effect, deps) => {
                         pay_type: rsp.pay_method,
                         pay_price: rsp.paid_amount,
                         pay_date: date,
-                        coupon_pk: cpk,
+                        mycoupon_pk: cpk,
                         pay_use_point: usePoint,
                         pay_state: rsp.status,
                         imp_uid: rsp.imp_uid
