@@ -61,9 +61,9 @@ function LoginMain(props) {
                                     Swal.fire({
                                         icon: "info",
                                         text: "한달 뒤에 다시 물어볼께영"
+                                    }).then((res)=>{
+                                        navi("/")
                                     });
-                                    setTimeout(navi("/"),3000);
-
                                 });
                             return;
                         }
@@ -71,9 +71,10 @@ function LoginMain(props) {
                     Swal.fire({
                         icon:"success",
                         text:"로그인 성공!"
+                    }).then((res)=>{
+                        navi("/");
+                        window.location.reload();
                     })
-                    navi("/");
-                    window.location.reload();
                 } else {
                     Swal.fire({
                         icon: "warning",
