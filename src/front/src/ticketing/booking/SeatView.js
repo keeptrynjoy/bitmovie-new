@@ -1,9 +1,10 @@
 import {json, Link, useLocation, useNavigate} from "react-router-dom";
 
 import './SelectSeat.css';
-import {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
+import Age from "../../service/Age";
 export default function SeatView({people, seats, rowSeats, onClickPeople,input ,setInput,changeData }) {
 
     const navi=useNavigate();
@@ -306,7 +307,8 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                 <article id="info-container">
                     <img alt={obj.m_name} src={`https://image.tmdb.org/t/p/w500${obj.m_photo}`} className={'seatposter'}/>
                     <div className={'seattx'}>
-                        <p style={{fontSize:'20px'}}><b>상영 영화</b> {obj.m_name} (<span style={{fontStyle:'italic'}}>{obj.m_enname} </span> )</p>
+                        <p style={{fontSize:'20px'}}> <Age age={obj.m_age_grd} size={20}/>&nbsp;{obj.m_name}</p>
+
                         <p><b style={{fontSize:'20px'}}>상영 지점</b> {obj2.the_name}</p>
                         <p><b style={{fontSize:'20px'}}>예매 날짜</b> {movieData.calender}</p>
                         <p><b style={{fontSize:'20px'}}>러닝 타임</b> {obj3.scrt_stime.substring(0,5)}~{obj3.scrt_etime.substring(0,5)}</p>

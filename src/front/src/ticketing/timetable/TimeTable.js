@@ -71,7 +71,7 @@ const TimeTable = (props) => {
                 // table[1]!==null && table[?
                 // input.length==5 && table.length==0?
                 input.location != "" && input.movie != "" && table.length==0 ?
-                    <div style={{width:'42%', fontSize:'20px' , margin:'auto', alignItems:'center', display:'flex', marginTop:'35%'}}>해당 날짜에 상영중인 영화가 존재하지 않습니다</div>
+                    <div style={{width:'43%', fontSize:'20px' , margin:'auto', alignItems:'center', display:'flex', marginTop:'35%'}}>해당 날짜에 상영중인 영화가 존재하지 않습니다</div>
 
                     :
 
