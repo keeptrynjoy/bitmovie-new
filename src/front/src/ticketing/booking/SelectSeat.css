@@ -8,6 +8,8 @@ input[type="checkbox"]{
     -moz-appearance: none;
     -o-appearance: none;
     appearance: none;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 
