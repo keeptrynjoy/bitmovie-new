@@ -4,7 +4,7 @@
     <insert id="insertPaymentData" parameterType="payment">
         INSERT INTO payment_tb VALUES
             (#{payment_pk},#{user_pk},#{pay_type},#{pay_price},#{pay_date},null,
-             #{coupon_pk},#{pay_use_point},#{pay_state},#{imp_uid});
+             #{mycoupon_pk},#{pay_use_point},#{pay_state},#{imp_uid});
     </insert>
 
     <select id="selectPaymentData" resultType="payment" parameterType="String">

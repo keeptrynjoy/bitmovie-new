@@ -99,18 +99,18 @@ public class CouponService {
     public void updateCouponByPayment(int use_state, String coupon_pk){
         Coupon coupon;
         if(use_state == 1 ){
-            Timestamp issue_date = Timestamp.valueOf(LocalDateTime.now());
+            Timestamp use_date = Timestamp.valueOf(LocalDateTime.now());
 
              coupon = Coupon.builder()
                     .c_use_state(use_state)
                     .coupon_pk(coupon_pk)
-                    .c_issue_date(issue_date)
+                    .c_use_date(use_date)
                     .build();
         } else {
             coupon = Coupon.builder()
                     .c_use_state(use_state)
                     .coupon_pk(coupon_pk)
-                    .c_issue_date(null)
+                    .c_use_date(null)
                     .build();
         }
 

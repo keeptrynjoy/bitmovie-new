@@ -115,7 +115,6 @@ public class PaymentController {
                 }
             }
 
-
             //6. 포인트 차감 및 쿠폰 사용 처리
             pointService.deductionPoint(payment);
             couponService.updateCouponByPayment(1,used_coupon);
