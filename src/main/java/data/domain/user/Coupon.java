@@ -1,14 +1,16 @@
 package data.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.apache.ibatis.type.Alias;
 
 import java.sql.Timestamp;
 
+@Builder
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Alias("coupon")
 public class Coupon {
     private String coupon_pk; //쿠폰번호

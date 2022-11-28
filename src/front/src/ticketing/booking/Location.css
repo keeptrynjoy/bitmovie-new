@@ -2,3 +2,6 @@
     background-color: white;
     border: none;
 }
+.lcbtn:focus{
+    background-color: gray;
+}

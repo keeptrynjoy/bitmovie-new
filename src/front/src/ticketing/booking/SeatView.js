@@ -1,13 +1,15 @@
 import {json, Link, useLocation, useNavigate} from "react-router-dom";
 
 import './SelectSeat.css';
-import {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
+import Age from "../../service/Age";
 export default function SeatView({people, seats, rowSeats, onClickPeople,input ,setInput,changeData }) {
 
     const navi=useNavigate();
     const location = useLocation();
+    const [coupon,setCoupon]=useState('');
     const movieData= location.state.input;
     const [totalp, setTotalp] =useState(0);
     const [adults, setAdults]= useState(0);
@@ -18,7 +20,6 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     const [sprice,setSprice]=useState(0);
     const [finalPay,setFinalPay]=useState(0);
     const [bookedSeat,setBookedSeat]=useState("");
-
 
 
     // console.log('state확인용',location.state.input);
@@ -53,7 +54,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     // console.log(totalp);
     // console.log(selected_seat.length);
     // console.log(obj3.scrt_etime);
-    console.log(obj3.scrtime_pk);
+    // console.log(obj3.scrtime_pk);
 
 
     // console.log('성인금액',aprice);
@@ -80,13 +81,12 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     //  }
 
     const saveGo=() => {
-
         if (totalp===selected_seat.length) {
 
             const totalPrice = (sprice * 8000) + (aprice * 10000);
 
             navi('/ticketing/payment', {
-                state: {obj, obj2, obj3, adults, students, selected_seat, finalPay: totalPrice, movieData}
+                state: {obj, obj2, obj3, adults, students, selected_seat, finalPay: totalPrice, movieData, coupon}
             })
         }else {
             Swal.fire({
@@ -95,6 +95,32 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
             })
         }
     }
+
+    // //유저정보
+    // const comeDb=()=>{
+    //     let user_pk=sessionStorage.user_pk;
+    //     axios.get('http://localhost:8282/mypage/information?user_pk='+user_pk)
+    //         .then((res)=> {
+    //                 // alert('굿잡베이베')
+    //                 setDbdata(res.data);
+    //             }
+    //
+    //         );
+    // }
+
+
+    //쿠폰 받아오기
+    const getCoupon=()=> {
+        let user_pk=sessionStorage.user_pk;
+        axios.get(`http://localhost:8282/payment/coupon?user_pk=${user_pk}`)
+            .then((res) => {
+                setCoupon(res.data);
+                // console.log(res.data);
+            }).catch((error) => {
+            console.log('쿠폰이 존재하지 않아요')
+        });
+    }
+
 
 
     // console.log('얼마',finalPay);
@@ -147,6 +173,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     useEffect(()=>{
 
         take();
+        getCoupon();
 
 
     },[])
@@ -156,7 +183,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
             axios.get(`http://localhost:8282/booking/reserved_seat?screentime=${obj3.scrtime_pk}`)
             .then((res) => {
                 setBookedSeat(res.data);
-                console.log('?',res.data);
+                // console.log('?',res.data);
             }).catch((error) => {
                console.log('예매된 좌석이 없습니다')
             });
@@ -233,7 +260,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
             ])
         }
     },[selected_seat]);
-
+    console.log(coupon);
     return (
         <div className={'seatchoose'}>
             <h1>인원 및 좌석선택</h1>
@@ -280,7 +307,8 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                 <article id="info-container">
                     <img alt={obj.m_name} src={`https://image.tmdb.org/t/p/w500${obj.m_photo}`} className={'seatposter'}/>
                     <div className={'seattx'}>
-                        <p style={{fontSize:'20px'}}><b>상영 영화</b> {obj.m_name} (<span style={{fontStyle:'italic'}}>{obj.m_enname} </span> )</p>
+                        <p style={{fontSize:'20px'}}> <Age age={obj.m_age_grd} size={20}/>&nbsp;{obj.m_name}</p>
+
                         <p><b style={{fontSize:'20px'}}>상영 지점</b> {obj2.the_name}</p>
                         <p><b style={{fontSize:'20px'}}>예매 날짜</b> {movieData.calender}</p>
                         <p><b style={{fontSize:'20px'}}>러닝 타임</b> {obj3.scrt_stime.substring(0,5)}~{obj3.scrt_etime.substring(0,5)}</p>
@@ -298,8 +326,10 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                     <div className="screen"></div>
                     <div className={'seatboxes'}>
                         {rowSeats.map((list, i) => (
+                            <label for={'seat'}>
                             <li className={'row'} key={i} >
                                 {seats.map((list,j) => (
+
                                     <input type={"checkbox"}
                                            disabled={bookedSeat.includes(alphabet[i].toUpperCase()+(j+1).toString())}
                                            className={'seat'}
@@ -309,8 +339,10 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                                            onChange = {changeHandler}
                                     />
 
+
                                 ))}
                             </li>
+                            </label>
                         ))}
                     </div>
                 </article>

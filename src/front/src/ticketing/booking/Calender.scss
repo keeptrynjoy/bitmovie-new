@@ -45,7 +45,8 @@ svg {
     font-size: 15px;
 .col {
     background: gainsboro;
-    border-radius: 25px;
+    border-radius: 5px;
+    border: 1px solid darkgray;
     height: 50px;
     font-size: 15px;
     line-height: 45px;
@@ -67,12 +68,13 @@ svg {
     font-size: 0.3em;
     color: white;
     margin: 0 auto;
-    border-radius: 25px;
+    border-radius: 10px;
     justify-content: center;
     width: 50px;
     height:48px;
     align-items: center;
-    background-color: #3a3a3a;
+    background-color: transparentize(black, 0.6);
+
 
 
 
@@ -103,7 +105,7 @@ img {
   height: 50px;
   margin: 0 auto;
   align-items: center;
-  border-radius: 25px;
+  border-radius: 10px;
   background-color: theme.$dark-gray-color;
   justify-content: center;
 
@@ -124,10 +126,9 @@ img {
     background: lightgrey;
     color: black;
     align-items: center;
-    border-radius: 25px;
+    border-radius: 10px;
     justify-content: center;
 }
 }
 }
 }
-

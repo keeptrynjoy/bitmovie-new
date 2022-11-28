@@ -6,7 +6,9 @@ import data.repository.user.CouponRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -85,7 +87,7 @@ public class CouponService {
         }
     }
     //쿠폰 조회
-    public Coupon selectCoupon (int user_pk) {
+    public List<Coupon> selectCoupon (int user_pk) {
         return couponRepository.selectCoupon(user_pk);
     }
 
@@ -95,10 +97,23 @@ public class CouponService {
 
     /* 결제 또는 결제 취소로 발생한 쿠폰 상태 업데이트 */
     public void updateCouponByPayment(int use_state, String coupon_pk){
+        Coupon coupon;
+        if(use_state == 1 ){
+            Timestamp issue_date = Timestamp.valueOf(LocalDateTime.now());
 
-        Map<String,Object> map = new HashMap<>();
-        map.put("use_state",use_state);
-        map.put("coupon_pk",coupon_pk);
-        couponRepository.updateCouponByPayment(map);
+             coupon = Coupon.builder()
+                    .c_use_state(use_state)
+                    .coupon_pk(coupon_pk)
+                    .c_issue_date(issue_date)
+                    .build();
+        } else {
+            coupon = Coupon.builder()
+                    .c_use_state(use_state)
+                    .coupon_pk(coupon_pk)
+                    .c_issue_date(null)
+                    .build();
+        }
+
+        couponRepository.updateCouponByPayment(coupon);
     }
 }
