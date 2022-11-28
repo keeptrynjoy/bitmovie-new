@@ -71,7 +71,7 @@ const TimeTable = (props) => {
                 // table[1]!==null && table[?
                 // input.length==5 && table.length==0?
                 input.location != "" && input.movie != "" && table.length==0 ?
-                    <div style={{border:'1px solid gray', width:'200px', fontSize:'20px' , margin:'auto', alignItems:'center', display:'flex'}}>현재 상영가능한 영화가 존재하지 않습니다</div>
+                    <div style={{width:'42%', fontSize:'20px' , margin:'auto', alignItems:'center', display:'flex', marginTop:'35%'}}>해당 날짜에 상영중인 영화가 존재하지 않습니다</div>
 
                     :
 
@@ -79,9 +79,14 @@ const TimeTable = (props) => {
                         <ul key={i}>
                             <li style={{listStyle:'none'}}>
                                 {/*<button key={i} name={'time'} value={(list.scrt_detail[i].scrt_stime,list.scrt_detail[i].scrt_etime)} onClick={changeData} style={{fontSize:'25px', backgroundColor:'white', border:'1px solid black'}}>*/}
-                                <button key={i} name={'time'} value={JSON.stringify(list)} onClick={changeData} style={{fontSize:'25px', backgroundColor:'white', border:'1px solid black'}}>
+
+                                <button key={i} name={'time'} value={JSON.stringify(list)} onClick={changeData} style={{fontSize:'20px', backgroundColor:'white', border:'1px solid black', height:'50%', justifyContent:'center'}}>
+                                    <span style={{fontSize:'15px'}}>{list.scr_name} {list.scr_floor}</span><br/>
                                     {/*{list.scrt_detail[i].scrt_stime.substring(0,5)}~{list.scrt_detail[i].scrt_etime.substring(0,5)}*/}
-                               {list.scrt_stime.substring(0,5)}~{list.scrt_etime.substring(0,5)}
+
+                               {list.scrt_stime.substring(0,5)}~{list.scrt_etime.substring(0,5)}<br/>
+                                    <span style={{color:'gray', fontSize:'15px', fontStyle:'italic'}}>{list.scr_tot_seat}석</span>
+
                                 </button>
                             </li>
                         </ul>
