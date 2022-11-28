@@ -18,6 +18,5 @@ public interface CouponRepository {
     public void insertJoinCoupon (Coupon coupon); //가입 쿠폰 생성
     public List<Coupon> selectCoupon (int user_pk); // 쿠폰 조회
     public Coupon selectCouponState(String coupon_pk);
-
-    public void updateCouponByPayment(Map<String, Object> map);
+    public void updateCouponByPayment(Coupon coupon);
 }
