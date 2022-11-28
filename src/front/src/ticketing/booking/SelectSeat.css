@@ -3,10 +3,29 @@
         display: none;
     }
 }
+input[type="checkbox"]{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+}
+
 
 input[type="checkbox"]:disabled{
-    background: blue;
+    background: gray;
 }
+
+input[type='checkbox']:checked{
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    background-color: red;
+
+ }
+
+
 
 .seat:disabled{
     background-color: blue;

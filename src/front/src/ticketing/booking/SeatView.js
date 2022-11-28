@@ -324,8 +324,10 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                     <div className="screen"></div>
                     <div className={'seatboxes'}>
                         {rowSeats.map((list, i) => (
+                            <label for={'seat'}>
                             <li className={'row'} key={i} >
                                 {seats.map((list,j) => (
+
                                     <input type={"checkbox"}
                                            disabled={bookedSeat.includes(alphabet[i].toUpperCase()+(j+1).toString())}
                                            className={'seat'}
@@ -335,8 +337,10 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                                            onChange = {changeHandler}
                                     />
 
+
                                 ))}
                             </li>
+                            </label>
                         ))}
                     </div>
                 </article>
