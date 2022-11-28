@@ -5,6 +5,11 @@
     background-color: gray;
 }
 
+.mvbtn1:hover{
+    background-color: red;
+
+}
+
 .txt{
     text-align: left;
     pointer-events : none;
