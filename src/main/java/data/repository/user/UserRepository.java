@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UserRepository {
+    public User selectUser (int user_pk); //마이페이지 유저 정보 출력
+    public void updateUser (User user); //마이페이지 회원 정보 수정
     public int searchId (String u_id); //회원가입 아이디 중복 체크
     public void insertUser (User user); //회원가입
     public int selectNickname (String u_nick); //중복 닉네임 확인

@@ -21,6 +21,14 @@ public class UserService {
     private final ReportRepository reportRepository;
     private final MWishRepository mWishRepository;
 
+    //유저 정보 출력
+    public User selectUser (int user_pk) {
+        return userRepository.selectUser(user_pk);
+    }
+    //회원 정보 수정
+    public void updateUser (User user) {
+        userRepository.updateUser(user);
+    }
     //회원가입 아이디 중복 체크
     public int searchId (String u_id) {
         return userRepository.searchId(u_id);

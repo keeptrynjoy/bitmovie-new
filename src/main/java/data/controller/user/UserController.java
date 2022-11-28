@@ -19,6 +19,16 @@ public class UserController {
     private final UserService userService;
     private final CouponService couponService;
 
+    //마이페이지 유저 정보 출력
+    @GetMapping("/information")
+    public User selectUser (int user_pk) {
+        return userService.selectUser(user_pk);
+    }
+    //마이페이지 회원 정보 수정
+    @PostMapping("/update")
+    public void updateUser (@RequestBody User user) {
+        userService.updateUser(user);
+    }
     //회원가입 아이디 중복 체크
     @GetMapping("/idcheck")
     public int searchId(String u_id) {

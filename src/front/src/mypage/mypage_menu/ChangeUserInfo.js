@@ -134,7 +134,7 @@ function ChangeUserInfo(props) {
         e.preventDefault();
         if(errorChk()==="ok")
         {
-            let updateUrl = localStorage.url + "/mypage/update";
+            let updateUrl = localStorage.url + "/user/update";
 
             axios.post(updateUrl, userdata)
                 .then((res) => {

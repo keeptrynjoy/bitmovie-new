@@ -86,7 +86,7 @@ public class PaymentController {
         System.out.println("아임포트 amount : " + amount);
 
         try {
-            int my_point = myPageService.selectPoint(payment.getUser_pk());
+            int my_point = pointService.selectPoint(payment.getUser_pk());
             int used_point = payment.getPay_use_point();
 
             //3. 사용한 포인트 유효성 검사

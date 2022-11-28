@@ -17,7 +17,7 @@ function MyPage(props) {
     const [eCoupon, setECoupon] = useState("");
     const [expCoupon, setExpCoupon] = useState("");
 
-    const infoUrl = localStorage.url + "/mypage/information?user_pk=" + user_pk;
+    const infoUrl = localStorage.url + "/user/information?user_pk=" + user_pk;
 
     const getData =()=>{
         axios.get(infoUrl)

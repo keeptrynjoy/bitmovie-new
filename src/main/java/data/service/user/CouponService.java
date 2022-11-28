@@ -90,6 +90,22 @@ public class CouponService {
     public List<Coupon> selectCoupon (int user_pk) {
         return couponRepository.selectCoupon(user_pk);
     }
+    //마이페이지 사용가능 쿠폰 개수 조회
+    public int selectMyCouponCount (int user_pk) {
+        return couponRepository.selectMyCouponCount(user_pk);
+    }
+    //마이페이지 사용가능 쿠폰 조회
+    public List<Coupon> selectMyCouponDetail (int user_pk) {
+        return couponRepository.selectMyCouponDetail(user_pk);
+    }
+    //마이페이지 만료예정 쿠폰 개수 조회
+    public int selectExpCoupon (int user_pk) {
+        return couponRepository.selectExpCoupon(user_pk);
+    }
+    //마이페이지 쿠폰 발급/사용 내역 조회
+    public List<Coupon> selectCouponDetail (int user_pk) {
+        return couponRepository.selectCouponDetail(user_pk);
+    }
 
     public Coupon selectCouponState(String coupon_pk){
         return couponRepository.selectCouponState(coupon_pk);
