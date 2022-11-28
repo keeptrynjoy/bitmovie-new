@@ -62,8 +62,9 @@ const MovieList = (props) => {
         <div>
 
             <div className={'mvcolor'}>
-                <p style={{ paddingTop:'10px',fontSize:'20px', textAlign:'center'}}>영화</p>
-               <button className={'mvbtn1'} onClick={get} style={{marginLeft:'25px', backgroundColor:'white', fontSize:'15px',marginBottom:'0px', color:'gray'}}>이름순</button><button className={'mvbtn1'} onClick={get2} style={{marginLeft:'20px', backgroundColor:'white', fontSize:'15px',marginBottom:'0px'}}><p style={{marginBottom:'0', fontSize:'15px', color:'gray'}}>예매율순</p></button><button className={'mvbtn1'} onClick={get3} style={{marginLeft:'20px', backgroundColor:'white', fontSize:'15px',marginBottom:'0px', color:'gray'}}>평점순</button>
+               <button className={'mvbtn1'} onClick={get} style={{marginLeft:'10%', backgroundColor:'white', fontSize:'15px',marginBottom:'0px',marginTop:'5%'}}>이름순</button>
+                <button className={'mvbtn1'} onClick={get2} style={{marginLeft:'20px', backgroundColor:'white', fontSize:'15px',marginBottom:'0px'}}><p style={{marginBottom:'0', fontSize:'15px'}}>예매율순</p></button>
+                <button className={'mvbtn1'} onClick={get3} style={{marginLeft:'20px', backgroundColor:'white', fontSize:'15px',marginBottom:'0px'}}>평점순</button>
                 <hr/>
                 {
                     loading ?

@@ -5,9 +5,18 @@
     background-color: gray;
 }
 
-.mvbtn1:hover{
-    background-color: red;
+.mvbtn:hover{
+    background-color: gray;
 
+}
+
+.mvbtn1{
+    color:gray;
+}
+
+
+.mvbtn1:hover{
+    color: black;
 }
 
 .txt{
