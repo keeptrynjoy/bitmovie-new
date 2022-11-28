@@ -71,7 +71,7 @@ const TimeTable = (props) => {
                 // table[1]!==null && table[?
                 // input.length==5 && table.length==0?
                 input.location != "" && input.movie != "" && table.length==0 ?
-                    <p>"현재 상영중인 리스트가 존재하지 않습니다"</p>
+                    <div style={{border:'1px solid gray', width:'200px', fontSize:'20px' , margin:'auto', alignItems:'center', display:'flex'}}>현재 상영가능한 영화가 존재하지 않습니다</div>
 
                     :
 

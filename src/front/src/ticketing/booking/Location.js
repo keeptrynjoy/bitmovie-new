@@ -23,11 +23,11 @@ const Location = (props) => {
 
     return (
         <div>
-            <p style={{paddingLeft:'20px', paddingTop:'10px',fontSize:'20px', textAlign:'left'}}>극장</p>
+            <p style={{ paddingTop:'10px',fontSize:'20px', textAlign:'center'}}>극장</p>
             {mloc.map((list,i)=>(
-                <ul key={i} style={{paddingLeft:'21px'}}>
-                    <li style={{listStyle:'none', width:'100px', paddingLeft:'0'}}>
-                <button key={i} value={JSON.stringify(list)} style={{fontSize:'15px',textAlign:'left',width:'100px'}} className={'lcbtn'} name={'location'} onClick={changeData}>{list.the_name}</button>
+                <ul key={i} style={{padding:'0' , textAlign:'center'}}>
+                    <li style={{listStyle:'none', width:'100px', clear:'both', textAlign:'center', marginLeft:'13%'}}>
+                <button key={i} value={JSON.stringify(list)} style={{fontSize:'15px',textAlign:'center',width:'100px', margin:'0,auto'}} className={'lcbtn'} name={'location'} onClick={changeData}>{list.the_name}</button>
                     </li>
                 </ul>
             ))}

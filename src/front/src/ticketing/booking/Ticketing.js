@@ -12,7 +12,6 @@ import moment from "moment";
 function Ticketing(props) {
 
     const [st,setSt]=useState(false);
-
     const refresh=()=>{
         window.location.reload();
     }
@@ -26,6 +25,9 @@ function Ticketing(props) {
         time: ""
     });
 
+
+
+
     const changeData=(e)=>{
         let {name,value}=e.target;
         setInput({
@@ -34,6 +36,7 @@ function Ticketing(props) {
             }
         )
         setSt(!st);
+
     }
 
 
