@@ -13,7 +13,7 @@ function MovieReview(props) {
     })
 
     const getUserData=()=>{
-        const url = `${localStorage.url}/mypage/information?user_pk=${review.user_pk}`;
+        const url = `${localStorage.url}/user/information?user_pk=${review.user_pk}`;
         axios.get(url)
             .then((res)=>{
                 setUser_data(res.data);

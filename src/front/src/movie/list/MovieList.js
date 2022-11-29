@@ -160,7 +160,7 @@ function MovieList(props) {
                             <CircularProgress/>
                         </div>
                         :
-                        <>
+                        <div>
                             <div className={'mplist'}>
                                 {mlist && _DATA.currentData().map((item,i) => (
                                     <div className={"movie-list-items"} key={i}>
@@ -198,7 +198,7 @@ function MovieList(props) {
                                     onChange={handleChange}
                                 />
                             </div>
-                        </>
+                        </div>
                 }
             </div>
         </div>
