@@ -33,6 +33,11 @@ public class BookingController {
                                                           @RequestParam(defaultValue = "0") int user_pk) {
 
         List<JoinMovie> joinMovies = movieService.selectMovieList(order_stand, BorA, user_pk);
+        for (JoinMovie m : joinMovies){
+            String[] split = m.getM_photo().split(",", 2);
+//            System.out.println(split[0]);
+            m.setM_photo(split[0]);
+        }
 
         return new ResponseEntity<>(joinMovies,HttpStatus.OK);
     }

@@ -12,10 +12,13 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Alias("point")
 public class Point {
     private int point_pk;
     private int user_pk;
     private int po_point;
     private LocalDateTime po_date;
+    private String po_history;
+    private String payment_pk;
 }

@@ -13,8 +13,6 @@ public interface BookingRepository {
 
     public void insertBookingData(Booking booking);
 
-    public List<Movie> selectScreeningMovieList();
-
     public String selectSeatNumData(int screentime);
 
     public void deleteBookingData(int booking_pk);

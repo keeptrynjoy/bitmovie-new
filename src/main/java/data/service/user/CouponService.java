@@ -113,7 +113,11 @@ public class CouponService {
 
     /* 결제 또는 결제 취소로 발생한 쿠폰 상태 업데이트 */
     public void updateCouponByPayment(int use_state, String coupon_pk){
-        Coupon coupon;
+        Coupon coupon = new Coupon();
+        /*
+            결제 : use_state 가 1 일 경우 쿠폰 사용일자 now로 저장
+            취소 : 1이 아닐 경우 쿠폰 사용일자 null로 저장
+        */
         if(use_state == 1 ){
             Timestamp use_date = Timestamp.valueOf(LocalDateTime.now());
 
