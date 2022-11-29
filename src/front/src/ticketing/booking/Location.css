@@ -1,11 +1,24 @@
-.lcbtn{
-    background-color: white;
-    border: none;
-}
-.lcbtn:focus{
-    background-color: gray;
-}
+/*.lcbtn{*/
+/*    background-color: white;*/
+/*    border: none;*/
+/*}*/
+/*.lcbtn:focus{*/
+/*    background-color: gray;*/
+/*}*/
 
-.lcbtn:hover{
-    background-color:gray;
-}
+/*.lcbtn:hover{*/
+/*    background-color:gray;*/
+/*}*/
+
+/*.select-default {*/
+/*    background-color: white;*/
+/*}*/
+
+/*.select-default:hover {*/
+/*    background-color: #f3f3f3;*/
+/*}*/
+
+/*.select-clicked {*/
+/*    background-color: gray;*/
+/*    color: white;*/
+/*}*/

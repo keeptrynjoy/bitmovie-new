@@ -54,17 +54,17 @@ const MovieList = (props) => {
     },[]);
 
 
-    const onChangeTitleBg = (e, id) => {
+    const onChangeTitleBg = (list) => {
 
-        setColor(id);
-        if (id === color) {
+        setColor(list);
+        if (list === color) {
 
             setColor("");
 
 
         } else {
 
-            setColor(id);
+            setColor(list);
 
 
         }
@@ -99,12 +99,12 @@ const MovieList = (props) => {
 
                 {/*<img src={age} style={{width:'30px', float:'left'}}/>*/}
 
-                    <button id={i+1} className={
+                    <button className={
                         color === list ? "select-clicked" : "select-default"
                 } key={i} style={{fontSize: '15px'}}
                     onClick={(e)=>{
 
-                    onChangeTitleBg(e,list)
+                    onChangeTitleBg(list)
                     changeData(e)}
                 }
                     value={JSON.stringify(list)} name={'movie'}>
