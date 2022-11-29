@@ -19,7 +19,7 @@
 <!--    </select>-->
     <!--예매번호와 유저고유키로 결제번호 조회 -->
     <select id="selectPayByUserAndBookPK" resultType="payment" parameterType="Map">
-        SELECT pt.user_pk , pt.imp_uid , pt.pay_price, pt.payment_pk
+        SELECT *
         FROM booking_tb bt
                  LEFT JOIN payment_tb pt ON bt.payment_pk =pt.payment_pk
         WHERE bt.booking_pk=#{booking_pk}
