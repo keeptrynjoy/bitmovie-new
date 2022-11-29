@@ -13,17 +13,13 @@ import data.service.api.IamportService;
 import data.service.pay.BookingService;
 import data.service.pay.PaymentService;
 import data.service.user.CouponService;
-import data.service.user.MyPageService;
 import data.service.user.PointService;
 import lombok.*;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -38,8 +34,6 @@ public class PaymentController {
     private final PaymentService paymentService;
 
     private final IamportService iamportService;
-
-    private final MyPageService myPageService;
 
     private final BookingService bookingService;
 
