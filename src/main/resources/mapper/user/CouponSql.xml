@@ -25,7 +25,7 @@
     </insert>
     <!--쿠폰 사용기간 만료되면 사용불가-->
     <update id="updateCouponState">
-        UPDATE coupon_tb SET c_use_state = 1 WHERE c_exp_date = CURDATE();
+        UPDATE coupon_tb SET c_use_state = 1 WHERE c_exp_date &lt; CURDATE();
     </update>
     <!--쿠폰 조회-->
     <select id="selectCoupon" parameterType="int" resultType="Coupon">
@@ -40,6 +40,7 @@
     <select id="selectMyCouponDetail" parameterType="int" resultType="Coupon">
         SELECT coupon_pk, c_class, c_amount, c_issue_date, c_exp_date
         FROM coupon_tb WHERE user_pk = #{user_pk} AND c_use_state = 0
+        ORDER BY c_exp_date DESC
     </select>
     <!--만료예정 쿠폰 개수 조회-->
     <select id="selectExpCoupon" parameterType="int" resultType="int">
@@ -49,6 +50,7 @@
     <select id="selectUseCouponDetail" parameterType="int" resultType="Coupon">
         SELECT coupon_pk, c_class, c_amount, c_issue_date, c_exp_date, c_use_date, c_use_state
         FROM coupon_tb WHERE user_pk = #{user_pk}
+        ORDER BY c_issue_date DESC
     </select>
     <!-- 쿠폰 보유 및 사용 여부 조회 -->
     <select id="selectCouponState" resultType="coupon" parameterType="String">

@@ -37,7 +37,7 @@ function PointHistory(props) {
                                 <tr key={i}>
                                     <td>{item.pDate}</td>
                                     <td>{item.inDePoint}</td>
-                                    <td>추가 예정</td>
+                                    <td>{item.history}</td>
                                     <td>{item.sumPoint}</td>
                                 </tr>
                             )

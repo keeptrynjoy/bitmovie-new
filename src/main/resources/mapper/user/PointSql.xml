@@ -22,6 +22,19 @@
         UPDATE user_tb SET u_point = u_point + #{po_point} WHERE user_pk = #{user_pk}
     </update>
 
+    <!--마이페이지 포인트 적립/소멸 내역 조회-->
+    <select id="selectPointDetail" parameterType="int" resultType="MyPage">
+        SELECT
+            u.user_pk AS user,
+            p.po_point AS inDePoint,
+            p.po_date AS pDate,
+            p.po_history AS history,
+            SUM(p.po_point) OVER(ORDER BY p.po_date, p.point_pk desc) AS sumPoint
+        FROM user_tb u JOIN point_tb p ON u.user_pk = p.user_pk
+        WHERE u.user_pk = #{user_pk}
+        ORDER BY pDate DESC;
+    </select>
+
     <!-- 결제고유키로 포인트 조회 -->
     <select id="selectPointByPayment" resultType="int" parameterType="String">
         SELECT po_point FROM point_tb WHERE payment_pk=#{payment_pk}

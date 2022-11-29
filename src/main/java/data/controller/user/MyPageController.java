@@ -44,7 +44,7 @@ public class MyPageController {
     //마이페이지 포인트 적립/소멸 조회
     @GetMapping("/pointdetail")
     public List<MyPage> selectPointDetail (int user_pk) {
-        return myPageService.selectPointDetail(user_pk);
+        return pointService.selectPointDetail(user_pk);
     }
     //마이페이지 사용가능 쿠폰 개수 조회
     @GetMapping("/mycouponcount")

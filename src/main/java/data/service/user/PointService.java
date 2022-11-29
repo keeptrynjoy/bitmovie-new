@@ -2,6 +2,7 @@ package data.service.user;
 
 import data.domain.pay.Booking;
 import data.domain.pay.Payment;
+import data.domain.user.MyPage;
 import data.domain.user.Point;
 import data.domain.user.User;
 import data.repository.user.MyPageRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -109,5 +111,8 @@ public class PointService {
     public void updatePoint (Point point) {
         pointRepository.updatePoint(point);
     }
-
+    //마이페이지 포인트 적립/소멸 조회
+    public List<MyPage> selectPointDetail (int user_pk) {
+        return pointRepository.selectPointDetail(user_pk);
+    }
 }

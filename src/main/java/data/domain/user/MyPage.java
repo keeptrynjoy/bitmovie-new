@@ -35,6 +35,7 @@ public class MyPage {
     private int user;
     private int in_decrease;
     private int inDePoint;
+    private String history;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     private Timestamp pDate;
     private int sumPoint;
