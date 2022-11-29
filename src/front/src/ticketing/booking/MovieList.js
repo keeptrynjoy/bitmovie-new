@@ -15,7 +15,7 @@ const MovieList = (props) => {
     const {input,setInput,changeData}=props;
     const [mvlist,setMvlist] = useState([]);
     const [loading,setLoading]=useState(true);
-    const [select__movieTitle, setTitleBg] = useState("");
+    const [color, setColor] = useState("");
 
     const get=()=>{
         setLoading(true);
@@ -56,16 +56,15 @@ const MovieList = (props) => {
 
     const onChangeTitleBg = (e, id) => {
 
-        e.preventDefault();
-        setTitleBg(id);
-        if (id === select__movieTitle) {
+        setColor(id);
+        if (id === color) {
 
-            setTitleBg("");
+            setColor("");
 
 
         } else {
 
-            setTitleBg(id);
+            setColor(id);
 
 
         }
@@ -100,12 +99,12 @@ const MovieList = (props) => {
 
                 {/*<img src={age} style={{width:'30px', float:'left'}}/>*/}
 
-                    <button id={"btn"} className={
-                        select__movieTitle === list.id ? "select__movieTitleClicked" : "select__movieTitleDefault"
+                    <button id={i+1} className={
+                        color === list ? "select-clicked" : "select-default"
                 } key={i} style={{fontSize: '15px'}}
                     onClick={(e)=>{
 
-                    onChangeTitleBg(e,list.id)
+                    onChangeTitleBg(e,list)
                     changeData(e)}
                 }
                     value={JSON.stringify(list)} name={'movie'}>

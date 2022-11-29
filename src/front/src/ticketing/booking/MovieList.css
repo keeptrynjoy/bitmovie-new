@@ -28,15 +28,15 @@
 /*.mvcolor{*/
 /*    background-color: wheat;*/
 /*}*/
-.select__movieTitleDefault {
+.select-default {
     background-color: white;
 }
 
-.select__movieTitleDefault:hover {
+.select-default:hover {
     background-color: #f3f3f3;
 }
 
-.select__movieTitleClicked {
+.select-clicked {
     background-color: gray;
     color: white;
 }
