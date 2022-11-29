@@ -1,7 +1,6 @@
 package data.service.user;
 
 import data.domain.movie.*;
-import data.domain.user.LikeRevw;
 import data.repository.movie.*;
 import data.repository.user.LikeRevwRepository;
 import data.repository.user.MWishRepository;

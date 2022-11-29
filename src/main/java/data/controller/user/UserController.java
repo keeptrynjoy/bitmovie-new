@@ -1,9 +1,6 @@
 package data.controller.user;
 
-import data.domain.user.LikeRevw;
-import data.domain.user.MWish;
-import data.domain.user.Report;
-import data.domain.user.User;
+import data.domain.user.*;
 import data.service.user.CouponService;
 import data.service.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -107,30 +104,30 @@ public class UserController {
 
     // 평점 좋아요
     @PostMapping("/insertLikeRevw")
-    public void insertLikeRevw(@RequestBody LikeRevw likeRevw) {
-        userService.insertLikeRevw(likeRevw);
+    public void insertLikeRevw(@RequestBody RevwClick revwClick) {
+        userService.insertLikeRevw(revwClick);
     }
 
     // 평점 좋아요 취소
     @PostMapping("/deleteLikeRevw")
-    public void deleteLikeRevw(@RequestBody LikeRevw likeRevw) {
-        userService.deleteLikeRevw(likeRevw);
+    public void deleteLikeRevw(@RequestBody RevwClick revwClick) {
+        userService.deleteLikeRevw(revwClick);
     }
 
     // 평점 신고하기
     @PostMapping("/insertReport")
-    public void insertReport(@RequestBody Report report) {userService.insertReport(report);}
+    public void insertReport(@RequestBody RevwClick revwClick) {userService.insertReport(revwClick);}
 
     // 평점 신고 취소하기
     @PostMapping("/deleteReport")
-    public void deleteReport(@RequestBody Report report) {
-        userService.deleteReport(report);
+    public void deleteReport(@RequestBody RevwClick revwClick) {
+        userService.deleteReport(revwClick);
     }
 
     // 평점 신고 유무 확인
     @PostMapping("/selectReportYorN")
-    public boolean selectReportYorN(@RequestBody Report report) {
-        return userService.selectReportYorN(report);
+    public boolean selectReportYorN(@RequestBody RevwClick revwClick) {
+        return userService.selectReportYorN(revwClick);
         /* 값이 없으면 false 신고했으면 true 를 반환 */
     }
 
