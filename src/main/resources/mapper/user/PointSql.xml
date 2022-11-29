@@ -5,7 +5,7 @@
         SELECT * FROM point_tb WHERE user_pk=#{user_pk}
     </select>
     <insert id="insertPointData" parameterType="point" >
-        INSERT INTO point_tb VALUES (#{point_pk},#{user_pk},#{po_point},#{po_date});
+        INSERT INTO point_tb VALUES (#{point_pk},#{user_pk},#{po_point},#{po_date},#{po_history},#{payment_pk});
     </insert>
     <!--회원 보유 포인트 조회-->
     <select id="selectPoint" parameterType="int" resultType="int">
@@ -15,4 +15,8 @@
     <update id="updatePoint" parameterType="point">
         UPDATE user_tb SET u_point = u_point + #{po_point} WHERE user_pk = #{user_pk}
     </update>
+
+    <select id="selectPointByPayment" resultType="int" parameterType="String">
+        SELECT po_point FROM point_tb WHERE payment_pk=#{payment_pk}
+    </select>
 </mapper>
