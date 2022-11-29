@@ -248,7 +248,7 @@ const Payment = (effect, deps) => {
     //db에서 유저정보 받아오자
     const comeDb=()=>{
         let user_pk=sessionStorage.user_pk;
-        axios.get('http://localhost:8282/mypage/information?user_pk='+user_pk)
+        axios.get('http://localhost:8282/user/information?user_pk='+user_pk)
             .then((res)=> {
                     // alert('굿잡베이베')
                     setDbdata(res.data);

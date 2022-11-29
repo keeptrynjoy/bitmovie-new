@@ -30,8 +30,12 @@ public class BookingController {
     @GetMapping("/screening_list")
     public ResponseEntity<Object> screeningMovieList(@RequestParam(defaultValue = "m_name") String order_stand,
                                                           @RequestParam(defaultValue = "null") String BorA) {
-
         List<JoinMovie> joinMovies = movieService.selectMovieList(order_stand, BorA);
+        for (JoinMovie m : joinMovies){
+            String[] split = m.getM_photo().split(",", 2);
+//            System.out.println(split[0]);
+            m.setM_photo(split[0]);
+        }
 
         return new ResponseEntity<>(joinMovies,HttpStatus.OK);
     }

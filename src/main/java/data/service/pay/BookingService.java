@@ -22,19 +22,6 @@ public class BookingService {
         bookingRepository.insertBookingData(booking);
     }
 
-    /* 영화 리스트(첫번째 포스터만 반환할 수 있도록 데이터가공)*/
-    public List<Movie> selectScreeningMovieList(){
-
-        List<Movie> selectMovieList = bookingRepository.selectScreeningMovieList();
-
-        for (Movie m : selectMovieList){
-            String[] split = m.getM_photo().split(",", 2);
-//            System.out.println(split[0]);
-            m.setM_photo(split[0]);
-        }
-        return selectMovieList;
-    }
-
     /* 특정 상영시간에 해당하는 좌석번호 반환 */
     public String reservedSeatList(int screentime){
         return bookingRepository.selectSeatNumData(screentime);
