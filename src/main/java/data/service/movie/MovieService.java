@@ -27,7 +27,7 @@ public class MovieService {
     private final LikeRevwRepository likeRevwRepository;
 
 
-    public List<JoinMovie> selectMovieList(String order_stand, String BorA, int user_pk) {
+    public List<JoinMovie> selectMovieList(String order_stand, String BorA ){
 //        System.out.println(order_stand);
 
         // 오늘 날짜를 기준으로 1주일 기간 을 설정해 예매율을 계산
@@ -51,12 +51,12 @@ public class MovieService {
             // 영화 좋아요 갯수 정보 저장
             int wish = mWishRepository.selectWishCnt(movie_pk);
             data.get(i).setWish_cnt(wish);
-            // 영화 좋아요 선택 유무 정보 저장
-            Map<String, Object> tmepmap = new HashMap<>();
-            tmepmap.put("movie_pk", movie_pk);
-            tmepmap.put("user_pk", user_pk);
-            boolean mWishYorN = mWishRepository.mWishYorN(tmepmap);
-            data.get(i).setMwhishYorN(mWishYorN);
+//            // 영화 좋아요 선택 유무 정보 저장
+//            Map<String, Object> tmepmap = new HashMap<>();
+//            tmepmap.put("movie_pk", movie_pk);
+//            tmepmap.put("user_pk", user_pk);
+//            boolean mWishYorN = mWishRepository.mWishYorN(tmepmap);
+//            data.get(i).setMwhishYorN(mWishYorN);
 
         }
         return data;
@@ -121,5 +121,9 @@ public class MovieService {
             }
         }
         return theaters_list;
+    }
+
+    public List<Integer> selectMWishList(int user_pk) {
+        return mWishRepository.selectMWishList(user_pk);
     }
 }

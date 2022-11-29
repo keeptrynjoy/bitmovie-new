@@ -18,8 +18,13 @@
     </select>
 
     <!--  영화 좋아요 선택 유무 출력  -->
-    <select id="mWishYorN" parameterType="Map" resultType="boolean">
-        SELECT count(*) FROM mwish_tb WHERE movie_pk = #{movie_pk} AND user_pk = #{user_pk}
+<!--    <select id="mWishYorN" parameterType="Map" resultType="boolean">-->
+<!--        SELECT count(*) FROM mwish_tb WHERE movie_pk = #{movie_pk} AND user_pk = #{user_pk}-->
+<!--    </select>-->
+
+    <!--  유저가 좋아요한 영화 리스트 출력  -->
+    <select id="selectMWishList" parameterType="int" resultType="int">
+        SELECT movie_pk FROM mwish_tb WHERE user_pk = #{user_pk}
     </select>
 
 </mapper>
