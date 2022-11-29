@@ -26,7 +26,7 @@ function PointHistory(props) {
                 <tr>
                     <th>적립/사용일</th>
                     <th>포인트</th>
-                    {/*<th>적립/사용</th>*/}
+                    <th>내용</th>
                     <th>잔여 포인트</th>
                 </tr>
                 </thead>
@@ -37,20 +37,7 @@ function PointHistory(props) {
                                 <tr key={i}>
                                     <td>{item.pDate}</td>
                                     <td>{item.inDePoint}</td>
-                                    {/*<td>*/}
-                                    {/*    {*/}
-                                    {/*        item.increase===1?*/}
-                                    {/*            <span>*/}
-                                    {/*            적립&nbsp;&nbsp;*/}
-                                    {/*                <Add/>*/}
-                                    {/*        </span>*/}
-                                    {/*            :*/}
-                                    {/*            <span>*/}
-                                    {/*            사용&nbsp;&nbsp;*/}
-                                    {/*                <Remove/>*/}
-                                    {/*        </span>*/}
-                                    {/*    }*/}
-                                    {/*</td>*/}
+                                    <td>추가 예정</td>
                                     <td>{item.sumPoint}</td>
                                 </tr>
                             )

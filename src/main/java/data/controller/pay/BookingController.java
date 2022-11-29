@@ -29,10 +29,8 @@ public class BookingController {
     /* 상영중인 영화 리스트 */
     @GetMapping("/screening_list")
     public ResponseEntity<Object> screeningMovieList(@RequestParam(defaultValue = "m_name") String order_stand,
-                                                          @RequestParam(defaultValue = "null") String BorA,
-                                                          @RequestParam(defaultValue = "0") int user_pk) {
-
-        List<JoinMovie> joinMovies = movieService.selectMovieList(order_stand, BorA, user_pk);
+                                                          @RequestParam(defaultValue = "null") String BorA) {
+        List<JoinMovie> joinMovies = movieService.selectMovieList(order_stand, BorA);
         for (JoinMovie m : joinMovies){
             String[] split = m.getM_photo().split(",", 2);
 //            System.out.println(split[0]);

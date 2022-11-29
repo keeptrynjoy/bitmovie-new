@@ -49,9 +49,9 @@ function MovieLog(props) {
                                         <div className={"movie-theater"}>
                                             {item.theater} {item.screen} / 성인: {item.adult}명, 청소년: {item.youth}명
                                         </div>
-                                        <div className={"movie-comment"}>
-                                            이 영화를 평가 해주세요~
-                                        </div>
+                                        {/*<div className={"movie-comment"}>*/}
+                                        {/*    이 영화를 평가 해주세요~*/}
+                                        {/*</div>*/}
                                     </div>
                                 </div>
                             </li>
