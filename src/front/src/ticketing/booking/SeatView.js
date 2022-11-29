@@ -81,7 +81,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     //  }
 
     const saveGo=() => {
-        if (totalp===selected_seat.length) {
+        if (totalp===selected_seat.length && selected_seat.length!==0) {
 
             const totalPrice = (sprice * 8000) + (aprice * 10000);
 
