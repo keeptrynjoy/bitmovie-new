@@ -179,7 +179,6 @@ function Home(props) {
                     ))}
                 </div>
             </div>
-
         </div>
     )
 }

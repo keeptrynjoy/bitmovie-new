@@ -159,6 +159,8 @@ function SearchResult(props) {
                                                     // <SwiperSlide key={i}>
                                                         <div className={"result-card"} key={i}
                                                              onClick={()=>{navi(`/movie/detail/${movie.movie_pk}`)}}>
+                                                            <img className={"result-poster"} alt={movie.m_name}
+                                                                 src={`https://image.tmdb.org/t/p/w500${movie.m_photo.split(",")[0]}`}/>
                                                             <div className={"result-text"}>
                                                                 <Age age={movie.m_age_grd} size={30}/><span className={"result-text-mname"}>{movie.m_name}</span>
                                                                 <span>개봉일 : {movie.m_sdate}</span>

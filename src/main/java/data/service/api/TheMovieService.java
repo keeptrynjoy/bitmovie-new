@@ -321,8 +321,7 @@ public class TheMovieService {
     }//updatePhoto
 
     // 인물 정보 저장
-    public Map<String, Object> personDataList(Object movie_id){
-        Map<String, Object> map = new HashMap<>();
+    public void personDataList(Object movie_id){
         Set<Object> per_id_list_total = new HashSet<>();    // 전체 영화의 등장인물 id 정보
         List<Object> per_id_lsit = new ArrayList<>();          // 한 영화의 등장인물 id 정보
         JSONObject jsonObject;
@@ -380,7 +379,6 @@ public class TheMovieService {
             per_id_list_total.add(jsonObject.get("credit_id"));
 //            }//for
         }//for
-        return map;
     }//personDataList
 
 

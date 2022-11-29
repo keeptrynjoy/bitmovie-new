@@ -7,7 +7,6 @@
     justify-content: center;
 }
 
-
 .coming-soon {
     width: 1300px;
     display: flex;
@@ -63,6 +62,11 @@
     margin-left: 10px;
     border-radius: 5px;
     color: black;
+}
+
+.movie-card-list-div{
+    width: 1600px;
+    height: 2700px;
 }
 
 .mplist{

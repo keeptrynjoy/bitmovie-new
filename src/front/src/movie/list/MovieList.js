@@ -3,7 +3,7 @@ import "./MovieList.css"
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import MovieCard from "./MovieCard";
-import {Button, ButtonGroup, Divider, Pagination, ScopedCssBaseline, Switch} from "@mui/material";
+import {Button, ButtonGroup, CircularProgress, Divider, Pagination, ScopedCssBaseline, Switch} from "@mui/material";
 import {ChevronRight, FavoriteBorderOutlined} from "@material-ui/icons";
 import usePagination from "../../service/UsePagination";
 import Age from "../../service/Age";
@@ -11,6 +11,7 @@ import Age from "../../service/Age";
 function MovieList(props) {
     const navi = useNavigate();
 
+    const [loading,setLoading]=useState(true);
     const [mlist, setMlist] = useState([]);
     //페이징
     let [page, setPage] = useState(1);
@@ -36,9 +37,9 @@ function MovieList(props) {
             return str
         }
         else{
-            str += `order_stand=${order_stand}&BorA=${BorA}`;
+            str += `&order_stand=${order_stand}&BorA=${BorA}`;
         }
-        console.log("url=" + str);
+        console.log(str);
         return str
     }
 
@@ -56,11 +57,14 @@ function MovieList(props) {
         _DATA.jump(1);
     }
 
+
     //시작 데이터 가져오기
     const getData =()=>{
+        setLoading(true);
         axios.get(makeListUrl())
             .then((res)=>{
                 setMlist(res.data);
+                setLoading(false);
             });
     }
 
@@ -74,9 +78,11 @@ function MovieList(props) {
 
     //특정값 가져오기
     const getRankData=(order_stand,BorA)=>{
+        setLoading(true);
         axios.get(makeListUrl(order_stand,BorA))
             .then((res)=>{
                 setMlist(res.data);
+                setLoading(false);
             });
     }
 
@@ -88,8 +94,6 @@ function MovieList(props) {
     //정렬순서, 개봉작 바뀔 때마다 리스트 가져오기
     useEffect(()=>{
         getRankData(order,in_theater);
-        console.log("order: "+order);
-        console.log("in_theater: "+in_theater);
         console.log(mlist);
     },[order,in_theater]);
 
@@ -150,48 +154,52 @@ function MovieList(props) {
                 </span>
             </div>
             <div className={"movie-card-list-div"}>
-                <div className={'mplist'}>
-                    {mlist && _DATA.currentData().map((item,i) => (
-                        <div className={"movie-list-items"} key={i}>
-                            <MovieCard movie_data={item}/>
-                            <div className={"movie-card-text"}>
-                                <div className={"tit-area"}>
-                                    <ScopedCssBaseline/>
-                                    <span className={"movie-grade"}><Age age={item.m_age_grd} size={20}/></span>
-                                    <span className={"tit"}>{item.m_name}</span>
-                                </div>
-                                <div className={"rate-date"}>
-                                    <span className={"rate"}>예매율 : {item.reserve_rate}%</span>
-                                    <span className={"date"}>개봉일 : {item.m_sdate}</span>
-                                </div>
-                                <div className={"btn-div"}>
-                                <span className={"like-btn"}>
-                                    <Button variant="outlined" startIcon={<FavoriteBorderOutlined />}>
-                                    좋아요
-                                </Button>
-                                </span>
-                                    <span className={"book-btn"}>
-                                <Button
-                                    variant={"contained"}
-                                    sx={{
-                                        width:"120px",
-                                        marginLeft:"10px"
-                                    }}
-                                    onClick={() => navi("/ticketing")}>예매</Button>
-                                </span>
-                                </div>
-                            </div>
+                {
+                    loading?
+                        <div style={{display:"flex",justifyContent:"center",width:"100%",marginTop:"300px"}}>
+                            <CircularProgress/>
                         </div>
-                    ))}
-                </div>
-                <div className={"table-pagination"}>
-                    <Pagination
-                        count={count}
-                        size="large"
-                        page={page}
-                        onChange={handleChange}
-                    />
-                </div>
+                        :
+                        <>
+                            <div className={'mplist'}>
+                                {mlist && _DATA.currentData().map((item,i) => (
+                                    <div className={"movie-list-items"} key={i}>
+                                        <MovieCard movie_data={item}/>
+                                        <div className={"movie-card-text"}>
+                                            <div className={"tit-area"}>
+                                                <ScopedCssBaseline/>
+                                                <span className={"movie-grade"}><Age age={item.m_age_grd} size={20}/></span>
+                                                <span className={"tit"}>{item.m_name}</span>
+                                            </div>
+                                            <div className={"rate-date"}>
+                                                <span className={"rate"}>예매율 : {item.reserve_rate}%</span>
+                                                <span className={"date"}>개봉일 : {item.m_sdate}</span>
+                                            </div>
+                                            <div className={"btn-div"}>
+                                                <span className={"like-btn"}>
+                                                    <Button variant="outlined" startIcon={<FavoriteBorderOutlined />} style={{width:"100px"}}>
+                                                    {item.wish_cnt}
+                                                    </Button>
+                                                </span>
+                                                <span className={"book-btn"}>
+                                                    <Button variant={"contained"} sx={{width:"120px", marginLeft:"10px"}}
+                                                            onClick={() => navi("/ticketing")}>예매</Button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className={"table-pagination"}>
+                                <Pagination
+                                    count={count}
+                                    size="large"
+                                    page={page}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                        </>
+                }
             </div>
         </div>
     );

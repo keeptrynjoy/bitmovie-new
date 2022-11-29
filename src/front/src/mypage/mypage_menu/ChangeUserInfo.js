@@ -6,6 +6,7 @@ import Radio from "@mui/material/Radio";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function ChangeUserInfo(props) {
     const [userdata,setUserdata] = useState(props.data);
@@ -13,70 +14,86 @@ function ChangeUserInfo(props) {
     const [boolpw2,setBoolpw2] = useState(true);
     const [disabled, setDisabled] = useState(true);
     const [oldPass, setOldPass] = useState(props.data.u_pass);
+    const [boolhp,setBoolhp] = useState(false);
+    const [open,setOpen] = useState(false);
+    const [input,setInput] = useState({
+        checkSMS:"",
+        randomNum:"0"
+    })
 
     const errorChk=()=> {
         const hppattern = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
         switch (chkPW()) {
             case "reg":
-                return (<Alert severity={"error"}>
+                return (<Alert style={{width:"830px"}} severity={"error"}>
                     비밀번호는 8자 이상이고, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.
                 </Alert>)
             case "4c":
-                return (<Alert severity={"error"}>
+                return (<Alert style={{width:"830px"}} severity={"error"}>
                     같은 문자를 4번 이상 사용하실 수 없습니다.
                 </Alert>)
             case "id":
-                return (<Alert severity={"error"}>
+                return (<Alert style={{width:"830px"}} severity={"error"}>
                     비밀번호에 아이디가 포함되었습니다
                 </Alert>)
             case "space":
-                return (<Alert severity={"error"}>
+                return (<Alert style={{width:"830px"}} severity={"error"}>
                     비밀번호는 공백 없이 입력해주세요
                 </Alert>)
             case "hangul":
-                return (<Alert severity={"error"}>
+                return (<Alert style={{width:"830px"}} severity={"error"}>
                     비밀번호에 한글을 사용 할 수 없습니다
                 </Alert>)
             case "no":
-                return (<Alert severity={"error"}>
+                return (<Alert style={{width:"830px"}} severity={"error"}>
                     비밀번호를 입력하세요
                 </Alert>)
             case "old":
-                return (<Alert severity={"error"}>
+                return (<Alert style={{width:"830px"}} severity={"error"}>
                     이전 비밀번호랑 같습니다
                 </Alert>)
         }
         if(userdata.u_nick===""){
-            return (<Alert severity={"error"}>
+            return (<Alert style={{width:"830px"}} severity={"error"}>
                 닉네임을 입력하세요
             </Alert>)
         }else if(userdata.u_name===""){
-            return (<Alert severity={"error"}>
+            return (<Alert style={{width:"830px"}} severity={"error"}>
                 이름을 입력하세요
             </Alert>)
         }else if(userdata.u_gender===""){
-            return (<Alert severity={"error"}>
+            return (<Alert style={{width:"830px"}} severity={"error"}>
                 성별을 입력하세요
             </Alert>)
         }else if(userdata.u_birth===""){
-            return (<Alert severity={"error"}>
+            return (<Alert style={{width:"830px"}} severity={"error"}>
                 생일을 입력하세요
             </Alert>)
         }else if(userdata.u_phone===""){
-            return (<Alert severity={"error"}>
+            return (<Alert style={{width:"830px"}} severity={"error"}>
                 전화번호를 입력하세요
             </Alert>)
         }else if(!boolpw2)
         {
-            return (<Alert severity={"error"}>
+            return (<Alert style={{width:"830px"}} severity={"error"}>
                 비밀번호가 서로 다릅니다
             </Alert>)
         }else if(!hppattern.test(userdata.u_phone))
         {
-            return (<Alert severity={"error"}>
+            return (<Alert style={{width:"830px"}} severity={"error"}>
                 전화번호는 -을 포함해 휴대전화 형식에 맞게 입력해주세요
             </Alert>)
-        }else {
+        }
+        else if (open){
+            if (!boolhp) {
+                return (<Alert style={{width: "830px"}} severity={"error"}>
+                    본인인증을 진행해 주세요
+                </Alert>)
+            }else{
+                return "ok"
+            }
+        }
+        else {
             return "ok"
         }
     }
@@ -138,11 +155,56 @@ function ChangeUserInfo(props) {
 
             axios.post(updateUrl, userdata)
                 .then((res) => {
-                    alert("수정 성공!");
-                    window.location.reload();
+                    Swal.fire({
+                        icon:"success",
+                        text:"수정 성공!"
+                    }).then((res)=>{
+                        window.location.reload();
+                    });
                 })
         }else {
-            alert("입력 정보를 확인해 주세요");
+            Swal.fire({
+                icon:"error",
+                text:"입력정보를 확인해주세요"
+            });
+        }
+    }
+
+    const sendSMS = () => {
+        const hppattern = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
+        if(!hppattern.test(userdata.u_phone))
+        {
+            Swal.fire({
+                icon:"warning",
+                text:"전화번호는 \"-\" 을 포함해 휴대전화 형식에 맞게 입력해주세요"
+            })
+            return;
+        }
+
+        let url = localStorage.url + "/user/sendSMS?u_phone=" + userdata.u_phone;
+        axios.get(url)
+            .then(res => {
+                console.log("ph: "+res.data);
+                input.randomNum = res.data;
+                Swal.fire({
+                    icon:"success",
+                    text:"인증 번호 발송 완료!"
+                })
+            })
+    }
+
+    const checkSMS = () => {
+        if (parseInt(input.randomNum) === parseInt(input.checkSMS)) {
+            setBoolhp(true);
+            Swal.fire({
+                icon:"success",
+                text:"휴대폰 인증이 정상적으로 완료되었습니다."
+            })
+        } else {
+            Swal.fire({
+                icon:"error",
+                text:"인증번호가 올바르지 않습니다."
+            })
         }
     }
 
@@ -166,7 +228,7 @@ function ChangeUserInfo(props) {
                         <th>비밀번호</th>
                         <td>
                             <div className={"input-group"} style={{width: "430px"}}>
-                                <input required disabled={disabled} type={'new-password'} className='form-control' onChange={changeData}
+                                <input required disabled={disabled} type={'password'} className='form-control' onChange={changeData}
                                        onKeyUp={chkPW2} value={userdata.u_pass} name={"u_pass"}/>
                                 {
                                     chkPW()!=="ok"?
@@ -181,7 +243,7 @@ function ChangeUserInfo(props) {
                         <th>비밀번호 확인</th>
                         <td>
                             <div className={"input-group"} style={{width: "430px"}}>
-                                <input required disabled={disabled} type={'new-password'} className='form-control' onChange={(e)=>setNewpw2(e.target.value)}
+                                <input required disabled={disabled} type={'password'} className='form-control' onChange={(e)=>setNewpw2(e.target.value)}
                                        onKeyUp={chkPW2} value={newpw2} name={"u_pass2"}/>
                                 {
                                     !boolpw2?
@@ -231,16 +293,65 @@ function ChangeUserInfo(props) {
                     <tr>
                         <th>전화번호</th>
                         <td>
-                            <input required disabled={disabled} type={'text'} className='form-control' onChange={changeData}
-                                   value={userdata.u_phone} name={"u_phone"}/>
+                            <div className={"input-group"} style={{width: "513px"}}>
+                                <input required disabled={!open} type={'text'} className='form-control' onChange={changeData}
+                                       value={userdata.u_phone} name={"u_phone"}/>
+                                <Button
+                                    variant={"contained"} color={"success"}
+                                    style={{marginLeft:"15px",borderRadius:"5px"}}
+                                    disabled={disabled}
+                                    onClick={()=>{
+                                        setOpen(true)
+                                    }}
+                                >변경</Button>
+                                <div style={{width:"35px"}}>
+                                    {open &&
+                                        (
+                                        !boolhp?
+                                            <CloseIcon style={{color:"red", float:"right", marginTop:"7px", marginLeft:"10px"}}/>
+                                            :
+                                            <CheckIcon style={{color:"green", float:"right", marginTop:"7px", marginLeft:"10px"}}/>
+                                        )
+                                    }
+                                </div>
+                            </div>
                         </td>
                     </tr>
+                    {open &&
+                        <tr>
+                            <th>인증번호</th>
+                            <td>
+                                <div className={"input-group"} style={{width: "558px"}}>
+                                    <input required disabled={disabled} type={'text'} className='form-control'
+                                           onChange={(e)=>{
+                                               setInput({
+                                                   ...input,
+                                                   checkSMS: e.target.value
+                                               })
+                                           }}
+                                           value={input.checkSMS} name={"checkSMS"}/>
+                                    <Button
+                                        variant={"contained"} color={"primary"}
+                                        style={{marginLeft:"15px",borderRadius:"5px"}}
+                                        disabled={disabled}
+                                        onClick={sendSMS}
+                                    >전송</Button>
+                                    <Button
+                                        variant={"contained"} color={"success"}
+                                        style={{marginLeft:"15px",borderRadius:"5px"}}
+                                        disabled={disabled}
+                                        onClick={checkSMS}
+                                    >확인</Button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
                     </tbody>
                 </table>
                 <div className={"error-msg"}>
                     {
                         errorChk()==="ok"?
-                            <Alert severity={"success"}>통과</Alert>
+                            <Alert style={{width:"830px"}} severity={"success"}>통과</Alert>
                             :
                             errorChk()
                     }

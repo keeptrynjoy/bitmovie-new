@@ -86,7 +86,7 @@ public class CouponService {
             couponRepository.insertJoinCoupon(coupon); //가입한 회원에게 생성된 쿠폰 넣기
         }
     }
-    //쿠폰 조회
+    //쿠폰 조회(결제)
     public List<Coupon> selectCoupon (int user_pk) {
         return couponRepository.selectCoupon(user_pk);
     }
@@ -103,8 +103,8 @@ public class CouponService {
         return couponRepository.selectExpCoupon(user_pk);
     }
     //마이페이지 쿠폰 발급/사용 내역 조회
-    public List<Coupon> selectCouponDetail (int user_pk) {
-        return couponRepository.selectCouponDetail(user_pk);
+    public List<Coupon> selectUseCouponDetail (int user_pk) {
+        return couponRepository.selectUseCouponDetail(user_pk);
     }
 
     public Coupon selectCouponState(String coupon_pk){
@@ -113,7 +113,11 @@ public class CouponService {
 
     /* 결제 또는 결제 취소로 발생한 쿠폰 상태 업데이트 */
     public void updateCouponByPayment(int use_state, String coupon_pk){
-        Coupon coupon;
+        Coupon coupon = new Coupon();
+        /*
+            결제 : use_state 가 1 일 경우 쿠폰 사용일자 now로 저장
+            취소 : 1이 아닐 경우 쿠폰 사용일자 null로 저장
+        */
         if(use_state == 1 ){
             Timestamp use_date = Timestamp.valueOf(LocalDateTime.now());
 
