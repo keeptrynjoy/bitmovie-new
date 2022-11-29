@@ -157,10 +157,11 @@ function Ticketing(props) {
                 {/*<button type={"button"} className={'selectseat'} onClick={() => navi("/ticketing/selectseat",{input, setInput})} input={input} setInput={setInput} changeData={changeData} >좌석선택</button>*/}
 
                 <div className={'step'}>
-                <div className={'moviestep'}>선택 영화 : {input.movie && JSON.parse(input.movie).m_name}</div>
-                <div className={'locationstep'}>선택 상영관 : {input.location && JSON.parse(input.location).the_name}</div>
-                <div className={'daystep'}>선택 날짜 : {input.calender && input.calender}</div>
-                <div className={'timestep'}>선택 시간대 : {input.time && JSON.parse(input.time).scrt_stime.substring(0,5)}</div>
+                    <div className={'moviestep'}><b>선택 영화</b> : <span style={{color:'gray'}}>{input.movie && JSON.parse(input.movie).m_name}</span></div>
+                    <div className={'locationstep'}><b>선택 상영관</b> : <span style={{color:'gray'}}>{input.location && JSON.parse(input.location).the_name}</span></div>
+                    <div className={'daystep'}><b>선택 날짜</b> : <span style={{color:'gray'}}> {input.calender && input.calender}</span></div>
+                    <div className={'timestep'}><b>선택 시간대</b> : <span style={{color:'gray'}}>{input.time && JSON.parse(input.time).scrt_stime.substring(0,5)}&nbsp;
+                        {input.time && JSON.parse(input.time).scr_name}{input.time && JSON.parse(input.time).scr_floor}</span></div>
                 </div>
 
                 <button type={"button"} className={'selectseat'} onClick={checkId} >좌석선택</button>
