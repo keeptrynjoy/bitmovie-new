@@ -19,8 +19,8 @@ public interface CouponRepository {
     public int selectMyCouponCount (int user_pk); //사용가능 쿠폰 개수 조회
     public List<Coupon> selectMyCouponDetail (int user_pk); //사용가능 쿠폰 조회
     public int selectExpCoupon (int user_pk); //만료예정 쿠폰 개수 조회
-    public List<Coupon> selectCouponDetail (int user_pk); //쿠폰 발급/사용 내역 조회
-    public List<Coupon> selectCoupon (int user_pk); // 쿠폰 조회
+    public List<Coupon> selectCoupon (int user_pk); //쿠폰 조회(결제)
+    public List<Coupon> selectUseCouponDetail (int user_pk); //쿠폰 발급/사용 내역 조회
     public Coupon selectCouponState(String coupon_pk);
     public void updateCouponByPayment(Coupon coupon);
 }
