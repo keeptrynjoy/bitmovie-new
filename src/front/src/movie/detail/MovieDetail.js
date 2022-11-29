@@ -298,7 +298,7 @@ function MovieDetail(props) {
                         menu === "review"?
                             <div className={"dtreview"}>
                                 <h1>영화리뷰</h1>
-                                <Button variant={"contained"} color={"secondary"} onClick={handleOpen}>영화 평점 등록</Button>
+                                <Button variant={"contained"} color={"secondary"} onClick={handleOpen} sx={{marginTop:"50px"}}>영화 평점 등록</Button>
                                 <Dialog open={review_open} onClose={handleClose} maxWidth={"1000px"}>
                                     <DialogTitle>평점 작성</DialogTitle>
                                     <DialogContent>
@@ -363,7 +363,8 @@ function MovieDetail(props) {
                                                     dateArray && dateArray.map((item,i)=>(
                                                         <SwiperSlide key={i}>
                                                             <li className={"date-item"} value={i}
-                                                                onClick={()=>setSelected_date(item.split("/")[0])}>
+                                                                onClick={()=>setSelected_date(item.split("/")[0])}
+                                                                style={{boxShadow:`${selected_date===item.split("/")[0]?"5px 5px 5px gray":"none"}`}}>
                                                                 <span>{item.substring(5,7)}월</span>
                                                                 <em>{days[parseInt(item.split("/")[1])]}</em>
                                                                 <strong>{item.substring(8,10)}</strong>

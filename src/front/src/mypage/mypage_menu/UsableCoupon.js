@@ -29,7 +29,12 @@ function PointHistory(props) {
     const Dday=(day)=>{
         let today = new Date().getTime();
         let dDay = new Date(day).getTime();
-        return Math.floor((dDay-today)/(1000 * 3600 * 24));
+        let result = Math.floor((dDay-today)/(1000 * 3600 * 24));
+        if(result < 0) {
+            return 0;
+        }else{
+            return result;
+        }
     }
 
     return (

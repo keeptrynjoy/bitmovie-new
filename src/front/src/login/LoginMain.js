@@ -19,6 +19,7 @@ function LoginMain(props) {
         axios.post(url, {u_id, u_pass})
             .then(res => {
                 if (res.data.loginOk === 1) {
+                    console.log(res.data);
                     sessionStorage.login_status = 'ok';
                     sessionStorage.u_id = u_id;
                     sessionStorage.u_name = res.data.u_name;
@@ -27,54 +28,39 @@ function LoginMain(props) {
 
                     if(res.data.u_passDateDiff>30)
                     {
-                        // Swal.fire({
-                        //     title: '비밀번호를 변경 한지 30일이 지났습니다.',
-                        //     text: "보안을 위해 변경해주세요",
-                        //     icon: 'warning',
-                        //     showCancelButton: true,
-                        //     confirmButtonColor: '#3085d6',
-                        //     cancelButtonColor: '#d33',
-                        //     confirmButtonText: '네',
-                        //     cancelButtonText:'다음에 변경 할게요'
-                        // }).then((result) => {
-                        //     if (result.isConfirmed) {
-                        //         navi("/login/find");
-                        //     }else{
-                        //         const upurl = localStorage.url + "/login/updatepassdate?u_id=" + u_id;
-                        //         axios.get(upurl)
-                        //             .then((res)=>{
-                        //                 Swal.fire({
-                        //                     icon: "info",
-                        //                     text: "한달 뒤에 다시 물어볼께영"
-                        //                 });
-                        //             });
-                        //     }
-                        // })
-                        if(window.confirm("비밀번호를 변경 한지 30일이 지났습니다. 변경 하시겠습니까? (취소하면 30일 연장됩니다.)"))
-                        {
-                            navi("/login/find");
-                            return;
-                        }else{
-                            const upurl = localStorage.url + "/login/updatepassdate?u_id=" + u_id;
-                            axios.get(upurl)
-                                .then((res)=>{
-                                    Swal.fire({
-                                        icon: "info",
-                                        text: "한달 뒤에 다시 물어볼께영"
-                                    }).then((res)=>{
-                                        navi("/")
+                        Swal.fire({
+                            icon:"question",
+                            text:"비밀번호를 변경 한지 30일이 지났습니다. 변경 하시겠습니까?",
+                            showDenyButton: true,
+                            denyButtonText: "아니오",
+                            confirmButtonText: "네"
+                        }).then((result)=>{
+                            if(result.isConfirmed){
+                                navi("/");
+                                return;
+                            }else if(result.isDenied){
+                                const upurl = localStorage.url + "/login/updatepassdate?u_id=" + u_id;
+                                axios.get(upurl)
+                                    .then((res)=>{
+                                        Swal.fire({
+                                            icon: "info",
+                                            text: "한달 뒤에 다시 물어볼께영"
+                                        }).then((res)=>{
+                                            navi("/")
+                                        });
                                     });
-                                });
-                            return;
-                        }
+                                return;
+                            }
+                        })
+                    }else{
+                        Swal.fire({
+                            icon:"success",
+                            text:"로그인 성공!"
+                        }).then((res)=>{
+                            navi("/");
+                            window.location.reload();
+                        })
                     }
-                    Swal.fire({
-                        icon:"success",
-                        text:"로그인 성공!"
-                    }).then((res)=>{
-                        navi("/");
-                        window.location.reload();
-                    })
                 } else {
                     Swal.fire({
                         icon: "warning",

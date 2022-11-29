@@ -227,6 +227,7 @@
 .review-text-wrap .neoyong .review-like {
     margin-top: 25px;
     width: 30px;
+    cursor: pointer;
 }
 
 .review-text-wrap .neoyong .review-star {

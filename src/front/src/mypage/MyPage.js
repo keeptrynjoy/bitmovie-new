@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState, useCallback} from 'react';
 import "./Mypage.css"
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import photo from "../image/16.png"
 import EditIcon from '@mui/icons-material/Edit';
 import axios from "axios";
@@ -16,6 +16,7 @@ function MyPage(props) {
     const [data,setData] = useState("");
     const [eCoupon, setECoupon] = useState("");
     const [expCoupon, setExpCoupon] = useState("");
+    const navi=useNavigate();
 
     const infoUrl = localStorage.url + "/user/information?user_pk=" + user_pk;
 
@@ -28,6 +29,14 @@ function MyPage(props) {
     }
     //페이지 로딩시 데이터 가져오기
     useEffect(() => {
+        if (sessionStorage.login_status==null) {
+            Swal.fire({
+                icon:"warning",
+                text:"로그인후 이용해주세요"
+            }).then((r)=>{
+                navi("/");
+            });
+        }
         getData();
         enableCoupon();
         eexpCoupon();
@@ -124,10 +133,10 @@ function MyPage(props) {
                                     <strong>사용 가능 포인트</strong>
                                     <span className={"benefit-li-count"}>{data.u_point} P</span>
                                 </li>
-                                <li>
-                                    <strong>포인트 뭐넣지</strong>
-                                    <span className={"benefit-li-count"}>0 개</span>
-                                </li>
+                                {/*<li>*/}
+                                {/*    <strong>포인트 뭐넣지</strong>*/}
+                                {/*    <span className={"benefit-li-count"}>0 개</span>*/}
+                                {/*</li>*/}
                             </ul>
                         </div>
                     </div>
@@ -144,7 +153,7 @@ function MyPage(props) {
                             <b className={"sidebar-menu-subtitle"}>나의 예매내역</b>
                             <ul>
                                 <li className={"menu-items"} onClick={()=>setContents("booking")}>
-                                    영수증 출력
+                                    예매 내역
                                 </li>
                             </ul>
                         </li>
