@@ -18,6 +18,7 @@ import lombok.*;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -43,8 +44,7 @@ public class PaymentController {
 
 
     @GetMapping("/confirm")
-    public ResponseEntity confirm(@RequestParam int scrtime_pk, @RequestParam String seat_num){
-        PaymentConfirmDto paymentConfirmDto = new PaymentConfirmDto(scrtime_pk, seat_num);
+    public ResponseEntity confirm(@RequestBody @Validated PaymentConfirmDto paymentConfirmDto){
         return ResponseEntity.status(HttpStatus.OK).body(bookingService.reservedSeatCheck(paymentConfirmDto));
     }
 
@@ -59,18 +59,17 @@ public class PaymentController {
         Payment payment = mapper.treeToValue(object_node.get("payment"),Payment.class);
         Booking booking = mapper.treeToValue(object_node.get("booking"),Booking.class);
 
-
         System.out.println("user_pk : "+ payment.getUser_pk());
 
         //일시가 9시간전으로 변환되는 오류때문에 9시간 추가.
         payment.setPay_date(payment.getPay_date().plusHours(9));
         booking.setBook_issu_date(booking.getBook_issu_date().plusHours(9));
 
-        //1. 아임포트 토큰 생성
+        //아임포트 토큰 생성
         String token = iamportService.getToken();
         //System.out.println("토큰 : " + token);
 
-        //2. 토큰으로 결제 완료된 주문 정보 호출하여 취소시 사용할 amount 선언
+        //토큰으로 결제 완료된 주문 정보 호출하여 취소시 사용할 amount 선언
         Map<String,Object> map = iamportService.paymentInfo(payment.getImp_uid(), token);
         int amount = (int)map.get("amount");
         System.out.println("아임포트 amount : " + amount);
@@ -79,7 +78,7 @@ public class PaymentController {
             int my_point = pointService.selectPoint(payment.getUser_pk());
             int used_point = payment.getPay_use_point();
 
-            //3. 사용한 포인트 유효성 검사
+            //사용한 포인트 유효성 검사
             if (my_point < used_point) {
                 iamportService.paymentCancel(token, payment.getImp_uid(), amount, "사용 가능 포인트 부족");
                 return new ResponseEntity<String>("[결제 취소] 사용 가능한 포인트가 부족합니다.", HttpStatus.BAD_REQUEST);
@@ -89,10 +88,10 @@ public class PaymentController {
             System.out.println("사용한 쿠폰 : "+used_coupon);
 
             if(!used_coupon.equals("N")){
-                //4-1. 사용한 쿠폰이 있을 경우 유효성 검사
+                //사용한 쿠폰이 있을 경우 유효성 검사
                 try {
                     Coupon my_coupon = couponService.selectCouponState(used_coupon);
-                    //4-2. 사용한 쿠폰 유효성 검사
+                    //사용한 쿠폰 유효성 검사
                     if(my_coupon.getC_use_state()==1){
                         //System.out.println(my_coupon.getC_use_state());
                         iamportService.paymentCancel(token, payment.getImp_uid(), amount,"사용되었거나 유효기간이 지난 쿠폰 사용");
@@ -125,7 +124,6 @@ public class PaymentController {
             if(payment.getPay_price()>0){
                 pointService.accumulatePoint(payment,1);
             }
-
 
             return new ResponseEntity<>("주문이 완료되었습니다", HttpStatus.OK);
         } catch (Exception e){
