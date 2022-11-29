@@ -46,11 +46,6 @@ public class MyPageController {
     public List<MyPage> selectPointDetail (int user_pk) {
         return myPageService.selectPointDetail(user_pk);
     }
-    //마이페이지 포인트 갱신
-    @GetMapping("/updatePoint")
-    public void updatePoint (Point point) {
-        pointService.updatePoint(point);
-    }
     //마이페이지 사용가능 쿠폰 개수 조회
     @GetMapping("/mycouponcount")
     public int selectMyCouponCount (int user_pk) {
@@ -68,8 +63,8 @@ public class MyPageController {
     }
     //마이페이지 쿠폰 발급/사용 내역 조회
     @GetMapping("/coupondetail")
-    public List<Coupon> selectCouponDetail (int user_pk) {
-        return couponService.selectCouponDetail(user_pk);
+    public List<Coupon> selectUseCouponDetail (int user_pk) {
+        return couponService.selectUseCouponDetail(user_pk);
     }
     //프로필 사진 업로드
     @PostMapping("/uploadphoto")

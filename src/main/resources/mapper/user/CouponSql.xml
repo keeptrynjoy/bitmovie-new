@@ -46,7 +46,7 @@
         SELECT count(*) FROM coupon_tb WHERE user_pk = #{user_pk} AND DATEDIFF(c_exp_date, CURDATE()) &lt; 7
     </select>
     <!--쿠폰 발급/사용 내역 조회-->
-    <select id="selectCouponDetail" parameterType="int" resultType="Coupon">
+    <select id="selectUseCouponDetail" parameterType="int" resultType="Coupon">
         SELECT coupon_pk, c_class, c_amount, c_issue_date, c_exp_date, c_use_date, c_use_state
         FROM coupon_tb WHERE user_pk = #{user_pk}
     </select>
