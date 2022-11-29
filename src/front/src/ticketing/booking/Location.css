@@ -10,15 +10,15 @@
 /*    background-color:gray;*/
 /*}*/
 
-/*.select-default {*/
-/*    background-color: white;*/
-/*}*/
+.select-default {
+    background-color: white;
+}
 
-/*.select-default:hover {*/
-/*    background-color: #f3f3f3;*/
-/*}*/
+.select-default:hover {
+    background-color: #f3f3f3;
+}
 
-/*.select-clicked {*/
-/*    background-color: gray;*/
-/*    color: white;*/
-/*}*/
+.select-clicked {
+    background-color: gray;
+    color: white;
+}

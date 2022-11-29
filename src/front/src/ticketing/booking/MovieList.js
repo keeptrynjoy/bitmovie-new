@@ -57,17 +57,11 @@ const MovieList = (props) => {
     const onChangeTitleBg = (list) => {
 
         setColor(list);
-        if (list === color) {
+        if (list === color)
 
             setColor("");
 
 
-        } else {
-
-            setColor(list);
-
-
-        }
 
     };
 
@@ -106,7 +100,9 @@ const MovieList = (props) => {
 
                     onChangeTitleBg(list)
                     changeData(e)}
+
                 }
+
                     value={JSON.stringify(list)} name={'movie'}>
                     <Age age={list.m_age_grd} size={20}/>&nbsp;
                     <div style={{width: '200px'}} className={'txt'}>&nbsp;{list.m_name}</div>

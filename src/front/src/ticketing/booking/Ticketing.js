@@ -16,6 +16,7 @@ function Ticketing(props) {
         window.location.reload();
     }
 
+
     const navi = useNavigate();
     const today= moment().format("yyyy-MM-DD");
     const [input,setInput]=useState({
@@ -38,6 +39,19 @@ function Ticketing(props) {
         setSt(!st);
 
     }
+
+
+    // const data = input.location;
+    //
+    // console.log(data,'shit');
+
+
+
+
+
+
+
+
 
 
 
@@ -112,11 +126,10 @@ function Ticketing(props) {
 
 
     useEffect(()=>{
-        console.log(input);
+        console.log(input,'뭘까');
     },[input]);
 
-
-
+    console.log(typeof input.location,'타입');
 
     const index = () => {
         return <div>{dateFns.format(new Date(), "yyyy-MM-dd")}</div>;
@@ -125,6 +138,7 @@ function Ticketing(props) {
         <div className={'whole'}>
 
             <div className={'tktable'}>
+
                 <div className={'tkbt'}>
                     {/*<button className={'tkmenu'} onClick={()=> navi("/ticketing/timetable")}>상영시간표</button>*/}
                     <button className={'tkmenu2'} onClick={()=>refresh()}>예매 다시하기</button>
@@ -141,7 +155,12 @@ function Ticketing(props) {
                     <div className={'selecttime'}><TimeTable input={input} setInput={setInput} changeData={changeData} st={st}/></div>
                 </div>
                 {/*<button type={"button"} className={'selectseat'} onClick={() => navi("/ticketing/selectseat",{input, setInput})} input={input} setInput={setInput} changeData={changeData} >좌석선택</button>*/}
-                <button type={"button"} className={'selectseat'} onClick={checkId} >좌석선택</button>
+
+                {/*<button type={"button"} className={'selectseat'} onClick={checkId} >좌석선택</button>*/}
+                {input.location && JSON.parse(input.location).the_name}<br/>{input.movie && JSON.parse(input.movie).m_name}<br/>
+                {input.calender && input.calender}<br/>
+                {input.time && JSON.parse(input.time).scrt_stime.substring(0,5)}~
+                {input.time && JSON.parse(input.time).scrt_etime.substring(0,5)}
 
 
             </div>
