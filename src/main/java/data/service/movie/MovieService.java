@@ -12,7 +12,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +20,6 @@ public class MovieService {
 
     private final MovieRepository movieRepository;
     private final JoinMovieRepository joinMovieRepository;
-    private final CastRepository castRepository;
     private final JoinRevwRepository joinRevwRepository;
     private final JoinCastRepository joinCastRepository;
     private final MWishRepository mWishRepository;
@@ -67,8 +65,6 @@ public class MovieService {
     // 영화 상세 페이지 - 영화 정보 출력
     public Map<String,Object> selectMovieData(int movie_pk, int user_pk) {
 
-
-        
         // 1. 영화 정보 출력
         Movie movie_data = movieRepository.selectMovieData(movie_pk);
         Map<String, Object> map = new HashMap<>();

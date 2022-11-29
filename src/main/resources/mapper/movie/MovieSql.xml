@@ -18,8 +18,8 @@
 
     <!--  TMDB api 영화 정보 저장  -->
     <insert id="insertDetailData" parameterType="movie">
-        INSERT INTO movie_tb (movie_pk, m_name, m_type, m_sdate, m_edate, m_runtime, m_info, m_country, m_age_grd)
-        VALUES (#{movie_pk}, #{m_name}, #{m_type}, #{m_sdate}, #{m_edate}, #{m_runtime}, #{m_info}, #{m_country}, #{m_age_grd});
+        INSERT INTO movie_tb (movie_pk, m_name, m_type, m_sdate, m_edate, m_runtime, m_age_grd, m_info, m_photo, m_video, m_enname, m_country)
+        VALUES (#{movie_pk}, #{m_name}, #{m_type}, #{m_sdate}, #{m_edate}, #{m_runtime}, #{m_age_grd}, #{m_info}, #{m_photo}, #{m_video}, #{m_enname} #{m_country} );
     </insert>
 
     <!--  TMDB api 영화 정보 저장(사진, 영어제목, 동영상)  -->
