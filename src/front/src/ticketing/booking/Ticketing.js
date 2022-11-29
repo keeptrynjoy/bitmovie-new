@@ -156,13 +156,14 @@ function Ticketing(props) {
                 </div>
                 {/*<button type={"button"} className={'selectseat'} onClick={() => navi("/ticketing/selectseat",{input, setInput})} input={input} setInput={setInput} changeData={changeData} >좌석선택</button>*/}
 
-                {/*<button type={"button"} className={'selectseat'} onClick={checkId} >좌석선택</button>*/}
-                {input.location && JSON.parse(input.location).the_name}<br/>{input.movie && JSON.parse(input.movie).m_name}<br/>
-                {input.calender && input.calender}<br/>
-                {input.time && JSON.parse(input.time).scrt_stime.substring(0,5)}~
-                {input.time && JSON.parse(input.time).scrt_etime.substring(0,5)}
+                <div className={'step'}>
+                <div className={'moviestep'}>선택 영화 : {input.movie && JSON.parse(input.movie).m_name}</div>
+                <div className={'locationstep'}>선택 상영관 : {input.location && JSON.parse(input.location).the_name}</div>
+                <div className={'daystep'}>선택 날짜 : {input.calender && input.calender}</div>
+                <div className={'timestep'}>선택 시간대 : {input.time && JSON.parse(input.time).scrt_stime.substring(0,5)}</div>
+                </div>
 
-
+                <button type={"button"} className={'selectseat'} onClick={checkId} >좌석선택</button>
             </div>
 
 

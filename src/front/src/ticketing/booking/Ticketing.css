@@ -132,3 +132,62 @@
     border-radius: 10px;
     color: white;
 }
+
+.step{
+    margin-top: 2%;
+    margin-left: 15%;
+}
+
+.moviestep{
+    width: 200px;
+    height: 100px;
+    text-align: center;
+    align-items: center;
+    vertical-align: center;
+    justify-content: center;
+    display: inline-block;
+    float: left;
+    border: 1px solid black;
+    margin-right: 3%;
+    font-size: 20px;
+}
+
+.locationstep{
+    width: 200px;
+    height: 100px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    float: left;
+    border: 1px solid black;
+    margin-right: 3%;
+    font-size: 20px;
+}
+
+.daystep{
+    width: 200px;
+    height: 100px;
+    text-align: center;
+    align-items: center;
+    vertical-align: center;
+    justify-content: center;
+    display: block;
+    float: left;
+    border: 1px solid black;
+    margin-right: 3%;
+    font-size: 20px;
+}
+
+.timestep{
+    width: 200px;
+    height: 100px;
+    text-align: center;
+    align-items: center;
+    vertical-align: center;
+    justify-content: center;
+    display: block;
+    float: left;
+    border: 1px solid black;
+    font-size: 20px;
+    margin-right: 3%;
+}

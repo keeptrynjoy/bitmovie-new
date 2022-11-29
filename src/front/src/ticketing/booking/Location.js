@@ -23,8 +23,8 @@ const Location = (props) => {
     const onChangeTitleBg = (list) => {
 
         setColor(list);
-        if (list === color)
 
+        if (list === color)
             setColor("");
 
 
