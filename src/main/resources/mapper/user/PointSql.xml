@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.repository.user.PointRepository">
+
+    <!-- 유저고유키로 포인트 데이터 조회-->
     <select id="selectPointByUser" resultType="int" parameterType="int">
         SELECT * FROM point_tb WHERE user_pk=#{user_pk}
     </select>
+
+    <!-- 포인트 데이터 저장-->
     <insert id="insertPointData" parameterType="point" >
         INSERT INTO point_tb VALUES (#{point_pk},#{user_pk},#{po_point},#{po_date},#{po_history},#{payment_pk});
     </insert>
+
     <!--회원 보유 포인트 조회-->
     <select id="selectPoint" parameterType="int" resultType="int">
         SELECT u_point FROM user_tb WHERE user_pk = #{user_pk}
     </select>
+
     <!--유저 보유 포인트 갱신-->
     <update id="updatePoint" parameterType="point">
         UPDATE user_tb SET u_point = u_point + #{po_point} WHERE user_pk = #{user_pk}
     </update>
 
+    <!-- 결제고유키로 포인트 조회 -->
     <select id="selectPointByPayment" resultType="int" parameterType="String">
         SELECT po_point FROM point_tb WHERE payment_pk=#{payment_pk}
     </select>
