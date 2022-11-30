@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,16 +25,21 @@ public class MovieController {
 
     // 영화 상세 정보 출력
     @GetMapping("/selectMovieData")
-    public Map<String, Object> selectMovieData(int movie_pk,
-                                               @RequestParam(defaultValue = "0")int user_pk) {
-        Map<String, Object> movie_detail = movieService.selectMovieData(movie_pk, user_pk);
+    public Map<String, Object> selectMovieData(int movie_pk) {
+        Map<String, Object> movie_detail = movieService.selectMovieData(movie_pk);
         // 해당 영화가 db에 없으면 tmdb api 를 통해 정보 저장 후 데이터 가져오기
-        if(movie_detail.get("data")==null){
+        if (movie_detail.get("data") == null) {
             theMovieService.movieDataSave(movie_pk);    // 영화 상세 정보 저장
             theMovieService.personDataList(movie_pk);   // 영화 등장인물 정보 저장
-            movie_detail = movieService.selectMovieData(movie_pk, user_pk);
+            movie_detail = movieService.selectMovieData(movie_pk);
         }
         return movie_detail;
+    }
+
+    // 평점 좋아요 리스트 출력
+    @GetMapping("selectLikeRevwList")
+    public List<Integer> selectLikeRevwList(int user_pk, int movie_pk) {
+        return movieService.selectLikeRevwList(user_pk, movie_pk);
     }
 
     // 영화 리스트 출력
@@ -56,7 +60,7 @@ public class MovieController {
 
     // 영화 좋아요 리스트 출력 (movie_pk 를 반환)
     @GetMapping("selectMWishList")
-    public List<Integer> selectMWishList(@RequestParam(defaultValue = "0")int user_pk){
+    public List<Integer> selectMWishList(@RequestParam(defaultValue = "0") int user_pk) {
 
         List<Integer> list = new ArrayList<>();
         System.out.println(movieService.selectMWishList(user_pk));
@@ -65,13 +69,13 @@ public class MovieController {
 
     // 영화 페이지 - 상영시간표 출력
     @GetMapping("/selectTimeByMovie")
-    public List<JoinTime> selectTimeByMovie(int movie_pk, String date){
+    public List<JoinTime> selectTimeByMovie(int movie_pk, String date) {
         return screenTimeService.selectTimeByMovie(movie_pk, date);
     }
 
     // 영화 상세페이지 - 상영시간표
     @GetMapping("/timeByMovieDetail")
-    public List<Map<String,Object>> selectTimeByMovieDetail(@RequestParam int movie_pk, @RequestParam String date){
+    public List<Map<String, Object>> selectTimeByMovieDetail(@RequestParam int movie_pk, @RequestParam String date) {
         return movieService.selectTimeByMovieDetail(movie_pk, date);
     }
 }

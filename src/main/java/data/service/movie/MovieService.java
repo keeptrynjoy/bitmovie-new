@@ -65,7 +65,7 @@ public class MovieService {
     }
 
     // 영화 상세 페이지 - 영화 정보 출력
-    public Map<String,Object> selectMovieData(int movie_pk, int user_pk) {
+    public Map<String,Object> selectMovieData(int movie_pk) {
 
         // 1. 영화 정보 출력
         Movie movie_data = movieRepository.selectMovieData(movie_pk);
@@ -77,17 +77,17 @@ public class MovieService {
             // 3. 영화 평점 정보 반환
             List<JoinRevw> review_list = joinRevwRepository.selectJoinRevw(movie_pk);
             // 3-1. 유저가 로그인 한 경우 해당 영화 평점좋아요 유무를 반환
-            if (user_pk != 0) { //유저가 로그인 한 경우에만 조건 실행
-                for (JoinRevw joinRevw : review_list) {
-                    Map<String, Integer> pk_map = new HashMap<>();
-                    pk_map.put("user_pk", user_pk);
-                    pk_map.put("review_pk", joinRevw.getReview_pk());
-                    // joinRevw 에서 review_pk & user_pk 로 댓글 좋아요 유무 판단
-                    boolean yorN = likeRevwRepository.likeYorN(pk_map);
-                    // joinRevw 에 해당 값을 넣어 반환
-                    joinRevw.setLikeYorN(yorN);
-                }
-            }
+//            if (user_pk != 0) { //유저가 로그인 한 경우에만 조건 실행
+//                for (JoinRevw joinRevw : review_list) {
+//                    Map<String, Integer> pk_map = new HashMap<>();
+//                    pk_map.put("user_pk", user_pk);
+//                    pk_map.put("review_pk", joinRevw.getReview_pk());
+//                    // joinRevw 에서 review_pk & user_pk 로 댓글 좋아요 유무 판단
+//                    boolean yorN = likeRevwRepository.likeYorN(pk_map);
+//                    // joinRevw 에 해당 값을 넣어 반환
+//                    joinRevw.setLikeYorN(yorN);
+//                }
+//            }
             // 해당 영화 좋아요 갯수
             int wish_cnt = mWishRepository.selectWishCnt(movie_pk);
 
@@ -176,6 +176,13 @@ public class MovieService {
             }
         }
         return theaters_list;
+    }
+
+    public List<Integer> selectLikeRevwList(int user_pk, int movie_pk) {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("user_pk", user_pk);
+        map.put("movie_pk", movie_pk);
+        return likeRevwRepository.LikeRevwList(map);
     }
 
     public List<Integer> selectMWishList(int user_pk) {
