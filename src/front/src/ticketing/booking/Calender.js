@@ -9,20 +9,24 @@ import './Calender.scss'
 const RenderHeader = ({ currentMonth, prevMonth, nextMonth, input, setInput, changeData }) => {
     return (
         <div className={"calender-body"}>
-            <div className="header row">
-                <div className="col col-start" >
-                <span className="text" style={{margin:'0'}}>
-                    <span className="text month" style={{fontSize:'20px', margin:'0', padding:'0'}}>
-                        {format(currentMonth, 'yyyy')}년&nbsp;
-                        {format(currentMonth, 'M')}월
+            <div className="header row" >
+                {/*<div className="col col-start" >*/}
+                {/*<span className="text" >*/}
+                <div className="col col-end" style={{fontSize:'20px', marginTop:'7%', marginBottom:'10%', padding:'0' ,height:'20px'}}>
+                    <Icon icon="bi:arrow-left" style={{marginRight:'3%'}} onClick={prevMonth} />
+                    <span className="text month"  >
+                        {format(currentMonth, 'yyyy')}.&nbsp;
+                        {format(currentMonth, 'M')}
                     </span>
-                </span>
+                    <Icon icon="bi:arrow-right" style={{marginLeft:'3%'}} onClick={nextMonth} />
                 </div>
+                {/*</span>*/}
+                {/*</div>*/}
                 <div>
-                    <div className="col col-end" >
-                        <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth} />
-                        <Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth} />
-                    </div>
+
+
+
+
                 </div>
             </div>
         </div>
@@ -71,6 +75,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, changeData}) => 
                                     ? 'not-valid'
                                     : 'valid'
                     }`}
+
                     key={day} value={format(day, 'yyyy-MM-dd')}
                     name="calender"
                     onClick={(e) =>{

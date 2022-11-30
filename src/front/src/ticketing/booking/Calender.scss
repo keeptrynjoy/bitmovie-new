@@ -11,8 +11,9 @@
 .col.col-first {
     @include common.flex-column(center, flex-start);
 }
-
-
+  .col.col-start{
+    height: 50px;
+  }
 
 .col.col-end {
     align-items: center;
@@ -25,12 +26,13 @@
 
 svg {
     height: 20px;
-    color: transparentize(gray, 0.2);
+    color: transparentize(black, 0.2);
 
 &:hover {
      @include common.hover-event();
      transform: scale(1.15);
-     color: theme.$dark-gray-color;
+     //color: theme.$dark-gray-color;
+  color: black;
  }
 }
 }
@@ -43,10 +45,10 @@ svg {
     text-align: center;
     margin: auto;
     align-items: center;
-    color: theme.$dark-gray-color;
+    //color: theme.$dark-gray-color;
     font-size: 15px;
 .col {
-    background: gainsboro;
+    //background: gainsboro;
     height: 50px;
     font-size: 15px;
     line-height: 45px;
@@ -73,7 +75,7 @@ svg {
     height:50px;
     align-items: center;
     //background-color: transparentize(black, 0.6);
-    background-color: black;
+    //background-color: black;
 
 
 
@@ -86,8 +88,9 @@ span {
 }
 
 
+
 .not-valid {
-    background-color: theme.$gray-color;
+    //background-color: theme.$gray-color;
     text-align: center;
     align-items: center;
     line-height: 45px;
@@ -106,24 +109,27 @@ img {
   margin: 0 auto;
   align-items: center;
   //border-radius: 10px;
-  background-color: theme.$dark-gray-color;
+  //background-color: theme.$dark-gray-color;
+  background-color: white;
+  color: black;
   justify-content: center;
 
 
 &:hover {
      @include common.hover-event();
-     @include common.shadow(1.5px, theme.$dark-gray-color, 0.1);
-     transform: scale(1.01);
+     //@include common.shadow(1.5px, theme.$dark-gray-color, 0.1);
+     //transform: scale(1.01);
      border: none;
      background: transparentize(theme.$gray-color, 0.5);
-      justify-content: center;
+     justify-content: center;
  }
 }
 .col.cell.selected {
-  @include common.shadow(1.5px, theme.$dark-gray-color, 0.1);
+  //@include common.shadow(1.5px, theme.$dark-gray-color, 0.1);
     margin: 0 auto;
     height: 50px;
-    background: lightgrey;
+    //background: lightgrey;
+    background: transparentize(theme.$gray-color, 0.5);
     color: black;
     align-items: center;
     //border-radius: 10px;
@@ -132,10 +138,14 @@ img {
 }
   .col.cell.disabled {
     opacity: 0.2;
-    color:black;
-    background-color: lightslategrey;
+    color:white;
+    background-color: white;
+    //background-color: lightslategrey;
+    cursor: default;
 
   }
+
+
 }
 }
 }

@@ -60,7 +60,7 @@
 }
 .movielocation{
     width: 10%;
-    height: 500px;
+    height: 450px;
     border: 1px solid gray;
     font-size: 20px;
     text-align: center;
@@ -81,7 +81,7 @@
 
 .selectmv{
     width: 20%;
-    height: 500px;
+    height: 450px;
     border: 1px solid gray;
     font-size: 15px;
     margin-top: 2%;
@@ -92,7 +92,7 @@
 
 .selectday{
     width: 30%;
-    height: 500px;
+    height: 450px;
     border: 1px solid gray;
     text-align: center;
     margin-top: 2%;
@@ -102,13 +102,12 @@
 }
 .selecttime{
     width: 40%;
-    height: 500px;
+    height: 450px;
     border: 1px solid gray;
     font-size: 70px;
     text-align: center;
     margin-top: 2%;
     float: left;
-    overflow: scroll;
 }
 
 .selectseat{
