@@ -72,7 +72,7 @@ function MovieDetail(props) {
     }
 
     const getData =()=>{
-        const getMovieUrl = localStorage.url + "/movie/selectMovieData?movie_pk=" + movie_pk;
+        const getMovieUrl = `${localStorage.url}/movie/selectMovieData?movie_pk=${movie_pk}&user_pk=${user_pk}`;
         axios.get(getMovieUrl)
             .then((res)=>{
                 setMovie_data(res.data.data);
@@ -161,10 +161,10 @@ function MovieDetail(props) {
                     text:"리뷰 작성 성공"
                 }).then((r)=>{
                     setReview_Open(false);
-                    // document.window.reload();
-                    setMenu("review");
                 })
             })
+        setReview_Open(false);
+        getData();
     }
 
     //영화 좌석 툴팁

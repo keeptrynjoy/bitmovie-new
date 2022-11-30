@@ -9,6 +9,7 @@ function MovieReview(props) {
     const review=props.review;
     const get=props.get;
     const [user_data,setUser_data]=useState([]);
+    // const [yorN,setYorN]=useState(props.review.likeYorN);
     const [dto,setDto]=useState({
         user_pk: sessionStorage.user_pk,
         review_pk: review.review_pk
@@ -65,7 +66,7 @@ function MovieReview(props) {
         })
     }
 
-    const handleLike=(e)=>{
+    const handleLike=(yorN)=>{
         if (sessionStorage.login_status==null) {
             Swal.fire({
                 icon:"warning",
@@ -73,7 +74,7 @@ function MovieReview(props) {
             });
             return;
         }
-        if(e.target.value){
+        if(yorN){
             axios.post(`${localStorage.url}/user/deleteLikeRevw`,dto)
                 .then((res)=>{
                     alert("좋아요취소");
@@ -82,7 +83,7 @@ function MovieReview(props) {
         }else{
             axios.post(`${localStorage.url}/user/insertLikeRevw`,dto)
                 .then((res)=>{
-                    alert("좋아요")
+                    alert("좋아요");
                     get();
                 })
         }
@@ -115,9 +116,9 @@ function MovieReview(props) {
                         <div className={"review-like"}>
                             {
                                 review.likeYorN?
-                                    <ThumbUp color={"primary"} value={review.likeYorN} onClick={handleLike}/>
+                                    <ThumbUp color={"primary"} onClick={()=>handleLike(review.likeYorN)}/>
                                     :
-                                    <ThumbUpOffAlt color={"primary"} value={review.likeYorN} onClick={handleLike}/>
+                                    <ThumbUpOffAlt color={"primary"} onClick={()=>handleLike(review.likeYorN)}/>
                             }
                             {review.count_like}
                         </div>
