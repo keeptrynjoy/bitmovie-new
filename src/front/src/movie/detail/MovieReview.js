@@ -3,9 +3,11 @@ import {Rating} from "@mui/lab";
 import axios from "axios";
 import {Flag, Report, ThumbUp} from "@material-ui/icons";
 import Swal from "sweetalert2";
+import {ThumbUpOffAlt} from "@mui/icons-material";
 
 function MovieReview(props) {
     const review=props.review;
+    const get=props.get;
     const [user_data,setUser_data]=useState([]);
     const [dto,setDto]=useState({
         user_pk: sessionStorage.user_pk,
@@ -61,10 +63,9 @@ function MovieReview(props) {
                 })
             }
         })
-
     }
 
-    const handleLike=()=>{
+    const handleLike=(e)=>{
         if (sessionStorage.login_status==null) {
             Swal.fire({
                 icon:"warning",
@@ -72,7 +73,19 @@ function MovieReview(props) {
             });
             return;
         }
-        axios.post(`${localStorage.url}/user/selectReport`)
+        if(e.target.value){
+            axios.post(`${localStorage.url}/user/deleteLikeRevw`,dto)
+                .then((res)=>{
+                    alert("좋아요취소");
+                    get();
+                })
+        }else{
+            axios.post(`${localStorage.url}/user/insertLikeRevw`,dto)
+                .then((res)=>{
+                    alert("좋아요")
+                    get();
+                })
+        }
     }
 
     useEffect(()=>{
@@ -100,7 +113,12 @@ function MovieReview(props) {
                             {review.revw_text}
                         </div>
                         <div className={"review-like"}>
-                            <ThumbUp color={"primary"} onClick={handleLike}/>
+                            {
+                                review.likeYorN?
+                                    <ThumbUp color={"primary"} value={review.likeYorN} onClick={handleLike}/>
+                                    :
+                                    <ThumbUpOffAlt color={"primary"} value={review.likeYorN} onClick={handleLike}/>
+                            }
                             {review.count_like}
                         </div>
                         <div className={"review-star"}>

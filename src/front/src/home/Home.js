@@ -46,7 +46,7 @@ function Home(props) {
     };
 
     const getReviews =()=>{
-        const getMovieUrl = `${localStorage.url}/main/selectRecentRevw`;
+        const getMovieUrl = `${localStorage.url}/main/selectRecentRevw?user_pk=${sessionStorage.user_pk}`;
         axios.get(getMovieUrl)
             .then((res)=>{
                 console.log(res.data);
@@ -174,7 +174,7 @@ function Home(props) {
                 <div className={"recent-revw-list"}>
                     {reviews.map((review,i) => (
                         <div key={i}>
-                            <MovieReview review={review}/>
+                            <MovieReview review={review} get={getReviews}/>
                         </div>
                     ))}
                 </div>

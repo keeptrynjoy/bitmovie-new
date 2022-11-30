@@ -63,7 +63,6 @@ function RouterMain(props) {
                 }/>
             </Routes>
             <br style={{clear:"both"}}/><br/>
-            <SpeedDial/>
             <Footer/>
         </div>
     );
