@@ -82,7 +82,7 @@ const MovieList = (props) => {
                 {
                     loading ?
                         <div style={{display:"flex",justifyContent:"center",alignItems:'center', height:'400px'}}>
-                            <CircularProgress/>
+                            <CircularProgress color={"inherit"}/>
                         </div>
                         :
 
