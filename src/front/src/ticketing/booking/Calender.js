@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { format, addMonths, subMonths } from 'date-fns';
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
 import { isSameMonth, isSameDay, addDays } from 'date-fns';
@@ -9,20 +11,24 @@ import './Calender.scss'
 const RenderHeader = ({ currentMonth, prevMonth, nextMonth, input, setInput, changeData }) => {
     return (
         <div className={"calender-body"}>
-            <div className="header row">
-                <div className="col col-start" >
-                <span className="text" style={{margin:'0'}}>
-                    <span className="text month" style={{fontSize:'20px', margin:'0', padding:'0'}}>
-                        {format(currentMonth, 'yyyy')}년&nbsp;
-                        {format(currentMonth, 'M')}월
+            <div className="header row" >
+                {/*<div className="col col-start" >*/}
+                {/*<span className="text" >*/}
+                <div className="col col-end" style={{fontSize:'20px', marginTop:'7%', marginBottom:'10%', padding:'0' ,height:'20px'}}>
+                    <ArrowBackIosIcon style={{marginRight:'3%'}} onClick={prevMonth} />
+                    <span className="text month"  >
+                        {format(currentMonth, 'yyyy')}.&nbsp;
+                        {format(currentMonth, 'M')}
                     </span>
-                </span>
+                    <ArrowForwardIosIcon style={{marginLeft:'3%'}} onClick={nextMonth} />
                 </div>
+                {/*</span>*/}
+                {/*</div>*/}
                 <div>
-                    <div className="col col-end" >
-                        <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth} />
-                        <Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth} />
-                    </div>
+
+
+
+
                 </div>
             </div>
         </div>
@@ -31,7 +37,16 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth, input, setInput, cha
 
 const RenderDays = () => {
     const days = [];
-    const date = ['Sun', 'Mon', 'Thu', 'Wed', 'Thrs', 'Fri', 'Sat'];
+    const date = ['일', '월', '화', '수', '목', '금', '토'];
+
+    // const theDay = new Date('');
+    // const day1 = theDay.getDay();
+    // // Sunday - Saturday : 0 - 6
+    //
+    // console.log(day1,'???????');
+    // // expected output: 2
+
+
 
     for (let i = 0; i < 7; i++) {
         days.push(
@@ -41,7 +56,9 @@ const RenderDays = () => {
         );
     }
 
-    return <div className="days row">{days}</div>;
+    return <div className="days row">
+        {days}
+    </div>;
 };
 const RenderCells = ({ currentMonth, selectedDate, onDateClick, changeData}) => {
     const monthStart = startOfMonth(currentMonth);
@@ -61,16 +78,17 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, changeData}) => 
             formattedDate = format(day, 'd');
             const cloneDay = day;
             days.push(
-                <button
+                <button disabled={!isSameMonth(day, monthStart)}
                     className={`col cell ${
                         !isSameMonth(day, monthStart)
-                            ? 'disabled'
+                            ? 'disabled'  
                             : isSameDay(day, selectedDate)
-                                ? 'selected'
+                                ? 'selected' 
                                 : format(currentMonth, 'M') !== format(day, 'M')
                                     ? 'not-valid'
                                     : 'valid'
                     }`}
+                    style={{color: `${day.getDay()===0?"red":day.getDay()===6?"blue":""}`}}
                     key={day} value={format(day, 'yyyy-MM-dd')}
                     name="calender"
                     onClick={(e) =>{
