@@ -3,11 +3,15 @@ import './TimeTable.css';
 import axios from "axios";
 import calender from "../booking/Calender";
 import {useLocation, useNavigate} from "react-router-dom";
+import {ArrowRight} from "@material-ui/icons";
+// import {styled} from "@mui/material/styles";
+// import {Tooltip, tooltipClasses} from "@mui/material";
+// import {TooltipProps} from "@mui/material";
 
 
 
-
-
+// const [bookedSeat,setBookedSeat]=useState("");
+// const movieData= location.state.input;
 
 
 const TimeTable = (props) => {
@@ -22,7 +26,49 @@ const TimeTable = (props) => {
     // const obj = JSON.parse(movieData.movie);
     // console.log(obj);
     // console.log('?',input.calender);
+    // const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
+    //     <Tooltip {...props} classes={{ popper: className }}
+    //         // arrow
+    //              placement={"top"}/>
+    // ))(({ theme }) => ({
+    //     [`& .${tooltipClasses.tooltip}`]: {
+    //         backgroundColor: theme.palette.common.white,
+    //         color: 'rgba(0, 0, 0, 0.87)',
+    //         boxShadow: theme.shadows[1],
+    //         fontSize: 11,
+    //         width:"150px",
+    //         height:"160px",
+    //         border:"1px solid black"
+    //     },
+    //
+    // }));
 
+
+    //
+    //
+    // const obj = JSON.parse(movieData.movie);
+    // const obj2 = JSON.parse(movieData.location);
+    // const obj3 = JSON.parse(movieData.time);
+
+
+
+    // useEffect(()=>{
+    //
+    //     take();
+    //
+    //
+    // },[])
+    //
+    // const take=()=> {
+    //     //     axios.get(`http://localhost:8282/booking/reserved_seat?screentime=${obj3.scrtime_pk}`)
+    //     axios.get(`http://localhost:8282/booking/reserved_seat?screentime=${obj3.scrtime_pk}`)
+    //         .then((res) => {
+    //             setBookedSeat(res.data);
+    //             // console.log('?',res.data);
+    //         }).catch((error) => {
+    //         console.log('예매된 좌석이 없습니다')
+    //     });
+    // }
 
 
     const day=input.calender;
@@ -80,19 +126,80 @@ const TimeTable = (props) => {
                             <li style={{listStyle:'none'}}>
                                 {/*<button key={i} name={'time'} value={(list.scrt_detail[i].scrt_stime,list.scrt_detail[i].scrt_etime)} onClick={changeData} style={{fontSize:'25px', backgroundColor:'white', border:'1px solid black'}}>*/}
 
-                                <button key={i} name={'time'} value={JSON.stringify(list)} onClick={changeData} style={{fontSize:'20px', backgroundColor:'white', border:'1px solid black', height:'50%', justifyContent:'center'}}>
-                                    <span style={{fontSize:'15px'}}>{list.scr_name} {list.scr_floor}</span><br/>
+                                <button className={'ttt'} key={i} name={'time'} value={JSON.stringify(list)} onClick={changeData} style={{fontSize:'20px', border:'1px solid black', height:'50%', justifyContent:'center'}}>
+                                    <span disabled style={{fontSize:'15px'}}>{list.scr_name} {list.scr_floor}</span><br/>
                                     {/*{list.scrt_detail[i].scrt_stime.substring(0,5)}~{list.scrt_detail[i].scrt_etime.substring(0,5)}*/}
 
-                               {list.scrt_stime.substring(0,5)}~{list.scrt_etime.substring(0,5)}<br/>
-                                    <span style={{color:'gray', fontSize:'15px', fontStyle:'italic'}}>{list.scr_tot_seat}석</span>
+                                    {list.scrt_stime.substring(0,5)}~{list.scrt_etime.substring(0,5)}<br/>
+                                    <span disabled style={{color:'gray', fontSize:'15px', fontStyle:'italic'}}>{list.scr_tot_seat}석</span>
 
                                 </button>
                             </li>
                         </ul>
                     ))
             }
-
+            {/*<div className={"screens"}>*/}
+            {/*    <LightTooltip key={k}*/}
+            {/*                  title={*/}
+            {/*                      <React.Fragment>*/}
+            {/*                          <div className={"mini-theater"}>*/}
+            {/*                              <div className={"mini-theater-upper"}>*/}
+            {/*                                  <div style={{fontSize:"1.5em",marginTop:"3px"}}>*/}
+            {/*                                      {list.scr_name}*/}
+            {/*                                  </div>*/}
+            {/*                                  <div>*/}
+            {/*                                  </div>*/}
+            {/*                              </div>*/}
+            {/*                              <div className={"mini-theater-map"}>*/}
+            {/*                                  <div className={"mini-container"}>*/}
+            {/*                                      <div className={"mini-screen"}>SCREEN</div>*/}
+            {/*                                      <div className={"mini-seats"} onClick={()=>{*/}
+            {/*                                      }*/}
+            {/*                                      }>*/}
+            {/*                                          {*/}
+            {/*                                              getPlot("A").map((row,r)=>(*/}
+            {/*                                                  <React.Fragment key={r}>*/}
+            {/*                                                      {*/}
+            {/*                                                          row.map((list,c)=>(*/}
+            {/*                                                              <div key={c} className={"mini-seat"}*/}
+            {/*                                                                   onClick={()=>{*/}
+            {/*                                                                   }}*/}
+            {/*                                                                   style={{*/}
+            {/*                                                                       top:`${parseInt(r)*6}px`,*/}
+            {/*                                                                       left:`${parseInt(c)*6}px`,*/}
+            {/*                                                                       border:`${parseInt(c)===2 || parseInt(c)===9?"":"1px solid gray"}`,*/}
+            {/*                                                                       backgroundColor:`${String(bookedSeat).includes(list)?"gray":"white"}`*/}
+            {/*                                                                   }}>*/}
+            {/*                                                                  <span></span>*/}
+            {/*                                                              </div>*/}
+            {/*                                                          ))*/}
+            {/*                                                      }*/}
+            {/*                                                  </React.Fragment>*/}
+            {/*                                              ))*/}
+            {/*                                          }*/}
+            {/*                                      </div>*/}
+            {/*                                  </div>*/}
+            {/*                              </div>*/}
+            {/*                              <div className={"mini-theater-under"}>*/}
+            {/*                                  {list.scrt_stime.substring(0,5)} ~ {list.scrt_etime.substring(0,5)}*/}
+            {/*                              </div>*/}
+            {/*                          </div>*/}
+            {/*                      </React.Fragment>*/}
+            {/*                  }>*/}
+            {/*        <div className={"time"} >*/}
+            {/*            <div className={"time-upper"}>*/}
+            {/*                {list.scrt_stime.substring(0,5)}*/}
+            {/*            </div>*/}
+            {/*            <div className={"time-under"}>*/}
+            {/*                <div>*/}
+            {/*                    {parseInt(screen.list.scr_tot_seat)-parseInt(bookedSeat)}석*/}
+            {/*                </div>*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*    </LightTooltip>*/}
+            {/*    ))}*/}
+            {/*</div>*/}
+            {/*// }*/}
 
             {/*{table.map((list,i)=>(*/}
             {/*    <div key={i}>*/}

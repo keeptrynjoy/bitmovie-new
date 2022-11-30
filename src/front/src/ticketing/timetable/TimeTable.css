@@ -8,3 +8,13 @@
     float: left;
     margin: 5px;
 }
+
+.ttt{
+    background-color: white;
+}
+
+
+.ttt:focus{
+    background-color: darkgrey;
+    color:white;
+}

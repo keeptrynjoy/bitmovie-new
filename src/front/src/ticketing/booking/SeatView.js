@@ -35,7 +35,6 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
 
 
-
     const reset=()=>{
         window.location.reload();
     }
@@ -81,13 +80,16 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     //  }
 
     const saveGo=() => {
-        if (totalp===selected_seat.length) {
+        if (totalp===selected_seat.length && selected_seat.length!==0) {
 
             const totalPrice = (sprice * 8000) + (aprice * 10000);
 
             navi('/ticketing/payment', {
                 state: {obj, obj2, obj3, adults, students, selected_seat, finalPay: totalPrice, movieData, coupon}
             })
+
+
+
         }else {
             Swal.fire({
                 icon: "warning",
@@ -305,7 +307,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
             </ul>
             <main className={'allboxes'}>
                 <article id="info-container">
-                    {/*<img alt={obj.m_name} src={`https://image.tmdb.org/t/p/w500${obj.m_photo}`} className={'seatposter'}/>*/}
+                    <img alt={obj.m_name} src={`https://image.tmdb.org/t/p/w500${obj.m_photo}`} className={'seatposter'}/>
                     <div className={'seattx'}>
                         <p style={{fontSize:'20px'}}> <Age age={obj.m_age_grd} size={20}/>&nbsp;{obj.m_name}</p>
 
