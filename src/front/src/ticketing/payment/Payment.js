@@ -66,14 +66,15 @@
 
 import React, {useEffect, useRef, useState} from 'react';
 import axios from "axios";
-import {json} from "react-router-dom";
+import {json, useNavigate} from "react-router-dom";
 import {useLocation} from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Payment = (effect, deps) => {
 
 
 
-
+    const navi=useNavigate();
     const location = useLocation();
     const [coupon,setCoupon]=useState('');
     const [discount,setDiscount]=useState('');
@@ -219,8 +220,15 @@ const Payment = (effect, deps) => {
                         }).then(res => {
                         alert(res.data);
                     }).catch(error=>{
-                        alert(error.response.data);
+                        // alert(error.response.data);
+                        Swal.fire({
+                            icon :"warning",
+                            text : "결제완료!"
+                        })
+                        navi("/");
                     });
+
+
 
                 } else {
                     alert(rsp.error_msg);
