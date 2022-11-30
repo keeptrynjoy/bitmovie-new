@@ -99,7 +99,7 @@ const Payment = (effect, deps) => {
     const [dbData,setDbdata]= useState('');
     const [sale,setSale]= useState('');
     const [useCoupon,setUseCoupon]=useState('');
-    const [choiceCoupon,setChoiceCoupon]=useState('');
+    const [choiceCoupon,setChoiceCoupon]=useState('N');
     const user_pk=sessionStorage.user_pk;
     const {IMP} = window;
     IMP.init('imp02023053');
@@ -218,20 +218,29 @@ const Payment = (effect, deps) => {
                         , {
                             headers: { "Content-Type": "application/json"}
                         }).then(res => {
-                        alert(res.data);
-                    }).catch(error=>{
-                        // alert(error.response.data);
+
                         Swal.fire({
-                            icon :"warning",
-                            text : "결제완료!"
-                        })
+                            icon: "warning",
+                            text: (res.data)
+                        });
                         navi("/");
+
+                    }).catch(error=>{
+                        Swal.fire({
+                            icon: "warning",
+                            text: (error.response.data)
+                        });
+
+
                     });
 
 
 
                 } else {
-                    alert(rsp.error_msg);
+                    Swal.fire({
+                        icon: "warning",
+                        text: (rsp.error_msg)
+                    });
                 }
             }
         );
@@ -401,7 +410,10 @@ const Payment = (effect, deps) => {
                            onBlur={(e)=>{
                                if (Number(e.target.value)>0 && Number(e.target.value)<1000)
                                {
-                                   alert("1000보다 작은 수 입니다")
+                                   Swal.fire({
+                                       icon:"warning",
+                                       text:"1000포인트부터 사용가능합니다"
+                                   })
                                    e.target.value='';
                                    setUsePoint(0);
                                    setSale(0);
@@ -414,7 +426,10 @@ const Payment = (effect, deps) => {
 
 
                         e.target.value<0?
-                            alert(e.target.value="0보다 작은 수는 입력할 수 없습니다")
+                            Swal.fire({
+                                icon:"warning",
+                                text:(e.target.value="0보다 작은 수는 입력할 수 없습니다")
+                            })
 
                             :
 
@@ -427,7 +442,10 @@ const Payment = (effect, deps) => {
 
 
                                     (
-                                        alert(e.target.value='잔여포인트를 초과했습니다'),
+                                        Swal.fire({
+                                            icon:"warning",
+                                            text:(e.target.value='잔여포인트를 초과했습니다')
+                                        }),
 
                                             setUsePoint(e.target.value)
                                     )
@@ -438,7 +456,10 @@ const Payment = (effect, deps) => {
                                     Number(e.target.value)<1000 ?
 
                                     (
-                                    alert(e.target.value='1000 포인트부터 사용가능합니다'),
+                                        Swal.fire({
+                                            icon:"warning",
+                                            text:(e.target.value='1000 포인트부터 사용가능합니다')
+                                        }),
                                     setUsePoint(e.target.value)
 
                                     )
@@ -480,7 +501,7 @@ const Payment = (effect, deps) => {
                         }else{
                             setDiscount(0)
                             setUseCoupon(0)
-                            setChoiceCoupon('')
+                            setChoiceCoupon('N')
                         }
 
 
@@ -489,7 +510,7 @@ const Payment = (effect, deps) => {
                     }
 
                     >
-                        <option value={0}>선택없음</option>
+                        <option value={"N"}>선택없음</option>
 
                         {coupon &&
                             coupon.map((list,i)=>(

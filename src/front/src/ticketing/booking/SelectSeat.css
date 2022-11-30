@@ -97,12 +97,13 @@ main{
 }
 
 #info-container{
+    width: 100%;
     background-color: white;
     border-radius: 15px;
     color: black;
-    padding: 10px;
-    margin-left: 10%;
-    height: 650px;
+    padding: 1%;
+    margin-left: 5%;
+    height: 100%;
 
 }
 
