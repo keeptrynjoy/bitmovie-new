@@ -4,13 +4,15 @@
 
 
 .calendar {
-  width: 90%;
+  width: 100%;
   margin: auto;
 .header {
     @include common.flex-row(space-between, baseline);
 .col.col-first {
     @include common.flex-column(center, flex-start);
 }
+
+
 
 .col.col-end {
     align-items: center;
@@ -45,13 +47,10 @@ svg {
     font-size: 15px;
 .col {
     background: gainsboro;
-    border-radius: 5px;
-    border: 1px solid darkgray;
     height: 50px;
     font-size: 15px;
     line-height: 45px;
     font-style: italic;
-    margin-bottom: 5px;
 }
 }
 .body {
@@ -64,16 +63,17 @@ svg {
     @include common.size(100%, 100%);
     @include common.flex-row(flex-start, flex-start);
 
-    border: 0.4px solid transparentize(gray, 0.4);
+    //border: 0.4px solid transparentize(gray, 0.4);
     font-size: 0.3em;
     color: white;
     margin: 0 auto;
-    border-radius: 10px;
+    padding: 0;
     justify-content: center;
     width: 50px;
-    height:48px;
+    height:50px;
     align-items: center;
-    background-color: transparentize(black, 0.6);
+    //background-color: transparentize(black, 0.6);
+    background-color: black;
 
 
 
@@ -92,8 +92,8 @@ span {
     align-items: center;
     line-height: 45px;
     margin: 0 auto;
-    height: 48px;
-    border-radius: 25px;
+    height: 50px;
+    //border-radius: 25px;
     justify-content: center;
 
 }
@@ -105,7 +105,7 @@ img {
   height: 50px;
   margin: 0 auto;
   align-items: center;
-  border-radius: 10px;
+  //border-radius: 10px;
   background-color: theme.$dark-gray-color;
   justify-content: center;
 
@@ -126,9 +126,16 @@ img {
     background: lightgrey;
     color: black;
     align-items: center;
-    border-radius: 10px;
+    //border-radius: 10px;
     justify-content: center;
+
 }
+  .col.cell.disabled {
+    opacity: 0.2;
+    color:black;
+    background-color: lightslategrey;
+
+  }
 }
 }
 }

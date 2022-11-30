@@ -64,9 +64,9 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, changeData}) => 
                 <button
                     className={`col cell ${
                         !isSameMonth(day, monthStart)
-                            ? 'disabled'
+                            ? 'disabled' 
                             : isSameDay(day, selectedDate)
-                                ? 'selected'
+                                ? 'selected' 
                                 : format(currentMonth, 'M') !== format(day, 'M')
                                     ? 'not-valid'
                                     : 'valid'
