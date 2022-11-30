@@ -78,8 +78,11 @@ public class MovieService {
             // 3-1. 유저가 로그인 한 경우 해당 영화 평점좋아요 유무를 반환
             if (user_pk != 0) { //유저가 로그인 한 경우에만 조건 실행
                 for (JoinRevw joinRevw : review_list) {
+                    Map<String, Integer> pk_map = new HashMap<>();
+                    pk_map.put("user_pk", user_pk);
+                    pk_map.put("review_pk", joinRevw.getReview_pk());
                     // joinRevw 에서 review_pk & user_pk 로 댓글 좋아요 유무 판단
-                    boolean yorN = likeRevwRepository.likeYorN(joinRevw);
+                    boolean yorN = likeRevwRepository.likeYorN(pk_map);
                     // joinRevw 에 해당 값을 넣어 반환
                     joinRevw.setLikeYorN(yorN);
                 }

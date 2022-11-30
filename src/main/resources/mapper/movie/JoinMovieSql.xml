@@ -70,4 +70,12 @@
         ORDER BY m_sdate;
     </select>
 
+
+    <!--  영화 차트 정보  -->
+<!--    <select id="movieChart" parameterType="int" resultType="Map">-->
+<!--        select tim.movie_pk,-->
+<!--               tim.scrtime_pk,-->
+<!--               FR-->
+<!--    </select>-->
+
 </mapper>

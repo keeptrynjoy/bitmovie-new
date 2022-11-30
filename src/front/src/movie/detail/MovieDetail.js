@@ -14,7 +14,7 @@ import {
     DialogActions,
     DialogContent,
     DialogTitle,
-    FormControl, ScopedCssBaseline, Tooltip, tooltipClasses,
+    FormControl, Tooltip, tooltipClasses,
 } from "@mui/material";
 import {Rating, ToggleButton, ToggleButtonGroup} from "@mui/lab";
 import Swal from "sweetalert2";
@@ -72,7 +72,7 @@ function MovieDetail(props) {
     }
 
     const getData =()=>{
-        const getMovieUrl = localStorage.url + "/movie/selectMovieData?movie_pk=" + movie_pk;
+        const getMovieUrl = `${localStorage.url}/movie/selectMovieData?movie_pk=${movie_pk}&user_pk=${user_pk}`;
         axios.get(getMovieUrl)
             .then((res)=>{
                 setMovie_data(res.data.data);
@@ -110,11 +110,11 @@ function MovieDetail(props) {
         const movieLogUrl = `${localStorage.url}/mypage/movielog?user_pk=${user_pk}`;
         axios.get(movieLogUrl)
             .then((res)=>{
+                console.log(res.data);
                 for(let i=0;i<res.data.length;i++)
                 {
-                    console.log(res.data[i].movie_pk);
-                    console.log(movie_pk);
-                    if(res.data[i].movie_pk===movie_pk){
+                    if(parseInt(res.data[i].movie_pk)===parseInt(movie_pk)){
+
                         return true;
                     }
                 }
@@ -129,14 +129,22 @@ function MovieDetail(props) {
             })
             return;
         }
-        if (!checkMovieLog){
-            Swal.fire({
-                icon:"error",
-                text:"영화 시청 후 리뷰 작성이 가능합니다"
+        const movieLogUrl = `${localStorage.url}/mypage/movielog?user_pk=${user_pk}`;
+        axios.get(movieLogUrl)
+            .then((res)=>{
+                console.log(res.data);
+                for(let i=0;i<res.data.length;i++)
+                {
+                    if(parseInt(res.data[i].movie_pk)===parseInt(movie_pk)){
+                        setReview_Open(true);
+                        return;
+                    }
+                }
+                Swal.fire({
+                    icon:"error",
+                    text:"영화 시청 후 리뷰 작성이 가능합니다"
+                })
             })
-            return;
-        }
-        setReview_Open(true);
     }
     const handleClose = () => setReview_Open(false);
     const handleReviewText = (e) => {
@@ -151,9 +159,12 @@ function MovieDetail(props) {
                 Swal.fire({
                     icon:"success",
                     text:"리뷰 작성 성공"
+                }).then((r)=>{
+                    setReview_Open(false);
                 })
             })
-        document.window.reload();
+        setReview_Open(false);
+        getData();
     }
 
     //영화 좌석 툴팁
@@ -305,24 +316,24 @@ function MovieDetail(props) {
                                         <div className={"review-header"}>
                                             <span style={{fontSize:"1.5em"}}>{movie_data.m_name}</span>
                                             <span style={{marginLeft:"150px",marginTop:"7px"}}>
-                                    <Rating
-                                        name="review-star"
-                                        value={review_star}
-                                        onChange={(event, newValue) => {
-                                            setReview_star(newValue);
-                                        }}
-                                    />
-                                </span>
+                                            <Rating
+                                                name="review-star"
+                                                value={review_star}
+                                                onChange={(event, newValue) => {
+                                                    setReview_star(newValue);
+                                                }}
+                                            />
+                                           </span>
                                         </div>
                                         <FormControl>
-                                <textarea
-                                    className={"review-textarea"}
-                                    placeholder={"이 영화를 평가해주세요"}
-                                    onChange={(e)=>{
-                                        handleReviewText(e);
-                                    }}
-                                    value={review_text}
-                                />
+                                            <textarea
+                                                className={"review-textarea"}
+                                                placeholder={"이 영화를 평가해주세요"}
+                                                onChange={(e)=>{
+                                                    handleReviewText(e);
+                                                }}
+                                                value={review_text}
+                                            />
                                         </FormControl>
                                     </DialogContent>
                                     <DialogActions>
@@ -339,7 +350,7 @@ function MovieDetail(props) {
                                         {
                                             movie_review && movie_review.map((review,i)=>(
                                                 <li key={i}>
-                                                    <MovieReview review={review}/>
+                                                    <MovieReview review={review} get={getData}/>
                                                 </li>
                                             ))
                                         }

@@ -3,17 +3,20 @@ import {Rating} from "@mui/lab";
 import axios from "axios";
 import {Flag, Report, ThumbUp} from "@material-ui/icons";
 import Swal from "sweetalert2";
+import {ThumbUpOffAlt} from "@mui/icons-material";
 
 function MovieReview(props) {
     const review=props.review;
+    const get=props.get;
     const [user_data,setUser_data]=useState([]);
+    // const [yorN,setYorN]=useState(props.review.likeYorN);
     const [dto,setDto]=useState({
         user_pk: sessionStorage.user_pk,
         review_pk: review.review_pk
     })
 
     const getUserData=()=>{
-        const url = `${localStorage.url}/mypage/information?user_pk=${review.user_pk}`;
+        const url = `${localStorage.url}/user/information?user_pk=${review.user_pk}`;
         axios.get(url)
             .then((res)=>{
                 setUser_data(res.data);
@@ -61,10 +64,9 @@ function MovieReview(props) {
                 })
             }
         })
-
     }
 
-    const handleLike=()=>{
+    const handleLike=(yorN)=>{
         if (sessionStorage.login_status==null) {
             Swal.fire({
                 icon:"warning",
@@ -72,7 +74,19 @@ function MovieReview(props) {
             });
             return;
         }
-        axios.post(`${localStorage.url}/user/selectReport`)
+        if(yorN){
+            axios.post(`${localStorage.url}/user/deleteLikeRevw`,dto)
+                .then((res)=>{
+                    alert("좋아요취소");
+                    get();
+                })
+        }else{
+            axios.post(`${localStorage.url}/user/insertLikeRevw`,dto)
+                .then((res)=>{
+                    alert("좋아요");
+                    get();
+                })
+        }
     }
 
     useEffect(()=>{
@@ -100,7 +114,12 @@ function MovieReview(props) {
                             {review.revw_text}
                         </div>
                         <div className={"review-like"}>
-                            <ThumbUp color={"primary"} onClick={handleLike}/>
+                            {
+                                review.likeYorN?
+                                    <ThumbUp color={"primary"} onClick={()=>handleLike(review.likeYorN)}/>
+                                    :
+                                    <ThumbUpOffAlt color={"primary"} onClick={()=>handleLike(review.likeYorN)}/>
+                            }
                             {review.count_like}
                         </div>
                         <div className={"review-star"}>

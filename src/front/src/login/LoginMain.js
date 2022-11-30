@@ -36,7 +36,7 @@ function LoginMain(props) {
                             confirmButtonText: "네"
                         }).then((result)=>{
                             if(result.isConfirmed){
-                                navi("/");
+                                navi("/login/find");
                                 return;
                             }else if(result.isDenied){
                                 const upurl = localStorage.url + "/login/updatepassdate?u_id=" + u_id;

@@ -8,6 +8,7 @@ import LoginRouter from "./LoginRouter";
 import MovieRouter from "./MovieRouter";
 import SearchResult from "../search/SearchResult";
 import TicketingRouter from "./TicketingRouter";
+import SpeedDial from "../home/SpeedDial";
 
 function RouterMain(props) {
     //자동 로그아웃

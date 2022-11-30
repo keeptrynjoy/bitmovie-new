@@ -20,14 +20,9 @@
 
     <!--  최근 등록된 평점 출력  -->
     <select id="selectRecentRevw" parameterType="int" resultType="JoinRevw">
-        SELECT  rv.review_pk,
-                rv.movie_pk,
-                rv.user_pk,
-                rv.revw_star,
-                rv.revw_text,
-                rv.revw_date,
-                count(lik.user_pk) AS count_like,
-                count(rp.user_pk)  AS count_report
+        SELECT  rv.*,
+                count(DISTINCT lik.user_pk) AS count_like,
+                count(DISTINCT rp.user_pk)  AS count_report
         FROM    (select * from review_tb ORDER BY revw_date DESC Limit #{count}) rv
                     LEFT OUTER JOIN likerevw_tb lik ON rv.review_pk = lik.review_pk
                     LEFT OUTER JOIN report_tb rp ON rv.review_pk = rp.review_pk
