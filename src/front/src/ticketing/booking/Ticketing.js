@@ -9,6 +9,8 @@ import TimeTable from "../timetable/TimeTable";
 import Swal from "sweetalert2";
 import moment from "moment";
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+import axios from "axios";
+import {CircularProgress} from "@mui/material";
 
 function Ticketing(props) {
 
@@ -139,10 +141,47 @@ function Ticketing(props) {
 
     }
 
+    useEffect(()=>{
+        get();
+    },[])
+
 
     useEffect(()=>{
         console.log(input,'뭘까');
+
     },[input]);
+    const [mvlist,setMvlist] = useState([]);
+    const [loading,setLoading]=useState(true);
+    const [color, setColor] = useState("");
+
+    const get=()=>{
+        setLoading(true);
+        axios.get('http://localhost:8282/booking/screening_list?BorA=after')
+            .then((response) =>{
+                setMvlist(response.data);
+                setLoading(false);
+            });
+    }
+
+    const get2=()=>{
+        setLoading(true);
+        axios.get('http://localhost:8282/booking/screening_list?order_stand=reserve_rate&BorA=after')
+            .then((response) =>{
+                setMvlist(response.data);
+                setLoading(false);
+
+            });
+    }
+
+    const get3=()=>{
+        setLoading(true);
+        axios.get('http://localhost:8282/booking/screening_list?order_stand=revw_avgstar&BorA=after')
+            .then((response) =>{
+                setMvlist(response.data);
+                setLoading(false);
+
+            });
+    }
 
     console.log(typeof input.location,'타입');
 
@@ -159,8 +198,20 @@ function Ticketing(props) {
                     <button className={'tkmenu2'} onClick={()=>refresh()}>예매 다시하기</button>
                 </div>
                 <div className={'together'}>
+                    <div className={'newMv'}>
+                        <button className={'mvbtn1'} onClick={get} style={{marginLeft:'10%', backgroundColor:'white', fontSize:'15px',marginBottom:'0px',marginTop:'5%'}}>이름순</button>
+                        <button className={'mvbtn1'} onClick={get2} style={{marginLeft:'20px', backgroundColor:'white', fontSize:'15px',marginBottom:'0px'}}><p style={{marginBottom:'0', fontSize:'15px'}}>예매율순</p></button>
+                        <button className={'mvbtn1'} onClick={get3} style={{marginLeft:'20px', backgroundColor:'white', fontSize:'15px',marginBottom:'0px'}}>평점순</button>
                     <div className={'selectmv'}>
-                        <MovieList input={input} setInput={setInput} changeData={changeData}/>
+                        {
+                            loading ?
+                                <div style={{display:"flex",justifyContent:"center",alignItems:'center', height:'400px'}}>
+                                    <CircularProgress/>
+                                </div>
+                                :
+                        <MovieList input={input} setInput={setInput} get={get} get2={get2} get3={get3} mvlist={mvlist} setMvlist={setMvlist} changeData={changeData}/>
+                            }
+                    </div>
                     </div>
                     <div className={"movielocation"}>
                         <Location input={input} setInput={setInput} changeData={changeData} />
