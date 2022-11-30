@@ -199,14 +199,15 @@ function Ticketing(props) {
                 </div>
                 <div className={'together'}>
                     <div className={'newMv'}>
-                        <button className={'mvbtn1'} onClick={get} style={{marginLeft:'10%', backgroundColor:'white', fontSize:'15px',marginBottom:'0px',marginTop:'5%'}}>이름순</button>
+                        <button className={'mvbtn1'} onClick={get} style={{marginLeft:'13%', backgroundColor:'white', fontSize:'15px',marginBottom:'0px',marginTop:'5%'}}>이름순</button>
                         <button className={'mvbtn1'} onClick={get2} style={{marginLeft:'20px', backgroundColor:'white', fontSize:'15px',marginBottom:'0px'}}><p style={{marginBottom:'0', fontSize:'15px'}}>예매율순</p></button>
                         <button className={'mvbtn1'} onClick={get3} style={{marginLeft:'20px', backgroundColor:'white', fontSize:'15px',marginBottom:'0px'}}>평점순</button>
+
                     <div className={'selectmv'}>
                         {
                             loading ?
                                 <div style={{display:"flex",justifyContent:"center",alignItems:'center', height:'400px'}}>
-                                    <CircularProgress/>
+                                    <CircularProgress color={"inherit"}/>
                                 </div>
                                 :
                         <MovieList input={input} setInput={setInput} get={get} get2={get2} get3={get3} mvlist={mvlist} setMvlist={setMvlist} changeData={changeData}/>

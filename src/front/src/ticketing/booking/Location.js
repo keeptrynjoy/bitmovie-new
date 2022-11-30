@@ -34,7 +34,7 @@ const Location = (props) => {
     return (
         <div>
             <p style={{ paddingTop:'10px',fontSize:'20px', textAlign:'center'}}>극장</p>
-            <hr/>
+            <hr style={{color:'black'}}/>
             {mloc.map((list,i)=>(
                 <ul key={i} style={{padding:'0' , textAlign:'center'}}>
                     <li style={{listStyle:'none', width:'100px', clear:'both', textAlign:'center', marginLeft:'13%'}}>
