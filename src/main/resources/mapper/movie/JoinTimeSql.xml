@@ -109,17 +109,17 @@
             scrt.scrtime_pk,
             scrt.scrt_stime,
             scrt.scrt_etime,
-            booked.seat_cnt,
+            seat.booked,
             scr.scr_name,
             scr.scr_tot_seat,
             scr.scr_floor,
             mt.m_name,
             mt.m_age_grd
         FROM screentime_tb scrt
-                 LEFT OUTER JOIN (SELECT bt.scrtime_pk, sum(bt.book_adult_cnt) + sum(bt.book_youth_cnt) AS seat_cnt
+                 LEFT OUTER JOIN (SELECT bt.scrtime_pk, sum(bt.book_adult_cnt) + sum(bt.book_youth_cnt) AS booked
                                   FROM booking_tb bt
-                                  GROUP BY bt.scrtime_pk) AS booked
-                                 ON scrt.scrtime_pk = booked.scrtime_pk
+                                  GROUP BY bt.scrtime_pk) AS seat
+                                 ON scrt.scrtime_pk = seat.scrtime_pk
                  LEFT OUTER JOIN (SELECT st.theater_pk , scrt.scrtime_pk, st.screen_pk, st.scr_name, st.scr_tot_seat, st.scr_floor
                                   FROM screentime_tb scrt, screen_tb st
                                   WHERE scrt.screen_pk = st.screen_pk) AS scr
