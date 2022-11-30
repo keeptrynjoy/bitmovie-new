@@ -72,10 +72,17 @@
 
 
     <!--  영화 차트 정보  -->
-<!--    <select id="movieChart" parameterType="int" resultType="Map">-->
-<!--        select tim.movie_pk,-->
-<!--               tim.scrtime_pk,-->
-<!--               FR-->
-<!--    </select>-->
+    <select id="movieChart" parameterType="int" resultType="Map">
+        SELECT u.u_birth, u.u_gender
+               , tim.movie_pk, tim.scrtime_pk, book.booking_pk, pay.payment_pk, u.user_pk
+        FROM screentime_tb tim,
+             booking_tb book,
+             payment_tb pay,
+             user_tb u
+        WHERE movie_pk = #{movie_pk}
+          AND book.scrtime_pk = tim.scrtime_pk
+          AND pay.payment_pk = book.payment_pk
+          AND u.user_pk = pay.user_pk
+    </select>
 
 </mapper>

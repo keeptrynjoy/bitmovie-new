@@ -5,6 +5,7 @@ import data.repository.movie.*;
 import data.repository.user.LikeRevwRepository;
 import data.repository.user.MWishRepository;
 import lombok.RequiredArgsConstructor;
+import net.bytebuddy.asm.Advice;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -27,6 +28,7 @@ public class MovieService {
     private final LikeRevwRepository likeRevwRepository;
 
 
+    // 영화 페이지 - 영화 리스트 출력
     public List<JoinMovie> selectMovieList(String order_stand, String BorA ){
 //        System.out.println(order_stand);
 
@@ -70,7 +72,6 @@ public class MovieService {
         Map<String, Object> map = new HashMap<>();
         map.put("data", movie_data);
         if (movie_data != null) {
-            System.out.println(movie_data);
             // 2. 영화 등장인물 정보 반환
             List<JoinCast> cast_list = joinCastRepository.selectCastByMovie(movie_pk);
             // 3. 영화 평점 정보 반환
@@ -94,6 +95,57 @@ public class MovieService {
             map.put("revw", review_list);
             map.put("wish_cnt", wish_cnt);
         }
+        // 4. 영화 예매 차트 정보
+        List<Map<String, Object>> chart = joinMovieRepository.movieChart(movie_pk);
+        int total = chart.size();
+        int male = 0;
+        int female = 0;
+        int age10 = 0;
+        int age20 = 0;
+        int age30 = 0;
+        int age40 = 0;
+        int age50 = 0;
+        int age = 0;
+        System.out.println("size " + total);
+        System.out.println(chart);
+        for (int i = 0; i < total; i++) {
+            String gender = chart.get(i).get("u_gender").toString();
+            System.out.println("u_birth "+gender);
+            // 성별 정보 저장
+            if(gender.equals("male"))
+                male++;
+            else
+                female++;
+            // 연령대 정보 저장
+            String u_birth = chart.get(i).get("u_birth").toString();
+            int birth = Integer.parseInt(u_birth.substring(0,4));
+            int year = LocalDate.now().getYear();
+            System.out.println(birth);
+            System.out.println(year-birth+1);
+            switch ((year-birth+1)/10){
+                case 1: age10++; break;
+                case 2: age20++; break;
+                case 3: age30++; break;
+                case 4: age40++; break;
+                case 5: age50++; break;
+                default: age++; break;
+            }
+        }
+        Map<String, Object> chart_data = new HashMap<>();
+        chart_data.put("tot", total);
+        chart_data.put("male", male);
+        chart_data.put("female", female);
+        chart_data.put("age10", age10);
+        chart_data.put("age20", age20);
+        chart_data.put("age30", age30);
+        chart_data.put("age40", age40);
+        chart_data.put("age50", age50);
+        chart_data.put("age", age);
+        //
+        System.out.println(chart_data);
+
+        map.put("chart", chart_data);
+
 
         return map;
     }
