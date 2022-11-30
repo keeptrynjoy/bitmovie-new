@@ -14,6 +14,6 @@ public interface LikeRevwRepository {
 
     public void deleteLikeRevw(RevwClick revwClick);      // 평점 좋아요 취소
 
-    public boolean likeYorN(JoinRevw joinRevw);     // 평점 좋아요 여부 확인
+    public boolean likeYorN(Map<String, Integer> map);     // 평점 좋아요 여부 확인
 
 }

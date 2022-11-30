@@ -28,11 +28,16 @@ public class MainService {
 
     // 가장 최신 등록된 평점을 'count'갯수 만큼 반환
     public List<JoinRevw> selectRecentRevw(int count, int user_pk) {
+        // 최신등록된 평점 정보반환
         List<JoinRevw> joinRevws = joinRevwRepository.selectRecentRevw(count);
+        // 해당 평점에 대해 유저가 좋아요를 클릭했는지 여부 판단
         if(user_pk!=0){
             for (int i = 0; i < joinRevws.size(); i++) {
                 // 좋아요 클릭 여부를 판단해
-                boolean yorN = likeRevwRepository.likeYorN(joinRevws.get(i));
+                Map<String, Integer> map = new HashMap<>();
+                map.put("user_pk",user_pk);
+                map.put("review_pk", joinRevws.get(i).getReview_pk());
+                boolean yorN = likeRevwRepository.likeYorN(map);
                 // 해당 값을 joinRevws 에 담아 반환한다
                 joinRevws.get(i).setLikeYorN(yorN);
             }

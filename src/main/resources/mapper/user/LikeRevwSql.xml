@@ -13,7 +13,7 @@
     </insert>
 
     <!--  평점 좋아요 여부 확인  -->
-    <select id="likeYorN" parameterType="JoinRevw" resultType="boolean">
+    <select id="likeYorN" parameterType="Map" resultType="boolean">
         SELECT count(*) FROM likerevw_tb WHERE review_pk = #{review_pk} AND user_pk = #{user_pk}
     </select>
 
