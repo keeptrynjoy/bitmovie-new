@@ -29,10 +29,6 @@ public class MyPageService {
     public List<MyPage> selectMovieLog (int user_pk) {
         return myPageRepository.selectMovieLog(user_pk);
     }
-    //마이페이지 포인트 적립/소멸 조회
-    public List<MyPage> selectPointDetail (int user_pk) {
-        return myPageRepository.selectPointDetail(user_pk);
-    }
 
     //프로필 사진 업로드
     public void updateUserPhoto (User user, MultipartFile photoFile, HttpServletRequest request) {

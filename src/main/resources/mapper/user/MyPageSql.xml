@@ -25,7 +25,8 @@
             JOIN screentime_tb st ON b.scrtime_pk = st.scrtime_pk
             JOIN screen_tb s ON s.screen_pk = st.screen_pk
             JOIN movie_tb m ON st.movie_pk = m.movie_pk
-        WHERE u.user_pk = #{user_pk} AND DATEDIFF(now(), b.book_issu_date) &lt; 30;
+        WHERE u.user_pk = #{user_pk} AND DATEDIFF(now(), b.book_issu_date) &lt; 30
+        ORDER BY booknumber DESC;
     </select>
     <!--마이페이지 무비로그 조회-->
     <select id="selectMovieLog" parameterType="int" resultType="MyPage">
@@ -49,17 +50,8 @@
             JOIN screen_tb s ON s.screen_pk = st.screen_pk
             JOIN movie_tb m ON st.movie_pk = m.movie_pk
         WHERE u.user_pk = #{user_pk}
-        GROUP BY title;
-    </select>
-    <!--마이페이지 포인트 적립/소멸 내역 조회-->
-    <select id="selectPointDetail" parameterType="int" resultType="MyPage">
-        SELECT
-            u.user_pk AS user,
-            p.po_point AS inDePoint,
-            p.po_date AS pDate,
-            SUM(p.po_point) OVER(ORDER BY p.po_date, p.point_pk desc) AS sumPoint
-        FROM user_tb u JOIN point_tb p ON u.user_pk = p.user_pk
-        WHERE u.user_pk = #{user_pk}
+        GROUP BY title
+        ORDER BY date DESC, begin DESC;
     </select>
     <!--사진 파일명 조회-->
     <select id="selectPhotoName" parameterType="User" resultType="String">
