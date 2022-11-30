@@ -3,17 +3,17 @@
 <mapper namespace="data.repository.user.LikeRevwRepository">
 
     <!--  평점 좋아요  -->
-    <insert id="insertLikeRevw" parameterType="LikeRevw">
+    <insert id="insertLikeRevw" parameterType="RevwClick">
         INSERT INTO likerevw_tb (review_pk, user_pk) VALUES (#{review_pk}, #{user_pk})
     </insert>
 
     <!--  평점 좋아요 취소  -->
-    <insert id="deleteLikeRevw" parameterType="LikeRevw">
+    <insert id="deleteLikeRevw" parameterType="RevwClick">
         DELETE likerevw_tb WHERE review_pk = #{review_pk} AND user_pk = #{user_pk}
     </insert>
 
     <!--  평점 좋아요 여부 확인  -->
-    <select id="likeYorN" parameterType="JoinRevw" resultType="boolean">
+    <select id="likeYorN" parameterType="Map" resultType="boolean">
         SELECT count(*) FROM likerevw_tb WHERE review_pk = #{review_pk} AND user_pk = #{user_pk}
     </select>
 

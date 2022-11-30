@@ -127,28 +127,28 @@ public class UserService {
     }
 
     // 평점 좋아요
-    public void insertLikeRevw(LikeRevw likeRevw){
-        likeRevwRepository.insertLikeRevw(likeRevw);
+    public void insertLikeRevw(RevwClick revwClick){
+        likeRevwRepository.insertLikeRevw(revwClick);
     }
 
     // 평점 좋아요 취소
-    public void deleteLikeRevw(LikeRevw likeRevw){
-        likeRevwRepository.deleteLikeRevw(likeRevw);
+    public void deleteLikeRevw(RevwClick revwClick){
+        likeRevwRepository.deleteLikeRevw(revwClick);
     }
 
     // 평점 신고하기
-    public void insertReport(Report report) {
-        reportRepository.insertReport(report);
+    public void insertReport(RevwClick revwClick) {
+        reportRepository.insertReport(revwClick);
     }
 
     // 평점 신고 취소하기
-    public void deleteReport(Report report) {
-        reportRepository.deleteReport(report);
+    public void deleteReport(RevwClick revwClick) {
+        reportRepository.deleteReport(revwClick);
     }
 
     // 평점 신고 유무 확인
-    public boolean selectReportYorN(Report report) {
-        int yorN = reportRepository.selectReportYorN(report);
+    public boolean selectReportYorN(RevwClick revwClick) {
+        int yorN = reportRepository.selectReportYorN(revwClick);
         return yorN==1?true:false;
     }
 
