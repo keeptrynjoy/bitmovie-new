@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Rating} from "@mui/lab";
 import axios from "axios";
-import {Flag, Report, ThumbUp} from "@material-ui/icons";
+import {Flag, NotificationImportant, Report, ThumbUp} from "@material-ui/icons";
 import Swal from "sweetalert2";
 import {ThumbUpOffAlt} from "@mui/icons-material";
 
@@ -9,7 +9,7 @@ function MovieReview(props) {
     const review=props.review;
     const get=props.get;
     const [user_data,setUser_data]=useState([]);
-    // const [yorN,setYorN]=useState(props.review.likeYorN);
+    const [showAll,setshowAll]=useState(false);
     const [dto,setDto]=useState({
         user_pk: sessionStorage.user_pk,
         review_pk: review.review_pk
@@ -77,13 +77,11 @@ function MovieReview(props) {
         if(yorN){
             axios.post(`${localStorage.url}/user/deleteLikeRevw`,dto)
                 .then((res)=>{
-                    alert("좋아요취소");
                     get();
                 })
         }else{
             axios.post(`${localStorage.url}/user/insertLikeRevw`,dto)
                 .then((res)=>{
-                    alert("좋아요");
                     get();
                 })
         }
@@ -111,7 +109,12 @@ function MovieReview(props) {
                     {/*</div>*/}
                     <div className={"neoyong"}>
                         <div className={"review-text-content"}>
-                            {review.revw_text}
+                            <div className={showAll?"":"review-text-content-text"}
+                                onClick={()=>{
+                                    setshowAll(!showAll);
+                                }}>
+                                {review.revw_text}
+                            </div>
                         </div>
                         <div className={"review-like"}>
                             {
@@ -130,7 +133,7 @@ function MovieReview(props) {
                             />
                         </div>
                         <div className={"review-report"}>
-                            <Flag fontSize={"large"} onClick={reportReview}/>
+                            <NotificationImportant fontSize={"large"} onClick={reportReview}/>
                         </div>
                     </div>
                 </div>

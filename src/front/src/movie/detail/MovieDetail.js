@@ -72,7 +72,7 @@ function MovieDetail(props) {
     }
 
     const getData =()=>{
-        const getMovieUrl = `${localStorage.url}/movie/selectMovieData?movie_pk=${movie_pk}&user_pk=${user_pk}`;
+        const getMovieUrl = `${localStorage.url}/movie/selectMovieData?movie_pk=${movie_pk}&user_pk=${sessionStorage.user_pk==null?"":sessionStorage.user_pk}`;
         axios.get(getMovieUrl)
             .then((res)=>{
                 setMovie_data(res.data.data);
@@ -114,7 +114,6 @@ function MovieDetail(props) {
                 for(let i=0;i<res.data.length;i++)
                 {
                     if(parseInt(res.data[i].movie_pk)===parseInt(movie_pk)){
-
                         return true;
                     }
                 }
@@ -297,7 +296,7 @@ function MovieDetail(props) {
                             주요 정보
                         </ToggleButton>
                         <ToggleButton value="review">
-                            평점 리뷰
+                            평점 / 리뷰
                         </ToggleButton>
                         <ToggleButton value="timetable">
                             상영 시간표
@@ -309,7 +308,7 @@ function MovieDetail(props) {
                         menu === "review"?
                             <div className={"dtreview"}>
                                 <h1>영화리뷰</h1>
-                                <Button variant={"contained"} color={"secondary"} onClick={handleOpen} sx={{marginTop:"50px"}}>영화 평점 등록</Button>
+                                <Button variant={"contained"} color={"secondary"} onClick={handleOpen} sx={{marginTop:"50px"}}>영화 리뷰 등록</Button>
                                 <Dialog open={review_open} onClose={handleClose} maxWidth={"1000px"}>
                                     <DialogTitle>평점 작성</DialogTitle>
                                     <DialogContent>

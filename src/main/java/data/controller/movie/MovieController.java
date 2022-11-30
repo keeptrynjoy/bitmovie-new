@@ -27,13 +27,14 @@ public class MovieController {
     // 영화 상세 정보 출력
     @GetMapping("/selectMovieData")
     public Map<String, Object> selectMovieData(int movie_pk,
-                                               @RequestParam(defaultValue = "0")int user_pk) {
-        Map<String, Object> movie_detail = movieService.selectMovieData(movie_pk, user_pk);
+                                               @RequestParam(defaultValue = "0") String user_pk) {
+
+        Map<String, Object> movie_detail = movieService.selectMovieData(movie_pk, Integer.parseInt(user_pk));
         // 해당 영화가 db에 없으면 tmdb api 를 통해 정보 저장 후 데이터 가져오기
         if(movie_detail.get("data")==null){
             theMovieService.movieDataSave(movie_pk);    // 영화 상세 정보 저장
             theMovieService.personDataList(movie_pk);   // 영화 등장인물 정보 저장
-            movie_detail = movieService.selectMovieData(movie_pk, user_pk);
+            movie_detail = movieService.selectMovieData(movie_pk, Integer.parseInt(user_pk));
         }
         return movie_detail;
     }
@@ -57,7 +58,6 @@ public class MovieController {
     // 영화 좋아요 리스트 출력 (movie_pk 를 반환)
     @GetMapping("selectMWishList")
     public List<Integer> selectMWishList(@RequestParam(defaultValue = "0")int user_pk){
-
         List<Integer> list = new ArrayList<>();
         System.out.println(movieService.selectMWishList(user_pk));
         return movieService.selectMWishList(user_pk);
