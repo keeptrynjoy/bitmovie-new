@@ -1,9 +1,9 @@
 .mvbtn {
     background-color: white;
 }
-.mvbtn:focus{
-    background-color: gray;
-}
+/*.mvbtn:focus{*/
+/*    background-color: gray;*/
+/*}*/
 
 .mvbtn:hover{
     background-color: gray;
@@ -28,7 +28,18 @@
 /*.mvcolor{*/
 /*    background-color: wheat;*/
 /*}*/
+.select-default {
+    background-color: white;
+}
 
+.select-default:hover {
+    background-color: #f3f3f3;
+}
+
+.select-clicked {
+    background-color: gray;
+    color: white;
+}
 
 
 
