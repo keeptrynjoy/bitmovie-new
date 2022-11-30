@@ -8,6 +8,7 @@ import Location from "./Location";
 import TimeTable from "../timetable/TimeTable";
 import Swal from "sweetalert2";
 import moment from "moment";
+import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 
 function Ticketing(props) {
 
@@ -157,10 +158,11 @@ function Ticketing(props) {
                 {/*<button type={"button"} className={'selectseat'} onClick={() => navi("/ticketing/selectseat",{input, setInput})} input={input} setInput={setInput} changeData={changeData} >좌석선택</button>*/}
 
                 <div className={'step'}>
-                    <div className={'moviestep'}><b>선택 영화</b> : <span style={{color:'gray'}}>{input.movie && JSON.parse(input.movie).m_name}</span></div>
-                    <div className={'locationstep'}><b>선택 상영관</b> : <span style={{color:'gray'}}>{input.location && JSON.parse(input.location).the_name}</span></div>
-                    <div className={'daystep'}><b>선택 날짜</b> : <span style={{color:'gray'}}> {input.calender && input.calender}</span></div>
-                    <div className={'timestep'}><b>선택 시간대</b> : <span style={{color:'gray'}}>{input.time && JSON.parse(input.time).scrt_stime.substring(0,5)}&nbsp;
+
+                    <div className={'moviestep'}><b>선택 영화</b> <DoubleArrowIcon style={{marginBottom:'4px'}}/> <span style={{color:'gray'}}>{input.movie && JSON.parse(input.movie).m_name}</span></div>
+                    <div className={'locationstep'}><b>선택 상영관</b> <DoubleArrowIcon style={{marginBottom:'4px'}}/> <span style={{color:'gray'}}>{input.location && JSON.parse(input.location).the_name}</span></div>
+                    <div className={'daystep'}><b>선택 날짜</b> <DoubleArrowIcon style={{marginBottom:'4px'}}/> <span style={{color:'gray'}}> {input.calender && input.calender}</span></div>
+                    <div className={'timestep'}><b>선택 시간대</b> <DoubleArrowIcon style={{marginBottom:'4px'}}/> <span style={{color:'gray'}}>{input.time && JSON.parse(input.time).scrt_stime.substring(0,5)}&nbsp;
                         {input.time && JSON.parse(input.time).scr_name}{input.time && JSON.parse(input.time).scr_floor}</span></div>
                 </div>
 

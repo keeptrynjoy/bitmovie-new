@@ -51,6 +51,7 @@ const MovieList = (props) => {
 
         get();
 
+
     },[]);
 
 
