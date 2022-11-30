@@ -61,7 +61,10 @@ function Ticketing(props) {
         if (sessionStorage.user_pk!=null)
         goSeat();
         else
-            alert("로그인 부탁드려요!")
+           Swal.fire({
+               icon:"warning",
+               text:"로그인이 필요합니다"
+           })
 
     }
 
@@ -75,7 +78,7 @@ function Ticketing(props) {
         if (input.movie===''){
             Swal.fire({
                 icon:"warning",
-                text:"영화선택해"
+                text:"영화를 선택해주세요"
             })
 
             return
@@ -84,21 +87,21 @@ function Ticketing(props) {
         if (input.location===''){
             Swal.fire({
                 icon:"warning",
-                text:"위치선택해"
+                text:"상영관을 선택해주세요"
             })
             return
         }
         if (input.calender===''){
             Swal.fire({
                 icon:"warning",
-                text:"상영일선택해"
+                text:"예매 날짜를 선택해주세요"
             })
             return
         }
         if (input.time===''){
             Swal.fire({
                 icon:"warning",
-                text:"상영시간선택해"
+                text:"상영시간을 선택해주세요"
             })
             return
         }
