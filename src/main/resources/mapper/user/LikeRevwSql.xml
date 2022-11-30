@@ -9,7 +9,7 @@
 
     <!--  평점 좋아요 취소  -->
     <insert id="deleteLikeRevw" parameterType="RevwClick">
-        DELETE likerevw_tb WHERE review_pk = #{review_pk} AND user_pk = #{user_pk}
+        DELETE FROM likerevw_tb WHERE review_pk = #{review_pk} AND user_pk = #{user_pk}
     </insert>
 
     <!--  평점 좋아요 여부 확인  -->
