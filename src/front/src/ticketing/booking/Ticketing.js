@@ -56,17 +56,28 @@ function Ticketing(props) {
 
 
 
-    const checkId=()=>{
+    const checkId=()=> {
 
-        if (sessionStorage.user_pk!=null)
-        goSeat();
+        if (sessionStorage.user_pk != null){
+            if(JSON.parse(input.movie).m_age_grd>=18){
+                Swal.fire({
+                    icon: "warning",
+                    text: "18세 이상 관람 영화입니다 입장 전 신분증 확인을 할 수 있으니 이용에 차질 없으시길 바랍니다"
+                })
+
+            }
+            goSeat();
+        }
+
         else
-           Swal.fire({
-               icon:"warning",
-               text:"로그인이 필요합니다"
-           })
+            Swal.fire({
+                icon: "warning",
+                text: "로그인이 필요합니다"
+            })
 
     }
+
+
 
 
 
@@ -167,6 +178,7 @@ function Ticketing(props) {
                     <div className={'daystep'}><b>선택 날짜</b> <DoubleArrowIcon style={{marginBottom:'4px'}}/> <span style={{color:'gray'}}> {input.calender && input.calender}</span></div>
                     <div className={'timestep'}><b>선택 시간대</b> <DoubleArrowIcon style={{marginBottom:'4px'}}/> <span style={{color:'gray'}}>{input.time && JSON.parse(input.time).scrt_stime.substring(0,5)}&nbsp;
                         {input.time && JSON.parse(input.time).scr_name}{input.time && JSON.parse(input.time).scr_floor}</span></div>
+
                 </div>
 
                 <button type={"button"} className={'selectseat'} onClick={checkId} >좌석선택</button>

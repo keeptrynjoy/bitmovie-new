@@ -35,7 +35,6 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
 
 
-
     const reset=()=>{
         window.location.reload();
     }
@@ -88,6 +87,9 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
             navi('/ticketing/payment', {
                 state: {obj, obj2, obj3, adults, students, selected_seat, finalPay: totalPrice, movieData, coupon}
             })
+
+
+
         }else {
             Swal.fire({
                 icon: "warning",
