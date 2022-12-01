@@ -43,6 +43,7 @@ function MovieList(props) {
         return str
     }
 
+    //영화 위시리스트
     const getMwishList=()=>{
         axios.get(`${localStorage.url}/movie/selectMWishList?${sessionStorage.user_pk==null?"":"user_pk="+sessionStorage.user_pk}`)
             .then((res)=>{
