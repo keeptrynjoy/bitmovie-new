@@ -13,11 +13,11 @@ public class LoginController {
     LoginService loginService;
     //로그인 (id, password 확인 후)
     @PostMapping("/check")
-    public User selectLogin (@RequestBody User user) {
+    public User selectLogin(@RequestBody User user) {
         return loginService.selectLogin(user);
     }
     //비번 안바꿔도 업뎃햇다고 하기
     @GetMapping("/updatepassdate")
-    public void updatePassDate (String u_id) {
+    public void updatePassDate(String u_id) {
         loginService.updatePassDate(u_id);}
 }

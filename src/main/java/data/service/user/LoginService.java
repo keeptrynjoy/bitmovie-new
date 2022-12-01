@@ -11,7 +11,7 @@ public class LoginService {
     private final LoginRepository loginRepository;
 
     //로그인 (id, password 체크)
-    public User selectLogin (User user) {
+    public User selectLogin(User user) {
         int loginOk = loginRepository.selectLogin(user);
         int user_pk = 0;
         int u_passDateDiff = 0;
@@ -30,7 +30,7 @@ public class LoginService {
         return userDto;
     }
     //비밀번호 안바꿔도 날짜 업데이트
-    public void updatePassDate (String u_id) {
+    public void updatePassDate(String u_id) {
         loginRepository.updatePassDate(u_id);
     }
 }
