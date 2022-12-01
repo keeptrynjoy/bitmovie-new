@@ -187,13 +187,13 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
     const take=()=> {
         //     axios.get(`http://localhost:8282/booking/reserved_seat?screentime=${obj3.scrtime_pk}`)
-            axios.get(`http://localhost:8282/booking/reserved_seat?screentime=${obj3.scrtime_pk}`)
+        axios.get(`http://localhost:8282/booking/reserved_seat?screentime=${obj3.scrtime_pk}`)
             .then((res) => {
                 setBookedSeat(res.data);
                 // console.log('?',res.data);
             }).catch((error) => {
-               console.log('예매된 좌석이 없습니다')
-            });
+            console.log('예매된 좌석이 없습니다')
+        });
     }
 
     // //test
@@ -270,59 +270,32 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     console.log(coupon);
     return (
         <div className={'seatchoose'}>
-            <h1>인원 및 좌석선택</h1>
-            {/*<section>*/}
-            {/*    <label>성인</label>&nbsp;*/}
-            {/*    <select name={'adult'} id={"adult_select"} defaultValue={0} onChange={handleOnchangePerson}>*/}
-            {/*        <option value="0">0명</option>*/}
-            {/*        <option value="1">1명</option>*/}
-            {/*        <option value="2">2명</option>*/}
-            {/*        <option value="3">3명</option>*/}
-            {/*        <option value="4">4명</option>*/}
-            {/*        <option value="5">5명</option>*/}
-            {/*        <option value="6">6명</option>*/}
-            {/*    </select>*/}
-            {/*    &nbsp;*/}
-            {/*    <label>청소년</label>&nbsp;*/}
-            {/*    <select name={'child'} id={"student_select"} defaultValue={0} onChange={handleOnchangePerson2}>*/}
-            {/*        <option value="0">0명</option>*/}
-            {/*        <option value="1">1명</option>*/}
-            {/*        <option value="2">2명</option>*/}
-            {/*        <option value="3">3명</option>*/}
-            {/*        <option value="4">4명</option>*/}
-            {/*        <option value="5">5명</option>*/}
-            {/*        <option value="6">6명</option>*/}
-            {/*    </select>*/}
-            {/*</section>*/}
+            <p style={{fontSize:'25px' }}>인원 및 좌석선택</p>
+            <section>
+                <label>성인</label>&nbsp;
+                <select name={'adult'} id={"adult_select"} defaultValue={0} onChange={handleOnchangePerson}>
+                    <option value="0">0명</option>
+                    <option value="1">1명</option>
+                    <option value="2">2명</option>
+                    <option value="3">3명</option>
+                    <option value="4">4명</option>
+                    <option value="5">5명</option>
+                    <option value="6">6명</option>
+                </select>
+                &nbsp;
+                <label>청소년</label>&nbsp;
+                <select name={'child'} id={"student_select"} defaultValue={0} onChange={handleOnchangePerson2}>
+                    <option value="0">0명</option>
+                    <option value="1">1명</option>
+                    <option value="2">2명</option>
+                    <option value="3">3명</option>
+                    <option value="4">4명</option>
+                    <option value="5">5명</option>
+                    <option value="6">6명</option>
+                </select>
+            </section>
             <div>
-                <FormControl sx={{ m: 1, minWidth: 120 }}>
-                    <InputLabel htmlFor="grouped-native-select">성인</InputLabel>
-                    <Select name={'adult'} defaultValue={0} onChange={handleOnchangePerson} native  id={"adult_select grouped-native-select"}label="Grouping">
-                        <option aria-label="None" value="" />
-                        <optgroup label="Category 1">
-                            <option value={1}>Option 1</option>
-                            <option value={2}>Option 2</option>
-                        </optgroup>
-                        <optgroup label="Category 2">
-                            <option value={3}>Option 3</option>
-                            <option value={4}>Option 4</option>
-                        </optgroup>
-                    </Select>
-                </FormControl>
-                <FormControl sx={{ m: 1, minWidth: 120 }}>
-                    <InputLabel htmlFor="grouped-select">Grouping</InputLabel>
-                    <Select defaultValue="" id="grouped-select" label="Grouping">
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        <ListSubheader>Category 1</ListSubheader>
-                        <MenuItem value={1}>Option 1</MenuItem>
-                        <MenuItem value={2}>Option 2</MenuItem>
-                        <ListSubheader>Category 2</ListSubheader>
-                        <MenuItem value={3}>Option 3</MenuItem>
-                        <MenuItem value={4}>Option 4</MenuItem>
-                    </Select>
-                </FormControl>
+
             </div>
             <br/>
 
@@ -364,21 +337,21 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                     <div className={'seatboxes'}>
                         {rowSeats.map((list, i) => (
                             <label for={'seat'}>
-                            <li className={'row'} key={i} >
-                                {seats.map((list,j) => (
+                                <li className={'row'} key={i} >
+                                    {seats.map((list,j) => (
 
-                                    <input type={"checkbox"}
-                                           disabled={bookedSeat.includes(alphabet[i].toUpperCase()+(j+1).toString())}
-                                           className={'seat'}
-                                           key={j}
-                                           value={alphabet[i].toUpperCase()+(j+1).toString()}
-                                           name={'seat'} id={"seat_select"}
-                                           onChange = {changeHandler}
-                                    />
+                                        <input type={"checkbox"}
+                                               disabled={bookedSeat.includes(alphabet[i].toUpperCase()+(j+1).toString())}
+                                               className={'seat'}
+                                               key={j}
+                                               value={alphabet[i].toUpperCase()+(j+1).toString()}
+                                               name={'seat'} id={"seat_select"}
+                                               onChange = {changeHandler}
+                                        />
 
 
-                                ))}
-                            </li>
+                                    ))}
+                                </li>
                             </label>
                         ))}
                     </div>
@@ -387,8 +360,8 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
 
             <div id={'btns'}>
-                <button id="reset-btn" onClick={reset}>예매 다시하기</button>
-                <button id="reset-btn2" onClick={saveGo}>예매 완료하기</button>
+                <button id="reset-btn" onClick={reset}>다시선택</button>
+                <button id="reset-btn2" onClick={saveGo}>결제하기</button>
             </div>
         </div>
     );

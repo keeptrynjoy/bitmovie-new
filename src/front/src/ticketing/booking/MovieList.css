@@ -10,14 +10,9 @@
 
 }
 
-.mvbtn1{
-    color:gray;
-}
 
 
-.mvbtn1:hover{
-    color: black;
-}
+
 
 .txt{
     text-align: left;
@@ -25,9 +20,9 @@
     float: right;
 }
 
-/*.mvcolor{*/
-/*    background-color: wheat;*/
-/*}*/
+.mvcolor{
+    margin-top: 5px;
+}
 .select-default {
     background-color: white;
 }

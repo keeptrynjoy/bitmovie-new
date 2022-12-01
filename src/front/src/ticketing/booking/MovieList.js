@@ -25,6 +25,7 @@ const MovieList = (props) => {
                 setLoading(false);
             });
     }
+
     //
     // const get2=()=>{
     //     setLoading(true);
@@ -85,8 +86,6 @@ const MovieList = (props) => {
                             <CircularProgress color={"inherit"}/>
                         </div>
                         :
-
-
                         mvlist.map((list, i) => (
                     <ul key={i} style={{paddingLeft: '15px', marginBottom: '5px'}}>
                     <li style={{listStyle: 'none', width: '400px', wordBreak: 'break-all'}}>
