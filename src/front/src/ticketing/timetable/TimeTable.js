@@ -134,7 +134,7 @@ const TimeTable = (props) => {
 
                                 <button className={'ttt'} key={i} name={'time'} value={JSON.stringify(list)}
                                         onClick={changeData} style={{
-                                    fontSize: '20px',
+                                    fontSize: '15px',
                                     border: '1px solid lightgray',
                                     height: '50%',
                                     width:'30%',
@@ -143,17 +143,26 @@ const TimeTable = (props) => {
                                     margin:'5px',
                                     marginTop:'6%'
                                 }}>
-                                    <span disabled
-                                          style={{fontSize: '15px', color:'gray'}}>{list.scr_floor} {list.scr_name}</span><br/>
+                                    {/*<span disabled*/}
+                                    {/*      style={{fontSize: '15px', color:'gray'}}>*/}
+                                        {list.scr_floor} {list.scr_name}<br/>
+                                    {/*</span><br/>*/}
                                     {/*{list.scrt_detail[i].scrt_stime.substring(0,5)}~{list.scrt_detail[i].scrt_etime.substring(0,5)}*/}
 
-                                   <span style={{fontSize:'15px',color:'black'}}>{list.scrt_stime.substring(0, 5)}</span> <br/>
+                                   {/*<span style={{fontSize:'15px',color:'black'}}>*/}
+                                       {list.scrt_stime.substring(0, 5)}<br/>
+                                   {/*</span> <br/>*/}
                                     {/*{list.scrt_stime.substring(0,5)}~{list.scrt_etime.substring(0,5)}<br/>*/}
-                                    <span disabled style={{
+                                    {/*<span disabled style={{*/}
 
-                                        fontSize: '15px',
-                                        fontStyle: 'italic'
-                                    }}><span style={{color:'darkgreen'}}>{list.booked}</span>/{list.scr_tot_seat}석</span>
+                                        {/*// fontSize: '15px',*/}
+                                        {/*// fontStyle: 'italic'*/}
+                                    {/*// }}><span  disabled style={{color:'darkgreen'}}>*/}
+                                        {list.booked}/{list.scr_tot_seat}
+                                    {/*</span>*/}
+                                    {/*    /*/}
+
+                                    {/*석</span>*/}
 
 
                                 </button>

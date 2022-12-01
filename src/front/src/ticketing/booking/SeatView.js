@@ -5,6 +5,11 @@ import React, {useCallback, useEffect, useState} from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import Age from "../../service/Age";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import ListSubheader from '@mui/material/ListSubheader';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 export default function SeatView({people, seats, rowSeats, onClickPeople,input ,setInput,changeData }) {
 
     const navi=useNavigate();
@@ -182,13 +187,13 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
     const take=()=> {
         //     axios.get(`http://localhost:8282/booking/reserved_seat?screentime=${obj3.scrtime_pk}`)
-            axios.get(`http://localhost:8282/booking/reserved_seat?screentime=${obj3.scrtime_pk}`)
+        axios.get(`http://localhost:8282/booking/reserved_seat?screentime=${obj3.scrtime_pk}`)
             .then((res) => {
                 setBookedSeat(res.data);
                 // console.log('?',res.data);
             }).catch((error) => {
-               console.log('예매된 좌석이 없습니다')
-            });
+            console.log('예매된 좌석이 없습니다')
+        });
     }
 
     // //test
@@ -265,9 +270,9 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     console.log(coupon);
     return (
         <div className={'seatchoose'}>
-            <h1>인원 및 좌석선택</h1>
+            <span style={{fontSize:'30px',color:'whitesmoke'}} >인원 및 좌석선택</span>
             <section>
-                <label>성인</label>&nbsp;
+                <label style={{marginTop:'2%'}}>성인</label>&nbsp;
                 <select name={'adult'} id={"adult_select"} defaultValue={0} onChange={handleOnchangePerson}>
                     <option value="0">0명</option>
                     <option value="1">1명</option>
@@ -289,38 +294,27 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                     <option value="6">6명</option>
                 </select>
             </section>
+            <div>
 
+            </div>
             <br/>
 
-            <ul className="showcase">
-                <li>
-                    <div className="seat okay"></div>
-                    <small>예매가능</small>
-                </li>
-                <li>
-                    <div className="seat selected"></div>
-                    <small>선택좌석</small>
-                </li>
-                <li>
-                    <div className="seat occupied"></div>
-                    <small>예매완료</small>
-                </li>
-            </ul>
+
             <main className={'allboxes'}>
                 <article id="info-container">
                     <img alt={obj.m_name} src={`https://image.tmdb.org/t/p/w500${obj.m_photo}`} className={'seatposter'}/>
                     <div className={'seattx'}>
                         <p style={{fontSize:'20px'}}> <Age age={obj.m_age_grd} size={20}/>&nbsp;{obj.m_name}</p>
 
-                        <p><b style={{fontSize:'20px'}}>상영 지점</b> {obj2.the_name}</p>
-                        <p><b style={{fontSize:'20px'}}>예매 날짜</b> {movieData.calender}</p>
-                        <p><b style={{fontSize:'20px'}}>러닝 타임</b> {obj3.scrt_stime.substring(0,5)}~{obj3.scrt_etime.substring(0,5)}</p>
+                        <p><b style={{fontSize:'17px'}}>상영 지점</b> {obj2.the_name}</p>
+                        <p><b style={{fontSize:'17px'}}>예매 날짜</b> {movieData.calender}</p>
+                        <p><b style={{fontSize:'17px'}}>러닝 타임</b> {obj3.scrt_stime.substring(0,5)}~{obj3.scrt_etime.substring(0,5)}</p>
                         {/*<p><b style={{fontSize:'20px'}}>러닝 타임</b>*/}
                         {/*    &nbsp;{obj3.scrt_detail[0].scrt_stime.substring(0,5)}~{obj3.scrt_detail[0].scrt_etime.substring(0,5)} ({obj.m_runtime}분)&nbsp;*/}
                         {/*</p>*/}
                         {/*<p><b style={{fontSize:'20px'}}>상영관</b> {obj3.scr_name}</p>*/}
-                        <p><b style={{fontSize:'20px'}}>선택 인원</b> 성인 :  <span id={'result'}></span>&nbsp;청소년 : <span id={'result2'}></span></p>
-                        <p><b style={{fontSize:'20px'}}>선택 좌석</b> <span id={'result3'}>{[...selected_seat.join(",")]}</span> </p>
+                        <p><b style={{fontSize:'17px'}}>선택 인원</b> 성인 :  <span id={'result'}></span>&nbsp;청소년 : <span id={'result2'}></span></p>
+                        <p><b style={{fontSize:'17px'}}>선택 좌석</b> <span id={'result3'}>{[...selected_seat.join(",")]}</span> </p>
                         <p id="selected-seats"></p>
                     </div>
                 </article>
@@ -330,25 +324,39 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                     <div className={'seatboxes'}>
                         {rowSeats.map((list, i) => (
                             <label for={'seat'}>
-                            <li className={'row'} key={i} >
-                                {seats.map((list,j) => (
+                                <li className={'row'} key={i} >
+                                    {seats.map((list,j) => (
 
-                                    <input type={"checkbox"}
-                                           disabled={bookedSeat.includes(alphabet[i].toUpperCase()+(j+1).toString())}
-                                           className={'seat'}
-                                           key={j}
-                                           value={alphabet[i].toUpperCase()+(j+1).toString()}
-                                           name={'seat'} id={"seat_select"}
-                                           onChange = {changeHandler}
-                                    />
+                                        <input type={"checkbox"}
+                                               disabled={bookedSeat.includes(alphabet[i].toUpperCase()+(j+1).toString())}
+                                               className={'seat'}
+                                               key={j}
+                                               value={alphabet[i].toUpperCase()+(j+1).toString()}
+                                               name={'seat'} id={"seat_select"}
+                                               onChange = {changeHandler}
+                                        />
 
 
-                                ))}
-                            </li>
+                                    ))}
+                                </li>
                             </label>
                         ))}
                     </div>
                 </article>
+                <ul className="showcase" style={{width:'200px'}}>
+                    <li>
+                        <div className="seat okay"></div>
+                        <small>예매가능</small>
+                    </li>
+                    <li>
+                        <div className="seat selected"></div>
+                        <small>선택좌석</small>
+                    </li>
+                    <li>
+                        <div className="seat occupied"></div>
+                        <small>예매완료</small>
+                    </li>
+                </ul>
             </main>
 
 

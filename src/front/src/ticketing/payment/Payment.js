@@ -220,7 +220,7 @@ const Payment = (effect, deps) => {
                         }).then(res => {
 
                         Swal.fire({
-                            icon: "warning",
+                            icon: "success",
                             text: (res.data)
                         });
                         navi("/");
