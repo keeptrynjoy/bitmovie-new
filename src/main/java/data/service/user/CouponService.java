@@ -52,12 +52,8 @@ public class CouponService {
             }
         }
     }
-    //쿠폰 사용기간 만료되면 사용불가
-    public void updateCouponState() {
-        couponRepository.updateCouponState();
-    }
     //가입 쿠폰 생성
-    public void insertJoinCoupon () {
+    public void insertJoinCoupon() {
         int user_pk = couponRepository.selectUserKey(); //가장 최근에 생성된 회원키 찾아옴
         final char[] possibleCharacters =
                 {'1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
@@ -104,6 +100,10 @@ public class CouponService {
     //마이페이지 쿠폰 발급/사용 내역 조회
     public List<Coupon> selectUseCouponDetail(int user_pk) {
         return couponRepository.selectUseCouponDetail(user_pk);
+    }
+    //쿠폰 사용기간 만료되면 사용불가
+    public void updateCouponState() {
+        couponRepository.updateCouponState();
     }
 
     public Coupon selectCouponState(String coupon_pk){
