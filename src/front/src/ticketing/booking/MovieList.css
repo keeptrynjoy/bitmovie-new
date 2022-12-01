@@ -41,5 +41,10 @@
     color: white;
 }
 
+.scroll{
+    over-flow: scroll;
+    overflowX: hidden;
+
+}
 
 

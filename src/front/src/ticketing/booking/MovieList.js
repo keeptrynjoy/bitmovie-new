@@ -12,8 +12,8 @@ import {CircularProgress} from "@mui/material";
 
 const MovieList = (props) => {
 
-    const {input,setInput,changeData}=props;
-    const [mvlist,setMvlist] = useState([]);
+    const {input,setInput,changeData,get2,get3,mvlist,setMvlist}=props;
+    // const [mvlist,setMvlist] = useState([]);
     const [loading,setLoading]=useState(true);
     const [color, setColor] = useState("");
 
@@ -25,26 +25,26 @@ const MovieList = (props) => {
                 setLoading(false);
             });
     }
-
-    const get2=()=>{
-        setLoading(true);
-        axios.get('http://localhost:8282/booking/screening_list?order_stand=reserve_rate&BorA=after')
-            .then((response) =>{
-                setMvlist(response.data);
-                setLoading(false);
-
-            });
-    }
-
-    const get3=()=>{
-        setLoading(true);
-        axios.get('http://localhost:8282/booking/screening_list?order_stand=revw_avgstar&BorA=after')
-            .then((response) =>{
-                setMvlist(response.data);
-                setLoading(false);
-
-            });
-    }
+    //
+    // const get2=()=>{
+    //     setLoading(true);
+    //     axios.get('http://localhost:8282/booking/screening_list?order_stand=reserve_rate&BorA=after')
+    //         .then((response) =>{
+    //             setMvlist(response.data);
+    //             setLoading(false);
+    //
+    //         });
+    // }
+    //
+    // const get3=()=>{
+    //     setLoading(true);
+    //     axios.get('http://localhost:8282/booking/screening_list?order_stand=revw_avgstar&BorA=after')
+    //         .then((response) =>{
+    //             setMvlist(response.data);
+    //             setLoading(false);
+    //
+    //         });
+    // }
 
 
     useEffect(()=>{
@@ -76,14 +76,13 @@ const MovieList = (props) => {
         <div>
 
             <div className={'mvcolor'}>
-                <button className={'mvbtn1'} onClick={get} style={{marginLeft:'10%', backgroundColor:'white', fontSize:'15px',marginBottom:'0px',marginTop:'5%'}}>이름순</button>
-                <button className={'mvbtn1'} onClick={get2} style={{marginLeft:'20px', backgroundColor:'white', fontSize:'15px',marginBottom:'0px'}}><p style={{marginBottom:'0', fontSize:'15px'}}>예매율순</p></button>
-                <button className={'mvbtn1'} onClick={get3} style={{marginLeft:'20px', backgroundColor:'white', fontSize:'15px',marginBottom:'0px'}}>평점순</button>
-                <hr/>
+                {/*<button className={'mvbtn1'} onClick={get} style={{marginLeft:'10%', backgroundColor:'white', fontSize:'15px',marginBottom:'0px',marginTop:'5%'}}>이름순</button>*/}
+                {/*<button className={'mvbtn1'} onClick={get2} style={{marginLeft:'20px', backgroundColor:'white', fontSize:'15px',marginBottom:'0px'}}><p style={{marginBottom:'0', fontSize:'15px'}}>예매율순</p></button>*/}
+                {/*<button className={'mvbtn1'} onClick={get3} style={{marginLeft:'20px', backgroundColor:'white', fontSize:'15px',marginBottom:'0px'}}>평점순</button>*/}
                 {
                     loading ?
                         <div style={{display:"flex",justifyContent:"center",alignItems:'center', height:'400px'}}>
-                            <CircularProgress/>
+                            <CircularProgress color={"inherit"}/>
                         </div>
                         :
 
