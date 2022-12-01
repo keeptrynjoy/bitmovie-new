@@ -2,6 +2,7 @@
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
+
 }
 
 .together{
@@ -94,6 +95,7 @@
     margin-top: 6.3%;
     overflow: scroll;
     overflow-x: hidden;
+
 }
 .selectmv::-webkit-scrollbar {
     width: 10px;  /* 스크롤바의 너비 */
@@ -127,17 +129,19 @@
     text-align: center;
     margin-top: 2%;
     float: left;
+    overflow: scroll;
+    overflow-x: hidden;
 }
 
 .selectseat{
-    width: 100px;
-    height: 50px;
+    width: 200px;
+    height: 150px;
     border: 1px solid black;
     text-align: center;
     background-color: white;
     border-radius: 10px;
     float: right;
-    margin-top: 1%;
+    margin-top: 0.5%;
 }
 .selectseat:hover{
     width: 100px;
@@ -158,6 +162,7 @@
     float: left;
     margin-right: 3%;
     font-size: 20px;
+
 }
 
 .locationstep{
@@ -176,4 +181,34 @@
     float: left;
     font-size: 20px;
     margin-right: 3%;
+}
+.mvbtn1{
+    color:gray;
+}
+
+.mvbtn1:focus{
+    text-decoration: underline;
+    color: black;
+    text-decoration-thickness: 2px;
+}
+
+
+.mvbtn1:hover{
+    color: black;
+}
+.seatposter2{
+    margin-top: 20px;
+    margin-bottom: 40px;
+    width: 100px;
+    height: 150px;
+    border: 1px solid gray;
+    /*background-image: url("/src/image/joker.jpg");*/
+    /*background-size: cover;*/
+    border-radius: 10px;
+    float: left;
+
+}
+
+.cmv{
+    margin-top: 15%;
 }

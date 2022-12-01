@@ -135,21 +135,25 @@ const TimeTable = (props) => {
                                 <button className={'ttt'} key={i} name={'time'} value={JSON.stringify(list)}
                                         onClick={changeData} style={{
                                     fontSize: '20px',
-                                    border: '1px solid black',
+                                    border: '1px solid lightgray',
                                     height: '50%',
-                                    justifyContent: 'center'
+                                    width:'30%',
+                                    justifyContent: 'center',
+                                    float:'left',
+                                    margin:'5px',
+                                    marginTop:'6%'
                                 }}>
                                     <span disabled
-                                          style={{fontSize: '15px'}}>{list.scr_name} {list.scr_floor}</span><br/>
+                                          style={{fontSize: '15px', color:'gray'}}>{list.scr_floor} {list.scr_name}</span><br/>
                                     {/*{list.scrt_detail[i].scrt_stime.substring(0,5)}~{list.scrt_detail[i].scrt_etime.substring(0,5)}*/}
 
-                                    {list.scrt_stime.substring(0, 5)}~{list.scrt_etime.substring(0, 5)}<br/>
+                                   <span style={{fontSize:'15px',color:'black'}}>{list.scrt_stime.substring(0, 5)}</span> <br/>
                                     {/*{list.scrt_stime.substring(0,5)}~{list.scrt_etime.substring(0,5)}<br/>*/}
                                     <span disabled style={{
-                                        color: 'gray',
+
                                         fontSize: '15px',
                                         fontStyle: 'italic'
-                                    }}>{list.booked}/{list.scr_tot_seat}석</span>
+                                    }}><span style={{color:'darkgreen'}}>{list.booked}</span>/{list.scr_tot_seat}석</span>
 
 
                                 </button>

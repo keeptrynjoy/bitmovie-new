@@ -27,8 +27,6 @@ input[type='checkbox']:checked{
 
  }
 
-
-
 .seat:disabled{
     background-color: blue;
 }
@@ -61,8 +59,6 @@ input[type='checkbox']:checked{
     font-family: 'Lato';
     margin: 20px 0;
 }
-
-
 
 .movie-container select{
     background-color: white;
@@ -97,7 +93,7 @@ main{
 }
 
 #info-container{
-    width: 100%;
+    width: 50%;
     background-color: white;
     border-radius: 15px;
     color: black;
@@ -166,6 +162,7 @@ main{
     text-align: center;
     border-radius: 5px;
 }
+
 .seat2:active{
     cursor: pointer;
     background-color: black;

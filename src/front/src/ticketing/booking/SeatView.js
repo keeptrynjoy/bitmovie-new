@@ -5,11 +5,6 @@ import React, {useCallback, useEffect, useState} from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import Age from "../../service/Age";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import ListSubheader from '@mui/material/ListSubheader';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 export default function SeatView({people, seats, rowSeats, onClickPeople,input ,setInput,changeData }) {
 
     const navi=useNavigate();
@@ -271,59 +266,30 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     return (
         <div className={'seatchoose'}>
             <h1>인원 및 좌석선택</h1>
-            {/*<section>*/}
-            {/*    <label>성인</label>&nbsp;*/}
-            {/*    <select name={'adult'} id={"adult_select"} defaultValue={0} onChange={handleOnchangePerson}>*/}
-            {/*        <option value="0">0명</option>*/}
-            {/*        <option value="1">1명</option>*/}
-            {/*        <option value="2">2명</option>*/}
-            {/*        <option value="3">3명</option>*/}
-            {/*        <option value="4">4명</option>*/}
-            {/*        <option value="5">5명</option>*/}
-            {/*        <option value="6">6명</option>*/}
-            {/*    </select>*/}
-            {/*    &nbsp;*/}
-            {/*    <label>청소년</label>&nbsp;*/}
-            {/*    <select name={'child'} id={"student_select"} defaultValue={0} onChange={handleOnchangePerson2}>*/}
-            {/*        <option value="0">0명</option>*/}
-            {/*        <option value="1">1명</option>*/}
-            {/*        <option value="2">2명</option>*/}
-            {/*        <option value="3">3명</option>*/}
-            {/*        <option value="4">4명</option>*/}
-            {/*        <option value="5">5명</option>*/}
-            {/*        <option value="6">6명</option>*/}
-            {/*    </select>*/}
-            {/*</section>*/}
-            <div>
-                <FormControl sx={{ m: 1, minWidth: 120 }}>
-                    <InputLabel htmlFor="grouped-native-select">성인</InputLabel>
-                    <Select name={'adult'} defaultValue={0} onChange={handleOnchangePerson} native  id={"adult_select grouped-native-select"}label="Grouping">
-                        <option aria-label="None" value="" />
-                        <optgroup label="Category 1">
-                            <option value={1}>Option 1</option>
-                            <option value={2}>Option 2</option>
-                        </optgroup>
-                        <optgroup label="Category 2">
-                            <option value={3}>Option 3</option>
-                            <option value={4}>Option 4</option>
-                        </optgroup>
-                    </Select>
-                </FormControl>
-                <FormControl sx={{ m: 1, minWidth: 120 }}>
-                    <InputLabel htmlFor="grouped-select">Grouping</InputLabel>
-                    <Select defaultValue="" id="grouped-select" label="Grouping">
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        <ListSubheader>Category 1</ListSubheader>
-                        <MenuItem value={1}>Option 1</MenuItem>
-                        <MenuItem value={2}>Option 2</MenuItem>
-                        <ListSubheader>Category 2</ListSubheader>
-                        <MenuItem value={3}>Option 3</MenuItem>
-                        <MenuItem value={4}>Option 4</MenuItem>
-                    </Select>
-                </FormControl>
-            </div>
+            <section>
+                <label>성인</label>&nbsp;
+                <select name={'adult'} id={"adult_select"} defaultValue={0} onChange={handleOnchangePerson}>
+                    <option value="0">0명</option>
+                    <option value="1">1명</option>
+                    <option value="2">2명</option>
+                    <option value="3">3명</option>
+                    <option value="4">4명</option>
+                    <option value="5">5명</option>
+                    <option value="6">6명</option>
+                </select>
+                &nbsp;
+                <label>청소년</label>&nbsp;
+                <select name={'child'} id={"student_select"} defaultValue={0} onChange={handleOnchangePerson2}>
+                    <option value="0">0명</option>
+                    <option value="1">1명</option>
+                    <option value="2">2명</option>
+                    <option value="3">3명</option>
+                    <option value="4">4명</option>
+                    <option value="5">5명</option>
+                    <option value="6">6명</option>
+                </select>
+            </section>
+
             <br/>
 
             <ul className="showcase">

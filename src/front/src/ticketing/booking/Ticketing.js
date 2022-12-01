@@ -10,10 +10,11 @@ import Swal from "sweetalert2";
 import moment from "moment";
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 import axios from "axios";
-import {CircularProgress} from "@mui/material";
+import {Button, CircularProgress} from "@mui/material";
+import EastIcon from '@mui/icons-material/East';
 
 function Ticketing(props) {
-
+    const data = ["가나다순", "예매율순", "평점순"];
     const [st,setSt]=useState(false);
     const refresh=()=>{
         window.location.reload();
@@ -59,6 +60,48 @@ function Ticketing(props) {
 
 
     const checkId=()=> {
+
+        if (sessionStorage.user_pk != null){
+            if(JSON.parse(input.movie).m_age_grd>=18){
+                Swal.fire({
+                    icon: "warning",
+                    text: "18세 이상 관람 영화입니다<br/> 청소년관람불가\n" +
+                        "\n" +
+                        "입장 시, 신분증을 반드시 지참해주세요!\n" +
+                        "만 18세 미만의 고객님은(영,유아포함) 보호자를 동반하여도\n" +
+                        "관람이 불가하며, 만18세 이상이라도\n" +
+                        "고등학교 재학중인 고객님은 관람이 불가합니다"
+                })
+
+            }
+            goSeat();
+        }
+        if (sessionStorage.user_pk != null){
+            if(JSON.parse(input.movie).m_age_grd>=15){
+                Swal.fire({
+                    icon: "warning",
+                    text: "15세 이상 관람 영화입니다<br/>15세이상관람가\n" +
+                        "\n" +
+                        "만 15 세 미만의 고객님은(영,유아 포함)\n" +
+                        "반드시 성인 보호자의 동반하에 관람이 가능합니다.\n" +
+                        "(확인 불가 시 입장제한)"
+                })
+
+            }
+            goSeat();
+        }
+
+
+
+        if (sessionStorage.user_pk != null) {
+            if (JSON.parse(input.movie).m_age_grd >= 0) {
+                Swal.fire({
+                    icon: "warning",
+                    text: "전체관람가"
+                })
+
+            }
+        }
 
         if (sessionStorage.user_pk != null){
             if(JSON.parse(input.movie).m_age_grd>=18){
@@ -146,10 +189,10 @@ function Ticketing(props) {
     },[])
 
 
-    useEffect(()=>{
-        console.log(input,'뭘까');
-
-    },[input]);
+    // useEffect(()=>{
+    //     console.log(input,'뭘까');
+    //
+    // },[input]);
     const [mvlist,setMvlist] = useState([]);
     const [loading,setLoading]=useState(true);
     const [color, setColor] = useState("");
@@ -188,6 +231,8 @@ function Ticketing(props) {
     const index = () => {
         return <div>{dateFns.format(new Date(), "yyyy-MM-dd")}</div>;
     };
+
+    console.log(mvlist,'이게뭐야?');
     return (
         <div className={'whole'}>
 
@@ -198,20 +243,33 @@ function Ticketing(props) {
                     <button className={'tkmenu2'} onClick={()=>refresh()}>예매 다시하기</button>
                 </div>
                 <div className={'together'}>
+
                     <div className={'newMv'}>
-                        <button className={'mvbtn1'} onClick={get} style={{marginLeft:'13%', backgroundColor:'white', fontSize:'15px',marginBottom:'0px',marginTop:'5%'}}>이름순</button>
-                        <button className={'mvbtn1'} onClick={get2} style={{marginLeft:'20px', backgroundColor:'white', fontSize:'15px',marginBottom:'0px'}}><p style={{marginBottom:'0', fontSize:'15px'}}>예매율순</p></button>
-                        <button className={'mvbtn1'} onClick={get3} style={{marginLeft:'20px', backgroundColor:'white', fontSize:'15px',marginBottom:'0px'}}>평점순</button>
+                        <button className={'mvbtn1'} onClick={()=>
+                            {
+                                get()
+                            }} style={{marginLeft:'10%', backgroundColor: 'white', fontSize:'15px',marginBottom:'0px',marginTop:'5%'}}>가나다순</button>
+                        <button className={'mvbtn1'} onClick={()=>
+                        {
+                            get2()
+                        }} style={{marginLeft:'20px', backgroundColor: 'white', fontSize:'15px',marginBottom:'0px'}}><p style={{marginBottom:'0', fontSize:'15px'}}>예매율순</p></button>
+                        <button className={'mvbtn1'} onClick={()=>
+                        {
+                            get3()
+                        }} style={{marginLeft:'20px', backgroundColor: 'white', fontSize:'15px',marginBottom:'0px'}}>평점순</button>
 
                     <div className={'selectmv'}>
-                        {
-                            loading ?
-                                <div style={{display:"flex",justifyContent:"center",alignItems:'center', height:'400px'}}>
-                                    <CircularProgress color={"inherit"}/>
-                                </div>
-                                :
-                        <MovieList input={input} setInput={setInput} get={get} get2={get2} get3={get3} mvlist={mvlist} setMvlist={setMvlist} changeData={changeData}/>
-                            }
+                        {/*{*/}
+                        {/*    loading ?*/}
+                        {/*        <div style={{display:"flex",justifyContent:"center",alignItems:'center', height:'400px'}}>*/}
+                        {/*            <CircularProgress color={"inherit"}/>*/}
+                        {/*        </div>*/}
+
+                        {/*        :*/}
+
+                        <MovieList input={input} setInput={setInput} get={get} get2={get2} get3={get3} mvlist={mvlist} setMvlist={setMvlist} useEffect={useEffect} loading={loading} setLoading={setLoading} changeData={changeData}/>
+
+                        {/*}*/}
                     </div>
                     </div>
                     <div className={"movielocation"}>
@@ -225,11 +283,12 @@ function Ticketing(props) {
 
                 <div className={'step'}>
 
-                    <div className={'moviestep'}><b>선택 영화</b> <DoubleArrowIcon style={{marginBottom:'4px'}}/> <span style={{color:'gray'}}>{input.movie && JSON.parse(input.movie).m_name}</span></div>
-                    <div className={'locationstep'}><b>선택 상영관</b> <DoubleArrowIcon style={{marginBottom:'4px'}}/> <span style={{color:'gray'}}>{input.location && JSON.parse(input.location).the_name}</span></div>
-                    <div className={'daystep'}><b>선택 날짜</b> <DoubleArrowIcon style={{marginBottom:'4px'}}/> <span style={{color:'gray'}}> {input.calender && input.calender}</span></div>
-                    <div className={'timestep'}><b>선택 시간대</b> <DoubleArrowIcon style={{marginBottom:'4px'}}/> <span style={{color:'gray'}}>{input.time && JSON.parse(input.time).scrt_stime.substring(0,5)}&nbsp;
-                        {input.time && JSON.parse(input.time).scr_name}{input.time && JSON.parse(input.time).scr_floor}</span></div>
+                    <div className={'moviestep'}><span>선택 영화</span> <DoubleArrowIcon style={{marginBottom:'4px'}}/> <span style={{color:'gray'}}>{input.movie && JSON.parse(input.movie).m_name}</span>
+                        </div>
+                    <div className={'locationstep'}><span>선택 상영관</span> <DoubleArrowIcon style={{marginBottom:'4px'}}/> <span style={{color:'gray'}}>{input.location && JSON.parse(input.location).the_name}</span></div>
+                    <div className={'daystep'}><span>선택 날짜</span> <DoubleArrowIcon style={{marginBottom:'4px'}}/> <span style={{color:'gray'}}> {input.calender && input.calender}</span></div>
+                    <div className={'timestep'}><span>선택 시간대</span> <DoubleArrowIcon style={{marginBottom:'4px'}}/> <span style={{color:'gray'}}>{input.time && JSON.parse(input.time).scrt_stime.substring(0,5)}&nbsp;
+                        </span></div>
 
                 </div>
 
