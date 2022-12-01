@@ -125,7 +125,7 @@ public class PaymentController {
                 pointService.accumulatePoint(payment,1);
             }
 
-            return new ResponseEntity<>("주문이 완료되었습니다", HttpStatus.OK);
+            return new ResponseEntity<>("결제가 완료되었습니다", HttpStatus.OK);
         } catch (Exception e){
             iamportService.paymentCancel(token, payment.getImp_uid(),amount,"결제 예러");
             e.printStackTrace();
