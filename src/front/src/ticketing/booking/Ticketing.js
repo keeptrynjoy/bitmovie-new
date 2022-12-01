@@ -12,32 +12,32 @@ import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 import axios from "axios";
 import {Button, CircularProgress} from "@mui/material";
 import EastIcon from '@mui/icons-material/East';
+import NextPlanIcon from '@mui/icons-material/NextPlan';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 function Ticketing(props) {
     const data = ["가나다순", "예매율순", "평점순"];
-    const [st,setSt]=useState(false);
-    const refresh=()=>{
+    const [st, setSt] = useState(false);
+    const refresh = () => {
         window.location.reload();
     }
 
 
     const navi = useNavigate();
-    const today= moment().format("yyyy-MM-DD");
-    const [input,setInput]=useState({
-        movie:"",
-        calender:today,
-        location:"",
+    const today = moment().format("yyyy-MM-DD");
+    const [input, setInput] = useState({
+        movie: "",
+        calender: today,
+        location: "",
         time: ""
     });
 
 
-
-
-    const changeData=(e)=>{
-        let {name,value}=e.target;
+    const changeData = (e) => {
+        let {name, value} = e.target;
         setInput({
                 ...input, //기존의 inputs 객체 복사해서 넣음(펼침 연산자)
-                [name]:value //name키에 입력값넣기
+                [name]: value //name키에 입력값넣기
             }
         )
         setSt(!st);
@@ -45,70 +45,16 @@ function Ticketing(props) {
     }
 
 
-    // const data = input.location;
-    //
-    // console.log(data,'shit');
-
-
-
-
-
-
-
-
-
-
-
     const checkId=()=> {
 
-        if (sessionStorage.user_pk != null){
-            if(JSON.parse(input.movie).m_age_grd>=18){
-                Swal.fire({
-                    icon: "warning",
-                    text: "18세 이상 관람 영화입니다<br/> 청소년관람불가\n" +
-                        "\n" +
-                        "입장 시, 신분증을 반드시 지참해주세요!\n" +
-                        "만 18세 미만의 고객님은(영,유아포함) 보호자를 동반하여도\n" +
-                        "관람이 불가하며, 만18세 이상이라도\n" +
-                        "고등학교 재학중인 고객님은 관람이 불가합니다"
-                })
-
-            }
-            goSeat();
-        }
-        if (sessionStorage.user_pk != null){
-            if(JSON.parse(input.movie).m_age_grd>=15){
-                Swal.fire({
-                    icon: "warning",
-                    text: "15세 이상 관람 영화입니다<br/>15세이상관람가\n" +
-                        "\n" +
-                        "만 15 세 미만의 고객님은(영,유아 포함)\n" +
-                        "반드시 성인 보호자의 동반하에 관람이 가능합니다.\n" +
-                        "(확인 불가 시 입장제한)"
-                })
-
-            }
-            goSeat();
-        }
-
-
-
         if (sessionStorage.user_pk != null) {
-            if (JSON.parse(input.movie).m_age_grd >= 0) {
-                Swal.fire({
-                    icon: "warning",
-                    text: "전체관람가"
-                })
-
-            }
-        }
-
-        if (sessionStorage.user_pk != null){
-            if(JSON.parse(input.movie).m_age_grd>=18){
+            if (JSON.parse(input.movie).m_age_grd >= 18) {
                 Swal.fire({
                     icon: "warning",
                     text: "18세 이상 관람 영화입니다 입장 전 신분증 확인을 할 수 있으니 이용에 차질 없으시길 바랍니다"
                 })
+
+
 
             }
             goSeat();
@@ -121,6 +67,11 @@ function Ticketing(props) {
             })
 
     }
+
+
+
+
+
 
 
 
@@ -240,7 +191,7 @@ function Ticketing(props) {
 
                 <div className={'tkbt'}>
                     {/*<button className={'tkmenu'} onClick={()=> navi("/ticketing/timetable")}>상영시간표</button>*/}
-                    <button className={'tkmenu2'} onClick={()=>refresh()}>예매 다시하기</button>
+                    <button className={'tkmenu2'} onClick={()=>refresh()}><RefreshIcon style={{marginBottom:'2%', marginLeft:'1%'}}/>예매 다시하기</button>
                 </div>
                 <div className={'together'}>
 
@@ -292,7 +243,7 @@ function Ticketing(props) {
 
                 </div>
 
-                <button type={"button"} className={'selectseat'} onClick={checkId} >좌석선택</button>
+                <button type={"button"} className={'selectseat'} onClick={checkId} ><span>좌석선택</span></button>
             </div>
 
 
