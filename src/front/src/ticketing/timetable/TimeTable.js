@@ -85,7 +85,6 @@ const TimeTable = (props) => {
     console.log('영화pk',mvpk);
     console.log('달력',day);
 
-
     useEffect(()=>{
         console.log('확인해보자');
         get();
@@ -116,28 +115,49 @@ const TimeTable = (props) => {
                 table &&
                 // table[1]!==null && table[?
                 // input.length==5 && table.length==0?
-                input.location != "" && input.movie != "" && table.length==0 ?
-                    <div style={{width:'43%', fontSize:'20px' , margin:'auto', alignItems:'center', display:'flex', marginTop:'35%'}}>해당 날짜에 상영중인 영화가 존재하지 않습니다</div>
+                input.location != "" && input.movie != "" && table.length == 0 ?
+                    <div style={{
+                        width: '43%',
+                        fontSize: '20px',
+                        margin: 'auto',
+                        alignItems: 'center',
+                        display: 'flex',
+                        marginTop: '35%'
+                    }}>해당 날짜에 상영중인 영화가 존재하지 않습니다</div>
 
                     :
 
-                    table.map((list,i)=>(
+                    table.map((list, i) => (
                         <ul key={i}>
-                            <li style={{listStyle:'none'}}>
+                            <li style={{listStyle: 'none'}}>
                                 {/*<button key={i} name={'time'} value={(list.scrt_detail[i].scrt_stime,list.scrt_detail[i].scrt_etime)} onClick={changeData} style={{fontSize:'25px', backgroundColor:'white', border:'1px solid black'}}>*/}
 
-                                <button className={'ttt'} key={i} name={'time'} value={JSON.stringify(list)} onClick={changeData} style={{fontSize:'20px', border:'1px solid black', height:'50%', justifyContent:'center'}}>
-                                    <span disabled style={{fontSize:'15px'}}>{list.scr_name} {list.scr_floor}</span><br/>
+                                <button className={'ttt'} key={i} name={'time'} value={JSON.stringify(list)}
+                                        onClick={changeData} style={{
+                                    fontSize: '20px',
+                                    border: '1px solid black',
+                                    height: '50%',
+                                    justifyContent: 'center'
+                                }}>
+                                    <span disabled
+                                          style={{fontSize: '15px'}}>{list.scr_name} {list.scr_floor}</span><br/>
                                     {/*{list.scrt_detail[i].scrt_stime.substring(0,5)}~{list.scrt_detail[i].scrt_etime.substring(0,5)}*/}
 
-                                    {list.scrt_stime.substring(0,5)}~{list.scrt_etime.substring(0,5)}<br/>
-                                    <span disabled style={{color:'gray', fontSize:'15px', fontStyle:'italic'}}>{list.scr_tot_seat}석</span>
+                                    {list.scrt_stime.substring(0, 5)}~{list.scrt_etime.substring(0, 5)}<br/>
+                                    {/*{list.scrt_stime.substring(0,5)}~{list.scrt_etime.substring(0,5)}<br/>*/}
+                                    <span disabled style={{
+                                        color: 'gray',
+                                        fontSize: '15px',
+                                        fontStyle: 'italic'
+                                    }}>{list.booked}/{list.scr_tot_seat}석</span>
+
 
                                 </button>
                             </li>
                         </ul>
                     ))
             }
+
             {/*<div className={"screens"}>*/}
             {/*    <LightTooltip key={k}*/}
             {/*                  title={*/}
