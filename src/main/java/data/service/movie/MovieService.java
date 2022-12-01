@@ -4,6 +4,7 @@ import data.domain.movie.*;
 import data.repository.movie.*;
 import data.repository.user.LikeRevwRepository;
 import data.repository.user.MWishRepository;
+import data.service.api.TheMovieService;
 import lombok.RequiredArgsConstructor;
 import net.bytebuddy.asm.Advice;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ public class MovieService {
     private final MWishRepository mWishRepository;
     private final JoinTimeRepository joinTimeRepository;
     private final LikeRevwRepository likeRevwRepository;
+    private final TheMovieService theMovieService;
 
 
     // 영화 페이지 - 영화 리스트 출력
@@ -70,13 +72,25 @@ public class MovieService {
         // 1. 영화 정보 출력
         Movie movie_data = movieRepository.selectMovieData(movie_pk);
         Map<String, Object> map = new HashMap<>();
+        System.out.println("moviedata "+movie_data);
+        if(movie_data==null) {
+            System.out.println("null");
+        }
+        else {
+            System.out.println("not null");
+        }
+
+        if (movie_data == null) {
+            theMovieService.movieDataSave(movie_pk);
+            theMovieService.personDataList(movie_pk);
+            movie_data = movieRepository.selectMovieData(movie_pk);
+        }
         map.put("data", movie_data);
-        if (movie_data != null) {
-            // 2. 영화 등장인물 정보 반환
-            List<JoinCast> cast_list = joinCastRepository.selectCastByMovie(movie_pk);
-            // 3. 영화 평점 정보 반환
-            List<JoinRevw> review_list = joinRevwRepository.selectJoinRevw(movie_pk);
-            // 3-1. 유저가 로그인 한 경우 해당 영화 평점좋아요 유무를 반환
+        // 2. 영화 등장인물 정보 반환
+        List<JoinCast> cast_list = joinCastRepository.selectCastByMovie(movie_pk);
+        // 3. 영화 평점 정보 반환
+        List<JoinRevw> review_list = joinRevwRepository.selectJoinRevw(movie_pk);
+        // 3-1. 유저가 로그인 한 경우 해당 영화 평점좋아요 유무를 반환
 //            if (user_pk != 0) { //유저가 로그인 한 경우에만 조건 실행
 //                for (JoinRevw joinRevw : review_list) {
 //                    Map<String, Integer> pk_map = new HashMap<>();
@@ -88,13 +102,12 @@ public class MovieService {
 //                    joinRevw.setLikeYorN(yorN);
 //                }
 //            }
-            // 해당 영화 좋아요 갯수
-            int wish_cnt = mWishRepository.selectWishCnt(movie_pk);
+        // 해당 영화 좋아요 갯수
+        int wish_cnt = mWishRepository.selectWishCnt(movie_pk);
 
-            map.put("cast", cast_list);
-            map.put("revw", review_list);
-            map.put("wish_cnt", wish_cnt);
-        }
+        map.put("cast", cast_list);
+        map.put("revw", review_list);
+        map.put("wish_cnt", wish_cnt);
         // 4. 영화 예매 차트 정보
         List<Map<String, Object>> chart = joinMovieRepository.movieChart(movie_pk);
         int total = chart.size();
