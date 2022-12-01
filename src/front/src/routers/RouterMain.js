@@ -8,7 +8,7 @@ import LoginRouter from "./LoginRouter";
 import MovieRouter from "./MovieRouter";
 import SearchResult from "../search/SearchResult";
 import TicketingRouter from "./TicketingRouter";
-import SpeedDial from "../home/SpeedDial";
+import SDial from "../home/SDial";
 
 function RouterMain(props) {
     //자동 로그아웃
@@ -48,6 +48,7 @@ function RouterMain(props) {
     return (
         <div>
             <Header/>
+            <SDial/>
             <br style={{clear:"both"}}/><br/>
             <Routes>
                 <Route path={"/"} element={<Home/>}/>

@@ -4,15 +4,16 @@ import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import MovieCard from "./MovieCard";
 import {Button, ButtonGroup, CircularProgress, Divider, Pagination, ScopedCssBaseline, Switch} from "@mui/material";
-import {ChevronRight, FavoriteBorderOutlined} from "@material-ui/icons";
+import {ChevronRight, Favorite, FavoriteBorderOutlined} from "@material-ui/icons";
 import usePagination from "../../service/UsePagination";
 import Age from "../../service/Age";
 
 function MovieList(props) {
     const navi = useNavigate();
 
-    const [loading,setLoading]=useState(true);
+    const [loading,setLoading] = useState(true);
     const [mlist, setMlist] = useState([]);
+    const [MWishList,setMWishList] = useState([]);
     //페이징
     let [page, setPage] = useState(1);
     const PER_PAGE = 20;
@@ -39,8 +40,16 @@ function MovieList(props) {
         else{
             str += `&order_stand=${order_stand}&BorA=${BorA}`;
         }
-        console.log(str);
         return str
+    }
+
+    //영화 위시리스트
+    const getMwishList=()=>{
+        axios.get(`${localStorage.url}/movie/selectMWishList?${sessionStorage.user_pk==null?"":"user_pk="+sessionStorage.user_pk}`)
+            .then((res)=>{
+                setMWishList(res.data);
+                console.log("위시",res.data);
+            })
     }
 
     const toggleBorA=()=>{
@@ -57,6 +66,22 @@ function MovieList(props) {
         _DATA.jump(1);
     }
 
+    const handleMWish=(e)=>{
+        console.log("pk",e.target.value);
+        if(MWishList.includes(e.target.value)){
+            axios.post(`${localStorage.url}/user/deleteMWish`,{movie_pk:e.target.value,user_pk:sessionStorage.user_pk})
+                .then((res)=>{
+                    alert("삭제")
+                    getData();
+                })
+        }else{
+            axios.post(`${localStorage.url}/user/insertMWish`,{movie_pk:e.target.value,user_pk:sessionStorage.user_pk})
+                .then((res)=>{
+                    alert("좋아요")
+                    getData();
+                })
+        }
+    }
 
     //시작 데이터 가져오기
     const getData =()=>{
@@ -89,6 +114,7 @@ function MovieList(props) {
     //페이지 로딩시 데이터 가져오기
     useEffect(() => {
         getData();
+        getMwishList();
     }, []);
 
     //정렬순서, 개봉작 바뀔 때마다 리스트 가져오기
@@ -177,7 +203,12 @@ function MovieList(props) {
                                             </div>
                                             <div className={"btn-div"}>
                                                 <span className={"like-btn"}>
-                                                    <Button variant="outlined" startIcon={<FavoriteBorderOutlined />} style={{width:"100px"}}>
+                                                    <Button variant="outlined"
+                                                            startIcon={MWishList.includes(item.movie_pk)?<Favorite/>:<FavoriteBorderOutlined />}
+                                                            style={{width:"100px"}}
+                                                            onClick={handleMWish}
+                                                            value={item.movie_pk}
+                                                            >
                                                     {item.wish_cnt}
                                                     </Button>
                                                 </span>

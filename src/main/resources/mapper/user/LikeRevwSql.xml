@@ -17,4 +17,13 @@
         SELECT count(*) FROM likerevw_tb WHERE review_pk = #{review_pk} AND user_pk = #{user_pk}
     </select>
 
+    <!--  평점 좋아요 리스트 출력  -->
+    <select id="LikeRevwList" parameterType="Map" resultType="int">
+        SELECT lik.review_pk
+        FROM likerevw_tb lik,
+             review_tb rv
+        WHERE rv.movie_pk = #{movie_pk}
+          AND rv.review_pk = lik.review_pk
+          AND lik.user_pk = #{user_pk}
+    </select>
 </mapper>

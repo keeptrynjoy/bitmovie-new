@@ -216,15 +216,29 @@
     padding: 0 20px 0 30px;
     text-align: left;
     color: #666;
-    vertical-align: middle;
     font-size: .9333em;
+    height: 84px;
+    overflow: hidden;
     line-height: 1.4;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.review-text-content-text{
     overflow: hidden;
     text-overflow: ellipsis;
+    display: -webkit-box;
+    word-wrap:break-word;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
 }
 
 .review-text-wrap .neoyong .review-like {
-    margin-top: 25px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 20px 10px 10px 10px;
+    display: table-cell;
     width: 30px;
     cursor: pointer;
 }
