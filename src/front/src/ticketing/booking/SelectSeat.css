@@ -333,9 +333,9 @@ button.seat2:focus {
 .seatposter{
     margin-top: 10px;
     margin-bottom: 40px;
+    margin-left: 15%;
     width: 150px;
     height: 200px;
-    border: 1px solid gray;
     /*background-image: url("/src/image/joker.jpg");*/
     /*background-size: cover;*/
     border-radius: 10px;

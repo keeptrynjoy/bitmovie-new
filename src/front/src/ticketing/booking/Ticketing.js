@@ -47,18 +47,15 @@ function Ticketing(props) {
 
     const checkId=()=> {
 
-        if (sessionStorage.user_pk != null) {
-            if (JSON.parse(input.movie).m_age_grd >= 18) {
-                Swal.fire({
-                    icon: "warning",
-                    text: "18세 이상 관람 영화입니다 입장 전 신분증 확인을 할 수 있으니 이용에 차질 없으시길 바랍니다"
-                })
+        if (sessionStorage.user_pk != null)
+            // if (JSON.parse(input.movie).m_age_grd >= 18 && sessionStorage.user_pk !=null) {
+            //     Swal.fire({
+            //         icon: "warning",
+            //         text: "18세 이상 관람 영화입니다 입장 전 신분증 확인을 할 수 있으니 이용에 차질 없으시길 바랍니다"
+            //     })
+                goSeat();
+            // }
 
-
-
-            }
-            goSeat();
-        }
 
         else
             Swal.fire({
@@ -115,9 +112,7 @@ function Ticketing(props) {
         //
         // if (input.length===3)
         // {
-
-        // if (sessionStorage.u_id !==)
-
+        if (sessionStorage.user_pk !==null)
             navi("/ticketing/selectseat", {
                 state: {
                     input: input
