@@ -16,7 +16,7 @@ import java.util.*;
 public class CouponService {
     private final CouponRepository couponRepository;
     //생일 쿠폰 생성
-    public void insertBirthCoupon () {
+    public void insertBirthCoupon() {
         //user_pk 담긴 list 생성
         List<User> userList = couponRepository.selectBirthUser();
         final char[] possibleCharacters =
@@ -53,7 +53,7 @@ public class CouponService {
         }
     }
     //쿠폰 사용기간 만료되면 사용불가
-    public void updateCouponState () {
+    public void updateCouponState() {
         couponRepository.updateCouponState();
     }
     //가입 쿠폰 생성
@@ -68,7 +68,6 @@ public class CouponService {
         for (int i=0; i<8; i++) { //8자리 난수 생성
             buf.append(possibleCharacters[rnd.nextInt(possibleCharacterCount)]);
         }
-
         //쿠폰번호 3번째 자리부터 현재 년도 2자리 넣기
         LocalDate now = LocalDate.now();
         String fullYear = Integer.toString(now.getYear());
@@ -87,23 +86,23 @@ public class CouponService {
         }
     }
     //쿠폰 조회(결제)
-    public List<Coupon> selectCoupon (int user_pk) {
+    public List<Coupon> selectCoupon(int user_pk) {
         return couponRepository.selectCoupon(user_pk);
     }
     //마이페이지 사용가능 쿠폰 개수 조회
-    public int selectMyCouponCount (int user_pk) {
+    public int selectMyCouponCount(int user_pk) {
         return couponRepository.selectMyCouponCount(user_pk);
     }
     //마이페이지 사용가능 쿠폰 조회
-    public List<Coupon> selectMyCouponDetail (int user_pk) {
+    public List<Coupon> selectMyCouponDetail(int user_pk) {
         return couponRepository.selectMyCouponDetail(user_pk);
     }
     //마이페이지 만료예정 쿠폰 개수 조회
-    public int selectExpCoupon (int user_pk) {
+    public int selectExpCoupon(int user_pk) {
         return couponRepository.selectExpCoupon(user_pk);
     }
     //마이페이지 쿠폰 발급/사용 내역 조회
-    public List<Coupon> selectUseCouponDetail (int user_pk) {
+    public List<Coupon> selectUseCouponDetail(int user_pk) {
         return couponRepository.selectUseCouponDetail(user_pk);
     }
 

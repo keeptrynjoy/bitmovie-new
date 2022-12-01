@@ -1,11 +1,8 @@
 package data.service.user;
 
-import data.domain.pay.Booking;
 import data.domain.pay.Payment;
 import data.domain.user.MyPage;
 import data.domain.user.Point;
-import data.domain.user.User;
-import data.repository.user.MyPageRepository;
 import data.repository.user.PointRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -104,15 +101,15 @@ public class PointService {
     }
 
     //유저 보유 포인트 조회
-    public int selectPoint (int user_pk) {
+    public int selectPoint(int user_pk) {
         return pointRepository.selectPoint(user_pk);
     }
     //유저 보유 포인트 갱신
-    public void updatePoint (Point point) {
+    public void updatePoint(Point point) {
         pointRepository.updatePoint(point);
     }
     //마이페이지 포인트 적립/소멸 조회
-    public List<MyPage> selectPointDetail (int user_pk) {
+    public List<MyPage> selectPointDetail(int user_pk) {
         return pointRepository.selectPointDetail(user_pk);
     }
 }

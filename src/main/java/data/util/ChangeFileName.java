@@ -2,7 +2,7 @@ package data.util;
 
 import java.util.Calendar;
 
-public class ChangeName {
+public class ChangeFileName {
 	public static String changeFileName(String photoName) {
 		int dotLoc = photoName.indexOf('.');
 		String ext = photoName.substring(dotLoc); //.포함 확장자명

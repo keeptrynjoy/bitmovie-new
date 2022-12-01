@@ -22,22 +22,22 @@ public class UserService {
     private final MWishRepository mWishRepository;
 
     //유저 정보 출력
-    public User selectUser (int user_pk) {
+    public User selectUser(int user_pk) {
         return userRepository.selectUser(user_pk);
     }
     //회원 정보 수정
-    public void updateUser (User user) {
+    public void updateUser(User user) {
         userRepository.updateUser(user);
     }
     //회원가입 아이디 중복 체크
-    public int searchId (String u_id) {
+    public int searchId(String u_id) {
         return userRepository.searchId(u_id);
     }
     //회원가입
-    public void insertUser (User user) {
+    public void insertUser(User user) {
         userRepository.insertUser(user);
     }
-    public int selectNickname (String u_nick) {
+    public int selectNickname(String u_nick) {
         return userRepository.selectNickname(u_nick);
     }
     //본인 인증
@@ -63,7 +63,7 @@ public class UserService {
         }
     }
     //비밀번호 변경할 때 아이디 참조해서 기존 비밀번호 가져오기(기존 비밀번호와 일치하면 비밀번호 변경불가)
-    public boolean selectPass (User user) {
+    public boolean selectPass(User user) {
         String pass = userRepository.selectPass(user);
         boolean check = false;
         if (pass.equals(user.getU_pass())) {
@@ -72,15 +72,15 @@ public class UserService {
         return check;
     }
     //비밀번호 변경
-    public void updatePass (User user) {
+    public void updatePass(User user) {
         userRepository.updatePass(user);
     }
     //회원 삭제(상태 변경)
-    public void deleteUser (String u_id) {
+    public void deleteUser(String u_id) {
         userRepository.deleteUser(u_id);
     }
     //아이디 찾기
-    public String selectId (String u_phone) {
+    public String selectId(String u_phone) {
         String id = userRepository.selectFindId(u_phone);
         if (id != null){
             String resultId = id.substring(0,2) + "**" + id.substring(4);
@@ -90,7 +90,7 @@ public class UserService {
         }
     }
     //비밀번호 찾기 (아이디, 핸드폰 번호 확인)
-    public int selectFindPass (User user) {
+    public int selectFindPass(User user) {
         return userRepository.selectFindPass(user);
     }
 
