@@ -14,5 +14,7 @@ public interface JoinMovieRepository {
 
     public List<JoinMovie> selectSearchMovie(String search);        // 메인화면에서 검색 - 영화 출력
 
+    public List<Map<String, Object>> movieChart(int movie_pk);      // 영화 예매 차트 정보
+
 
 }

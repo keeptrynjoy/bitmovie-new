@@ -124,6 +124,7 @@ public class TheMovieService {
 
     //movie id 를 통해 영화 상세정보를 db에 저장
     public void movieDataSave (Object movie_id) {
+        System.out.println(movie_id);
         //사용되는 변수선언
         JSONObject jsonObject;
         JSONArray jsonArray;
@@ -213,7 +214,7 @@ public class TheMovieService {
             photo += ",";
         }
         photo = photo.substring(0, photo.length() - 1);
-
+        System.out.println("insert");
         //Repository 를 호출해 db에 저장
         movieRepository.insertDetailData(
                 Movie.movieBuilder()

@@ -2,7 +2,6 @@ package data.repository.user;
 
 import data.domain.user.MyPage;
 import data.domain.user.Point;
-import data.domain.user.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
