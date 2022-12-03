@@ -5,7 +5,7 @@ import logo from "../image/bitmovielogo.png";
 function Footer(props) {
     return (
         <div className={"footer-div"}>
-            <img className={"logoimg"} alt={"로고"} src={logo} style={{marginTop:'10px', marginRight:'25px', marginLeft:'50px'}}/>
+            <img className={"logoimg"} alt={"로고"} src={logo} style={{marginTop:'10px', marginRight:'25px', marginLeft:'50px', marginBottom:'10px'}}/>
             <p style={{paddingTop:'30px'}}>
                 회사소개 | IR제휴 | 광고 | 부대사업 | 문의 | 이용약관 | 개인정보취급방침 | 고객센터 | 배정/편성기준
                 | 사이트맵<br/> 사업자명:  (주)비트무비 | 사업자등록번호: 10-82-404 | 통신판매업신고번호: 8282-서울
