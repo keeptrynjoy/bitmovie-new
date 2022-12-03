@@ -3,7 +3,7 @@
 <mapper namespace="data.repository.user.CouponRepository">
     <!--생일인 회원키 조회-->
     <select id="selectBirthUser" resultType="User">
-        SELECT user_pk FROM user_tb WHERE u_birth = CURDATE()
+        SELECT user_pk FROM user_tb WHERE DATE_FORMAT(u_birth, '%m/%d') = DATE_FORMAT(CURDATE(), '%m/%d')
     </select>
     <!--생일 쿠폰 생성-->
     <insert id="insertBirthCoupon" parameterType="Coupon">
