@@ -30,7 +30,7 @@ function Rank(props) {
             <div className={`boxoffice-text ${IsOn? "on":"close"}`}>
                 <div className={"boxoffice-text-content"}><span className={"mvtitle"}> {movie.title} </span></div>
                 <div className={"boxoffice-text-content"}>{movie.release_date}</div>
-                <div className={"boxoffice-text-content"}> 관람평 : <span className={"boxoffice-text-content-rate"}>{movie.vote_average}점</span></div>
+                <div className={"boxoffice-text-content"}> BO점수 : <span className={"boxoffice-text-content-rate"}>{movie.vote_average}점</span></div>
             </div>
          </div>
     );

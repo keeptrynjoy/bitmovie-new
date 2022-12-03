@@ -108,6 +108,7 @@ img.movie-card-poster {
     opacity: 0.75;
     font-size: 40px;
     display : flex;
+    flex-wrap: wrap;
     justify-content : center;
     align-items : center;
 }
@@ -175,7 +176,16 @@ img.movie-card-poster {
 .movie-info-hover {
     text-overflow: ellipsis;
     width:200px;
-    height: 250px;
+    height: 220px;
     overflow: hidden;
     font-size: 15px;
+}
+
+.movie-info-review-star {
+    display: flex;
+    justify-content: center;
+    width: 200px;
+    height: 30px;
+    font-size: 15px;
+    text-align: center;
 }

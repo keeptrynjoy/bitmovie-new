@@ -180,7 +180,7 @@ function Home(props) {
                                  onClick={()=>{
                                      navi(`/movie/detail/${review.movie_pk}`);
                                  }}>
-                                영화제목
+                                {review.m_name}
                             </div>
                             <MovieReview review={review} get={getReviews}/>
                         </div>

@@ -21,6 +21,8 @@ import Swal from "sweetalert2";
 import Age from "../../service/Age";
 import {ArrowRight} from "@material-ui/icons";
 import { styled } from '@mui/material/styles';
+import noperimg from "../../image/noperimage.png"
+import { Doughnut } from 'react-chartjs-2';
 
 function MovieDetail(props) {
     const p = useParams();
@@ -37,6 +39,8 @@ function MovieDetail(props) {
     const [selected_date,setSelected_date] = useState(moment().format("YYYY-MM-DD"));
     const [menu,setMenu]=useState("info");
     const [timetable,setTimetable]=useState([]);
+
+    const [chartData,setChartData]=useState({})
 
     const user_pk = sessionStorage.user_pk;
     const days = ["일","월","화","수","목","금","토"]
@@ -72,6 +76,25 @@ function MovieDetail(props) {
         setDateArray(arr);
     }
 
+    const genderData = {
+        labels: ['남자', '여자'],
+        datasets: [
+            {
+                label: 'gender',
+                data: [10,20],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                ],
+                borderWidth: 1,
+            },
+        ],
+    };
+
     const getData =()=>{
         const getMovieUrl = `${localStorage.url}/movie/selectMovieData?movie_pk=${movie_pk}`;
         axios.get(getMovieUrl)
@@ -80,6 +103,7 @@ function MovieDetail(props) {
                 setMovie_photo(res.data.data.m_photo.split(","));
                 setMovie_review(res.data.revw);
                 setCast_data(res.data.cast);
+                setChartData(res.data.chart);
                 getDaysArray();
                 console.log(res.data);
             })
@@ -485,6 +509,9 @@ function MovieDetail(props) {
                                 </div>
                                 :
                                 <div>
+                                   {/* <div className={"chart"}>
+                                        <Doughnut data={genderData} />
+                                    </div>*/}
                                     <div className={"story"}>
                                         <ReactPlayer
                                             url={process.env.PUBLIC_URL + `https://www.youtube.com/watch?v=${movie_data.m_video}`}
@@ -510,7 +537,7 @@ function MovieDetail(props) {
                                             {cast_data.map((item, idx) => (
                                                 <SwiperSlide key={idx}>
                                                     <div className={"cast-card"}>
-                                                        <img alt={""} src={`https://image.tmdb.org/t/p/w500/${item.per_photo}`}
+                                                        <img alt={""} src={item.per_photo===""?noperimg:`https://image.tmdb.org/t/p/w500/${item.per_photo}`}
                                                              className={"cast-img"}/>
                                                         <div className={"cast-info"}>
                                                             <div className={"person-name"}>

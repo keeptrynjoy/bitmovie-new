@@ -5,7 +5,8 @@ import "./Search.css"
 import Age from "../service/Age";
 import usePagination from "../service/UsePagination";
 import {Pagination} from "@mui/material";
-import nodata from "../image/nodata.png"
+import nodata from "../image/nodata.png";
+import noperimg from "../image/noperimage.png";
 import {Swiper, SwiperSlide} from "swiper/react";
 
 function SearchResult(props) {
@@ -125,7 +126,7 @@ function SearchResult(props) {
                                                          onClick={()=>{
                                                              setSelected_person(people.person_pk);
                                                          }}
-                                                         src={`https://image.tmdb.org/t/p/w500${people.per_photo.split(",")[0]}`}/>
+                                                         src={people.per_photo.split(",")[0]===""?noperimg:`https://image.tmdb.org/t/p/w500${people.per_photo.split(",")[0]}`}/>
                                                     <div className={"result-text-pername"}>
                                                         {people.per_name}
                                                     </div>
