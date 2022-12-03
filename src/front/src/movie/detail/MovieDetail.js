@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import "./Detail.css";
 import ReactPlayer from "react-player";
 import axios from "axios";
@@ -24,6 +24,7 @@ import { styled } from '@mui/material/styles';
 
 function MovieDetail(props) {
     const p = useParams();
+    const navi=useNavigate();
     const [movie_pk,setMovie_pk]=useState(p.movie_num);
     const [movie_data,setMovie_data]=useState([]);
     const [movie_photo,setMovie_photo]=useState([]);
@@ -72,7 +73,7 @@ function MovieDetail(props) {
     }
 
     const getData =()=>{
-        const getMovieUrl = `${localStorage.url}/movie/selectMovieData?movie_pk=${movie_pk}&user_pk=${sessionStorage.user_pk==null?"":sessionStorage.user_pk}`;
+        const getMovieUrl = `${localStorage.url}/movie/selectMovieData?movie_pk=${movie_pk}`;
         axios.get(getMovieUrl)
             .then((res)=>{
                 setMovie_data(res.data.data);
@@ -266,7 +267,7 @@ function MovieDetail(props) {
                                 ))}
                             </Swiper>
                         </div>
-                        <button type={"button"} className={"bookingBtn"}>예매하기</button>
+                        <button type={"button"} className={"bookingBtn"} onClick={()=>navi("/ticketing")}>예매하기</button>
                     </div>
                     <div className={"detail-content-div"}>
                         <div className={"detail-contents"}>

@@ -123,6 +123,11 @@
     justify-content: center;
     width: 100%;
     margin-top: 100px;
+    height: 600px;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    overflow-x: hidden;
+    border-radius: 20px;
 }
 
 .review-ul {

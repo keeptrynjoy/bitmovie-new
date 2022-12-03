@@ -121,6 +121,7 @@ function SearchResult(props) {
                                             {_PDATA.currentData().map((people,i)=>(
                                                 <div key={i} className={"result-card"}>
                                                     <img className={"result-poster"} alt={people.per_name}
+                                                         style={{boxShadow:`${people.person_pk===selected_person?"5px 5px 5px gray":""}`}}
                                                          onClick={()=>{
                                                              setSelected_person(people.person_pk);
                                                          }}

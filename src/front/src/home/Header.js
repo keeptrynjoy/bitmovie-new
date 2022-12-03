@@ -106,7 +106,7 @@ function Header(props) {
         sessionStorage.removeItem("u_name");
         sessionStorage.removeItem("u_id");
         sessionStorage.removeItem("user_pk");
-        sessionStorage.removeItem("u_pwUdtDate");
+        sessionStorage.removeItem("u_passDateDiff");
         navi("/");
         window.location.reload();
     };
