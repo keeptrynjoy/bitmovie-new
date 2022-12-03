@@ -217,3 +217,7 @@ img.movie-poster {
     cursor: pointer;
 }
 /* 여기까지 메인페이지 css 입니다 */
+
+.main-wrapper {
+   height : 3000px;
+}
