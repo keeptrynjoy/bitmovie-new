@@ -362,7 +362,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                     <div className={'seatboxes'}>
                         {rowSeats.map((list, i) => (
                             <label for={'seat'}>
-                                <li style={{listStyle:'none', width:0, float:'left', marginRight:'20px', marginTop:'13px', marginLeft:0, color:'lightpink'}} >{alphabet[i].toUpperCase().toString()}</li>
+                                <li style={{listStyle:'none', width:0, float:'left', marginRight:'20px', marginTop:'13px', marginLeft:0, color:'silver'}} >{alphabet[i].toUpperCase().toString()}</li>
                                 {seats.map((list,j) => (
                                     <input type={"checkbox"}
                                            disabled={bookedSeat.includes(alphabet[i].toUpperCase()+(j+1).toString())}
