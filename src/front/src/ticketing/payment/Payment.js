@@ -5,6 +5,7 @@ import {useLocation} from "react-router-dom";
 import Swal from "sweetalert2";
 import './Payment.css';
 import Age from "../../service/Age";
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 const Payment = (effect, deps) => {
 
@@ -346,9 +347,9 @@ const Payment = (effect, deps) => {
                 <div className={'pbox'}>
 
                     <Age age={JSON.parse(mv).m_age_grd} size={20}/>  <b style={{color:'white'}}>{JSON.parse(mv).m_name}</b><br/>
-                    {location.state.obj2.the_name}<br/>
+                    {location.state.obj2.the_name} {location.state.obj3.scr_floor} {location.state.obj3.scr_name}<br/>
                     {location.state.movieData.calender}
-                    {JSON.parse(location.state.movieData.time).scrt_time} {cal.scrt_stime.substring(0,5)}~{cal.scrt_etime.substring(0,5)}<br/>
+                    &nbsp;<AccessTimeIcon style={{width:'7%', paddingBottom:'1%'}}/>{JSON.parse(location.state.movieData.time).scrt_time} {cal.scrt_stime.substring(0,5)}~{cal.scrt_etime.substring(0,5)}<br/>
                     성인{location.state.adults} 학생{location.state.students}<br/>
 
 
@@ -532,10 +533,10 @@ const Payment = (effect, deps) => {
             </div>
 
 
-            <div className={'btns'}>
-                <button className={'btn1'} onClick={requestPay}> 결제하기</button>
-                <button className={'btn2'} onClick={goback}>취소하기</button>
-            </div>
+            {/*<div className={'btns'}>*/}
+                <button className={'btn1'} onClick={goback}> 취소하기</button>
+                <button className={'btn2'} onClick={requestPay}>결제하기</button>
+            {/*</div>*/}
 
         </>
     );
