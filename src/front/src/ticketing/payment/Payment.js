@@ -59,9 +59,13 @@ const Payment = (effect, deps) => {
 
     const timePk= location.state.obj3.scrtime_pk;
     const cal= JSON.parse(location.state.movieData.time)
-    console.log(cal,'?')
-    console.log(cal.scrt_stime)
+    // console.log(cal,'?')
+    // console.log(cal.scrt_stime)
     // console.log(timePk);
+
+    const poster =location.state.obj.m_photo;
+
+    console.log(poster)
 
 
 
@@ -339,7 +343,7 @@ const Payment = (effect, deps) => {
                 </div>
 
                 <br/>
-                <div>
+                <div className={'pbox'}>
 
                     <Age age={JSON.parse(mv).m_age_grd} size={20}/>  <b style={{color:'white'}}>{JSON.parse(mv).m_name}</b><br/>
                     {location.state.obj2.the_name}<br/>
@@ -354,6 +358,7 @@ const Payment = (effect, deps) => {
                     )}
                            defaultValue={user_pk} disabled
                     />
+
                     <input className={'usepoint'} type={'number'} name={'point'} placeholder={"1000포인트부터 사용가능"} step={100}
                            disabled={dbData.u_point<1000} min={1000}
                            onBlur={(e)=>{
@@ -421,8 +426,11 @@ const Payment = (effect, deps) => {
                                    setSale(e.target.value)
 
                            )}
-                    /><br/>
-                    보유포인트({dbData.u_point})
+                    />
+
+                    <br/>
+
+                    보유포인트({dbData.u_point}p)
                     <br/>
                     {/*<select type={'number'} onChange={(e)=>(*/}
                     {/*     setDiscount(e.target.value),*/}
@@ -434,6 +442,7 @@ const Payment = (effect, deps) => {
 
                     {/*>*/}
                     <div className={'selectbox'}>
+
                     <select className={'select'} onChange={(e)=> {
 
                         const target =
@@ -475,7 +484,9 @@ const Payment = (effect, deps) => {
 
 
                     </select>
+
                     </div>
+
 
                     {/*<input type={"text"} value={totalDiscount} readOnly />할인적용*/}
                     할인적용 {totalDiscount}
@@ -517,12 +528,15 @@ const Payment = (effect, deps) => {
                     /><br/>
 
                 </div>
-
+                <img src={`https://image.tmdb.org/t/p/w500${poster}`} className={'payposter'}/>
             </div>
+
+
             <div className={'btns'}>
                 <button className={'btn1'} onClick={requestPay}> 결제하기</button>
                 <button className={'btn2'} onClick={goback}>취소하기</button>
             </div>
+
         </>
     );
 }

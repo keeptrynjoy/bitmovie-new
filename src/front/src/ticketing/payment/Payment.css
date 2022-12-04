@@ -1,16 +1,17 @@
 .usepoint{
-    width: 70%;
+    width: 80%;
     outline: none;
     border-radius: 15px;
     background-color: rgb(233, 233, 233);
     border: 0;
     height: 32px;
-    padding-left: 7%;
+    padding-left: 6%;
 }
 
 .boxx{
 
-     width:20%;
+     width:30%;
+        height: 50vh;
      border:1px solid gray;
      justify-content:center;
      margin: auto;
@@ -29,24 +30,24 @@
     margin-right: 20%;
     margin-bottom: 10%;
     margin-left: 20%;
+    clear: both;
 
 }
 
 .btn1{
     background-color: rgb(233,233,233);
-    width: 16.65%;
-    border: 1px solid gray;
+    width: 25%;
     color: dimgray;
     height: 100px;
     border-bottom-left-radius: 15px;
 }
 .btn2{
-    background-color: rgb(233,233,233);
-    width: 16.65%;
+    background-color: tomato;
+    width: 25%;
     height: 100px;
-    color: dimgray;
-    border: 1px solid gray;
+    color: white;
     border-bottom-right-radius: 15px;
+
 }
 
 .cp{
@@ -91,3 +92,12 @@ border: 1px solid gray;
     appearance: none;
 }
 
+.payposter{
+    width: 40%;
+    float: left;
+}
+
+.pbox{
+    width: 50%;
+    float: left;
+}
