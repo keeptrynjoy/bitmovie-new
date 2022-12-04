@@ -304,9 +304,10 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     console.log(coupon);
     return (
         <div className={'seatchoose'}>
-            <p style={{fontSize:'25px' }}>인원 및 좌석선택</p>
-            <section>
-                <label>성인</label>&nbsp;
+
+            <section className={'member'}>
+                <b className={'infos'} style={{fontSize:'20px'}}>인원 및 좌석선택</b><br/>
+               <label>성인</label>&nbsp;
                 <select className={'ad'} name={'adult'} id={"adult_select"} defaultValue={0} onChange={handleOnchangePerson}>
                     <option value="0">0명</option>
                     <option value="1">1명</option>
@@ -333,23 +334,12 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
             </div>
             <br/>
 
-            <ul className="showcase">
-                <li>
-                    <div className="seat okay"></div>
-                    <small>예매가능</small>
-                </li>
-                <li>
-                    <div className="seat selected"></div>
-                    <small>선택좌석</small>
-                </li>
-                <li>
-                    <div className="seat occupied"></div>
-                    <small>예매완료</small>
-                </li>
-            </ul>
+
+
             <main className={'allboxes'}>
 
                 <article id="info-container">
+
                     <img alt={obj.m_name} src={`https://image.tmdb.org/t/p/w500${obj.m_photo}`} className={'seatposter'}/>
 
                     <div className={'seattx'}>
@@ -369,6 +359,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                 </article>
 
                 <article className="seat-section">
+
                     <div className="screen"></div>
                     <div className={'seatboxes'}>
                         {rowSeats.map((list, i) => (
@@ -392,6 +383,20 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                         ))}
                     </div>
                 </article>
+                <ul className="showcase">
+                    <li>
+                        <div className="seat okay"></div>
+                        <small>예매가능</small>
+                    </li>
+                    <li>
+                        <div className="seat selected"></div>
+                        <small>선택좌석</small>
+                    </li>
+                    <li>
+                        <div className="seat occupied"></div>
+                        <small>예매완료</small>
+                    </li>
+                </ul>
             </main>
 
 

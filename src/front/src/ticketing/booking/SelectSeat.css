@@ -127,7 +127,6 @@ main{
 
 .seat-section {
     perspective: 1000px;
-    margin-right: 21%;
     height: 500px;
     width: 1000px;
 }
@@ -233,13 +232,14 @@ main{
 }
 
 .showcase {
-    padding: 5px 10px;
     border-radius: 5px;
     color: #777;
     list-style-type: none;
-    display: flex;
-    justify-content: space-between;
     margin: 0;
+    justify-content: center;
+    margin-right: 10%;
+    width: 20%;
+    height: 10%;
 }
 
 .showcase li {
@@ -247,6 +247,7 @@ main{
     align-items: center;
     justify-content: center;
     margin: 0 10px;
+    margin-top: 2%;
 }
 
 .showcase li small {
@@ -343,3 +344,16 @@ button.seat2:focus {
 
 }
 
+.infos{
+    margin-left: 10%;
+}
+
+
+.member{
+    position: relative;
+    width: 15%;
+
+}
+
+#btns{
+}
