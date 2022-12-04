@@ -1,0 +1,93 @@
+.usepoint{
+    width: 70%;
+    outline: none;
+    border-radius: 15px;
+    background-color: rgb(233, 233, 233);
+    border: 0;
+    height: 32px;
+    padding-left: 7%;
+}
+
+.boxx{
+
+     width:20%;
+     border:1px solid gray;
+     justify-content:center;
+     margin: auto;
+     padding-left: 4%;
+    background-color: dimgray;
+    color: lightgrey;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    margin-top: 3%;
+}
+
+.btns{
+    align-items:center;
+    display:flex;
+    justify-content:center;
+    margin-right: 20%;
+    margin-bottom: 10%;
+    margin-left: 20%;
+
+}
+
+.btn1{
+    background-color: rgb(233,233,233);
+    width: 16.65%;
+    border: 1px solid gray;
+    color: dimgray;
+    height: 100px;
+    border-bottom-left-radius: 15px;
+}
+.btn2{
+    background-color: rgb(233,233,233);
+    width: 16.65%;
+    height: 100px;
+    color: dimgray;
+    border: 1px solid gray;
+    border-bottom-right-radius: 15px;
+}
+
+.cp{
+    width: 200px;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    appearance: none;
+    text-align: left;
+}
+.selectbox{
+position: relative;
+width: 150px;
+height: 35px;
+border-radius: 4px;
+border: 1px solid gray;
+}
+
+.selectbox .select {
+    width: inherit;
+    height: inherit;
+    background: transparent;
+    border: 0 none;
+    outline: 0 none;
+    padding: 0 10px;
+    padding-bottom: 2%;
+    position: relative;
+    z-index: 3;
+}
+
+
+.select {
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+

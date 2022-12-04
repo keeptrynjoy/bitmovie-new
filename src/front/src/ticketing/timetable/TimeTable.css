@@ -24,8 +24,9 @@
 /*}*/
 
 .showhide{
-    margin-top: 0.5%;
-    width: 9%;
+    background-color: white;
+    width: 7%;
+    margin-top: 0.3%;
     padding: 15px 15px 15px 15px;
     justify-content: center;
     background-color: lightgrey;
@@ -40,7 +41,8 @@
 }
 
 .showhide:hover{
-    opacity: 0.9;
-    margin-top: 0.5%;
+    margin-top: 0.3%;
+    opacity: 1;
+    pointer-events: none;
 }
 

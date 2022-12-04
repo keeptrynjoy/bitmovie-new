@@ -4,6 +4,7 @@ import {json, useNavigate} from "react-router-dom";
 import {useLocation} from "react-router-dom";
 import Swal from "sweetalert2";
 import './Payment.css';
+import Age from "../../service/Age";
 
 const Payment = (effect, deps) => {
 
@@ -38,10 +39,9 @@ const Payment = (effect, deps) => {
     const user_pk=sessionStorage.user_pk;
     const {IMP} = window;
     IMP.init('imp02023053');
+    const mv = location.state.movieData.movie;
 
-
-
-
+    console.log('이게뭐에요?',location.state.movieData.calender)
     // console.log(choiceCoupon,'pk보여줘');
     // console.log(typeof choiceCoupon,'pk보여줘');
     const cpk=choiceCoupon;
@@ -58,7 +58,9 @@ const Payment = (effect, deps) => {
     // console.log('보자',location.state.obj3.scrtime_pk);
 
     const timePk= location.state.obj3.scrtime_pk;
-
+    const cal= JSON.parse(location.state.movieData.time)
+    console.log(cal,'?')
+    console.log(cal.scrt_stime)
     // console.log(timePk);
 
 
@@ -272,7 +274,6 @@ const Payment = (effect, deps) => {
     // )
 
 
-
     const goback=()=>{
         navi("/")
     }
@@ -302,9 +303,9 @@ const Payment = (effect, deps) => {
 
             </div>
 
-            <div style={{width:'500px', height:'600px', border:'1px solid gray', margin:'0 auto', justifyContent:'center', display:'flex'}}>
-                <div>
-                    {/*<h1>예매정보</h1>*/}
+            <div className={'boxx'}>
+                <div style={{width:'0',height:'20px'}}>
+
                     <input style={{display:'none'}} type={'text'} onChange={(e)=>(setBookSeatNum(e.target.value))}
                            disabled defaultValue={location.state.selected_seat}></input>
 
@@ -320,15 +321,15 @@ const Payment = (effect, deps) => {
                     {/*)}*/}
                     {/*       disabled defaultValue={location.state.obj2.the_name}*/}
                     {/*/>*/}
-                    {location.state.obj2.the_name}
+
                     <br/>
-                    성인({location.state.adults})
+
                     {/*<input type={'number'} onChange={(e) => (*/}
                     {/*    setBookAdultCnt(e.target.value)*/}
                     {/*)}defaultValue={location.state.adults} disabled*/}
                     {/*/>*/}
                     <br/>
-                    청소년({location.state.students})
+
                     {/*<input type={'number'}onChange={(e) => (*/}
                     {/*    setBookYouthCnt(e.target.value)*/}
                     {/*)}*/}
@@ -339,12 +340,21 @@ const Payment = (effect, deps) => {
 
                 <br/>
                 <div>
+
+                    <Age age={JSON.parse(mv).m_age_grd} size={20}/>  <b style={{color:'white'}}>{JSON.parse(mv).m_name}</b><br/>
+                    {location.state.obj2.the_name}<br/>
+                    {location.state.movieData.calender}
+                    {JSON.parse(location.state.movieData.time).scrt_time} {cal.scrt_stime.substring(0,5)}~{cal.scrt_etime.substring(0,5)}<br/>
+                    성인{location.state.adults} 학생{location.state.students}<br/>
+
+
+
                     <input style={{display:'none'}} type={'text'} ref={userIdRef} onChange={(e) => (
                         userIdRef.current = e.target.value
                     )}
                            defaultValue={user_pk} disabled
                     />
-                    <input type={'number'} name={'point'} placeholder={"사용할 포인트 입력"} step={100}
+                    <input className={'usepoint'} type={'number'} name={'point'} placeholder={"1000포인트부터 사용가능"} step={100}
                            disabled={dbData.u_point<1000} min={1000}
                            onBlur={(e)=>{
                                if (Number(e.target.value)>0 && Number(e.target.value)<1000)
@@ -411,9 +421,8 @@ const Payment = (effect, deps) => {
                                    setSale(e.target.value)
 
                            )}
-                    />
-                    <br/>
-                    남은 포인트({dbData.u_point})
+                    /><br/>
+                    보유포인트({dbData.u_point})
                     <br/>
                     {/*<select type={'number'} onChange={(e)=>(*/}
                     {/*     setDiscount(e.target.value),*/}
@@ -424,7 +433,8 @@ const Payment = (effect, deps) => {
 
 
                     {/*>*/}
-                    <select onChange={(e)=> {
+                    <div className={'selectbox'}>
+                    <select className={'select'} onChange={(e)=> {
 
                         const target =
 
@@ -448,7 +458,7 @@ const Payment = (effect, deps) => {
                     }
 
                     >
-                        <option value={"N"}>쿠폰선택</option>
+                        <option className={'cp'} value={"N"}>쿠폰선택</option>
 
                         {coupon &&
                             coupon.map((list,i)=>(
@@ -465,9 +475,10 @@ const Payment = (effect, deps) => {
 
 
                     </select>
-                    <br/>
+                    </div>
 
-                    <input type={"text"} value={totalDiscount} readOnly />할인된 금액
+                    {/*<input type={"text"} value={totalDiscount} readOnly />할인적용*/}
+                    할인적용 {totalDiscount}
                     <br/>
                     {/*<select  type={'number'}>*/}
                     {/*<option>*/}
@@ -482,31 +493,35 @@ const Payment = (effect, deps) => {
                     {/*</select>*/}
                     {/*    <br/><br/>*/}
 
-                    결제금액(int)
-                    <input type={'number'} ref={finalPriceRef}onChange={(e) => (
-                        finalPriceRef.current = e.target.value
-                    )}
-                           value={final} disabled
-                    /><br/>
+
+                    {/*<input type={'number'} ref={finalPriceRef}onChange={(e) => (*/}
+                    {/*    finalPriceRef.current = e.target.value*/}
+                    {/*)}*/}
+                    {/*       value={final} disabled*/}
+                    {/*/>*/}
+                    최종금액    <span style={{color:'tomato'}}>{final}</span>
+                    <br/>
+
                     <input style={{display:'none'}} type={'text'} ref={userNameRef}  onChange={(e) => (
                         userNameRef.current = e.target.value
                     )} defaultValue={sessionStorage.u_name} disabled /><br/>
-                    <input  style={{display:'none'}} type={'text'} ref={userPhoneRef}  onChange={(e) => (
+                    <input  style={{display:'none', margin:'0', width:'0'}} type={'text'} ref={userPhoneRef}  onChange={(e) => (
                         userPhoneRef.current = e.target.value
                     )}
                            defaultValue={dbData.u_phone} disabled
                     /><br/>
-                    <input  style={{display:'none'}} type={'email'} ref={userEmailRef}  onChange={(e) => (
+                    <input  style={{display:'none', margin:'0', width:'0'}} type={'email'} ref={userEmailRef}  onChange={(e) => (
                         userEmailRef.current = e.target.value
                     )}
                            defaultValue={sessionStorage.u_id} disabled
                     /><br/>
 
                 </div>
-                <div style={{alignItems:'center', display:'flex', justifyContent:'center',marginTop:'30px'}}>
-                    <button onClick={requestPay} style={{backgroundColor:'white', border:'1px solid gray'}}>결제하기</button>
-                    <button onClick={goback} style={{backgroundColor:'white', border:'1px solid gray'}}>취소하기</button>
-                </div>
+
+            </div>
+            <div className={'btns'}>
+                <button className={'btn1'} onClick={requestPay}> 결제하기</button>
+                <button className={'btn2'} onClick={goback}>취소하기</button>
             </div>
         </>
     );
