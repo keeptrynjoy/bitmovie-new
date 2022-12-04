@@ -279,9 +279,32 @@ const Payment = (effect, deps) => {
     // )
 
 
-    const goback=()=>{
-        navi("/")
+    const goback=()=> {
+
+        Swal.fire({
+            title: '결제취소',
+            text: "결제를 취소하시겠습니까?",
+            icon: 'warning',
+            showCancelButton: true,
+            // confirmButtonColor: '#3085d6',
+            // cancelButtonColor: '#d33',
+            confirmButtonText: '승인',
+            cancelButtonText: '취소'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    '결제취소',
+                    '결제가 취소되었습니다',
+                    'success'
+                )
+                navi("/ticketing")
+            }
+        })
+
+
+
     }
+
 
     // 쿠폰 받아오기
     const take=()=> {
