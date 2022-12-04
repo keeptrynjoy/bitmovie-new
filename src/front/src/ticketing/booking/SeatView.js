@@ -41,7 +41,30 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
 
     const reset=()=>{
-        window.location.reload();
+
+        Swal.fire({
+            title: '좌석 재선택',
+            text: "선택된 좌석이 사라집니다",
+            icon: 'warning',
+            showCancelButton: true,
+            // confirmButtonColor: '#3085d6',
+            // cancelButtonColor: '#d33',
+            confirmButtonText: '확인',
+            cancelButtonText: '취소'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    '좌석취소완료',
+                    '선택 좌석 취소완료',
+                    'success'
+                )
+                    .then((res)=>{
+                        window.location.reload();
+                    })
+            }
+        })
+
+
     }
 
 
@@ -92,6 +115,17 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
             navi('/ticketing/payment', {
                 state: {obj, obj2, obj3, adults, students, selected_seat, finalPay: totalPrice, movieData, coupon}
             })
+
+            if (obj.m_age_grd >= 18) {
+                Swal.fire({
+                    icon: "warning",
+                    text: "[청소년관람불가] 입장 전 신분증 확인 후 입장가능합니다"
+
+
+
+                })
+
+            }
 
 
 
@@ -273,7 +307,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
             <p style={{fontSize:'25px' }}>인원 및 좌석선택</p>
             <section>
                 <label>성인</label>&nbsp;
-                <select name={'adult'} id={"adult_select"} defaultValue={0} onChange={handleOnchangePerson}>
+                <select className={'ad'} name={'adult'} id={"adult_select"} defaultValue={0} onChange={handleOnchangePerson}>
                     <option value="0">0명</option>
                     <option value="1">1명</option>
                     <option value="2">2명</option>
@@ -284,7 +318,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                 </select>
                 &nbsp;
                 <label>청소년</label>&nbsp;
-                <select name={'child'} id={"student_select"} defaultValue={0} onChange={handleOnchangePerson2}>
+                <select className={'st'} name={'child'} id={"student_select"} defaultValue={0} onChange={handleOnchangePerson2}>
                     <option value="0">0명</option>
                     <option value="1">1명</option>
                     <option value="2">2명</option>
@@ -363,7 +397,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
             <div id={'btns'}>
                 <button id="reset-btn" onClick={reset}>다시선택</button>
-                <button id="reset-btn2" onClick={saveGo}>결제하기</button>
+                <button id="reset-btn2" onClick={saveGo}>선택완료</button>
             </div>
         </div>
     );

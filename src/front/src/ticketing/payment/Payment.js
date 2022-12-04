@@ -288,12 +288,12 @@ const Payment = (effect, deps) => {
             showCancelButton: true,
             // confirmButtonColor: '#3085d6',
             // cancelButtonColor: '#d33',
-            confirmButtonText: '승인',
+            confirmButtonText: '확인',
             cancelButtonText: '취소'
         }).then((result) => {
             if (result.isConfirmed) {
                 Swal.fire(
-                    '결제취소',
+                    '취소완료',
                     '결제가 취소되었습니다',
                     'success'
                 )
