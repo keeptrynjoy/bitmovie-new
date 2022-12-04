@@ -383,10 +383,10 @@ const Payment = (effect, deps) => {
                            defaultValue={user_pk} disabled
                     />
 
-                    <input className={'usepoint'} type={'number'} name={'point'} placeholder={"1000포인트부터 사용가능"} step={100}
+                    <input className={'usepoint'} type={'number'} name={'point'} placeholder={"포인트 입력"} step={100}
                            disabled={dbData.u_point<1000} min={1000}
                            onBlur={(e)=>{
-                               if (Number(e.target.value)>0 && Number(e.target.value)<1000)
+                               if (Number(e.target.value)>0 && Number(e.target.value)<1000 )
                                {
                                    Swal.fire({
                                        icon:"warning",
@@ -396,6 +396,18 @@ const Payment = (effect, deps) => {
                                    setUsePoint(0);
                                    setSale(0);
 
+                               }
+                               if (Number(e.target.value)>2000){
+                                   {
+                                       Swal.fire({
+                                           icon:"warning",
+                                           text:"최대 2000포인트까지 사용가능합니다"
+                                       })
+                                       e.target.value='';
+                                       setUsePoint(0);
+                                       setSale(0);
+
+                                   }
                                }
                            }}
                            onChange={(e) => (
@@ -452,10 +464,8 @@ const Payment = (effect, deps) => {
                            )}
                     />
 
-                    <br/>
 
-                    보유포인트({dbData.u_point}p)
-                    <br/>
+                    &nbsp;&nbsp;<b style={{fontSize:'10px',paddingBottom:'20%'}}>보유포인트({dbData.u_point}p)<br/> </b>
                     {/*<select type={'number'} onChange={(e)=>(*/}
                     {/*     setDiscount(e.target.value),*/}
                     {/*         setUseCoupon(e.target.value),*/}
@@ -465,7 +475,7 @@ const Payment = (effect, deps) => {
 
 
                     {/*>*/}
-                    <div className={'selectbox'}>
+                    <div className={'selectbox'} style={{marginTop:'5px',marginBottom:'5px'}}>
 
                     <select className={'select'} onChange={(e)=> {
 
