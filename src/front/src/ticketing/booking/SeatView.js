@@ -10,6 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import ListSubheader from '@mui/material/ListSubheader';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import {createTheme} from "@mui/material/styles";
 export default function SeatView({people, seats, rowSeats, onClickPeople,input ,setInput,changeData }) {
 
     const navi=useNavigate();
@@ -355,6 +356,9 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                         <p id="selected-seats"></p>
                     </div>
                 </article>
+
+
+
 
                 <article className="seat-section">
 
