@@ -273,9 +273,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     //
     // console.log('값체크용',selected_seat);
 
-    const changeHandler = (e) => {
-
-
+    const changeHandler = (e,i) => {
 
         setTg(e.target);
         if (e.target.checked) {
@@ -306,8 +304,8 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
         <div className={'seatchoose'}>
 
             <section className={'member'}>
-                <b className={'infos'} style={{fontSize:'20px'}}>인원 및 좌석선택</b><br/>
-               <label>성인</label>&nbsp;
+                <b className={'infos'} style={{fontSize:'20px', color:'white'}}>인원 및 좌석선택</b><br/>
+                <label>성인</label>&nbsp;
                 <select className={'ad'} name={'adult'} id={"adult_select"} defaultValue={0} onChange={handleOnchangePerson}>
                     <option value="0">0명</option>
                     <option value="1">1명</option>
@@ -364,21 +362,22 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                     <div className={'seatboxes'}>
                         {rowSeats.map((list, i) => (
                             <label for={'seat'}>
-                                <li className={'row'} key={i} >
-                                    {seats.map((list,j) => (
+                                <li style={{listStyle:'none', width:0, float:'left', marginRight:'20px', marginTop:'13px', marginLeft:0, color:'lightpink'}} >{alphabet[i].toUpperCase().toString()}</li>
+                                {seats.map((list,j) => (
+                                    <input type={"checkbox"}
+                                           disabled={bookedSeat.includes(alphabet[i].toUpperCase()+(j+1).toString())}
+                                           className={'seat'}
+                                           key={j}
+                                           value={alphabet[i].toUpperCase()+(j+1).toString()}
+                                           name={'seat'} id={"seat_select"}
+                                           onChange = {changeHandler}
 
-                                        <input type={"checkbox"}
-                                               disabled={bookedSeat.includes(alphabet[i].toUpperCase()+(j+1).toString())}
-                                               className={'seat'}
-                                               key={j}
-                                               value={alphabet[i].toUpperCase()+(j+1).toString()}
-                                               name={'seat'} id={"seat_select"}
-                                               onChange = {changeHandler}
-                                        />
+                                    />
 
 
-                                    ))}
-                                </li>
+                                ))}
+
+
                             </label>
                         ))}
                     </div>

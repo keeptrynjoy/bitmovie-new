@@ -98,7 +98,8 @@ main{
 
 #info-container{
     width: 20%;
-    background-color: lightgrey;
+    background-color: darkgray;
+    border: 1px solid grey;
     border-radius: 15px;
     color: black;
     padding: 1%;
@@ -150,6 +151,7 @@ main{
     width: 35px;
     color: black;
     text-align: center;
+    font-size: 100px;
 }
 
 
@@ -267,6 +269,7 @@ section .seat:not(.occupied):hover {
     width: 500px;
     height: 400px;
     margin: auto;
+    margin-left: 16%;
 }
 
 .screen {
