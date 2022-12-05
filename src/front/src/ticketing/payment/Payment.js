@@ -503,7 +503,7 @@ const Payment = (effect, deps) => {
                     }
 
                     >
-                        <option className={'cp'} value={"N"}>쿠폰선택</option>
+                        <option className={'cp'} value={"N"}>쿠폰선택하기</option>
 
                         {coupon &&
                             coupon.map((list,i)=>(
