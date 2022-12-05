@@ -23,12 +23,12 @@ function Rank(props) {
                 {/*    <p> 금일 관객수: {movie.audiCnt}명 </p>*/}
                 {/*    <p className="ranknum"> 누적 관객수: {movie.audiAcc}명 </p>*/}
                 {/*</div>*/}
-            <img className={`movie-poster`} alt={movie.title} src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}/>
+            <img className={`movie-poster`} alt={movie.title}  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}/>
             <div className={"rank-num"}>
                 {props.idx+1}
             </div>
             <div className={`boxoffice-text ${IsOn? "on":"close"}`}>
-                <div className={"boxoffice-text-content"}><span className={"mvtitle"}> {movie.title} </span></div>
+                <div className={"boxoffice-text-content"}><span style={{fontSize:'20px'}} className={"mvtitle"}> {movie.title} </span></div>
                 <div className={"boxoffice-text-content"}>{movie.release_date}</div>
                 <div className={"boxoffice-text-content"}> BO점수 : <span className={"boxoffice-text-content-rate"}>{movie.vote_average}점</span></div>
             </div>

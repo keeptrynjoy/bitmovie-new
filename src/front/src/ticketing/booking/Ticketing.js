@@ -167,13 +167,13 @@ function Ticketing(props) {
             });
     }
 
-    console.log(typeof input.location,'타입');
+    // console.log(typeof input.location,'타입');
 
     const index = () => {
         return <div>{dateFns.format(new Date(), "yyyy-MM-dd")}</div>;
     };
 
-    console.log(mvlist,'이게뭐야?');
+    // console.log(mvlist,'이게뭐야?');
     return (
         <div className={'whole'}>
 

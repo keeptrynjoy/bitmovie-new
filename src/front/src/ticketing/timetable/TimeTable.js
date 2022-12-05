@@ -68,19 +68,19 @@ const TimeTable = (props) => {
 
     const loc=location.substring(17,18);
     const mvpk=mv.substring(15,21);
-    console.log('상영지역',loc);
-    console.log('영화pk',mvpk);
-    console.log('달력',day);
+    // console.log('상영지역',loc);
+    // console.log('영화pk',mvpk);
+    // console.log('달력',day);
 
     useEffect(()=>{
-        console.log('확인해보자');
+        // console.log('확인해보자');
         get();
     },[st])
 
     const get=()=>{
         if (mvpk.length ===0 || loc.length ===0 || day.length ===0)
         {
-            console.log('값이 없어서 실행못함');
+            // console.log('값이 없어서 실행못함');
             return;
         }
 
@@ -92,7 +92,7 @@ const TimeTable = (props) => {
     }
 
 
-    console.log('정보가져옴',table);
+    // console.log('정보가져옴',table);
 
     return (
         <div>
