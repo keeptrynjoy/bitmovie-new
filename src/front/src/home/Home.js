@@ -148,10 +148,11 @@ function Home(props) {
                                 <div>
                                     <div className="frames glide__track" data-glide-el="track">
                                         <Swiper className="myswiper"
-                                                modules={[Navigation, Pagination, Autoplay]}
+                                                modules={[Pagination, Autoplay]}
                                                 pagination={{ clickable: true }}
-                                                navigation
+                                                // navigation
                                                 effect
+                                                // fontsize={20}
                                                 speed={800}
                                                 loop={true}
                                                 slidesPerView={5}
@@ -173,7 +174,7 @@ function Home(props) {
             </div>
             <h1 style={{textAlign:'center'}}>영화 후기</h1>
             <div className={"recent-revw"}>
-                <div className={"recent-revw-list"}>
+                <div className={"recent-revw-list"} style={{borderRadius:'0', border:'1px solid lightgray'}}>
                     {reviews.map((review,i) => (
                         <div key={i}>
                             <div className={"review-movie-title"}

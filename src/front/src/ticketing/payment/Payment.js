@@ -42,7 +42,7 @@ const Payment = (effect, deps) => {
     IMP.init('imp02023053');
     const mv = location.state.movieData.movie;
 
-    console.log('이게뭐에요?',location.state.movieData.calender)
+    // console.log('이게뭐에요?',location.state.movieData.calender)
     // console.log(choiceCoupon,'pk보여줘');
     // console.log(typeof choiceCoupon,'pk보여줘');
     const cpk=choiceCoupon;
@@ -66,7 +66,7 @@ const Payment = (effect, deps) => {
 
     const poster =location.state.obj.m_photo;
 
-    console.log(poster)
+    // console.log(poster)
 
 
 
@@ -103,21 +103,21 @@ const Payment = (effect, deps) => {
         let date = new Date();
 
         let now = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-        console.log(now)
-        console.log(
-            "페이버튼",
-            dbData.u_id,
-            dbData.u_name,
-
-            // userIdRef.current,
-            // userEmailRef.current,
-            // userNameRef.current,
-        );
+        // console.log(now)
+        // console.log(
+        //     "페이버튼",
+        //     dbData.u_id,
+        //     dbData.u_name,
+        //
+        //     // userIdRef.current,
+        //     // userEmailRef.current,
+        //     // userNameRef.current,
+        // );
 
         IMP.request_pay(
             {
-                // pg: 'kakaopay',
-                pg: 'html5_inicis',
+                pg: 'kakaopay',
+                // pg: 'html5_inicis',
                 // merchant_uid: `${now}_${userIdRef.current}`,
                 merchant_uid: `${now}_${user_pk}`,
                 name: '결제',
@@ -314,7 +314,7 @@ const Payment = (effect, deps) => {
                 setCoupon(res.data);
                 // console.log('쿠폰',res.data);
             }).catch((error) => {
-            console.log('쿠폰이 존재하지 않아요')
+            // console.log('쿠폰이 존재하지 않아요')
         });
     }
 
@@ -384,7 +384,7 @@ const Payment = (effect, deps) => {
                            defaultValue={user_pk} disabled
                     />
 
-                    <input className={'usepoint'} type={'number'} name={'point'} placeholder={"포인트 입력"} step={100}
+                    <input className={'usepoint'} type={'number'} name={'point'} placeholder={"1000포인트 이상 사용가능"} step={100}
                            disabled={dbData.u_point<1000} min={1000}
                            onBlur={(e)=>{
                                if (Number(e.target.value)>0 && Number(e.target.value)<1000 )

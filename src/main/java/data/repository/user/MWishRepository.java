@@ -18,4 +18,6 @@ public interface MWishRepository {
     public boolean mWishYorN(Map<String, Object> map);      // 해당영화 좋아요 선택 유무 판단
 
     public List<Integer> selectMWishList(int user_pk);      // 유저가 좋아요한 영화 리스트 반환
+
+    public int selectLikes(int user_pk);
 }

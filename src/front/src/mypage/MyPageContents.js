@@ -72,6 +72,7 @@ const WithDrawal=(navi)=>{
                                         sessionStorage.removeItem("login_status");
                                         sessionStorage.removeItem("u_name");
                                         sessionStorage.removeItem("u_id");
+                                        sessionStorage.removeItem("u_pk");
                                         sessionStorage.removeItem("user_pk");
                                         sessionStorage.removeItem("u_passDateDiff");
                                         navi("/");
