@@ -148,9 +148,9 @@ function Home(props) {
                                 <div>
                                     <div className="frames glide__track" data-glide-el="track">
                                         <Swiper className="myswiper"
-                                                modules={[Navigation, Pagination, Autoplay]}
+                                                modules={[Pagination, Autoplay]}
                                                 pagination={{ clickable: true }}
-                                                navigation
+                                                // navigation
                                                 effect
                                                 // fontsize={20}
                                                 speed={800}

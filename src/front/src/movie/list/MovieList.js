@@ -7,6 +7,8 @@ import {Button, ButtonGroup, CircularProgress, Divider, Pagination, ScopedCssBas
 import {ChevronRight, Favorite, FavoriteBorderOutlined} from "@material-ui/icons";
 import usePagination from "../../service/UsePagination";
 import Age from "../../service/Age";
+import Swal from "sweetalert2";
+import Likes from "./Likes";
 
 function MovieList(props) {
     const navi = useNavigate();
@@ -14,6 +16,7 @@ function MovieList(props) {
     const [loading,setLoading] = useState(true);
     const [mlist, setMlist] = useState([]);
     const [MWishList,setMWishList] = useState([]);
+    const [likes,setLikes] = useState([]);
     //페이징
     let [page, setPage] = useState(1);
     const PER_PAGE = 20;
@@ -66,22 +69,31 @@ function MovieList(props) {
         _DATA.jump(1);
     }
 
-    const handleMWish=(e)=>{
-        console.log("pk",e.target.value);
-        if(MWishList.includes(e.target.value)){
-            axios.post(`${localStorage.url}/user/deleteMWish`,{movie_pk:e.target.value,user_pk:sessionStorage.user_pk})
-                .then((res)=>{
-                    alert("삭제")
-                    getData();
-                })
-        }else{
-            axios.post(`${localStorage.url}/user/insertMWish`,{movie_pk:e.target.value,user_pk:sessionStorage.user_pk})
-                .then((res)=>{
-                    alert("좋아요")
-                    getData();
-                })
-        }
-    }
+    // const handleMWish=(e)=>{
+    //     if (sessionStorage.login_status==null) {
+    //         Swal.fire({
+    //             icon:"warning",
+    //             text:"로그인후 이용해주세요"
+    //         });
+    //         return;
+    //     }
+    //     console.log("pk",e.target.value);
+    //     if(MWishList.includes(Number(e.target.value))){
+    //         axios.post(`${localStorage.url}/user/deleteMWish`,{movie_pk:e.target.value,user_pk:sessionStorage.user_pk})
+    //             .then((res)=>{
+    //                 alert("삭제")
+    //                 // getData();
+    //                 getMwishList();
+    //             })
+    //     }else{
+    //         axios.post(`${localStorage.url}/user/insertMWish`,{movie_pk:e.target.value,user_pk:sessionStorage.user_pk})
+    //             .then((res)=>{
+    //                 alert("좋아요")
+    //                 // getData();
+    //                 getMwishList();
+    //             })
+    //     }
+    // }
 
     //시작 데이터 가져오기
     const getData =()=>{
@@ -91,6 +103,17 @@ function MovieList(props) {
                 setMlist(res.data);
                 setLoading(false);
             });
+    }
+
+    const getLikes=(movie_pk)=>{
+        let count=0;
+        console.log("pk는",movie_pk);
+        axios.get(`${localStorage.url}/movie/selectLikes?movie_pk=${movie_pk}`)
+            .then((res)=>{
+                console.log("count는",res.data);
+                count=res.data;
+            });
+        return count;
     }
 
     // //특정값 가져오기
@@ -204,14 +227,7 @@ function MovieList(props) {
                                             </div>
                                             <div className={"btn-div"}>
                                                 <span className={"like-btn"}>
-                                                    <Button variant="outlined"
-                                                            startIcon={MWishList.includes(item.movie_pk)?<Favorite/>:<FavoriteBorderOutlined />}
-                                                            style={{width:"100px"}}
-                                                            onClick={handleMWish}
-                                                            value={item.movie_pk}
-                                                    >
-                                                    {item.wish_cnt}
-                                                    </Button>
+                                                    <Likes getLikes={getLikes} pk={item.movie_pk} MWishList={MWishList} getMwishList={getMwishList}/>
                                                 </span>
                                                 <span className={"book-btn"}>
                                                     <Button variant={"contained"} sx={{width:"120px", marginLeft:"10px"}}

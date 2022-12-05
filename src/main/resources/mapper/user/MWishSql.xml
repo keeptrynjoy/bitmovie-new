@@ -9,7 +9,7 @@
 
     <!--  영화 좋아요 취소  -->
     <delete id="deleteMWish" parameterType="MWish">
-        DELETE mwish_tb WHERE movie_pk = #{movie_pk} AND user_pk = #{user_pk}
+        DELETE FROM mwish_tb WHERE movie_pk = #{movie_pk} AND user_pk = #{user_pk}
     </delete>
 
     <!--  영화 좋아요 갯수 출력  -->
@@ -26,5 +26,8 @@
     <select id="selectMWishList" parameterType="int" resultType="int">
         SELECT movie_pk FROM mwish_tb WHERE user_pk = #{user_pk}
     </select>
-
+    <!-- 영화 좋아요 수 -->
+    <select id="selectLikes" parameterType="int" resultType="int">
+        SELECT count(*) FROM mwish_tb WHERE movie_pk = #{movie_pk}
+    </select>
 </mapper>

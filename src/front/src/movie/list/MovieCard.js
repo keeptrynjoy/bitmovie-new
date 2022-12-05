@@ -20,8 +20,8 @@ function MovieCard(props) {
                 </div>
                 <div className={"movie-info-review-star"}>
                     평점 : &nbsp;&nbsp;<Rating name="star"
-                                              // value={Number(data.revw_avgstar)}
-                                              value={5}
+                                              value={Number(data.revw_avgstar)}
+                                              // value={5}
                                               readOnly/>
                 </div>
             </div>
