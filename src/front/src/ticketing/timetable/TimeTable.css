@@ -13,8 +13,36 @@
     background-color: white;
 }
 
+.ttt:focus{
+    background-color: gray;
+    color: white;
+}
 
 /*.ttt:focus{*/
 /*    background-color: darkgrey;*/
 /*    color:white;*/
 /*}*/
+
+.showhide{
+    background-color: white;
+    width: 7%;
+    margin-top: 0.3%;
+    padding: 15px 15px 15px 15px;
+    justify-content: center;
+    background-color: lightgrey;
+    border-radius: 5px;
+    color: black;
+    position: absolute;
+    display: flex;
+    opacity: 0;
+    transition: all ease 0.5s;
+
+
+}
+
+.showhide:hover{
+    margin-top: 0.3%;
+    opacity: 1;
+    pointer-events: none;
+}
+

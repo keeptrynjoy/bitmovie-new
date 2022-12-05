@@ -72,8 +72,12 @@ const WithDrawal=(navi)=>{
                                         sessionStorage.removeItem("login_status");
                                         sessionStorage.removeItem("u_name");
                                         sessionStorage.removeItem("u_id");
+<<<<<<<<< Temporary merge branch 1
                                         sessionStorage.removeItem("u_pk");
-                                        sessionStorage.removeItem("pwUdtDate");
+=========
+                                        sessionStorage.removeItem("user_pk");
+>>>>>>>>> Temporary merge branch 2
+                                        sessionStorage.removeItem("u_passDateDiff");
                                         navi("/");
                                         window.location.reload();
                                     })
@@ -98,6 +102,7 @@ const WithDrawal=(navi)=>{
 
 function MyPageContents(props) {
     const contents=props.contents;
+    const setContents=props.setContents;
     const data=props.data;
     const navi=useNavigate();
     const user_pk = sessionStorage.user_pk;
@@ -126,7 +131,10 @@ function MyPageContents(props) {
 
     //페이지 로딩시 데이터 가져오기
     useEffect(()=>{
-        getDatas().then(r=>{});
+        getDatas().then(r=>{
+            console.log(datas);
+            setContents("booking");
+        });
     }, []);
 
     const contentSelector =()=>{

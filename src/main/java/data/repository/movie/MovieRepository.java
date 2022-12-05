@@ -20,5 +20,6 @@ public interface MovieRepository {
     public int selectIngOrNot(Map<String, Object> map);         // 검색 - 영화 상영중인지 여부 확인
 
     public int selectComingorNot(Map<String, Object> map);      // 검색 - 영화 상영예정인지 여부 확인
+//    public List<Movie> selectTotalMovie();                      // 리뷰 메크로용
 }
 
