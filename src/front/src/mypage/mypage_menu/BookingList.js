@@ -117,7 +117,7 @@ function BookingList(props) {
                                         </span>
                                     </div>
                                     <div className={"box-contents"}>
-                                      ㅈ  <div className={"movie-title"}>
+                                        <div className={"movie-title"}>
                                             <div className={"movie-title-kr"}>{item.title}</div>
                                         </div>
                                         <div className={"contents-info"}>
