@@ -55,6 +55,9 @@ const WithDrawal=(navi)=>{
 
     return (
         <div style={{margin:"auto",textAlign:"center", width:"700px", height:"500px"}}>
+            <div style={{fontSize:"30px", height:"200px", marginTop:"50px"}}>
+                그동안 BITMOVIE 를 이용해 주셔서 감사합니다.
+            </div>
             <button style={{fontSize:"70px"}} className={"btn btn-danger"}
                     type={"button"} variant={"outlined"} color={"error"}
                     onClick={()=>{
