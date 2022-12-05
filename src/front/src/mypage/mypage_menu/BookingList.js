@@ -131,11 +131,7 @@ function BookingList(props) {
                                                 관람 일시: {moment(item.date).format("YYYY-MM-DD")}&nbsp;&nbsp;{item.begin.substring(0,5)}
                                             </div>
                                             <div>
-<<<<<<<<< Temporary merge branch 1
                                                 관람 좌석: {item.seat}
-=========
-                                                관람 좌석:
->>>>>>>>> Temporary merge branch 2
                                             </div>
                                             <div>
                                                 예매일 : {moment(item.issue).format("YYYY-MM-DD")}

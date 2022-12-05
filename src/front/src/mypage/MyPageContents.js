@@ -72,11 +72,8 @@ const WithDrawal=(navi)=>{
                                         sessionStorage.removeItem("login_status");
                                         sessionStorage.removeItem("u_name");
                                         sessionStorage.removeItem("u_id");
-<<<<<<<<< Temporary merge branch 1
                                         sessionStorage.removeItem("u_pk");
-=========
                                         sessionStorage.removeItem("user_pk");
->>>>>>>>> Temporary merge branch 2
                                         sessionStorage.removeItem("u_passDateDiff");
                                         navi("/");
                                         window.location.reload();
