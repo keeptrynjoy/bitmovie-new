@@ -38,4 +38,9 @@
     <select id="selectComingorNot" parameterType="Map" resultType="int">
         SELECT count(*) FROM movie_tb WHERE movie_pk = #{movie_pk} AND m_sdate > #{date}
     </select>
+
+    <!--리뷰 메크로용 SQL문-->
+<!--    <select id="selectTotalMovie" resultType="movie">-->
+<!--        SELECT movie_pk,m_sdate,m_edate FROM movie_tb WHERE m_sdate &lt; '2022-12-09'-->
+<!--    </select>-->
 </mapper>

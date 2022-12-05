@@ -3,7 +3,7 @@
 <mapper namespace="data.repository.user.CouponRepository">
     <!--생일인 회원키 조회-->
     <select id="selectBirthUser" resultType="User">
-        SELECT user_pk FROM user_tb WHERE u_birth = CURDATE()
+        SELECT user_pk FROM user_tb WHERE DATE_FORMAT(u_birth, '%m/%d') = DATE_FORMAT(CURDATE(), '%m/%d')
     </select>
     <!--생일 쿠폰 생성-->
     <insert id="insertBirthCoupon" parameterType="Coupon">
@@ -34,12 +34,12 @@
     </select>
     <!--사용가능 쿠폰 개수 조회-->
     <select id="selectMyCouponCount" parameterType="int" resultType="int">
-        SELECT count(*) FROM coupon_tb WHERE user_pk = #{user_pk} AND c_use_state = 0
+        SELECT count(*) FROM coupon_tb WHERE user_pk = #{user_pk} AND c_use_state = 0 AND c_exp_date >= CURDATE()
     </select>
     <!--사용가능 쿠폰 상세조회-->
     <select id="selectMyCouponDetail" parameterType="int" resultType="Coupon">
         SELECT coupon_pk, c_class, c_amount, c_issue_date, c_exp_date
-        FROM coupon_tb WHERE user_pk = #{user_pk} AND c_use_state = 0
+        FROM coupon_tb WHERE user_pk = #{user_pk} AND c_use_state = 0 AND c_exp_date >= CURDATE()
         ORDER BY c_exp_date DESC
     </select>
     <!--만료예정 쿠폰 개수 조회-->
