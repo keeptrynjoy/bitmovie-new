@@ -53,13 +53,8 @@ function LoginMain(props) {
                             }
                         })
                     }else{
-                        Swal.fire({
-                            icon:"success",
-                            text:"로그인 성공!"
-                        }).then((res)=>{
-                            navi("/");
-                            window.location.reload();
-                        })
+                        navi("/");
+                        window.location.reload();
                     }
                 } else {
                     Swal.fire({

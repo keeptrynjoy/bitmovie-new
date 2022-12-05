@@ -12,6 +12,7 @@ public class JoinRevw {
 
     private int review_pk;
     private int movie_pk;
+    private String m_name;
     private int user_pk;
     private String revw_star;
     private String revw_text;

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {ArrowUpward, ConfirmationNumber, Home, Share} from "@material-ui/icons";
-import {SpeedDial, SpeedDialAction, SpeedDialIcon} from "@mui/lab";
+import {SpeedDial, SpeedDialAction, SpeedDialIcon} from "@mui/material";
 import Box from "@mui/material/Box";
 import {useNavigate} from "react-router-dom";
 
