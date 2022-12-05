@@ -10,6 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import ListSubheader from '@mui/material/ListSubheader';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import {createTheme} from "@mui/material/styles";
 export default function SeatView({people, seats, rowSeats, onClickPeople,input ,setInput,changeData }) {
 
     const navi=useNavigate();
@@ -41,7 +42,30 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
 
     const reset=()=>{
-        window.location.reload();
+
+        Swal.fire({
+            title: '좌석 재선택',
+            text: "선택된 좌석이 사라집니다",
+            icon: 'warning',
+            showCancelButton: true,
+            // confirmButtonColor: '#3085d6',
+            // cancelButtonColor: '#d33',
+            confirmButtonText: '확인',
+            cancelButtonText: '취소'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    '좌석취소완료',
+                    '선택 좌석 취소완료',
+                    'success'
+                )
+                    .then((res)=>{
+                        window.location.reload();
+                    })
+            }
+        })
+
+
     }
 
 
@@ -93,6 +117,17 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                 state: {obj, obj2, obj3, adults, students, selected_seat, finalPay: totalPrice, movieData, coupon}
             })
 
+            if (obj.m_age_grd >= 18) {
+                Swal.fire({
+                    icon: "warning",
+                    text: "[청소년관람불가] 입장 전 신분증 확인 후 입장가능합니다"
+
+
+
+                })
+
+            }
+
 
 
         }else {
@@ -124,7 +159,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                 setCoupon(res.data);
                 // console.log(res.data);
             }).catch((error) => {
-            console.log('쿠폰이 존재하지 않아요')
+            // console.log('쿠폰이 존재하지 않아요')
         });
     }
 
@@ -192,7 +227,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                 setBookedSeat(res.data);
                 // console.log('?',res.data);
             }).catch((error) => {
-            console.log('예매된 좌석이 없습니다')
+            // console.log('예매된 좌석이 없습니다')
         });
     }
 
@@ -239,9 +274,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     //
     // console.log('값체크용',selected_seat);
 
-    const changeHandler = (e) => {
-
-
+    const changeHandler = (e,i) => {
 
         setTg(e.target);
         if (e.target.checked) {
@@ -267,13 +300,14 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
             ])
         }
     },[selected_seat]);
-    console.log(coupon);
+    // console.log(coupon);
     return (
         <div className={'seatchoose'}>
-            <p style={{fontSize:'25px' }}>인원 및 좌석선택</p>
-            <section>
+
+            <section className={'member'}>
+                <b className={'infos'} style={{fontSize:'20px', color:'white'}}>인원 및 좌석선택</b><br/>
                 <label>성인</label>&nbsp;
-                <select name={'adult'} id={"adult_select"} defaultValue={0} onChange={handleOnchangePerson}>
+                <select className={'ad'} name={'adult'} id={"adult_select"} defaultValue={0} onChange={handleOnchangePerson}>
                     <option value="0">0명</option>
                     <option value="1">1명</option>
                     <option value="2">2명</option>
@@ -284,7 +318,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                 </select>
                 &nbsp;
                 <label>청소년</label>&nbsp;
-                <select name={'child'} id={"student_select"} defaultValue={0} onChange={handleOnchangePerson2}>
+                <select className={'st'} name={'child'} id={"student_select"} defaultValue={0} onChange={handleOnchangePerson2}>
                     <option value="0">0명</option>
                     <option value="1">1명</option>
                     <option value="2">2명</option>
@@ -299,25 +333,16 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
             </div>
             <br/>
 
-            <ul className="showcase">
-                <li>
-                    <div className="seat okay"></div>
-                    <small>예매가능</small>
-                </li>
-                <li>
-                    <div className="seat selected"></div>
-                    <small>선택좌석</small>
-                </li>
-                <li>
-                    <div className="seat occupied"></div>
-                    <small>예매완료</small>
-                </li>
-            </ul>
+
+
             <main className={'allboxes'}>
+
                 <article id="info-container">
-                    <img alt={obj.m_name} src={`https://image.tmdb.org/t/p/w500${obj.m_photo}`} className={'seatposter'}/>
+
+                    <img alt={obj.m_name} src={`https://image.tmdb.org/t/p/w500${obj.m_photo}`} className={'seatposter'} />
+
                     <div className={'seattx'}>
-                        <p style={{fontSize:'20px'}}> <Age age={obj.m_age_grd} size={20}/>&nbsp;{obj.m_name}</p>
+                        <p style={{fontSize:'20px'}}><Age  age={obj.m_age_grd} size={20}/>&nbsp;{obj.m_name}</p>
 
                         <p><b style={{fontSize:'20px'}}>상영 지점</b> {obj2.the_name}</p>
                         <p><b style={{fontSize:'20px'}}>예매 날짜</b> {movieData.calender}</p>
@@ -327,41 +352,60 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                         {/*</p>*/}
                         {/*<p><b style={{fontSize:'20px'}}>상영관</b> {obj3.scr_name}</p>*/}
                         <p><b style={{fontSize:'20px'}}>선택 인원</b> 성인 :  <span id={'result'}></span>&nbsp;청소년 : <span id={'result2'}></span></p>
-                        <p><b style={{fontSize:'20px'}}>선택 좌석</b> <span id={'result3'}>{[...selected_seat.join(",")]}</span> </p>
+                        <p><b style={{fontSize:'20px'}}>선택 좌석</b> <span id={'result3'} >{[...selected_seat.join(",")]}</span> </p>
                         <p id="selected-seats"></p>
                     </div>
                 </article>
 
+
+
+
                 <article className="seat-section">
+
                     <div className="screen"></div>
                     <div className={'seatboxes'}>
                         {rowSeats.map((list, i) => (
-                            <label for={'seat'}>
-                                <li className={'row'} key={i} >
-                                    {seats.map((list,j) => (
+                            <label htmlFor={'seat'} key={i}>
+                                <li  style={{listStyle:'none', width:0, float:'left', marginRight:'20px', marginTop:'13px', marginLeft:0, color:'silver'}} >{alphabet[i].toUpperCase().toString()}</li>
+                                {seats.map((list,j) => (
+                                    <input type={"checkbox"}
+                                           disabled={bookedSeat.includes(alphabet[i].toUpperCase()+(j+1).toString())}
+                                           className={'seat'}
+                                           key={j}
+                                           value={alphabet[i].toUpperCase()+(j+1).toString()}
+                                           name={'seat'} id={"seat_select"}
+                                           onChange = {changeHandler}
 
-                                        <input type={"checkbox"}
-                                               disabled={bookedSeat.includes(alphabet[i].toUpperCase()+(j+1).toString())}
-                                               className={'seat'}
-                                               key={j}
-                                               value={alphabet[i].toUpperCase()+(j+1).toString()}
-                                               name={'seat'} id={"seat_select"}
-                                               onChange = {changeHandler}
-                                        />
+                                    />
 
 
-                                    ))}
-                                </li>
+                                ))}
+
+
                             </label>
                         ))}
                     </div>
                 </article>
+                <ul className="showcase">
+                    <li>
+                        <div className="seat okay"></div>
+                        <small>예매가능</small>
+                    </li>
+                    <li>
+                        <div className="seat selected"></div>
+                        <small>선택좌석</small>
+                    </li>
+                    <li>
+                        <div className="seat occupied"></div>
+                        <small>예매완료</small>
+                    </li>
+                </ul>
             </main>
 
 
             <div id={'btns'}>
                 <button id="reset-btn" onClick={reset}>다시선택</button>
-                <button id="reset-btn2" onClick={saveGo}>결제하기</button>
+                <button id="reset-btn2" onClick={saveGo}>선택완료</button>
             </div>
         </div>
     );
