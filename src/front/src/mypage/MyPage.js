@@ -7,6 +7,7 @@ import axios from "axios";
 import {ScopedCssBaseline} from "@mui/material";
 import MyPageContents from "./MyPageContents";
 import Swal from "sweetalert2";
+import {ChevronRight} from "@material-ui/icons";
 
 function MyPage(props) {
     const p = useParams();
@@ -96,15 +97,16 @@ function MyPage(props) {
     return (
         <div className={"mypage-div"}>
             <div className={"upper-info-div"}>
-                <div className={"photo-div"}>
-                    <img alt={"프로필 사진"} src={`${localStorage.url}/image/${data.u_photo}`} className={"profile-photo"}/>
-                    <input type={"file"} hidden={true} id={"profile-photo"} onChange={onUploadImage}/>
-                    <div className={"photo-fix-icon"} onClick={triggerCLick}>
-                        <EditIcon/>
-                    </div>
-                </div>
+
                 <div className={"mypage-info-wrap"}>
                     <div className={"person-info"}>
+                        <div className={"photo-div"}>
+                            <img alt={"프로필 사진"} src={`${localStorage.url}/image/${data.u_photo}`} className={"profile-photo"}/>
+                            <input type={"file"} hidden={true} id={"profile-photo"} onChange={onUploadImage}/>
+                            <div className={"photo-fix-icon"} onClick={triggerCLick}>
+                                <EditIcon/>
+                            </div>
+                        </div>
                         <strong className={"person-info-name"}>{data.u_name}님</strong>
                         {/*<em className={"person-info-id"}>{data.u_id}</em>*/}
                         <span className={"person-info-nickname"}>
@@ -178,7 +180,10 @@ function MyPage(props) {
                             </ul>
                         </li>
                         <li>
-                            <b className={"sidebar-menu-subtitle menu-items"} onClick={()=>setContents("movieLog")}>무비 로그</b>
+                            <b className={"sidebar-menu-subtitle menu-items"} onClick={()=>setContents("movieLog")}>무비 로그
+                                <ChevronRight fontSize={"large"} style={{marginBottom:6}}/>
+                            </b>
+
                         </li>
                     </ul>
                 </div>
