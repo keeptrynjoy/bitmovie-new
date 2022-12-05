@@ -51,7 +51,6 @@ function MovieList(props) {
         axios.get(`${localStorage.url}/movie/selectMWishList?${sessionStorage.user_pk==null?"":"user_pk="+sessionStorage.user_pk}`)
             .then((res)=>{
                 setMWishList(res.data);
-                console.log("위시",res.data);
             })
     }
 

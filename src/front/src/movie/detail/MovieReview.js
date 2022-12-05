@@ -8,7 +8,10 @@ import {ThumbUpOffAlt} from "@mui/icons-material";
 function MovieReview(props) {
     const review=props.review;
     const get=props.get;
+    const type=props.type;
+    const m_pk=props.m_pk;
     const [user_data,setUser_data]=useState([]);
+    const [like_list,setlike_list]=useState([]);
     const [showAll,setshowAll]=useState(false);
     const [dto,setDto]=useState({
         user_pk: sessionStorage.user_pk,
@@ -20,6 +23,17 @@ function MovieReview(props) {
         axios.get(url)
             .then((res)=>{
                 setUser_data(res.data);
+            })
+    }
+
+    const getLikeRevwList=()=>{
+        if(type!=="detail"){
+            return
+        }
+        const url = `${localStorage.url}/movie/selectLikeRevwList?user_pk=${sessionStorage.user_pk}&movie_pk=${m_pk}`;
+        axios.get(url)
+            .then((res)=>{
+                setlike_list(res.data);
             })
     }
 
@@ -35,8 +49,8 @@ function MovieReview(props) {
             icon:"question",
             text:"정말 신고 하시겠습니까?",
             showDenyButton: true,
-            denyButtonText: "아니오",
-            confirmButtonText: "네"
+            denyButtonText: "취소",
+            confirmButtonText: "확인"
         }).then((result)=>{
             if(result.isConfirmed){
                 axios.post(`${localStorage.url}/user/selectReportYorN`,dto)
@@ -78,17 +92,20 @@ function MovieReview(props) {
             axios.post(`${localStorage.url}/user/deleteLikeRevw`,dto)
                 .then((res)=>{
                     get();
+                    getLikeRevwList();
                 })
         }else{
             axios.post(`${localStorage.url}/user/insertLikeRevw`,dto)
                 .then((res)=>{
                     get();
+                    getLikeRevwList();
                 })
         }
     }
 
     useEffect(()=>{
         getUserData();
+        getLikeRevwList();
     },[])
 
     return (
@@ -110,18 +127,29 @@ function MovieReview(props) {
                     <div className={"neoyong"}>
                         <div className={"review-text-content"}>
                             <div className={showAll?"":"review-text-content-text"}
-                                onClick={()=>{
-                                    setshowAll(!showAll);
-                                }}>
+                                 onClick={()=>{
+                                     setshowAll(!showAll);
+                                 }}>
                                 {review.revw_text}
                             </div>
                         </div>
                         <div className={"review-like"}>
                             {
-                                review.likeYorN?
-                                    <ThumbUp color={"primary"} onClick={()=>handleLike(review.likeYorN)}/>
+                                type==="detail"?
+                                    (
+                                        like_list.includes(review.review_pk)?
+                                            <ThumbUp color={"primary"} onClick={()=>handleLike(like_list.includes(review.review_pk))}/>
+                                            :
+                                            <ThumbUpOffAlt color={"primary"} onClick={()=>handleLike(like_list.includes(review.review_pk))}/>
+                                    )
                                     :
-                                    <ThumbUpOffAlt color={"primary"} onClick={()=>handleLike(review.likeYorN)}/>
+                                    (
+                                        review.likeYorN?
+                                            <ThumbUp color={"primary"} onClick={()=>handleLike(review.likeYorN)}/>
+                                            :
+                                            <ThumbUpOffAlt color={"primary"} onClick={()=>handleLike(review.likeYorN)}/>
+
+                                    )
                             }
                             {review.count_like}
                         </div>
