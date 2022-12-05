@@ -32,7 +32,7 @@
             SUM(p.po_point) OVER(ORDER BY p.po_date, p.point_pk desc) AS sumPoint
         FROM user_tb u JOIN point_tb p ON u.user_pk = p.user_pk
         WHERE u.user_pk = #{user_pk}
-        ORDER BY pDate DESC;
+        ORDER BY pDate DESC, p.po_point ASC;
     </select>
 
     <!-- 결제고유키로 포인트 조회 -->
