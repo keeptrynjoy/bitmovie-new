@@ -352,7 +352,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                         {/*</p>*/}
                         {/*<p><b style={{fontSize:'20px'}}>상영관</b> {obj3.scr_name}</p>*/}
                         <p><b style={{fontSize:'20px'}}>선택 인원</b> 성인 :  <span id={'result'}></span>&nbsp;청소년 : <span id={'result2'}></span></p>
-                        <p><b style={{fontSize:'20px'}}>선택 좌석</b> <span id={'result3'}>{[...selected_seat.join(",")]}</span> </p>
+                        <p><b style={{fontSize:'20px'}}>선택 좌석</b> <span id={'result3'} >{[...selected_seat.join(",")]}</span> </p>
                         <p id="selected-seats"></p>
                     </div>
                 </article>
