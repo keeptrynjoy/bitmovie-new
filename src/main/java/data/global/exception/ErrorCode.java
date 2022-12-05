@@ -15,18 +15,10 @@ public enum ErrorCode {
 
     /* 400 BAD_REQUEST : 잘못된 요청 */
     MISMATCH_PASSWORD(BAD_REQUEST, "비밀번호가 일치하지 않습니다."),
-    TOKEN_TYPE(BAD_REQUEST, "토큰 타입이 올바르지 않습니다."),
-    UNAVAILABLE_REFRESH_TOKEN(BAD_REQUEST, "사용할 수 없는 토큰 입니다."),
-    UNABLE_CHANGE_GRADE(BAD_REQUEST, "동일한 등급으로 변경할 수 없습니다."),
-    INVALID_TICKET_ID(BAD_REQUEST, "잘못된 티켓 ID가 존재합니다."),
     BAD_REQUEST_MOVIE_TIME(BAD_REQUEST, "동일한 상영시간만 결제 가능합니다."),
     BAD_REQUEST_PAYMENT_COMPLETE(BAD_REQUEST, "처리할 결제 정보가 존재하지 않습니다."),
-    BAD_REQUEST_PAYMENT_READY(BAD_REQUEST, "이미 진행 중인 결제가 존재합니다."),
     BAD_REQUEST_PAYMENT_CANCEL(BAD_REQUEST, "취소할 티켓이 존재하지 않습니다."),
-    BAD_REQUEST_TICKET_RESERVATION(BAD_REQUEST, "이미 다른 고객이 예약 진행 중인 좌석이 존재합니다."),
-    BAD_REQUEST_TICKET_SOLD(BAD_REQUEST, "이미 환불 진행 중 입니다."),
     NOT_REFUNDABLE_TIME(BAD_REQUEST, "환불이 가능한 시간이 지났습니다."),
-    NOT_REFUNDABLE_SEAT(BAD_REQUEST, "환불할 수 있는 좌석이 아닙니다."),
     EMPTY_TICKET_ID(BAD_REQUEST, "티켓 정보가 존재하지 않습니다."),
 
     /* 403 FORBIDDEN : 접근 권한 제한 */
@@ -48,8 +40,7 @@ public enum ErrorCode {
     DUPLICATE_PAYMENT(CONFLICT, "해당 좌석은 현재 판매된 좌석입니다."),
     DUPLICATE_MOVIE(CONFLICT, "해당 영화 정보가 이미 존재합니다."),
     DUPLICATE_MOVIE_TIME(CONFLICT, "해당 영화 시간표 정보가 이미 존재합니다."),
-    DELETED_EMAIL(CONFLICT, "이미 삭제된 이메일 입니다."),
-    DELETED_MOVIE(CONFLICT, "이미 삭제된 영화 입니다.");
+    DELETED_EMAIL(CONFLICT, "이미 삭제된 이메일 입니다.");
 
     private final HttpStatus httpStatus;
     private final String detail;
@@ -59,24 +50,8 @@ public enum ErrorCode {
         throw new BitmovieException(MISMATCH_PASSWORD);
     }
 
-    public static BitmovieException throwTokenType() {
-        throw new BitmovieException(TOKEN_TYPE);
-    }
-
-    public static BitmovieException throwUnavailableRefreshToken() {
-        throw new BitmovieException(UNAVAILABLE_REFRESH_TOKEN);
-    }
-
-    public static BitmovieException throwUnableChangeGrade() {
-        throw new BitmovieException(UNABLE_CHANGE_GRADE);
-    }
-
     public static BitmovieException throwBadRequestPaymentComplete() {
         throw new BitmovieException(BAD_REQUEST_PAYMENT_COMPLETE);
-    }
-
-    public static BitmovieException throwBadRequestPaymentReady() {
-        throw new BitmovieException(BAD_REQUEST_PAYMENT_READY);
     }
 
     /* 403 FORBIDDEN : 접근 권한 제한 */
@@ -126,10 +101,5 @@ public enum ErrorCode {
     public static BitmovieException throwDeletedEmail() {
         throw new BitmovieException(DELETED_EMAIL);
     }
-
-    public static BitmovieException throwDeletedMovie() {
-        throw new BitmovieException(DELETED_MOVIE);
-    }
-
 
 }

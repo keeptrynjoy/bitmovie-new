@@ -15,18 +15,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BatchScheduler {
     private final CouponService couponService;
-    private final TheMovieService theMovieService;
     //생일 쿠폰 발급
 //    @Scheduled(cron = "1/10 * * * * *", zone = "Asia/Seoul") //10초마다 실행
     @Scheduled(cron = "0 0 0 * * *", zone = "Asia/Seoul") //매일 자정 실행
-    public void insertBirthCoupon () {
+    public void insertBirthCoupon() {
         couponService.insertBirthCoupon();
     }
     //쿠폰 사용기간 만료되면 사용불가
 //    @Scheduled(cron = "1/10 * * * * *", zone = "Asia/Seoul") //10초마다 실행
     @Scheduled(cron = "0 0 0 * * *", zone = "Asia/Seoul") //매일 자정 실행
-    public void updateCouponState () {
+    @Scheduled(cron = "0 0 12 * * *", zone = "Asia/Seoul") //매일 정오 실행
+    public void updateCouponState() {
         couponService.updateCouponState();
     }
-
 }

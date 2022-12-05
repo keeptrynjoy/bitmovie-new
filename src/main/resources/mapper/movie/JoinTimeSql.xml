@@ -21,6 +21,41 @@
           AND tim.scrtime_pk = book.scrtime_pk;
     </select>
 
+    <!--  영화 상세 - 상영 시간표 - 영화,날짜에 따른 극장정보반환 -->
+    <select id="selectTheaterByTime" parameterType="Map" resultType="Map">
+        SELECT
+               th.theater_pk,
+               th.the_name
+        FROM screentime_tb tim, theater_tb th
+        WHERE tim.movie_pk= #{movie_pk}
+          AND tim.scrt_date = #{date}
+          AND tim.theater_pk = th.theater_pk
+        GROUP BY th.theater_pk;
+    </select>
+    <!--  영화 상세 - 상영시간표 - 극장에 따른 상영관 정보 반환-->
+    <select id="selectScreenByTheater" parameterType="Map" resultType="Map">
+        SELECT scr.*
+        FROM screen_tb scr,
+             screentime_tb tim
+        WHERE tim.theater_pk = #{theater_pk}
+          AND tim.movie_pk = #{movie_pk}
+          AND tim.scrt_date = #{date}
+          AND tim.screen_pk = scr.screen_pk
+        GROUP BY scr.screen_pk;
+    </select>
+    <!-- 영화 상세 - 상영 시간표 - 상영관에 따른 상영시간 정보 반환  -->
+    <select id="selectTimeByScreen" parameterType="Map" resultType="Map">
+        SELECT tim.*,
+               ifnull((sum(book.book_adult_cnt) + sum(book.book_youth_cnt)),0) AS booked,
+               ifnull(group_concat(book.book_seat_num),null)                      AS seat
+        FROM screentime_tb tim LEFT OUTER JOIN booking_tb book ON book.scrtime_pk = tim.scrtime_pk
+        WHERE tim.movie_pk = #{movie_pk}
+          AND tim.scrt_date = #{date}
+          AND tim.theater_pk = #{theater_pk}
+          AND tim.screen_pk = #{screen_pk}
+        GROUP BY tim.scrtime_pk;
+    </select>
+
     <!--  영화 상영 시간표 - 영화,극장,날짜에따라 반응  테스트중-->
     <select id="selectTimeByClick" parameterType="Map" resultType="JoinTime">
         SELECT tim.screen_pk,
@@ -68,16 +103,30 @@
                 AND theater_pk = #{theater_pk}
             </if>
     </select>
-
-    <!-- 상영시간 데이터(상영관명,영화명,관람등급,총좌석수) 조회 -->
-    <select id="selectScrtFirstInfo" resultType="JoinTime" parameterType="screentime">
+    <!--예매 : 상영시간 데이터 조회 -->
+    <select id="selectScrtForBook" resultType="JoinTime" parameterType="screentime">
         SELECT
-           scr.screen_pk ,scr.scr_name, mt.m_name, mt.m_age_grd, scr.scr_tot_seat
-        FROM screentime_tb scrt, movie_tb mt, screen_tb scr
+            scrt.scrtime_pk,
+            scrt.scrt_stime,
+            scrt.scrt_etime,
+            seat.booked,
+            scr.scr_name,
+            scr.scr_tot_seat,
+            scr.scr_floor,
+            mt.m_name,
+            mt.m_age_grd
+        FROM screentime_tb scrt
+                 LEFT OUTER JOIN (SELECT bt.scrtime_pk, sum(bt.book_adult_cnt) + sum(bt.book_youth_cnt) AS booked
+                                  FROM booking_tb bt
+                                  GROUP BY bt.scrtime_pk) AS seat
+                                 ON scrt.scrtime_pk = seat.scrtime_pk
+                 LEFT OUTER JOIN (SELECT st.theater_pk , scrt.scrtime_pk, st.screen_pk, st.scr_name, st.scr_tot_seat, st.scr_floor
+                                  FROM screentime_tb scrt, screen_tb st
+                                  WHERE scrt.screen_pk = st.screen_pk) AS scr
+                                 ON scrt.scrtime_pk = scr.scrtime_pk
+                 LEFT OUTER JOIN movie_tb mt ON scrt.movie_pk = mt.movie_pk
         WHERE scrt.movie_pk=#{movie_pk}
-          AND scrt.scrt_date =#{scrt_date}
-          AND scrt.theater_pk =#{theater_pk}
-          AND mt.movie_pk = scrt.movie_pk
-          AND scr.screen_pk = scrt.screen_pk;
+          AND scrt.theater_pk=#{theater_pk}
+          AND scrt.scrt_date=#{scrt_date};
     </select>
 </mapper>

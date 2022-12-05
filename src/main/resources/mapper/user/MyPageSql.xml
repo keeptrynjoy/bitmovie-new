@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.repository.user.MyPageRepository">
-    <!--마이페이지 유저 정보 출력-->
-    <select id="selectUser" parameterType="int" resultType="User">
-        SELECT * FROM user_tb WHERE user_pk = #{user_pk}
-    </select>
-    <!--마이페이지 회원 정보 수정-->
-    <update id="updateUser" parameterType="User">
-        UPDATE user_tb
-        SET u_pass = #{u_pass}, u_name = #{u_name}, u_nick = #{u_nick}, u_phone = #{u_phone},
-            u_photo = #{u_photo}, u_pwudtdate = now(), u_gender = #{u_gender}, u_birth = #{u_birth}
-        WHERE user_pk = #{user_pk}
-    </update>
     <!--마이페이지 예매 목록 조회-->
     <select id="selectBooking" parameterType="int" resultType="MyPage">
         SELECT
@@ -20,6 +9,7 @@
             b.booking_pk AS booknumber,
             b.book_the_name AS theater,
             b.book_issu_date AS issue,
+            b.book_seat_num AS seat,
             b.book_adult_cnt AS adult,
             b.book_youth_cnt AS youth,
             st.scrt_date AS date,
@@ -35,7 +25,8 @@
             JOIN screentime_tb st ON b.scrtime_pk = st.scrtime_pk
             JOIN screen_tb s ON s.screen_pk = st.screen_pk
             JOIN movie_tb m ON st.movie_pk = m.movie_pk
-        WHERE u.user_pk = #{user_pk} AND DATEDIFF(now(), b.book_issu_date) &lt; 30;
+        WHERE u.user_pk = #{user_pk} AND DATEDIFF(now(), b.book_issu_date) &lt; 30
+        ORDER BY booknumber DESC;
     </select>
     <!--마이페이지 무비로그 조회-->
     <select id="selectMovieLog" parameterType="int" resultType="MyPage">
@@ -50,49 +41,24 @@
             m.m_name AS title,
             m.m_enname AS engtitle,
             m.m_age_grd AS grade,
-            m.m_photo AS poster
+            m.m_photo AS poster,
+            m.movie_pk AS movie_pk
         FROM
             user_tb u JOIN payment_tb p ON u.user_pk = p.user_pk
             JOIN booking_tb b ON p.payment_pk = b.payment_pk
             JOIN screentime_tb st ON b.scrtime_pk = st.scrtime_pk
             JOIN screen_tb s ON s.screen_pk = st.screen_pk
             JOIN movie_tb m ON st.movie_pk = m.movie_pk
-        WHERE u.user_pk = #{user_pk};
-    </select>
-    <!--마이페이지 포인트 조회-->
-    <select id="selectPoint" parameterType="int" resultType="int">
-        SELECT u_point FROM user_tb WHERE user_pk = #{user_pk}
-    </select>
-    <!--마이페이지 포인트 적립/소멸 내역 조회-->
-    <select id="selectPointDetail" parameterType="int" resultType="MyPage">
-        SELECT
-            u.user_pk AS user,
-            p.po_point AS inDePoint,
-            p.po_date AS pDate,
-            SUM(p.po_point) OVER(ORDER BY p.po_date, p.point_pk desc) AS sumPoint
-        FROM user_tb u JOIN point_tb p ON u.user_pk = p.user_pk
         WHERE u.user_pk = #{user_pk}
+        GROUP BY title
+        ORDER BY date DESC, begin DESC;
     </select>
-    <!--마이페이지 포인트 갱신-->
-    <update id="updatePoint" parameterType="point">
-        UPDATE user_tb SET u_point = u_point + #{po_point} WHERE user_pk = #{user_pk}
+    <!--사진 파일명 조회-->
+    <select id="selectPhotoName" parameterType="User" resultType="String">
+        SELECT u_photo FROM user_tb WHERE user_pk = #{user_pk}
+    </select>
+    <!--프로필드 사진 업로드-->
+    <update id="updateUserPhoto" parameterType="User">
+        UPDATE user_tb SET u_photo = #{u_photo} WHERE user_pk = #{user_pk}
     </update>
-    <!--마이페이지 사용가능 쿠폰 개수 조회-->
-    <select id="selectMyCouponCount" parameterType="int" resultType="int">
-        SELECT count(*) FROM coupon_tb WHERE user_pk = #{user_pk} AND c_use_state = 0
-    </select>
-    <!--마이페이지 사용가능 쿠폰 조회-->
-    <select id="selectMyCouponDetail" parameterType="int" resultType="Coupon">
-        SELECT coupon_pk, c_class, c_amount, c_issue_date, c_exp_date
-        FROM coupon_tb WHERE user_pk = #{user_pk} AND c_use_state = 0
-    </select>
-    <!--마이페이지 만료예정 쿠폰 개수 조회-->
-    <select id="selectExpCoupon" parameterType="int" resultType="int">
-        SELECT count(*) FROM coupon_tb WHERE user_pk = #{user_pk} AND DATEDIFF(c_exp_date, CURDATE()) &lt; 7
-    </select>
-    <!--마이페이지 쿠폰 발급/사용 내역 조회-->
-    <select id="selectCouponDetail" parameterType="int" resultType="Coupon">
-        SELECT coupon_pk, c_class, c_amount, c_issue_date, c_exp_date, c_use_date, c_use_state
-        FROM coupon_tb WHERE user_pk = #{user_pk}
-    </select>
 </mapper>

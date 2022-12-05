@@ -2,6 +2,7 @@ package data.service.user;
 
 import data.domain.movie.*;
 import data.repository.movie.*;
+import data.repository.user.LikeRevwRepository;
 import data.repository.user.MWishRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,41 +23,72 @@ public class MainService {
     private final JoinCastRepository joinCastRepository;
     private final JoinTimeRepository joinTimeRepository;
     private final MWishRepository mWishRepository;
+    private final MovieRepository movieRepository;
+    private final LikeRevwRepository likeRevwRepository;
 
     // 가장 최신 등록된 평점을 'count'갯수 만큼 반환
-    public List<JoinRevw> selectRecentRevw(int count) {
-        return joinRevwRepository.selectRecentRevw(count);
+    public List<JoinRevw> selectRecentRevw(int count, int user_pk) {
+        // 최신등록된 평점 정보반환
+        List<JoinRevw> joinRevws = joinRevwRepository.selectRecentRevw(count);
+        // 해당 평점에 대해 유저가 좋아요를 클릭했는지 여부 판단
+        if(user_pk!=0){
+            for (int i = 0; i < joinRevws.size(); i++) {
+                // 좋아요 클릭 여부를 판단해
+                Map<String, Integer> map = new HashMap<>();
+                map.put("user_pk",user_pk);
+                map.put("review_pk", joinRevws.get(i).getReview_pk());
+                boolean yorN = likeRevwRepository.likeYorN(map);
+                // 해당 값을 joinRevws 에 담아 반환한다
+                joinRevws.get(i).setLikeYorN(yorN);
+            }
+        }
+        return joinRevws;
     }
 
     // 검색 기능 - 영화 , 인물정보 검색
     public Map<String,Object> selectSearchData(String search) {
-        System.out.println("search"+search);
         Map<String, Object> map = new HashMap<>();
         // 영화 정보 출력
         List<JoinMovie> movie_list = joinMovieRepository.selectSearchMovie(search);
-        // 영화 평점정보 등록
-        for(int i=0; i<movie_list.size(); i++){
+
+        String movie_state = "before";
+        for(int i= movie_list.size()-1; i>=0; i--){
             int movie_pk = movie_list.get(i).getMovie_pk();
+            // 영화 평점정보 등록
             int wish = mWishRepository.selectWishCnt(movie_pk);
             movie_list.get(i).setWish_cnt(wish);
-        }
 
-//        String m_sdate = movie_list.get(0).getM_sdate();
-//        String m_edate = movie_list.get(0).getM_edate();
-//        LocalDate now = LocalDate.now();
-//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        String now_date = now.format(dtf);
-//        int sdate = Integer.parseInt(m_sdate);
-//        System.out.println("sdate"+ sdate);
+            // 영화 상영 예정인지 여부 확인
+            LocalDate now = LocalDate.now();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String date = now.format(dtf);
+            Map<String, Object> temp = new HashMap<>();
+            map.put("movie_pk", movie_pk);
+            map.put("date", date);
+            // movie_list 가 개봉일 기준으로 정렬되어 있어 아래와 같이 코드를 작성.
+            int state;
+            switch (movie_state){
+                case "before" :
+                    state = movieRepository.selectComingorNot(temp);
+                    System.out.println(state);
+                    if(state==1){
+                        movie_list.get(i).setIng_or_not(movie_state);
+                        break;
+                    } else movie_state = "ing";
+                case "ing" :
+                    state = movieRepository.selectIngOrNot(temp);
+                    if(state==1){
+                        movie_list.get(i).setIng_or_not(movie_state);
+                        break;
+                    } else movie_state = "after";
+                case "after" : 
+                    movie_list.get(i).setIng_or_not(movie_state);
+                    break;
+            }
+        }
 
         // 인물 정보 출력
         List<Person> people_list = personRepository.selectSearchList(search);
-        // 출력되는 첫번째 인물의 상세 정보 출력
-//        if(people_list.size()!=0){
-//            int person_pk = people_list.get(0).getPerson_pk();
-//            List<JoinCast> person_detail = joinCastRepository.selectCastDetail(person_pk);
-//            map.put("person_detail", person_detail);
-//        }
         // controller 로 데이터 전달
         map.put("people_list", people_list);
         map.put("movie_list", movie_list);

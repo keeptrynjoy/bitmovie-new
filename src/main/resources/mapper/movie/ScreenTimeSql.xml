@@ -1,20 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.repository.movie.ScreenTimeRepository">
-    <insert id="insertScrTime" parameterType="screenTime">
-        INSERT INTO screentime_tb VALUES
-               (null,#{movie_pk},#{scrt_date},#{scrt_stime},#{scrt_etime})
-    </insert>
+
+
+<!--    <insert id="insertScrTime" parameterType="screenTime">-->
+<!--        INSERT INTO screentime_tb VALUES-->
+<!--               (null,#{movie_pk},#{scrt_date},#{scrt_stime},#{scrt_etime})-->
+<!--    </insert>-->
+
+
+    <!--상영시간 고유키로 상영시간 등록 개수 조회-->
+    <select id="selectScrTimeByScrtimePK" resultType="boolean" parameterType="int">
+        SELECT count(*) FROM screentime_tb WHERE scrtime_pk=#{scrtime_pk}
+    </select>
+
+    <!-- 영화 고유키로 상영시간 데이터 조회-->
     <select id="selectScrTimeByScreen" resultType="screenTime" parameterType="int">
         SELECT * FROM screentime_tb WHERE screen_pk=#{screen_pk}
     </select>
+
+    <!--극장고유키로 상영시간 데이터 조회-->
     <select id="selectScrTimeByTheater" resultType="screenTime" parameterType="int">
         SELECT * FROM screentime_tb WHERE theater_pk=#{theater_pk}
     </select>
+
+    <!-- 상영시간 데이터 수정 -->
     <update id="updateScrTimeByPk" parameterType="screenTime">
         UPDATE screentime_tb SET screen_pk=#{screen_pk}, movie_pk=#{movie_pk}, theater_pk=#{theater_pk}, scrt_date=#{scrt_date},
                                  scrt_stime=#{scrt_stime}, scrt_etime=#{scrt_etime} WHERE scrtime_pk=#{scrtime_pk}
     </update>
+
+    <!-- 상영시간 데이터 삭제 -->
     <delete id="deleteScrTime" parameterType="int">
         DELETE FROM screentime_tb WHERE scrtime_pk=#{scrtime_pk}
     </delete>
@@ -37,5 +53,4 @@
           AND scrt.theater_pk=#{theater_pk}
           AND scrt.scrt_date=#{scrt_date};
     </select>
-
 </mapper>

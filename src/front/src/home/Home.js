@@ -6,6 +6,8 @@ import {Autoplay, Navigation, Pagination} from "swiper";
 import ReactPlayer from "react-player";
 import axios from "axios";
 import {CircularProgress} from "@mui/material";
+import MovieReview from "../movie/detail/MovieReview";
+import {useNavigate} from "react-router-dom";
 
 function Home(props) {
     localStorage.url=process.env.REACT_APP_URL;
@@ -17,6 +19,7 @@ function Home(props) {
     const [selected_movie_data,setSelected_movie_data] = useState([]);
     const [reviews, setReviews] = useState([]);
     const [index,setIndex] = useState(0);
+    const navi=useNavigate();
 
     // kobis 영화진흥원 key
     // const key ='3e56c5d518bc82f65d4d1d16806fdd37';
@@ -35,7 +38,7 @@ function Home(props) {
         // setLoading(false);
 
         //더 무비 api
-        await axios.get(`https://api.themoviedb.org/3/movie/${type}?api_key=${key}&language=ko&page=1&region=kr`)
+        await axios.get(`https://api.themoviedb.org/3/movie/${type}/?api_key=${key}&language=ko&page=1&region=kr`)
             .then((res)=>{
                 console.log(res.data);
                 setMovies(res.data.results);
@@ -44,11 +47,21 @@ function Home(props) {
             })
     };
 
+    const getReviews =()=>{
+        const getMovieUrl = `${localStorage.url}/main/selectRecentRevw?${sessionStorage.user_pk==null?"":"user_pk="+sessionStorage.user_pk}`;
+        axios.get(getMovieUrl)
+            .then((res)=>{
+                console.log(res.data);
+                setReviews(res.data);
+            })
+    }
+
     //페이지 로딩시 데이터 가져오기
     useEffect(() => {
         getMovies("popular").then(r=>{
             setLoading(false);
         });
+        getReviews();
     }, []);
 
     const movieChart = () =>{
@@ -81,7 +94,6 @@ function Home(props) {
         const getMovieUrl = `${localStorage.url}/movie/selectMovieData?movie_pk=${selected_movie}`;
         await axios.get(getMovieUrl)
             .then((res)=>{
-                console.log(res.data);
                 setSelected_movie_data(res.data.data);
             })
     }
@@ -159,15 +171,22 @@ function Home(props) {
                     }
                 </div>
             </div>
-            <h1 style={{textAlign:'center',marginTop:'100px'}}>Movie Review</h1>
-            <div className={"testt"}>
-                {reviews.map((review,i) => (
-                    <div className={'rvv'} key={i}>
-                        {review.name}
-                    </div>
-                ))}
+            <h1 style={{textAlign:'center'}}>Movie Review</h1>
+            <div className={"recent-revw"}>
+                <div className={"recent-revw-list"}>
+                    {reviews.map((review,i) => (
+                        <div key={i}>
+                            <div className={"review-movie-title"}
+                                 onClick={()=>{
+                                     navi(`/movie/detail/${review.movie_pk}`);
+                                 }}>
+                                {review.m_name}
+                            </div>
+                            <MovieReview review={review} get={getReviews}/>
+                        </div>
+                    ))}
+                </div>
             </div>
-
         </div>
     )
 }

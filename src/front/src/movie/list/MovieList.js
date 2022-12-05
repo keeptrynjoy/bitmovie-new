@@ -3,15 +3,17 @@ import "./MovieList.css"
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import MovieCard from "./MovieCard";
-import {Button, ButtonGroup, Divider, Pagination, ScopedCssBaseline, Switch} from "@mui/material";
-import {ChevronRight, FavoriteBorderOutlined} from "@material-ui/icons";
+import {Button, ButtonGroup, CircularProgress, Divider, Pagination, ScopedCssBaseline, Switch} from "@mui/material";
+import {ChevronRight, Favorite, FavoriteBorderOutlined} from "@material-ui/icons";
 import usePagination from "../../service/UsePagination";
 import Age from "../../service/Age";
 
 function MovieList(props) {
     const navi = useNavigate();
 
+    const [loading,setLoading] = useState(true);
     const [mlist, setMlist] = useState([]);
+    const [MWishList,setMWishList] = useState([]);
     //페이징
     let [page, setPage] = useState(1);
     const PER_PAGE = 20;
@@ -19,7 +21,7 @@ function MovieList(props) {
     const _DATA = usePagination(mlist, PER_PAGE);
 
     //정렬순서 변수
-    const [order,setOrder] = useState("");
+    const [order,setOrder] = useState("m_name");
     //개봉,상영예정 변수
     const [in_theater,setIn_theater] = useState("");
 
@@ -36,10 +38,18 @@ function MovieList(props) {
             return str
         }
         else{
-            str += `order_stand=${order_stand}&BorA=${BorA}`;
+            str += `&order_stand=${order_stand}&BorA=${BorA}`;
         }
-        console.log("url=" + str);
         return str
+    }
+
+    //영화 위시리스트
+    const getMwishList=()=>{
+        axios.get(`${localStorage.url}/movie/selectMWishList?${sessionStorage.user_pk==null?"":"user_pk="+sessionStorage.user_pk}`)
+            .then((res)=>{
+                setMWishList(res.data);
+                console.log("위시",res.data);
+            })
     }
 
     const toggleBorA=()=>{
@@ -56,11 +66,30 @@ function MovieList(props) {
         _DATA.jump(1);
     }
 
+    const handleMWish=(e)=>{
+        console.log("pk",e.target.value);
+        if(MWishList.includes(e.target.value)){
+            axios.post(`${localStorage.url}/user/deleteMWish`,{movie_pk:e.target.value,user_pk:sessionStorage.user_pk})
+                .then((res)=>{
+                    alert("삭제")
+                    getData();
+                })
+        }else{
+            axios.post(`${localStorage.url}/user/insertMWish`,{movie_pk:e.target.value,user_pk:sessionStorage.user_pk})
+                .then((res)=>{
+                    alert("좋아요")
+                    getData();
+                })
+        }
+    }
+
     //시작 데이터 가져오기
     const getData =()=>{
+        setLoading(true);
         axios.get(makeListUrl())
             .then((res)=>{
                 setMlist(res.data);
+                setLoading(false);
             });
     }
 
@@ -74,22 +103,23 @@ function MovieList(props) {
 
     //특정값 가져오기
     const getRankData=(order_stand,BorA)=>{
+        setLoading(true);
         axios.get(makeListUrl(order_stand,BorA))
             .then((res)=>{
                 setMlist(res.data);
+                setLoading(false);
             });
     }
 
     //페이지 로딩시 데이터 가져오기
     useEffect(() => {
         getData();
+        getMwishList();
     }, []);
 
     //정렬순서, 개봉작 바뀔 때마다 리스트 가져오기
     useEffect(()=>{
         getRankData(order,in_theater);
-        console.log("order: "+order);
-        console.log("in_theater: "+in_theater);
         console.log(mlist);
     },[order,in_theater]);
 
@@ -129,69 +159,79 @@ function MovieList(props) {
                 </div>
             </div>
             <hr style={{width:"85%", margin:"auto", height:"3px", backgroundColor:"black"}}/>
-            <div className={"sorting"} >
-                <span className={"toggle-BorA"}>
-                    {
-                        in_theater!=="before"?
-                            <span>
-                            <Switch checked={in_theater === "after"} onChange={toggleBorA}/>
-                            개봉작만
-                            </span>
-                            :
-                            ""
-                    }
-                </span>
-                <span className={"btn-group"}>
-                    <ButtonGroup variant="outlined" aria-label="outlined button group">
-                          <Button className={"nameBtn"} onClick={()=>setOrder("m_name")}>이름순</Button>
-                          <Button className={'reserveBtn'} onClick={()=>setOrder("reserve_rate")}>예매율순</Button>
-                          <Button className={'starBtn'} onClick={()=>setOrder("revw_avgstar")}>평점순</Button>
-                    </ButtonGroup>
-                </span>
-            </div>
+            {
+                in_theater!=="before"?
+                    <div className={"sorting"} >
+                        <span className={"toggle-BorA"}>
+                                    <span>
+                                    <Switch checked={in_theater === "after"} onChange={toggleBorA}/>
+                                    개봉작만
+                                    </span>
+                        </span>
+                        <span className={"btn-group"}>
+                            <ButtonGroup variant="outlined" aria-label="outlined button group">
+                                  <Button className={"nameBtn"} onClick={()=>setOrder("m_name")}>이름순</Button>
+                                  <Button className={'reserveBtn'} onClick={()=>setOrder("reserve_rate")}>예매율순</Button>
+                                  <Button className={'starBtn'} onClick={()=>setOrder("revw_avgstar")}>평점순</Button>
+                            </ButtonGroup>
+                        </span>
+                    </div>
+                    :
+                    <div className={"sorting"}>
+                    </div>
+            }
             <div className={"movie-card-list-div"}>
-                <div className={'mplist'}>
-                    {mlist && _DATA.currentData().map((item,i) => (
-                        <div className={"movie-list-items"} key={i}>
-                            <MovieCard movie_data={item}/>
-                            <div className={"movie-card-text"}>
-                                <div className={"tit-area"}>
-                                    <ScopedCssBaseline/>
-                                    <span className={"movie-grade"}><Age age={item.m_age_grd} size={20}/></span>
-                                    <span className={"tit"}>{item.m_name}</span>
-                                </div>
-                                <div className={"rate-date"}>
-                                    <span className={"rate"}>예매율 : {item.reserve_rate}%</span>
-                                    <span className={"date"}>개봉일 : {item.m_sdate}</span>
-                                </div>
-                                <div className={"btn-div"}>
-                                <span className={"like-btn"}>
-                                    <Button variant="outlined" startIcon={<FavoriteBorderOutlined />}>
-                                    좋아요
-                                </Button>
-                                </span>
-                                    <span className={"book-btn"}>
-                                <Button
-                                    variant={"contained"}
-                                    sx={{
-                                        width:"120px",
-                                        marginLeft:"10px"
-                                    }}
-                                    onClick={() => navi("/ticketing")}>예매</Button>
-                                </span>
-                                </div>
+                {
+                    loading?
+                        <div style={{display:"flex",justifyContent:"center",width:"100%",marginTop:"300px"}}>
+                            <CircularProgress/>
+                        </div>
+                        :
+                        <div>
+                            <div className={'mplist'}>
+                                {mlist && _DATA.currentData().map((item,i) => (
+                                    <div className={"movie-list-items"} key={i}>
+                                        <MovieCard movie_data={item}/>
+                                        <div className={"movie-card-text"}>
+                                            <div className={"tit-area"}>
+                                                <ScopedCssBaseline/>
+                                                <span className={"movie-grade"}><Age age={item.m_age_grd} size={20}/></span>
+                                                <span className={"tit"}>{item.m_name}</span>
+                                            </div>
+                                            <div className={"rate-date"}>
+                                                <span className={"rate"}>예매율 : {item.reserve_rate}%</span>
+                                                <span className={"date"}>개봉일 : {item.m_sdate}</span>
+                                            </div>
+                                            <div className={"btn-div"}>
+                                                <span className={"like-btn"}>
+                                                    <Button variant="outlined"
+                                                            startIcon={MWishList.includes(item.movie_pk)?<Favorite/>:<FavoriteBorderOutlined />}
+                                                            style={{width:"100px"}}
+                                                            onClick={handleMWish}
+                                                            value={item.movie_pk}
+                                                    >
+                                                    {item.wish_cnt}
+                                                    </Button>
+                                                </span>
+                                                <span className={"book-btn"}>
+                                                    <Button variant={"contained"} sx={{width:"120px", marginLeft:"10px"}}
+                                                            onClick={() => navi("/ticketing")}>예매</Button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className={"table-pagination"}>
+                                <Pagination
+                                    count={count}
+                                    size="large"
+                                    page={page}
+                                    onChange={handleChange}
+                                />
                             </div>
                         </div>
-                    ))}
-                </div>
-                <div className={"table-pagination"}>
-                    <Pagination
-                        count={count}
-                        size="large"
-                        page={page}
-                        onChange={handleChange}
-                    />
-                </div>
+                }
             </div>
         </div>
     );

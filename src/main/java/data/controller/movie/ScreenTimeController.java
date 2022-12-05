@@ -1,8 +1,6 @@
 package data.controller.movie;
 
-import data.domain.movie.Movie;
 import data.domain.movie.ScreenTime;
-import data.service.movie.MovieService;
 import data.service.movie.ScreenTimeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,17 +27,18 @@ public class ScreenTimeController {
         return new ResponseEntity<>(screenTime,HttpStatus.OK);
     }
 
+    /* 예매 - 상영시간  */
     @GetMapping("/screen_times")
     public ResponseEntity screenTimes(@RequestParam int movie,
                                          @RequestParam int theater,
                                          @RequestParam Date date){
 
-        ScreenTime  screenTime = ScreenTime.builder()
+        ScreenTime screenTime = ScreenTime.builder()
                                     .movie_pk(movie)
                                     .theater_pk(theater)
-                                   .scrt_date(date)
+                                    .scrt_date(date)
                                     .build();
 
-        return ResponseEntity.ok(screenTimeService.selectScrtInfo(screenTime));
+        return ResponseEntity.ok(screenTimeService.selectScrtForBook(screenTime));
     }
 }

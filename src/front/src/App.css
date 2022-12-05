@@ -185,20 +185,39 @@ img.movie-poster {
     font-size: 18px;
 }
 
-.testt {
-    width: 500px;
-    height: 500px;
+.recent-revw {
+    display: flex;
+    justify-content: center;
+    width: 100%;
     margin-top: 100px;
-    margin-left: 36%;
+}
+
+.recent-revw-list {
+    height: 600px;
     overflow: scroll;
     -ms-overflow-style: none;
     overflow-x: hidden;
     border-radius: 20px;
 }
 
-.testt::-webkit-scrollbar{
-    display:none;
+/*.recent-revw-list::-webkit-scrollbar{*/
+/*    display:none;*/
+/*}*/
+
+.recent-revw-list .review-movie-title{
+    width: 800px;
+    height: 35px;
+    font-size: 20px;
+    margin-left: 20px;
+    margin-top: 25px;
+    text-align: left;
 }
 
-
+.recent-revw-list .review-movie-title:hover{
+    cursor: pointer;
+}
 /* 여기까지 메인페이지 css 입니다 */
+
+.main-wrapper {
+   height : 3000px;
+}

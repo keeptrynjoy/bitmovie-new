@@ -18,8 +18,8 @@
 
     <!--  TMDB api 영화 정보 저장  -->
     <insert id="insertDetailData" parameterType="movie">
-        INSERT INTO movie_tb (movie_pk, m_name, m_type, m_sdate, m_edate, m_runtime, m_info, m_country, m_age_grd)
-        VALUES (#{movie_pk}, #{m_name}, #{m_type}, #{m_sdate}, #{m_edate}, #{m_runtime}, #{m_info}, #{m_country}, #{m_age_grd});
+        INSERT INTO movie_tb (movie_pk, m_name, m_type, m_sdate, m_edate, m_runtime, m_age_grd, m_info, m_photo, m_video, m_enname, m_country)
+        VALUES (#{movie_pk}, #{m_name}, #{m_type}, #{m_sdate}, #{m_edate}, #{m_runtime}, #{m_age_grd}, #{m_info}, #{m_photo}, #{m_video}, #{m_enname}, #{m_country} );
     </insert>
 
     <!--  TMDB api 영화 정보 저장(사진, 영어제목, 동영상)  -->
@@ -29,13 +29,13 @@
         WHERE movie_pk = #{movie_pk}
     </update>
 
-    <!-- DB에 저장된 영화 PK 전부 출력 -->
-    <select id="selectTotalMovie" resultType="movie">
-        SELECT * FROM movie_tb WHERE m_sdate &lt; now();
+    <!--  영화 상영중인지 여부 확인  -->
+    <select id="selectIngOrNot" parameterType="Map" resultType="int">
+        SELECT count(*) FROM movie_tb WHERE movie_pk = #{movie_pk} AND #{date} > m_sdate  AND m_edate > #{date}
     </select>
 
-
-    <select id="IngOrNot" parameterType="Map" resultType="int">
-        SELECT count(*) movie_tb WHERE movie_pk = #{movie_pk} AND
+    <!--  영화 개봉예정인지 여부 확인  -->
+    <select id="selectComingorNot" parameterType="Map" resultType="int">
+        SELECT count(*) FROM movie_tb WHERE movie_pk = #{movie_pk} AND m_sdate > #{date}
     </select>
 </mapper>

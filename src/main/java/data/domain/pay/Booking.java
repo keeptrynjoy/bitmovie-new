@@ -10,8 +10,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@ToString
 @Alias("booking")
 public class Booking {
     private int booking_pk;

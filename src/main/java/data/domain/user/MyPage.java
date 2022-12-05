@@ -19,12 +19,14 @@ public class MyPage {
     private String theater;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     private Timestamp issue;
+    private String seat;
     private int adult;
     private int youth;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     private Timestamp date;
     private Time begin;
     private Time endtime;
+    private int movie_pk;
     private String screen;
     private String title;
     private String engtitle;
@@ -34,6 +36,7 @@ public class MyPage {
     private int user;
     private int in_decrease;
     private int inDePoint;
+    private String history;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     private Timestamp pDate;
     private int sumPoint;

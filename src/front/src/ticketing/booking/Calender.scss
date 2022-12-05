@@ -4,13 +4,16 @@
 
 
 .calendar {
-  width: 90%;
+  width: 100%;
   margin: auto;
 .header {
     @include common.flex-row(space-between, baseline);
 .col.col-first {
     @include common.flex-column(center, flex-start);
 }
+  .col.col-start{
+    height: 50px;
+  }
 
 .col.col-end {
     align-items: center;
@@ -23,12 +26,13 @@
 
 svg {
     height: 20px;
-    color: transparentize(gray, 0.2);
+    color: transparentize(black, 0.2);
 
 &:hover {
      @include common.hover-event();
      transform: scale(1.15);
-     color: theme.$dark-gray-color;
+     //color: theme.$dark-gray-color;
+  color: black;
  }
 }
 }
@@ -41,16 +45,14 @@ svg {
     text-align: center;
     margin: auto;
     align-items: center;
-    color: theme.$dark-gray-color;
+    //color: theme.$dark-gray-color;
     font-size: 15px;
 .col {
-    background: gainsboro;
-    border-radius: 25px;
+    //background: gainsboro;
     height: 50px;
     font-size: 15px;
     line-height: 45px;
-    font-style: italic;
-    margin-bottom: 5px;
+    //font-style: italic;
 }
 }
 .body {
@@ -63,16 +65,18 @@ svg {
     @include common.size(100%, 100%);
     @include common.flex-row(flex-start, flex-start);
 
-    border: 0.4px solid transparentize(gray, 0.4);
+    //border: 0.4px solid transparentize(gray, 0.4);
     font-size: 0.3em;
     color: white;
     margin: 0 auto;
-    border-radius: 25px;
+    padding: 0;
     justify-content: center;
     width: 50px;
-    height:48px;
+    height:50px;
     align-items: center;
-    background-color: #3a3a3a;
+    //background-color: transparentize(black, 0.6);
+    //background-color: black;
+
 
 
 
@@ -84,13 +88,14 @@ span {
 }
 
 
+
 .not-valid {
-    background-color: theme.$gray-color;
+    //background-color: theme.$gray-color;
     text-align: center;
     align-items: center;
     line-height: 45px;
     margin: 0 auto;
-    height: 48px;
+    //height: 50px;
     border-radius: 25px;
     justify-content: center;
 
@@ -103,31 +108,45 @@ img {
   height: 50px;
   margin: 0 auto;
   align-items: center;
-  border-radius: 25px;
-  background-color: theme.$dark-gray-color;
+  //border-radius: 10px;
+  //background-color: theme.$dark-gray-color;
+  background-color: white;
+  color: black;
   justify-content: center;
 
 
 &:hover {
      @include common.hover-event();
-     @include common.shadow(1.5px, theme.$dark-gray-color, 0.1);
-     transform: scale(1.01);
+     //@include common.shadow(1.5px, theme.$dark-gray-color, 0.1);
+     transform: scale(1);
      border: none;
      background: transparentize(theme.$gray-color, 0.5);
-      justify-content: center;
+     justify-content: center;
  }
 }
 .col.cell.selected {
-  @include common.shadow(1.5px, theme.$dark-gray-color, 0.1);
+  //@include common.shadow(1.5px, theme.$dark-gray-color, 0.1);
     margin: 0 auto;
     height: 50px;
-    background: lightgrey;
+    //background: lightgrey;
+    background: transparentize(theme.$gray-color, 0.5);
     color: black;
     align-items: center;
-    border-radius: 25px;
+    //border-radius: 10px;
     justify-content: center;
-}
-}
-}
-}
 
+}
+  .col.cell.disabled {
+    opacity: 0.2;
+    color:black;
+    background-color: aliceblue;
+    //background-color: lightslategrey;
+    cursor: default;
+
+
+  }
+
+
+}
+}
+}

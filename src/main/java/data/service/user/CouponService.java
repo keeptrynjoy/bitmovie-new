@@ -6,16 +6,17 @@ import data.repository.user.CouponRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Random;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class CouponService {
     private final CouponRepository couponRepository;
     //생일 쿠폰 생성
-    public void insertBirthCoupon () {
+    public void insertBirthCoupon() {
         //user_pk 담긴 list 생성
         List<User> userList = couponRepository.selectBirthUser();
         final char[] possibleCharacters =
@@ -51,12 +52,8 @@ public class CouponService {
             }
         }
     }
-    //쿠폰 사용기간 만료되면 사용불가
-    public void updateCouponState () {
-        couponRepository.updateCouponState();
-    }
     //가입 쿠폰 생성
-    public void insertJoinCoupon () {
+    public void insertJoinCoupon() {
         int user_pk = couponRepository.selectUserKey(); //가장 최근에 생성된 회원키 찾아옴
         final char[] possibleCharacters =
                 {'1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
@@ -67,7 +64,6 @@ public class CouponService {
         for (int i=0; i<8; i++) { //8자리 난수 생성
             buf.append(possibleCharacters[rnd.nextInt(possibleCharacterCount)]);
         }
-
         //쿠폰번호 3번째 자리부터 현재 년도 2자리 넣기
         LocalDate now = LocalDate.now();
         String fullYear = Integer.toString(now.getYear());
@@ -84,5 +80,59 @@ public class CouponService {
 
             couponRepository.insertJoinCoupon(coupon); //가입한 회원에게 생성된 쿠폰 넣기
         }
+    }
+    //쿠폰 조회(결제)
+    public List<Coupon> selectCoupon(int user_pk) {
+        return couponRepository.selectCoupon(user_pk);
+    }
+    //마이페이지 사용가능 쿠폰 개수 조회
+    public int selectMyCouponCount(int user_pk) {
+        return couponRepository.selectMyCouponCount(user_pk);
+    }
+    //마이페이지 사용가능 쿠폰 조회
+    public List<Coupon> selectMyCouponDetail(int user_pk) {
+        return couponRepository.selectMyCouponDetail(user_pk);
+    }
+    //마이페이지 만료예정 쿠폰 개수 조회
+    public int selectExpCoupon(int user_pk) {
+        return couponRepository.selectExpCoupon(user_pk);
+    }
+    //마이페이지 쿠폰 발급/사용 내역 조회
+    public List<Coupon> selectUseCouponDetail(int user_pk) {
+        return couponRepository.selectUseCouponDetail(user_pk);
+    }
+    //쿠폰 사용기간 만료되면 사용불가
+    public void updateCouponState() {
+        couponRepository.updateCouponState();
+    }
+
+    public Coupon selectCouponState(String coupon_pk){
+        return couponRepository.selectCouponState(coupon_pk);
+    }
+
+    /* 결제 또는 결제 취소로 발생한 쿠폰 상태 업데이트 */
+    public void updateCouponByPayment(int use_state, String coupon_pk){
+        Coupon coupon = new Coupon();
+        /*
+            결제 : use_state 가 1 일 경우 쿠폰 사용일자 now로 저장
+            취소 : 1이 아닐 경우 쿠폰 사용일자 null로 저장
+        */
+        if(use_state == 1 ){
+            Timestamp use_date = Timestamp.valueOf(LocalDateTime.now());
+
+             coupon = Coupon.builder()
+                    .c_use_state(use_state)
+                    .coupon_pk(coupon_pk)
+                    .c_use_date(use_date)
+                    .build();
+        } else {
+            coupon = Coupon.builder()
+                    .c_use_state(use_state)
+                    .coupon_pk(coupon_pk)
+                    .c_use_date(null)
+                    .build();
+        }
+
+        couponRepository.updateCouponByPayment(coupon);
     }
 }

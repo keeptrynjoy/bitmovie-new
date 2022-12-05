@@ -8,12 +8,7 @@
             ,#{book_the_name},#{book_issu_date},#{book_adult_cnt},#{book_youth_cnt});
     </insert>
 
-    <!-- 상영 및 상영에정 영화 리스트 조회 -->
-    <select id="selectScreeningMovieList" resultType="movie">
-        SELECT * FROM movie_tb mt WHERE mt.m_sdate &lt;= now() order by m_name desc;
-    </select>
-
-    <!-- 현재 예매되어 있는 좌석번호 조회-->
+    <!-- 상영시간기준 예매완료된 좌석 조회-->
     <select id="selectSeatNumData" resultType="String" parameterType="int">
         SELECT group_concat(book_seat_num)
             AS seat_num
@@ -21,4 +16,9 @@
         WHERE scrtime_pk=#{scrtime_pk}
         GROUP BY scrtime_pk;
     </select>
+
+    <!-- 예매 내역 삭제 -->
+    <delete id="deleteBookingData" parameterType="int">
+        DELETE FROM booking_tb WHERE booking_pk = #{booking_pk}
+    </delete>
 </mapper>

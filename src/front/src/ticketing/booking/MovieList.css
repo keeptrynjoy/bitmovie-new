@@ -1,12 +1,45 @@
 .mvbtn {
     background-color: white;
+}
+/*.mvbtn:focus{*/
+/*    background-color: gray;*/
+/*}*/
+
+.mvbtn:hover{
+    background-color: gray;
 
 }
 
-/*.mvcolor{*/
-/*    background-color: wheat;*/
-/*}*/
 
 
+
+
+.txt{
+    text-align: left;
+    pointer-events : none;
+    float: right;
+}
+
+.mvcolor{
+    margin-top: 5px;
+}
+.select-default {
+    background-color: white;
+}
+
+.select-default:hover {
+    background-color: #f3f3f3;
+}
+
+.select-clicked {
+    background-color: gray;
+    color: white;
+}
+
+.scroll{
+    over-flow: scroll;
+    overflowX: hidden;
+
+}
 
 

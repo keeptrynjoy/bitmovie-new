@@ -3,13 +3,18 @@
 <mapper namespace="data.repository.user.ReportRepository">
 
     <!--  영화 평점 신고  -->
-    <insert id="insertReport" parameterType="Report">
+    <insert id="insertReport" parameterType="RevwClick">
         INSERT INTO report_tb VALUES (#{review_pk}, #{user_pk})
     </insert>
 
     <!--  영화 평점 신고 취소  -->
-    <delete id="deleteReport" parameterType="Report">
+    <delete id="deleteReport" parameterType="RevwClick">
         DELETE report_tb WHERE review_pk = #{review_pk} AND user_pk = #{user_pk}
     </delete>
+
+    <!--  평점 신고 유무 확인  -->
+    <select id="selectReportYorN" parameterType="RevwClick" resultType="int">
+        SELECT count(*) FROM report_tb WHERE review_pk = #{review_pk} AND user_pk = #{user_pk}
+    </select>
 
 </mapper>

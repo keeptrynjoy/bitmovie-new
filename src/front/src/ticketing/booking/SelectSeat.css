@@ -3,6 +3,36 @@
         display: none;
     }
 }
+input[type="checkbox"]{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+
+input[type="checkbox"]:disabled{
+    background-color: #444451;
+}
+
+input[type='checkbox']:checked{
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    background-color: red;
+
+}
+
+
+
+.seat:disabled{
+    background-color: blue;
+}
+
 
 .allboxes{
     margin: 0;
@@ -10,6 +40,7 @@
 .seatchoose {
     box-sizing: border-box;
     border-radius: 20px;
+    width: 100%;
 }
 
 .seatchoose{
@@ -22,7 +53,7 @@
     height: 100vh;
     font-family: 'Lato';
     margin: 0;
-    width: 1500px;
+    width: 80%;
     margin: auto;
 }
 
@@ -66,21 +97,20 @@ main{
 }
 
 #info-container{
-    background-color: white;
+    width: 20%;
+    background-color: lightgrey;
     border-radius: 15px;
     color: black;
-    width: 40%;
-    padding: 10px;
-    margin-left: 200px;
-    height: 650px;
+    padding: 1%;
+    margin-left: 5%;
+    height: 100%;
 
 }
 
 .seattx{
     width: 250px;
-    height: 200px;
+    height: 300px;
     float: left;
-    margin-left: 5%;
 }
 
 #info-container h2{
@@ -97,8 +127,8 @@ main{
 
 .seat-section {
     perspective: 1000px;
-    margin-right: 200px;
-    height: 600px;
+    margin-right: 21%;
+    height: 500px;
     width: 1000px;
 }
 .seat-section2 {
@@ -171,22 +201,28 @@ main{
 
 
 .seat.selected {
-    background-color: #eb1333;
+    background-color: red;
     width: 35px;
-    height: 25px;
+    height: 30px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .seat.okay{
     background-color: white;
     width: 35px;
-    height: 25px;
+    height: 30px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .seat.occupied {
     background-color: #444451;
     color: white;
     width: 35px;
-    height: 25px;
+    height: 30px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .seat:nth-of-type(2) {
@@ -228,17 +264,16 @@ section .seat:not(.occupied):hover {
 }
 .seatboxes{
     width: 500px;
-    height: 450px;
+    height: 400px;
     margin: auto;
 }
 
 .screen {
     background-color: white;
-    height: 70px;
-    width: 60%;
-    margin-left: 20%;
-    margin-bottom: 45px;
-    margin-top: 50px;
+    height: 20%;
+    width: 55%;
+    margin-left: 21%;
+    margin-bottom: 3%;
     transform: rotateX(-45deg); /*make screen thiner*/
     box-shadow: 0 3px 10px rgba(255,255,255,0.7); /*0.7 makes screen looks lighter*/
 }
@@ -254,7 +289,7 @@ p.text span {
 #reset-btn {
     border: none;
     border-radius: 8px;
-    background-color: #bf1b36;
+    background-color: blue;
     color: white;
     padding: 4px 6px;
     margin: 20px 0;
@@ -267,7 +302,7 @@ p.text span {
 #reset-btn2 {
     border: none;
     border-radius: 8px;
-    background-color: blue;
+    background-color: red;
     color: white;
     padding: 4px 6px;
     margin: 20px 0;
@@ -296,12 +331,11 @@ button.seat2:focus {
 }
 
 .seatposter{
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 40px;
-    margin-left: 90px;
+    margin-left: 15%;
     width: 150px;
     height: 200px;
-    border: 1px solid gray;
     /*background-image: url("/src/image/joker.jpg");*/
     /*background-size: cover;*/
     border-radius: 10px;

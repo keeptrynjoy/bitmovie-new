@@ -10,6 +10,10 @@
         INSERT INTO user_tb (u_id, u_pass, u_name, u_nick, u_phone, u_birth, u_gender, u_photo, u_pwudtdate, u_state)
         VALUES (#{u_id}, #{u_pass}, #{u_name}, #{u_nick}, #{u_phone}, #{u_birth}, #{u_gender}, "noimage.png", now(), 1)
     </insert>
+    <!--중복 닉네임 확인-->
+    <select id="selectNickname" parameterType="String" resultType="int">
+        SELECT count(*) FROM user_tb WHERE u_nick = #{u_nick}
+    </select>
     <!--비밀번호 변경할 때 아이디 참조해서 기존 비밀번호 가져오기(기존 비밀번호와 일치하면 비밀번호 변경불가)-->
     <select id="selectPass" parameterType="User" resultType="String">
         SELECT u_pass FROM user_tb WHERE u_id = #{u_id}
@@ -17,6 +21,17 @@
     <!--비밀번호 변경-->
     <update id="updatePass" parameterType="User">
         UPDATE user_tb SET u_pass = #{u_pass}, u_pwudtdate = now() WHERE u_id = #{u_id}
+    </update>
+    <!--유저 정보 출력-->
+    <select id="selectUser" parameterType="int" resultType="User">
+        SELECT * FROM user_tb WHERE user_pk = #{user_pk}
+    </select>
+    <!--회원 정보 수정-->
+    <update id="updateUser" parameterType="User">
+        UPDATE user_tb
+        SET u_pass = #{u_pass}, u_name = #{u_name}, u_nick = #{u_nick}, u_phone = #{u_phone},
+            u_photo = #{u_photo}, u_pwudtdate = now(), u_gender = #{u_gender}, u_birth = #{u_birth}
+        WHERE user_pk = #{user_pk}
     </update>
     <!--회원 삭제(상태 변경)-->
     <update id="deleteUser" parameterType="String">
