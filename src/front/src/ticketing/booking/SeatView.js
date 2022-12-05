@@ -339,10 +339,10 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
                 <article id="info-container">
 
-                    <img alt={obj.m_name} src={`https://image.tmdb.org/t/p/w500${obj.m_photo}`} className={'seatposter'}/>
+                    <img alt={obj.m_name} src={`https://image.tmdb.org/t/p/w500${obj.m_photo}`} className={'seatposter'} />
 
                     <div className={'seattx'}>
-                        <p style={{fontSize:'20px'}}> <Age age={obj.m_age_grd} size={20}/>&nbsp;{obj.m_name}</p>
+                        <p style={{fontSize:'20px'}}><Age  age={obj.m_age_grd} size={20}/>&nbsp;{obj.m_name}</p>
 
                         <p><b style={{fontSize:'20px'}}>상영 지점</b> {obj2.the_name}</p>
                         <p><b style={{fontSize:'20px'}}>예매 날짜</b> {movieData.calender}</p>
