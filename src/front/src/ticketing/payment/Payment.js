@@ -384,7 +384,7 @@ const Payment = (effect, deps) => {
                            defaultValue={user_pk} disabled
                     />
 
-                    <input className={'usepoint'} type={'number'} name={'point'} placeholder={"포인트 입력"} step={100}
+                    <input className={'usepoint'} type={'number'} name={'point'} placeholder={"1000포인트 이상 사용가능"} step={100}
                            disabled={dbData.u_point<1000} min={1000}
                            onBlur={(e)=>{
                                if (Number(e.target.value)>0 && Number(e.target.value)<1000 )
