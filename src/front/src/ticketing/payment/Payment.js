@@ -116,7 +116,8 @@ const Payment = (effect, deps) => {
 
         IMP.request_pay(
             {
-                pg: 'kakaopay',
+                // pg: 'kakaopay',
+                pg: 'html5_inicis',
                 // merchant_uid: `${now}_${userIdRef.current}`,
                 merchant_uid: `${now}_${user_pk}`,
                 name: '결제',

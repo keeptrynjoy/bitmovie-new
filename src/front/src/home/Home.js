@@ -169,7 +169,7 @@ function Home(props) {
                     }
                 </div>
             </div>
-            <h1 style={{textAlign:'center'}}>Movie Review</h1>
+            <h1 style={{textAlign:'center'}}>영화 후기</h1>
             <div className={"recent-revw"}>
                 <div className={"recent-revw-list"}>
                     {reviews.map((review,i) => (

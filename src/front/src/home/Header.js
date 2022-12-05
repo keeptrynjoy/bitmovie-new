@@ -143,7 +143,7 @@ function Header(props) {
                                 ""
                                 :
                                 <div>
-                                    {sessionStorage.u_name}님으로 로그인중
+                                    <b>{sessionStorage.u_name}</b>님으로 로그인중
                                 </div>
                         }
                     </li>
