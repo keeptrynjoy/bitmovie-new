@@ -62,7 +62,6 @@ public class MovieController {
     @GetMapping("selectMWishList")
     public List<Integer> selectMWishList(@RequestParam(defaultValue = "0") int user_pk) {
         List<Integer> list = new ArrayList<>();
-        System.out.println(movieService.selectMWishList(user_pk));
         return movieService.selectMWishList(user_pk);
     }
 
