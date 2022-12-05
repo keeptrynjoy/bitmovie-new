@@ -21,7 +21,6 @@ function BookingList(props) {
     const cancelReserve=(bookingnum)=>{
 
         Swal.fire({
-            title: "진짜?",
             text: "예매 취소 하시겠습니까?",
             icon: 'warning',
             showCancelButton: true,
