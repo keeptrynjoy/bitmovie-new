@@ -7,10 +7,24 @@ import axios from "axios";
 function Likes(props) {
     const [likes,setLikes] =  useState();
 
+    const pk = props.pk;
+    
+    const getLikes=(movie_pk)=>{
+        let count=0;
+        axios.get(`${localStorage.url}/movie/selectLikes?movie_pk=${movie_pk}`)
+            .then((res)=>{
+                setLikes(res.data);
+                count=res.data;
+            });
+        return count;
+    }
+
     useEffect(() => {
-        setLikes(props.getLikes(props.pk))
+        setLikes(getLikes(pk))
     }, []);
 
+   
+    
     const handleMWish=(e)=>{
         if (sessionStorage.login_status==null) {
             Swal.fire({
@@ -19,30 +33,29 @@ function Likes(props) {
             });
             return;
         }
-        console.log("pk",e.target.value);
-        if(props.MWishList.includes(Number(e.target.value))){
-            axios.post(`${localStorage.url}/user/deleteMWish`,{movie_pk:e.target.value,user_pk:sessionStorage.user_pk})
+        if(props.MWishList.includes(Number(pk))){
+            axios.post(`${localStorage.url}/user/deleteMWish`,{movie_pk:pk,user_pk:sessionStorage.user_pk})
                 .then((res)=>{
-                    alert(props.getLikes(props.pk));
-                    setLikes(props.getLikes(props.pk));
+                    getLikes(pk);
                     props.getMwishList();
                 })
         }else{
-            axios.post(`${localStorage.url}/user/insertMWish`,{movie_pk:e.target.value,user_pk:sessionStorage.user_pk})
+            axios.post(`${localStorage.url}/user/insertMWish`,{movie_pk:pk,user_pk:sessionStorage.user_pk})
                 .then((res)=>{
-                    alert(props.getLikes(props.pk));
-                    setLikes(props.getLikes(props.pk));
+                    getLikes(pk);
                     props.getMwishList();
                 })
         }
     }
 
+   
+
     return (
         <Button variant="outlined"
-                startIcon={props.MWishList.includes(props.pk)?<Favorite value={props.pk}/>:<FavoriteBorderOutlined value={props.pk}/>}
+                startIcon={props.MWishList.includes(pk)?<Favorite value={pk}/>:<FavoriteBorderOutlined value={pk}/>}
                 style={{width:"100px"}}
                 onClick={handleMWish}
-                value={props.pk}
+                value={pk}
         >
             {likes}
         </Button>

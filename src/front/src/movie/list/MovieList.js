@@ -51,7 +51,6 @@ function MovieList(props) {
         axios.get(`${localStorage.url}/movie/selectMWishList?${sessionStorage.user_pk==null?"":"user_pk="+sessionStorage.user_pk}`)
             .then((res)=>{
                 setMWishList(res.data);
-                console.log("위시",res.data);
             })
     }
 
@@ -105,16 +104,6 @@ function MovieList(props) {
             });
     }
 
-    const getLikes=(movie_pk)=>{
-        let count=0;
-        console.log("pk는",movie_pk);
-        axios.get(`${localStorage.url}/movie/selectLikes?movie_pk=${movie_pk}`)
-            .then((res)=>{
-                console.log("count는",res.data);
-                count=res.data;
-            });
-        return count;
-    }
 
     // //특정값 가져오기
     // const getRankData=async (order_stand,BorA)=>{
@@ -227,7 +216,7 @@ function MovieList(props) {
                                             </div>
                                             <div className={"btn-div"}>
                                                 <span className={"like-btn"}>
-                                                    <Likes getLikes={getLikes} pk={item.movie_pk} MWishList={MWishList} getMwishList={getMwishList}/>
+                                                    <Likes pk={item.movie_pk} MWishList={MWishList} getMwishList={getMwishList}/>
                                                 </span>
                                                 <span className={"book-btn"}>
                                                     <Button variant={"contained"} sx={{width:"120px", marginLeft:"10px"}}

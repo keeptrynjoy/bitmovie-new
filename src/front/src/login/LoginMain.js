@@ -32,8 +32,8 @@ function LoginMain(props) {
                             icon:"question",
                             text:"비밀번호를 변경 한지 30일이 지났습니다. 변경 하시겠습니까?",
                             showDenyButton: true,
-                            denyButtonText: "아니오",
-                            confirmButtonText: "네"
+                            denyButtonText: "취소",
+                            confirmButtonText: "확인"
                         }).then((result)=>{
                             if(result.isConfirmed){
                                 navi("/login/find");

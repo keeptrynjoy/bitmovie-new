@@ -44,7 +44,7 @@ public class ScreenTimeService {
     public List<JoinTime> selectScrtForBook(ScreenTime screenTime){
         List<JoinTime> joinTimes = joinTimeRepository.selectScrtForBook(screenTime);
 
-        System.out.println(joinTimes);
+//        System.out.println(joinTimes);
 
         return joinTimes;
     }

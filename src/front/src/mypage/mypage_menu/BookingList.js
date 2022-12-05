@@ -26,8 +26,8 @@ function BookingList(props) {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: '네',
-            cancelButtonText: '아니오',
+            confirmButtonText: '확인',
+            cancelButtonText: '취소',
         }).then((result) => {
             if (result.isConfirmed) {
                 axios.get(`${localStorage.url}/payment/cancel_payment?user=${sessionStorage.user_pk}&booking=${bookingnum}`)
