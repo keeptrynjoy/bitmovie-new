@@ -44,7 +44,7 @@ function LoginMain(props) {
                                     .then((res)=>{
                                         Swal.fire({
                                             icon: "info",
-                                            text: "한달 뒤에 다시 물어볼께영"
+                                            text: "한달 뒤에 다시 물어보겠습니다"
                                         }).then((res)=>{
                                             navi("/")
                                         });
@@ -53,13 +53,8 @@ function LoginMain(props) {
                             }
                         })
                     }else{
-                        Swal.fire({
-                            icon:"success",
-                            text:"로그인 성공!"
-                        }).then((res)=>{
-                            navi("/");
-                            window.location.reload();
-                        })
+                        navi("/");
+                        window.location.reload();
                     }
                 } else {
                     Swal.fire({

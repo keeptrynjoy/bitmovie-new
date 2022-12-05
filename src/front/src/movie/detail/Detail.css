@@ -1,6 +1,6 @@
 .detail-div {
     width: 1500px;
-    height: 2000px;
+    height: 100%;
     display: flex;
     align-content: flex-start;
     flex-wrap: wrap;
@@ -123,6 +123,11 @@
     justify-content: center;
     width: 100%;
     margin-top: 100px;
+    height: 600px;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    overflow-x: hidden;
+    border-radius: 20px;
 }
 
 .review-ul {
@@ -476,4 +481,29 @@ ul.date-item-wrap li strong{
 .mini-theater-under{
     top:5px;
     text-align: center;
+}
+
+div.charts {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.charts-div {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.charts .gender-chart {
+    width: 300px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.charts .age-chart {
+    width: 500px;
+    margin-left: 50px;
+    margin-right: 50px;
 }

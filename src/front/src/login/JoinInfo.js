@@ -326,15 +326,16 @@ function JoinInfo(props) {
                     <tr>
                         <th style={{width:'130px',backgroundColor:'#ddd'}}>닉네임</th>
                         <td style={{display:"flex"}}>
-                            <input type={'text'} className={'form-control'} style={{marginLeft:"20px",width:'200px'}}
-                                   name={"u_nick"} value={input.u_nick} onChange={changeData}/>
+                            <input type={'text'} className={'form-control'} style={{marginLeft:"20px",width:'210px'}}
+                                   name={"u_nick"} value={input.u_nick} onChange={(e)=>{
+                                       changeData(e);
+                                       setBoolNick(false);
+                            }}/>
                             <Button variant={"outlined"} color={"success"}
-                                    sx={{marginLeft:"10px"}}
+                                    sx={{marginLeft:"15px",fontSize:"10px"}}
                                     onClick={() => {
                                         checkNick();
-                                    }}>
-                                중복확인
-                            </Button>
+                                    }}>중복확인</Button>
                             {
                                 !boolNick?
                                     <CloseIcon style={{color:"red", float:"right", marginTop:"7px", marginLeft:"7px"}}/>

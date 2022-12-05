@@ -159,26 +159,27 @@ function MovieList(props) {
                 </div>
             </div>
             <hr style={{width:"85%", margin:"auto", height:"3px", backgroundColor:"black"}}/>
-            <div className={"sorting"} >
-                <span className={"toggle-BorA"}>
-                    {
-                        in_theater!=="before"?
-                            <span>
-                            <Switch checked={in_theater === "after"} onChange={toggleBorA}/>
-                            개봉작만
-                            </span>
-                            :
-                            ""
-                    }
-                </span>
-                <span className={"btn-group"}>
-                    <ButtonGroup variant="outlined" aria-label="outlined button group">
-                          <Button className={"nameBtn"} onClick={()=>setOrder("m_name")}>이름순</Button>
-                          <Button className={'reserveBtn'} onClick={()=>setOrder("reserve_rate")}>예매율순</Button>
-                          <Button className={'starBtn'} onClick={()=>setOrder("revw_avgstar")}>평점순</Button>
-                    </ButtonGroup>
-                </span>
-            </div>
+            {
+                in_theater!=="before"?
+                    <div className={"sorting"} >
+                        <span className={"toggle-BorA"}>
+                                    <span>
+                                    <Switch checked={in_theater === "after"} onChange={toggleBorA}/>
+                                    개봉작만
+                                    </span>
+                        </span>
+                        <span className={"btn-group"}>
+                            <ButtonGroup variant="outlined" aria-label="outlined button group">
+                                  <Button className={"nameBtn"} onClick={()=>setOrder("m_name")}>이름순</Button>
+                                  <Button className={'reserveBtn'} onClick={()=>setOrder("reserve_rate")}>예매율순</Button>
+                                  <Button className={'starBtn'} onClick={()=>setOrder("revw_avgstar")}>평점순</Button>
+                            </ButtonGroup>
+                        </span>
+                    </div>
+                    :
+                    <div className={"sorting"}>
+                    </div>
+            }
             <div className={"movie-card-list-div"}>
                 {
                     loading?
@@ -208,7 +209,7 @@ function MovieList(props) {
                                                             style={{width:"100px"}}
                                                             onClick={handleMWish}
                                                             value={item.movie_pk}
-                                                            >
+                                                    >
                                                     {item.wish_cnt}
                                                     </Button>
                                                 </span>
