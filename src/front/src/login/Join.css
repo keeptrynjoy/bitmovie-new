@@ -127,3 +127,13 @@
     border-radius: 20px;
     font-size: 12px;
 }
+
+.done-message{
+    height: 200px;
+    background-color: #f9f9f9;
+    text-align: center;
+    line-height: 200px;
+    font-size: 30px;
+    margin-top: 50px;
+    border-radius: 5px;
+}
