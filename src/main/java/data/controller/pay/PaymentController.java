@@ -110,17 +110,23 @@ public class PaymentController {
             //booking(예매) 데이터 저장
             bookingService.insertBookingData(booking);
 
-            //사용한 포인트 차감
-            if(payment.getPay_use_point() > 0){
-                pointService.deductionPoint(payment,1);
-            }
-
             //사용한 쿠폰 비활성 처리
             if(!used_coupon.equals("N")){
                 couponService.updateCouponByPayment(1,used_coupon);
             }
 
-            //point(point_tb,user_tb) 적립
+            //사용한 포인트 차감
+            if(payment.getPay_use_point() > 0){
+                pointService.deductionPoint(payment,1);
+            }
+
+            try{
+                Thread.sleep(500);
+            }catch (InterruptedException e){
+                e.printStackTrace();
+            }
+
+            //point 적립
             if(payment.getPay_price()>0){
                 pointService.accumulatePoint(payment,1);
             }
@@ -182,6 +188,12 @@ public class PaymentController {
                 pointService.accumulatePoint(payment,0);
             }
 
+            try{
+                Thread.sleep(500);
+            }catch (InterruptedException e){
+                e.printStackTrace();
+            }
+
             //결제 내역상 결제 금액이 있을 경우 적립 포인트 차감
             if(payment.getPay_price()>0){
                 pointService.deductionPoint(payment,0);
@@ -202,7 +214,7 @@ public class PaymentController {
         return couponService.selectCoupon(user_pk);
     }
 
-    //리뷰 메크로 처리 프로그램
+//    리뷰 메크로 처리 프로그램
 //    @GetMapping("/review_macro")
 //    public void reviewMacroProgram(){
 //        paymentService.insertReviewMacro();
