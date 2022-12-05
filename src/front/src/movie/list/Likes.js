@@ -11,10 +11,8 @@ function Likes(props) {
     
     const getLikes=(movie_pk)=>{
         let count=0;
-        console.log("pk는",movie_pk);
         axios.get(`${localStorage.url}/movie/selectLikes?movie_pk=${movie_pk}`)
             .then((res)=>{
-                console.log("count는",res.data);
                 setLikes(res.data);
                 count=res.data;
             });
@@ -35,7 +33,6 @@ function Likes(props) {
             });
             return;
         }
-        console.log("pk",pk);
         if(props.MWishList.includes(Number(pk))){
             axios.post(`${localStorage.url}/user/deleteMWish`,{movie_pk:pk,user_pk:sessionStorage.user_pk})
                 .then((res)=>{

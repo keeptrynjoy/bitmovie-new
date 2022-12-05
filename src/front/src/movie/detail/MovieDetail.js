@@ -155,6 +155,14 @@ function MovieDetail(props) {
             })
     }
 
+    const getReview=()=>{
+        const getMovieUrl = `${localStorage.url}/movie/selectMovieData?movie_pk=${movie_pk}`;
+        axios.get(getMovieUrl)
+            .then((res)=>{
+                setMovie_review(res.data.revw);
+            })
+    }
+
     //레이지로딩시 최초 1회 실행
     useEffect(() => {
         getData();
@@ -415,7 +423,7 @@ function MovieDetail(props) {
                                         {
                                             movie_review && movie_review.map((review,i)=>(
                                                 <li key={i}>
-                                                    <MovieReview review={review} get={getData}/>
+                                                    <MovieReview type={"detail"} m_pk={movie_pk} review={review} get={getReview}/>
                                                 </li>
                                             ))
                                         }

@@ -26,8 +26,8 @@ function BookingList(props) {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: '네',
-            cancelButtonText: '아니오',
+            confirmButtonText: '확인',
+            cancelButtonText: '취소',
         }).then((result) => {
             if (result.isConfirmed) {
                 axios.get(`${localStorage.url}/payment/cancel_payment?user=${sessionStorage.user_pk}&booking=${bookingnum}`)
@@ -122,16 +122,16 @@ function BookingList(props) {
                                         </div>
                                         <div className={"contents-info"}>
                                             <div>
-                                                관람 극장 : {item.theater} &nbsp; {item.screen}
+                                                관람 극장 : {item.theater} {item.screen}
                                             </div>
                                             <div>
-                                                관람 인원 : 성인: {item.adult}명, 청소년: {item.youth}명
+                                                관람 인원 : 성인 {item.adult}명, 청소년 {item.youth}명
                                             </div>
                                             <div>
-                                                관람 일시: {moment(item.date).format("YYYY-MM-DD")}&nbsp;&nbsp;{item.begin.substring(0,5)}
+                                                관람 일시 : {moment(item.date).format("YYYY-MM-DD")}&nbsp;&nbsp;{item.begin.substring(0,5)}
                                             </div>
                                             <div>
-                                                관람 좌석: {item.seat}
+                                                관람 좌석 : {item.seat}
                                             </div>
                                             <div>
                                                 예매일 : {moment(item.issue).format("YYYY-MM-DD")}
