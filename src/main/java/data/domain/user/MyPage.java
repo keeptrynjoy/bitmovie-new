@@ -19,6 +19,7 @@ public class MyPage {
     private String theater;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     private Timestamp issue;
+    private String seat;
     private int adult;
     private int youth;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
