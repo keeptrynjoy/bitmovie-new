@@ -7,6 +7,7 @@ import ReactPlayer from "react-player";
 import axios from "axios";
 import {CircularProgress} from "@mui/material";
 import MovieReview from "../movie/detail/MovieReview";
+import {useNavigate} from "react-router-dom";
 
 function Home(props) {
     localStorage.url=process.env.REACT_APP_URL;
@@ -18,6 +19,7 @@ function Home(props) {
     const [selected_movie_data,setSelected_movie_data] = useState([]);
     const [reviews, setReviews] = useState([]);
     const [index,setIndex] = useState(0);
+    const navi=useNavigate();
 
     // kobis 영화진흥원 key
     // const key ='3e56c5d518bc82f65d4d1d16806fdd37';
@@ -174,6 +176,12 @@ function Home(props) {
                 <div className={"recent-revw-list"}>
                     {reviews.map((review,i) => (
                         <div key={i}>
+                            <div className={"review-movie-title"}
+                                 onClick={()=>{
+                                     navi(`/movie/detail/${review.movie_pk}`);
+                                 }}>
+                                {review.m_name}
+                            </div>
                             <MovieReview review={review} get={getReviews}/>
                         </div>
                     ))}

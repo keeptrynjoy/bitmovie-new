@@ -32,7 +32,6 @@ public class MovieService {
 
     // 영화 페이지 - 영화 리스트 출력
     public List<JoinMovie> selectMovieList(String order_stand, String BorA ){
-//        System.out.println(order_stand);
 
         // 오늘 날짜를 기준으로 1주일 기간 을 설정해 예매율을 계산
         LocalDate date = LocalDate.now();
@@ -55,13 +54,6 @@ public class MovieService {
             // 영화 좋아요 갯수 정보 저장
             int wish = mWishRepository.selectWishCnt(movie_pk);
             data.get(i).setWish_cnt(wish);
-//            // 영화 좋아요 선택 유무 정보 저장
-//            Map<String, Object> tmepmap = new HashMap<>();
-//            tmepmap.put("movie_pk", movie_pk);
-//            tmepmap.put("user_pk", user_pk);
-//            boolean mWishYorN = mWishRepository.mWishYorN(tmepmap);
-//            data.get(i).setMwhishYorN(mWishYorN);
-
         }
         return data;
     }
@@ -90,18 +82,6 @@ public class MovieService {
         List<JoinCast> cast_list = joinCastRepository.selectCastByMovie(movie_pk);
         // 3. 영화 평점 정보 반환
         List<JoinRevw> review_list = joinRevwRepository.selectJoinRevw(movie_pk);
-        // 3-1. 유저가 로그인 한 경우 해당 영화 평점좋아요 유무를 반환
-//            if (user_pk != 0) { //유저가 로그인 한 경우에만 조건 실행
-//                for (JoinRevw joinRevw : review_list) {
-//                    Map<String, Integer> pk_map = new HashMap<>();
-//                    pk_map.put("user_pk", user_pk);
-//                    pk_map.put("review_pk", joinRevw.getReview_pk());
-//                    // joinRevw 에서 review_pk & user_pk 로 댓글 좋아요 유무 판단
-//                    boolean yorN = likeRevwRepository.likeYorN(pk_map);
-//                    // joinRevw 에 해당 값을 넣어 반환
-//                    joinRevw.setLikeYorN(yorN);
-//                }
-//            }
         // 해당 영화 좋아요 갯수
         int wish_cnt = mWishRepository.selectWishCnt(movie_pk);
 

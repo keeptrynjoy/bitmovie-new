@@ -19,7 +19,7 @@ function RouterMain(props) {
         //로그인 되어있을 때만 실행하는 조건
         if (sessionStorage.login_status != null) {
             //1분마다 timerIncrement 함수 실행
-            var idleInterval = setInterval(timerIncrement, 60000); //단위 1000분의 1초
+            setInterval(timerIncrement, 60000); //단위 1000분의 1초
             //마우스 움직임이 있으면 움직이지 않은 시간 초기화
             window.addEventListener("mousemove", function () {
                 // console.log("mousemove");
@@ -40,6 +40,8 @@ function RouterMain(props) {
             sessionStorage.removeItem("login_status");
             sessionStorage.removeItem("u_id");
             sessionStorage.removeItem("u_name");
+            sessionStorage.removeItem("user_pk");
+            sessionStorage.removeItem("u_passDateDiff");
             window.location.reload();
         }
     }
@@ -50,19 +52,21 @@ function RouterMain(props) {
             <Header/>
             <SDial/>
             <br style={{clear:"both"}}/><br/>
-            <Routes>
-                <Route path={"/"} element={<Home/>}/>
-                <Route path={"/mypage/:user_pk"} element={<MyPage/>}/>
-                <Route path={"/search/:search_word"} element={<SearchResult/>}/>
-                <Route path={"/login/*"} element={<LoginRouter/>}/>
-                <Route path={"/movie/*"} element={<MovieRouter/>}/>
-                <Route path={"/ticketing/*"} element={<TicketingRouter/>}/>
-                <Route path={"/*"} element={
-                    <div>
-                        <h1>404떳다</h1>
-                    </div>
-                }/>
-            </Routes>
+            <div className={"main-wrapper"}>
+                <Routes>
+                    <Route path={"/"} element={<Home/>}/>
+                    <Route path={"/mypage/:user_pk"} element={<MyPage/>}/>
+                    <Route path={"/search/:search_word"} element={<SearchResult/>}/>
+                    <Route path={"/login/*"} element={<LoginRouter/>}/>
+                    <Route path={"/movie/*"} element={<MovieRouter/>}/>
+                    <Route path={"/ticketing/*"} element={<TicketingRouter/>}/>
+                    <Route path={"/*"} element={
+                        <div>
+                            <h1>404떳다</h1>
+                        </div>
+                    }/>
+                </Routes>
+            </div>
             <br style={{clear:"both"}}/><br/>
             <Footer/>
         </div>

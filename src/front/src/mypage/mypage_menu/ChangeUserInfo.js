@@ -10,12 +10,13 @@ import Swal from "sweetalert2";
 
 function ChangeUserInfo(props) {
     const [userdata,setUserdata] = useState(props.data);
-    const [newpw2,setNewpw2] = useState(props.data.u_pass);
-    const [boolpw2,setBoolpw2] = useState(true);
+    const [newpw2,setNewpw2] = useState("");
+    const [boolpw2,setBoolpw2] = useState(false);
     const [disabled, setDisabled] = useState(true);
     const [oldPass, setOldPass] = useState(props.data.u_pass);
     const [boolhp,setBoolhp] = useState(false);
     const [open,setOpen] = useState(false);
+    const [pwOpen,setPwOpen] = useState(false);
     const [input,setInput] = useState({
         checkSMS:"",
         randomNum:"0"
@@ -23,35 +24,37 @@ function ChangeUserInfo(props) {
 
     const errorChk=()=> {
         const hppattern = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
-        switch (chkPW()) {
-            case "reg":
-                return (<Alert style={{width:"830px"}} severity={"error"}>
-                    비밀번호는 8자 이상이고, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.
-                </Alert>)
-            case "4c":
-                return (<Alert style={{width:"830px"}} severity={"error"}>
-                    같은 문자를 4번 이상 사용하실 수 없습니다.
-                </Alert>)
-            case "id":
-                return (<Alert style={{width:"830px"}} severity={"error"}>
-                    비밀번호에 아이디가 포함되었습니다
-                </Alert>)
-            case "space":
-                return (<Alert style={{width:"830px"}} severity={"error"}>
-                    비밀번호는 공백 없이 입력해주세요
-                </Alert>)
-            case "hangul":
-                return (<Alert style={{width:"830px"}} severity={"error"}>
-                    비밀번호에 한글을 사용 할 수 없습니다
-                </Alert>)
-            case "no":
-                return (<Alert style={{width:"830px"}} severity={"error"}>
-                    비밀번호를 입력하세요
-                </Alert>)
-            case "old":
-                return (<Alert style={{width:"830px"}} severity={"error"}>
-                    이전 비밀번호랑 같습니다
-                </Alert>)
+        if(pwOpen) {
+            switch (chkPW()) {
+                case "reg":
+                    return (<Alert style={{width: "830px"}} severity={"error"}>
+                        비밀번호는 8자 이상이고, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.
+                    </Alert>)
+                case "4c":
+                    return (<Alert style={{width: "830px"}} severity={"error"}>
+                        같은 문자를 4번 이상 사용하실 수 없습니다.
+                    </Alert>)
+                case "id":
+                    return (<Alert style={{width: "830px"}} severity={"error"}>
+                        비밀번호에 아이디가 포함되었습니다
+                    </Alert>)
+                case "space":
+                    return (<Alert style={{width: "830px"}} severity={"error"}>
+                        비밀번호는 공백 없이 입력해주세요
+                    </Alert>)
+                case "hangul":
+                    return (<Alert style={{width: "830px"}} severity={"error"}>
+                        비밀번호에 한글을 사용 할 수 없습니다
+                    </Alert>)
+                case "no":
+                    return (<Alert style={{width: "830px"}} severity={"error"}>
+                        비밀번호를 입력하세요
+                    </Alert>)
+                case "old":
+                    return (<Alert style={{width: "830px"}} severity={"error"}>
+                        이전 비밀번호랑 같습니다
+                    </Alert>)
+            }
         }
         if(userdata.u_nick===""){
             return (<Alert style={{width:"830px"}} severity={"error"}>
@@ -73,7 +76,7 @@ function ChangeUserInfo(props) {
             return (<Alert style={{width:"830px"}} severity={"error"}>
                 전화번호를 입력하세요
             </Alert>)
-        }else if(!boolpw2)
+        }else if(pwOpen && !boolpw2)
         {
             return (<Alert style={{width:"830px"}} severity={"error"}>
                 비밀번호가 서로 다릅니다
@@ -227,33 +230,45 @@ function ChangeUserInfo(props) {
                     <tr>
                         <th>비밀번호</th>
                         <td>
-                            <div className={"input-group"} style={{width: "430px"}}>
-                                <input required disabled={disabled} type={'password'} className='form-control' onChange={changeData}
+                            <div className={"input-group"} style={{width:`${pwOpen?"513px":"479px"}`}}>
+                                <input required disabled={!pwOpen} type={'password'} className='form-control' onChange={changeData}
                                        onKeyUp={chkPW2} value={userdata.u_pass} name={"u_pass"}/>
-                                {
+                                <Button
+                                    variant={"contained"} color={"success"}
+                                    style={{marginLeft:"15px",borderRadius:"5px"}}
+                                    disabled={disabled}
+                                    onClick={()=>{
+                                        setPwOpen(true)
+                                    }}
+                                >변경</Button>
+                                {pwOpen &&
+                                    (
                                     chkPW()!=="ok"?
                                         <CloseIcon style={{color:"red", float:"right", marginTop:"7px", marginLeft:"10px"}}/>
                                         :
                                         <CheckIcon style={{color:"green", float:"right", marginTop:"7px", marginLeft:"10px"}}/>
+                                    )
                                 }
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <th>비밀번호 확인</th>
-                        <td>
-                            <div className={"input-group"} style={{width: "430px"}}>
-                                <input required disabled={disabled} type={'password'} className='form-control' onChange={(e)=>setNewpw2(e.target.value)}
-                                       onKeyUp={chkPW2} value={newpw2} name={"u_pass2"}/>
-                                {
-                                    !boolpw2?
-                                        <CloseIcon style={{color:"red", float:"right", marginTop:"7px", marginLeft:"10px"}}/>
-                                        :
-                                        <CheckIcon style={{color:"green", float:"right", marginTop:"7px", marginLeft:"10px"}}/>
-                                }
-                            </div>
-                        </td>
-                    </tr>
+                    {pwOpen &&
+                        <tr>
+                            <th>비밀번호 확인</th>
+                            <td>
+                                <div className={"input-group"} style={{width: "436px"}}>
+                                    <input required disabled={disabled} type={'password'} className='form-control' onChange={(e)=>setNewpw2(e.target.value)}
+                                           onKeyUp={chkPW2} value={newpw2} name={"u_pass2"}/>
+                                    {
+                                        !boolpw2?
+                                            <CloseIcon style={{color:"red", float:"right", marginTop:"7px", marginLeft:"10px"}}/>
+                                            :
+                                            <CheckIcon style={{color:"green", float:"right", marginTop:"7px", marginLeft:"10px"}}/>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
                     <tr style={{width:"400px"}}>
                         <th>이름</th>
                         <td>

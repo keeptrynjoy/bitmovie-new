@@ -21,7 +21,6 @@ function BookingList(props) {
     const cancelReserve=(bookingnum)=>{
 
         Swal.fire({
-            title: "진짜?",
             text: "예매 취소 하시겠습니까?",
             icon: 'warning',
             showCancelButton: true,
@@ -132,7 +131,7 @@ function BookingList(props) {
                                                 관람 일시: {moment(item.date).format("YYYY-MM-DD")}&nbsp;&nbsp;{item.begin.substring(0,5)}
                                             </div>
                                             <div>
-                                                관람 좌석: 좌석
+                                                관람 좌석: {item.seat}
                                             </div>
                                             <div>
                                                 예매일 : {moment(item.issue).format("YYYY-MM-DD")}
