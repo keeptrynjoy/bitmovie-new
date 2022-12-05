@@ -97,7 +97,6 @@ function MyPage(props) {
         <div className={"mypage-div"}>
             <div className={"upper-info-div"}>
                 <div className={"photo-div"}>
-
                     <img alt={"프로필 사진"} src={`${localStorage.url}/image/${data.u_photo}`} className={"profile-photo"}/>
                     <input type={"file"} hidden={true} id={"profile-photo"} onChange={onUploadImage}/>
                     <div className={"photo-fix-icon"} onClick={triggerCLick}>
@@ -184,7 +183,7 @@ function MyPage(props) {
                     </ul>
                 </div>
                 <div className={"mypage-contents"}>
-                    <MyPageContents contents={contents} data={data}/>
+                    <MyPageContents contents={contents} setContents={setContents} data={data}/>
                 </div>
             </div>
         </div>

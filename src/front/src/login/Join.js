@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import JoinEmail from "./JoinEmail";
 import "./Join.css"
 import JoinInfo from "./JoinInfo";
+import {Button} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 function Join() {
     // 본인인증 하려다 만 쓰레기코드 11/9
@@ -39,6 +41,7 @@ function Join() {
     // }
     const [selected,setSelected]=useState("email");
     const [email, setEmail]=useState("");
+    const navi=useNavigate();
 
     return (
         // <button onClick={onClickCertification}>본인인증 하기</button>
@@ -59,7 +62,15 @@ function Join() {
                         selected==="info"?
                             <JoinInfo changeSelected={setSelected} email={email}/>
                             :
-                            <div>Done</div>
+                            <div>
+                                <div className={"done-message"}>
+                                    BitMovie 가입을 진심으로 축하 드립니다!!
+                                </div>
+                                <div style={{marginTop:"35px"}}>
+                                    <Button type={"button"} variant={"outlined"} color={"success"} onClick={()=>navi("/login")}>로그인</Button>
+                                    <Button type={"button"} variant={"outlined"} color={"secondary"} style={{marginLeft:"50px"}} onClick={()=>navi("/")}>홈페이지</Button>
+                                </div>
+                            </div>
                 }
             </div>
         </div>

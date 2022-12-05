@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
+import {Rating} from "@mui/lab";
 
 function MovieCard(props) {
     const data=props.movie_data;
@@ -16,6 +17,12 @@ function MovieCard(props) {
                  onClick={() => navi(`/movie/detail/${data.movie_pk}`)}>
                 <div className={"movie-info-hover"}>
                     {data.m_info}
+                </div>
+                <div className={"movie-info-review-star"}>
+                    평점 : &nbsp;&nbsp;<Rating name="star"
+                                              // value={Number(data.revw_avgstar)}
+                                              value={5}
+                                              readOnly/>
                 </div>
             </div>
         </div>

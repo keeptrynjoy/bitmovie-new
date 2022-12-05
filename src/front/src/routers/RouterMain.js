@@ -52,19 +52,21 @@ function RouterMain(props) {
             <Header/>
             <SDial/>
             <br style={{clear:"both"}}/><br/>
-            <Routes>
-                <Route path={"/"} element={<Home/>}/>
-                <Route path={"/mypage/:user_pk"} element={<MyPage/>}/>
-                <Route path={"/search/:search_word"} element={<SearchResult/>}/>
-                <Route path={"/login/*"} element={<LoginRouter/>}/>
-                <Route path={"/movie/*"} element={<MovieRouter/>}/>
-                <Route path={"/ticketing/*"} element={<TicketingRouter/>}/>
-                <Route path={"/*"} element={
-                    <div>
-                        <h1>404떳다</h1>
-                    </div>
-                }/>
-            </Routes>
+            <div className={"main-wrapper"}>
+                <Routes>
+                    <Route path={"/"} element={<Home/>}/>
+                    <Route path={"/mypage/:user_pk"} element={<MyPage/>}/>
+                    <Route path={"/search/:search_word"} element={<SearchResult/>}/>
+                    <Route path={"/login/*"} element={<LoginRouter/>}/>
+                    <Route path={"/movie/*"} element={<MovieRouter/>}/>
+                    <Route path={"/ticketing/*"} element={<TicketingRouter/>}/>
+                    <Route path={"/*"} element={
+                        <div>
+                            <h1>404떳다</h1>
+                        </div>
+                    }/>
+                </Routes>
+            </div>
             <br style={{clear:"both"}}/><br/>
             <Footer/>
         </div>

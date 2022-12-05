@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import "./Detail.css";
 import ReactPlayer from "react-player";
 import axios from "axios";
@@ -9,21 +9,24 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import MovieReview from "./MovieReview";
 import {
-    Button,
+    Button, CircularProgress,
     Dialog,
     DialogActions,
     DialogContent,
     DialogTitle,
     FormControl, Tooltip, tooltipClasses,
 } from "@mui/material";
-import {Rating, ToggleButton, ToggleButtonGroup} from "@mui/lab";
+import {Rating, ToggleButton, ToggleButtonGroup} from "@mui/material";
 import Swal from "sweetalert2";
 import Age from "../../service/Age";
 import {ArrowRight} from "@material-ui/icons";
 import { styled } from '@mui/material/styles';
+import noperimg from "../../image/noperimage.png"
+import Charts from "./Charts";
 
 function MovieDetail(props) {
     const p = useParams();
+    const navi=useNavigate();
     const [movie_pk,setMovie_pk]=useState(p.movie_num);
     const [movie_data,setMovie_data]=useState([]);
     const [movie_photo,setMovie_photo]=useState([]);
@@ -36,6 +39,9 @@ function MovieDetail(props) {
     const [selected_date,setSelected_date] = useState(moment().format("YYYY-MM-DD"));
     const [menu,setMenu]=useState("info");
     const [timetable,setTimetable]=useState([]);
+    const [chartLoading, setChartLoading]=useState(true);
+
+    const [chartData,setChartData]=useState({});
 
     const user_pk = sessionStorage.user_pk;
     const days = ["일","월","화","수","목","금","토"]
@@ -59,7 +65,7 @@ function MovieDetail(props) {
         const ON_SCRREN_DAYS = 16;
 
         setDateArray([]);
-        let arr=new Array();
+        let arr=[];
         for(let i=0; i<ON_SCRREN_DAYS; i++)
         {
             const Ndate =new Date();
@@ -71,23 +77,83 @@ function MovieDetail(props) {
         setDateArray(arr);
     }
 
+    var chartOptions = {
+        plugins: {
+            datalabels: {
+                formatter: (value, ctx) => {
+                    let sum = 0;
+                    let dataArr = ctx.chart.data.datasets[0].data;
+                    dataArr.map(data => {
+                        sum += data;
+                    });
+                    let percentage = (value*100 / sum).toFixed(2)+"%";
+                    return percentage;
+                },
+                color: '#fff',
+            }
+        }
+    };
+
+    const genderData = {
+        labels: ['남자', '여자'],
+        datasets: [
+            {
+                label: '성별',
+                data: [chartData.male,chartData.female],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 99, 132, 1)',
+                ],
+                borderWidth: 1,
+            },
+        ],
+    };
+
+    const ageData = {
+        labels: ['10대', '20대', '30대', '40대', '50대', '기타'],
+        datasets: [
+            {
+                label: '나이별',
+                data: [chartData.age10, chartData.age20, chartData.age30, chartData.age40, chartData.age50, chartData.age],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                ],
+                borderWidth: 1,
+            },
+        ],
+    };
+
     const getData =()=>{
-        const getMovieUrl = `${localStorage.url}/movie/selectMovieData?movie_pk=${movie_pk}&user_pk=${sessionStorage.user_pk==null?"":sessionStorage.user_pk}`;
+        const getMovieUrl = `${localStorage.url}/movie/selectMovieData?movie_pk=${movie_pk}`;
         axios.get(getMovieUrl)
             .then((res)=>{
                 setMovie_data(res.data.data);
                 setMovie_photo(res.data.data.m_photo.split(","));
                 setMovie_review(res.data.revw);
                 setCast_data(res.data.cast);
+                setChartData(res.data.chart);
+                setChartLoading(false);
                 getDaysArray();
                 console.log(res.data);
             })
     }
-
-    const onChangeDate = (date) => {
-        const newDate = moment(new Date(date.target.value)).format("YYYY-MM-DD");
-        setSelected_date(newDate);
-    };
 
     //레이지로딩시 최초 1회 실행
     useEffect(() => {
@@ -266,7 +332,7 @@ function MovieDetail(props) {
                                 ))}
                             </Swiper>
                         </div>
-                        <button type={"button"} className={"bookingBtn"}>예매하기</button>
+                        <button type={"button"} className={"bookingBtn"} onClick={()=>navi("/ticketing")}>예매하기</button>
                     </div>
                     <div className={"detail-content-div"}>
                         <div className={"detail-contents"}>
@@ -484,6 +550,15 @@ function MovieDetail(props) {
                                 </div>
                                 :
                                 <div>
+                                    <div className={"charts"}>
+                                        {chartLoading?
+                                            <CircularProgress/>
+                                            :
+                                            <div>
+                                                <Charts chartData={chartData} option={chartOptions} ageData={ageData} genderData={genderData}/>
+                                            </div>
+                                        }
+                                    </div>
                                     <div className={"story"}>
                                         <ReactPlayer
                                             url={process.env.PUBLIC_URL + `https://www.youtube.com/watch?v=${movie_data.m_video}`}
@@ -509,7 +584,7 @@ function MovieDetail(props) {
                                             {cast_data.map((item, idx) => (
                                                 <SwiperSlide key={idx}>
                                                     <div className={"cast-card"}>
-                                                        <img alt={""} src={`https://image.tmdb.org/t/p/w500/${item.per_photo}`}
+                                                        <img alt={""} src={item.per_photo===""?noperimg:`https://image.tmdb.org/t/p/w500/${item.per_photo}`}
                                                              className={"cast-img"}/>
                                                         <div className={"cast-info"}>
                                                             <div className={"person-name"}>

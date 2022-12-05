@@ -46,7 +46,7 @@ public class TheMovieService {
 
         int count =0;
         while(count<2){
-            //url 작성
+            // url 작성
             String tmdb_list_url = (count==0)
                                     ? TMDB_URL + "movie/popular?region=kr&page=" + page_num + "&" + TMDB_KEY + TMDB_KO
                                     : TMDB_URL + "movie/upcoming?region=kr&page=" + page_num + "&" + TMDB_KEY + TMDB_KO ;
@@ -54,19 +54,19 @@ public class TheMovieService {
             JSONObject jsonObject = getDataByURL(tmdb_list_url);
             //jsonobject 에 접근해 movie_id만 반환하기
             JSONArray jsonArray = (JSONArray) jsonObject.get("results");
+
             for (int i = 0; i < jsonArray.size(); i++) {
                 jsonObject = (JSONObject) jsonArray.get(i);
                 String movie_id = jsonObject.get("id").toString();
                 // db에 들어있는지를 판단해 없는 영화만 list에 add 한다.
                 int movieYoN = movieRepository.selectMovieYoN(movie_id);
-                System.out.println("movie_id"+movie_id);
+
                 if (movieYoN == 0) {
                     movie_id_lsit.add(movie_id);
                 }
             }
             count++;
         }
-        System.out.println("movie_id_list "+movie_id_lsit);
         return movie_id_lsit;
     }//movieListApi
 
@@ -124,12 +124,9 @@ public class TheMovieService {
 
     //movie id 를 통해 영화 상세정보를 db에 저장
     public void movieDataSave (Object movie_id) {
-        System.out.println(movie_id);
         //사용되는 변수선언
         JSONObject jsonObject;
         JSONArray jsonArray;
-
-//        for(int i=0; i<movie_id_lsit.size(); i++){
 
         // 관람 등급 1,12,15,19 세중 랜덤으로 생성
         final String[] age_grade_list =
