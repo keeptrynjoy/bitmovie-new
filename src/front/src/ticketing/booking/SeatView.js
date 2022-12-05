@@ -159,7 +159,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                 setCoupon(res.data);
                 // console.log(res.data);
             }).catch((error) => {
-            console.log('쿠폰이 존재하지 않아요')
+            // console.log('쿠폰이 존재하지 않아요')
         });
     }
 
@@ -227,7 +227,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                 setBookedSeat(res.data);
                 // console.log('?',res.data);
             }).catch((error) => {
-            console.log('예매된 좌석이 없습니다')
+            // console.log('예매된 좌석이 없습니다')
         });
     }
 
@@ -300,7 +300,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
             ])
         }
     },[selected_seat]);
-    console.log(coupon);
+    // console.log(coupon);
     return (
         <div className={'seatchoose'}>
 
@@ -365,8 +365,8 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
                     <div className="screen"></div>
                     <div className={'seatboxes'}>
                         {rowSeats.map((list, i) => (
-                            <label for={'seat'}>
-                                <li style={{listStyle:'none', width:0, float:'left', marginRight:'20px', marginTop:'13px', marginLeft:0, color:'silver'}} >{alphabet[i].toUpperCase().toString()}</li>
+                            <label htmlFor={'seat'} key={i}>
+                                <li  style={{listStyle:'none', width:0, float:'left', marginRight:'20px', marginTop:'13px', marginLeft:0, color:'silver'}} >{alphabet[i].toUpperCase().toString()}</li>
                                 {seats.map((list,j) => (
                                     <input type={"checkbox"}
                                            disabled={bookedSeat.includes(alphabet[i].toUpperCase()+(j+1).toString())}
