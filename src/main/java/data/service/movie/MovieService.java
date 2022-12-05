@@ -181,4 +181,6 @@ public class MovieService {
     public List<Integer> selectMWishList(int user_pk) {
         return mWishRepository.selectMWishList(user_pk);
     }
+
+    public int selectLikes(int movie_pk) {return mWishRepository.selectLikes(movie_pk);}
 }
