@@ -5,7 +5,6 @@
 운영하는 기본적인 서비스를 구현하는 것이 목적인 프로젝트입니다.
 <br/><br/>
 
-
 ## 프로젝트 일정 및 규모
 * 개발 기간 : 2022.11.01 ~ 12.08 (38일)
 * 인원 : 5명
@@ -21,27 +20,30 @@
 ### Back-End
 <img src="https://img.shields.io/badge/JAVA | 11-0d8ac7?style=for-the-badge&logo=OpenJDK&logoColor=white"> <img src="https://img.shields.io/badge/SPRINGBOOT | 2.7-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white">
 <img src="https://img.shields.io/badge/MYBATIS | 2.2-000000?style=for-the-badge&logo=&logoColor=white">
-<br><img src="https://img.shields.io/badge/Jackson | 2.13-0d8ac7?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Lombok-DDB320?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=&logoColor=white"> 
+<br><img src="https://img.shields.io/badge/Jackson-0d8ac7?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Lombok-DDB320?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=&logoColor=white"><img src="https://img.shields.io/badge/Apache Tomcat-F8DC75?style=for-the-badge&logo=Apache Tomcat&logoColor=white"> 
 
-### ERD
-* Table 17개
-* Colunm 100개
-<img src = "https://github.com/bitcampteam4/bitmovie/blob/main/src/main/webapp/image/Bitmovie_ERD.png?raw=true" width="800px">
+### Infra
+<img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=Amazon EC2&logoColor=white"> <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=Amazon RDS&logoColor=white">
+### Tools
+<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"> <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"> <img src="https://img.shields.io/badge/ERD Cloud-EEEEEE?style=for-the-badge&logo=ERDCloud&logoColor=white"> <img src="https://img.shields.io/badge/IntelliJ IDEA-000000?style=for-the-badge&logo=IntelliJ IDEA&logoColor=white"><br/><img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white"> <img src="https://img.shields.io/badge/MySQL Workbench-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"> <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
 
 ### 사용 API
 * [TMDB](https://www.themoviedb.org/) - 영화/인물 데이터 수집
 * [i'mport](https://api.iamport.kr/) - 결제 및 환불
 * [coolsms](https://docs.coolsms.co.kr/api-reference/cash/getreceipt) - 핸드폰 인증 문자 발송
 
-#### Infra
-<img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=Amazon EC2&logoColor=white"> <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=Amazon RDS&logoColor=white">
-#### Tool
-<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"> <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"> <img src="https://img.shields.io/badge/ERD Cloud-EEEEEE?style=for-the-badge&logo=ERDCloud&logoColor=white"><br/><img src="https://img.shields.io/badge/IntelliJ IDEA-000000?style=for-the-badge&logo=IntelliJ IDEA&logoColor=white"> <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white"> <img src="https://img.shields.io/badge/MySQL Workbench-4479A1?style=for-the-badge&logo=MySQL&logoColor=white">
-
+## ERD
+* Table 17개
+* Colunm 100개
+<img src = "https://github.com/bitcampteam4/bitmovie/blob/main/src/main/webapp/image/Bitmovie_ERD.png?raw=true" width="800px">
 
 
 ## 팀원
-|[김태민](https://github.com/commitonly)|[김성민](https://github.com/keeptrynjoy)|[이준민](https://github.com/Jxnmin)|[유희준](https://github.com/J-LOOK-J)|[정지훈](https://github.com/greetjeehun)|
+[김태민] | Front-End | 결제,예매 |  https://github.com/commitonly 
+[김성민] | Back-End | 결제,예매 |https://github.com/keeptrynjoy
+[이준민] | Back-End | 로그인,회원가입,MyPage | https://github.com/Jxnmin
+[유희준] | Back-End | 영화리스트,상세페이지,리뷰,검색 | https://github.com/J-LOOK-J 
+[정지훈] | Front-End | 로그인,회원가입,영화리스트,상세페이지,리뷰,검색,Mypage | https://github.com/greetjeehun
 >*해당 프로젝트에 대한 이슈 문의 및 팀원들에게 연락하고 싶다면 이름 링크를 클릭해서 연락부탁드립니다.*
 
 
