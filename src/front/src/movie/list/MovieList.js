@@ -31,6 +31,7 @@ function MovieList(props) {
     const handleChange = (e, p) => {
         setPage(p);
         _DATA.jump(p);
+        getMwishList();
     };
 
     const makeListUrl =(order_stand,BorA)=>{
