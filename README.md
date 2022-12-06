@@ -24,9 +24,9 @@
 <br><img src="https://img.shields.io/badge/Jackson | 2.13-0d8ac7?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Lombok-DDB320?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=&logoColor=white"> 
 
 ### ERD
-* Table 00개
-* Colunm 00개
-<img src = "">
+* Table 17개
+* Colunm 100개
+<img src = "https://github.com/bitcampteam4/bitmovie/blob/main/src/main/webapp/image/Bitmovie_ERD.png?raw=true" width="800px">
 
 ### 사용 API
 * [TMDB](https://www.themoviedb.org/) - 영화/인물 데이터 수집
