@@ -30,6 +30,9 @@ function MovieReview(props) {
         if(type!=="detail"){
             return
         }
+        if(sessionStorage.user_pk==null){
+            return;
+        }
         const url = `${localStorage.url}/movie/selectLikeRevwList?user_pk=${sessionStorage.user_pk}&movie_pk=${m_pk}`;
         axios.get(url)
             .then((res)=>{

@@ -7,7 +7,6 @@ import usePagination from "../service/UsePagination";
 import {CircularProgress, Pagination} from "@mui/material";
 import nodata from "../image/nodata.png";
 import noperimg from "../image/noperimage.png";
-import {Swiper, SwiperSlide} from "swiper/react";
 
 function SearchResult(props) {
     const p=useParams();

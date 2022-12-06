@@ -528,7 +528,7 @@ function MovieDetail(props) {
                                                                                                           </div>
                                                                                                       </React.Fragment>
                                                                                                   }>
-                                                                                        <div className={"time"} >
+                                                                                        <div className={"time"} onClick={()=>navi(`/ticketing`)}>
                                                                                             <div className={"time-upper"}>
                                                                                                 {time.scrt_stime.substring(0,5)}
                                                                                             </div>

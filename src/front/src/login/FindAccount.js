@@ -68,15 +68,28 @@ function FindAccount(props) {
             return;
         }
 
-        let url = localStorage.url + "/user/sendSMS?u_phone=" + findPwInputHp;
-        axios.get(url)
-            .then(res => {
-                input.randomNum = res.data;
-                Swal.fire({
-                    icon:"success",
-                    text:"인증 번호 발송 완료!"
-                })
+        //아이디-전화번호 체크
+        axios.get(`${localStorage.url}/user/checkInfo?u_id=${findPwInputId}&u_phone=${findPwInputHp}`)
+            .then((res)=>{
+                if(res.data===1){
+                    let url = localStorage.url + "/user/sendSMS?u_phone=" + findPwInputHp;
+                    axios.get(url)
+                        .then(r => {
+                            input.randomNum = r.data;
+                            Swal.fire({
+                                icon:"success",
+                                text:"인증 번호 발송 완료!"
+                            })
+                        })
+                }else{
+                    Swal.fire({
+                        icon:"warning",
+                        text:"아이디와 전화번호가 일치 라지 않습니다."
+                    })
+                }
             })
+
+
     }
 
     const checkSMS = () => {
@@ -100,19 +113,19 @@ function FindAccount(props) {
                 <div className={"find-id-box"}>
                     <form onSubmit={findIdSubmit}>
                         <h1>아이디 찾기</h1>
-                        <input style={{marginTop:"10px"}} className={'form-control'} type={"text"} name={"find-id-hp"} placeholder={"전화번호를 입력하세요"} onChange={(e)=>setFindIdInput(e.target.value)}/>
+                        <input style={{marginTop:"10px"}} className={'form-control'} type={"text"} name={"find-id-hp"} placeholder={"전화번호를 입력하세요"} onChange={(e)=>setFindIdInput(e.target.value)} maxLength={13}/>
                         <br/>
                         <Button style={{marginTop:"10px"}} color={"inherit"} variant={"contained"} type={"submit"}>아이디찾기</Button>
                     </form>
                 </div>
                 <form onSubmit={findPwSubmit}>
-                    <h1>비번 찾기</h1>
+                    <h1>비밀번호 찾기</h1>
                     <input style={{marginTop:"10px"}} className={'form-control'} type={"text"} name={"find-pw-id"}
                            placeholder={"아이디를 입력하세요"}
                            onChange={(e)=>setFindPwInputId(e.target.value)}/>
                     <br/>
                     <div style={{marginTop:"10px", display:"flex", height:"38px"}}>
-                        <input style={{width:"230px"}} className={'form-control'} type={"text"} name={"find-pw-hp"} placeholder={"전화번호를 입력하세요"}
+                        <input style={{width:"230px"}} className={'form-control'} type={"text"} name={"find-pw-hp"} placeholder={"전화번호를 입력하세요"} maxLength={13}
                                onChange={(e)=>setFindPwInputHp(e.target.value)}/>
                         <Button variant={"outlined"} color={"success"}
                                 sx={{marginLeft:"30px"}}
