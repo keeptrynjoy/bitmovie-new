@@ -24,9 +24,9 @@
 
 ### 개발환경
 #### DB & Framework & Server 
-<img src="https://img.shields.io/badge/Spring Boot | 2.7.5-6DB33F?style=for-the-badge&logo=SpringBoot&logoColor=white"> <img src="https://img.shields.io/badge/MyBatis | 3.5-26689A?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Apache Tomcat-C71A36?style=for-the-badge&logo=Apache Tomcat&logoColor=white">
+<img src="https://img.shields.io/badge/Spring Boot | 2.7.5-6DB33F?style=for-the-badge&logo=SpringBoot&logoColor=white"> <img src="https://img.shields.io/badge/MyBatis-26689A?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Apache Tomcat-C71A36?style=for-the-badge&logo=Apache Tomcat&logoColor=white">
 
-<img src="https://img.shields.io/badge/MySQL | 8.0-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"> <img src="https://img.shields.io/badge/Lombok | 1.18-DDB320?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/mockito | 4.7-111324?style=for-the-badge&logo=&logoColor=white">  <img src="https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=&logoColor=white"> 
+<img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"> <img src="https://img.shields.io/badge/Lombok-DDB320?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodejs&logoColor=white"> 
 
 #### Amazon
 <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=Amazon EC2&logoColor=white"> <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=Amazon RDS&logoColor=white"> <img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=for-the-badge&logo=Amazon AWS&logoColor=white">
