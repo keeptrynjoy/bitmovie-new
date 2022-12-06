@@ -42,7 +42,11 @@
         SELECT u_id FROM user_tb WHERE u_phone = #{u_phone}
     </select>
     <!--비밀번호 찾기 (아이디, 핸드폰 번호 확인)-->
-    <select id="selectFindPass" parameterType="User" resultType="int">
-        SELECT count(*) FROM user_tb WHERE u_id = #{u_id} AND u_phone = #{u_phone}
+    <select id="selectFindPass" parameterType="User" resultType="String">
+        SELECT u_pass FROM user_tb WHERE u_id = #{u_id} AND u_phone = #{u_phone}
+    </select>
+    <!--전화번호 중복 확인-->
+    <select id="selectCheckPhone" parameterType="String" resultType="int">
+        SELECT count(*) FROM user_tb WHERE u_phone = #{u_phone}
     </select>
 </mapper>

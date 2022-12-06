@@ -32,8 +32,8 @@ function FindAccount(props) {
     const findPwSubmit=(e)=>{
         e.preventDefault();
         if(boolhp) {
-            const findPwUrl = localStorage.url + "/user/findpass?u_id=" + findPwInputId + "&u_phone=" + findPwInputHp;
-            axios.get(findPwUrl)
+            const findPwUrl = localStorage.url + "/user/findpass";
+            axios.post(findPwUrl,{u_id:findPwInputId,u_phone:findPwInputHp})
                 .then((res) => {
                     Swal.fire({
                         icon: "info",

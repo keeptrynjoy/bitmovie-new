@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Alert} from "@mui/material";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -100,7 +100,7 @@ function JoinInfo(props) {
             return;
         }
 
-        const hppattern = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
+        const hppattern = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
         if(!hppattern.test(input.u_phone))
         {
             Swal.fire({
@@ -186,27 +186,36 @@ function JoinInfo(props) {
     }
 
     const sendSMS = () => {
-        const hppattern = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
+        const hppattern = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
         if(!hppattern.test(input.u_phone))
         {
             Swal.fire({
                 icon:"warning",
                 text:"전화번호는 \"-\" 을 포함해 휴대전화 형식에 맞게 입력해주세요"
             })
-            return;
-        }
-
-        let url = localStorage.url + "/user/sendSMS?u_phone=" + input.u_phone;
-        console.log(input.u_phone);
-        axios.get(url)
-            .then(res => {
-                console.log("ph: "+res.data);
-                input.randomNum = res.data;
-                Swal.fire({
-                    icon:"success",
-                    text:"인증 번호 발송 완료!"
+        }else{
+            axios.get(`${localStorage.url}/user/checkPhone?u_phone=${input.u_phone}`)
+                .then((res)=>{
+                    if(res.data===0){
+                        let url = localStorage.url + "/user/sendSMS?u_phone=" + input.u_phone;
+                        console.log(input.u_phone);
+                        axios.get(url)
+                            .then(r => {
+                                console.log("ph: "+r.data);
+                                input.randomNum = r.data;
+                                Swal.fire({
+                                    icon:"success",
+                                    text:"인증 번호 발송 완료!"
+                                })
+                            })
+                    }else{
+                        Swal.fire({
+                            icon:"warning",
+                            text:"이미 가입된 번호 입니다."
+                        })
+                    }
                 })
-            })
+        }
     }
 
     const checkSMS = () => {
@@ -244,6 +253,10 @@ function JoinInfo(props) {
                 }
             })
     }
+
+    // useEffect(() => {
+    //     console.log(input.u_phone);
+    // }, [input]);
 
     return (
         <div className={"join-info"}>
@@ -370,7 +383,7 @@ function JoinInfo(props) {
                         <th style={{width:'130px',backgroundColor:'#ddd'}}>전화번호</th>
                         <td style={{display:"flex"}}>
                             <input type={'text'} className={'form-control'} style={{marginLeft:"20px",width:'200px'}}
-                                   name={"u_phone"} value={input.u_phone} onChange={changeData}/>
+                                   name={"u_phone"} value={input.u_phone} onChange={changeData} maxLength={13}/>
                             <Button variant={"outlined"} color={"success"}
                                     sx={{marginLeft:"30px"}}
                                     onClick={() => {

@@ -128,7 +128,9 @@ const TimeTable = (props) => {
                                     justifyContent: 'center',
                                     float:'left',
                                     margin:'5px',
-                                    marginTop:'6%'
+                                    marginTop:'6%',
+                                            borderRadius: '20px'
+
                                 }}
 
                                 >
