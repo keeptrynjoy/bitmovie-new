@@ -3,7 +3,8 @@
 ## 프로젝트 소개
 학습한 지식을 경험으로 만들기 위해 국내 영화 예매 웹서비스에서<br/>
 운영하는 기본적인 서비스를 구현하는 것이 목적인 프로젝트입니다.
-<br/>
+<br/><br/>
+
 
 ## 프로젝트 일정 및 규모
 ### 프로젝트 일정
@@ -36,9 +37,7 @@
 #### Infra
 <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=Amazon EC2&logoColor=white"> <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=Amazon RDS&logoColor=white">
 #### Tool
-<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"> <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"> <img src="https://img.shields.io/badge/ERD Cloud-EEEEEE?style=for-the-badge&logo=ERDCloud&logoColor=white"> 
-
-<img src="https://img.shields.io/badge/IntelliJ IDEA-000000?style=for-the-badge&logo=IntelliJ IDEA&logoColor=white"> <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white"> <img src="https://img.shields.io/badge/MySQL Workbench-4479A1?style=for-the-badge&logo=MySQL&logoColor=white">
+<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"> <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"> <img src="https://img.shields.io/badge/ERD Cloud-EEEEEE?style=for-the-badge&logo=ERDCloud&logoColor=white"><br/><img src="https://img.shields.io/badge/IntelliJ IDEA-000000?style=for-the-badge&logo=IntelliJ IDEA&logoColor=white"> <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white"> <img src="https://img.shields.io/badge/MySQL Workbench-4479A1?style=for-the-badge&logo=MySQL&logoColor=white">
 
 
 
