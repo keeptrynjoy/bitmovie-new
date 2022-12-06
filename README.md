@@ -15,6 +15,16 @@
 * 인원 : 5명
 <br/>
 
+## 팀원
+|**이름**|**역할**|**담당 기능**                               |**Git URL**                     |
+|-------|-----------|--------------------------------------------|--------------------------------|
+| 김태민 | <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> | 결제, 예매                                    | https://github.com/commitonly  |
+| 김성민 | <img src="https://img.shields.io/badge/SPRINGBOOT-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> | 결제, 예매                                    | https://github.com/keeptrynjoy |
+| 이준민 | <img src="https://img.shields.io/badge/SPRINGBOOT-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">  | 로그인, 회원가입, MyPage                         | https://github.com/Jxnmin      |
+| 유희준 | <img src="https://img.shields.io/badge/SPRINGBOOT-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">  | 영화리스트, 상세페이지, 리뷰, 검색                    | https://github.com/J-LOOK-J    |
+| 정지훈 | <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> | 로그인, 회원가입, Mypage, 영화리스트, 상세페이지, 리뷰, 검색 | https://github.com/greetjeehun |
+<br/>
+
 ## 기술 소개
 ### Front-End
 <img src="https://camo.githubusercontent.com/5a7100155d1a7b75357a90e8810530b21c8723c59f2976d0dafc7950205336d7/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f68746d6c352d4533344632363f7374796c653d666f722d7468652d6261646765266c6f676f3d68746d6c35266c6f676f436f6c6f723d7768697465" data-canonical-src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&amp;logo=html5&amp;logoColor=white" style="max-width: 100%;"> <img src="https://camo.githubusercontent.com/d1a61dccdba51c4d1ff3306fe00404de9162915d282bade8ef91b992f84ebd35/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6373732d3135373242363f7374796c653d666f722d7468652d6261646765266c6f676f3d63737333266c6f676f436f6c6f723d7768697465" data-canonical-src="https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&amp;logo=css3&amp;logoColor=white" style="max-width: 100%;"> <img src="https://img.shields.io/badge/JAVASCRIPT | ES6-F7DF1E?style=for-the-badge&amp;logo=javascript&amp;logoColor=black"> <img src="https://img.shields.io/badge/REACT | 18.2-61DAFB?style=for-the-badge&amp;logo=react&amp;logoColor=black">
@@ -43,14 +53,5 @@
 * Colunm 100개
 <img src = "https://github.com/bitcampteam4/bitmovie/blob/main/src/main/webapp/image/Bitmovie_ERD.png?raw=true" width="800px">
 <br/>
-
-## 팀원
-|**이름**|**역할**|**담당 기능**                               |**Git URL**                     |
-|-------|-----------|--------------------------------------------|--------------------------------|
-| 김태민 | <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> | 결제, 예매                                    | https://github.com/commitonly  |
-| 김성민 | <img src="https://img.shields.io/badge/SPRINGBOOT-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> | 결제, 예매                                    | https://github.com/keeptrynjoy |
-| 이준민 | <img src="https://img.shields.io/badge/SPRINGBOOT-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">  | 로그인, 회원가입, MyPage                         | https://github.com/Jxnmin      |
-| 유희준 | <img src="https://img.shields.io/badge/SPRINGBOOT-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">  | 영화리스트, 상세페이지, 리뷰, 검색                    | https://github.com/J-LOOK-J    |
-| 정지훈 | <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> | 로그인, 회원가입, Mypage, 영화리스트, 상세페이지, 리뷰, 검색 | https://github.com/greetjeehun |
 
 
