@@ -29,9 +29,9 @@ function MovieList(props) {
     const [in_theater,setIn_theater] = useState("");
 
     const handleChange = (e, p) => {
+        getMwishList();
         setPage(p);
         _DATA.jump(p);
-        getMwishList();
     };
 
     const makeListUrl =(order_stand,BorA)=>{
@@ -51,6 +51,7 @@ function MovieList(props) {
     const getMwishList=()=>{
         axios.get(`${localStorage.url}/movie/selectMWishList?${sessionStorage.user_pk==null?"":"user_pk="+sessionStorage.user_pk}`)
             .then((res)=>{
+                console.log(res.data);
                 setMWishList(res.data);
             })
     }
@@ -101,6 +102,7 @@ function MovieList(props) {
         axios.get(makeListUrl())
             .then((res)=>{
                 setMlist(res.data);
+                getMwishList();
                 setLoading(false);
             });
     }
@@ -120,6 +122,7 @@ function MovieList(props) {
         axios.get(makeListUrl(order_stand,BorA))
             .then((res)=>{
                 setMlist(res.data);
+                getMwishList();
                 setLoading(false);
             });
     }
@@ -127,13 +130,13 @@ function MovieList(props) {
     //페이지 로딩시 데이터 가져오기
     useEffect(() => {
         getData();
-        getMwishList();
+        // getMwishList();
     }, []);
 
     //정렬순서, 개봉작 바뀔 때마다 리스트 가져오기
     useEffect(()=>{
         getRankData(order,in_theater);
-        getMwishList();
+        // getMwishList();
     },[order,in_theater]);
 
     return (
