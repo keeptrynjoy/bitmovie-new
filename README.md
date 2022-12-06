@@ -24,7 +24,7 @@
 
 ### 개발환경
 #### DB & Framework & Server 
-<img src="https://img.shields.io/badge/Spring | 5.0.7-6DB33F?style=for-the-badge&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/MyBatis | 3.5-26689A?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Spring Security | 5.4.2-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white"> <img src="https://img.shields.io/badge/Apache Tomcat | 9.0.52-C71A36?style=for-the-badge&logo=Apache Tomcat&logoColor=white">
+<img src="https://img.shields.io/badge/Spring Boot | 2.7.5-6DB33F?style=for-the-badge&logo=SpringBoot&logoColor=white"> <img src="https://img.shields.io/badge/MyBatis | 3.5-26689A?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Apache Tomcat-C71A36?style=for-the-badge&logo=Apache Tomcat&logoColor=white">
 
 <img src="https://img.shields.io/badge/MySQL | 8.0-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"> <img src="https://img.shields.io/badge/Lombok | 1.18-DDB320?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/mockito | 4.7-111324?style=for-the-badge&logo=&logoColor=white">  <img src="https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=&logoColor=white"> 
 
