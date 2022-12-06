@@ -31,12 +31,13 @@
 * [TMDB](https://www.themoviedb.org/) - 영화/인물 데이터 수집
 * [i'mport](https://api.iamport.kr/) - 결제 및 환불
 * [coolsms](https://docs.coolsms.co.kr/api-reference/cash/getreceipt) - 핸드폰 인증 문자 발송
+<br/>
 
 ## ERD
 * Table 17개
 * Colunm 100개
 <img src = "https://github.com/bitcampteam4/bitmovie/blob/main/src/main/webapp/image/Bitmovie_ERD.png?raw=true" width="800px">
-
+<br/>
 
 ## 팀원
 |**이름**|**담당 포지션**|**담당 기능**                               |**Git URL**                     |
