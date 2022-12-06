@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Rating} from "@mui/lab";
+import {Rating} from "@mui/material";
 import axios from "axios";
 import {Flag, NotificationImportant, Report, ThumbUp} from "@material-ui/icons";
 import Swal from "sweetalert2";

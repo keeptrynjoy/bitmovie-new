@@ -221,3 +221,7 @@ img.movie-poster {
 .main-wrapper {
     overflow: auto;
 }
+
+.main-wrapper::-webkit-scrollbar{
+    display: none;
+}

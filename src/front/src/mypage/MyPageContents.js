@@ -14,6 +14,9 @@ const pointInfo=()=>{
 
     return (
         <div>
+            <div className={"mypage-contents-title"}>
+                포인트 사용 안내
+            </div>
             <table className={"mypage-table"}>
                 <thead>
                 <tr>

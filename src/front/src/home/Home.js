@@ -50,7 +50,6 @@ function Home(props) {
         const getMovieUrl = `${localStorage.url}/main/selectRecentRevw?${sessionStorage.user_pk==null?"":"user_pk="+sessionStorage.user_pk}`;
         axios.get(getMovieUrl)
             .then((res)=>{
-                console.log(res.data);
                 setReviews(res.data);
             })
     }
