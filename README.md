@@ -10,8 +10,13 @@
 
 ## 기술 소개
 ### 사용언어 & 라이브러리
-<img src="https://img.shields.io/badge/java | 11-007396?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/javascript | ES6-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white"> 
-<img src="https://img.shields.io/badge/ajax-0B2C4A?style=for-the-badge&logo=ajax&logoColor=white">
+<img src="https://img.shields.io/badge/java | 11-007396?style=for-the-badge&logo=java&logoColor=white"> 
+<img src="https://img.shields.io/badge/javascript | ES6-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> 
+<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
+<img src="https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white"> 
+<img src="https://img.shields.io/badge/axios-0B2C4A?style=for-the-badge&logo=axios&logoColor=white"> 
+<img src="https://img.shields.io/badge/mui-007FFF?style=for-the-badge&logo=mui&logoColor=white"> 
+
 ### ERD
 * Table 00개
 * Colunm 00개
@@ -21,6 +26,7 @@
 * [네이버](https://developers.naver.com/docs/login/api/api.md) / [카카오 로그인 API](https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api) - 소셜 로그인 
 * [i'mport](https://api.iamport.kr/) - 결제 및 환불
 * [coolsms](https://docs.coolsms.co.kr/api-reference/cash/getreceipt) - 핸드폰 인증 문자 발송
+
 ### 개발환경
 #### DB & Framework & Server 
 <img src="https://img.shields.io/badge/Spring | 5.0.7-6DB33F?style=for-the-badge&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/MyBatis | 3.5-26689A?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Spring Security | 5.4.2-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white"> <img src="https://img.shields.io/badge/Apache Tomcat | 9.0.52-C71A36?style=for-the-badge&logo=Apache Tomcat&logoColor=white">
