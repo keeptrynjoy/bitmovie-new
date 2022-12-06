@@ -122,6 +122,7 @@ function Home(props) {
                             width='100%'
                             height='400px'
                             playing={true}
+                            muted={true}
                             controls={true}
                             onEnded={()=>{
                                 setIndex(index+1);

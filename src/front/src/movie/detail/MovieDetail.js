@@ -568,6 +568,7 @@ function MovieDetail(props) {
                                             width='100%'
                                             height='400px'
                                             playing={true}
+                                            muted={true}
                                             controls={true}
                                             loop={true}
                                         />

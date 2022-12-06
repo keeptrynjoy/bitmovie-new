@@ -23,8 +23,6 @@ function Likes(props) {
         setLikes(getLikes(pk))
     }, []);
 
-   
-    
     const handleMWish=(e)=>{
         if (sessionStorage.login_status==null) {
             Swal.fire({

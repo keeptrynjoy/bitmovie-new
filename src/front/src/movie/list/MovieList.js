@@ -132,6 +132,7 @@ function MovieList(props) {
     //정렬순서, 개봉작 바뀔 때마다 리스트 가져오기
     useEffect(()=>{
         getRankData(order,in_theater);
+        getMwishList();
     },[order,in_theater]);
 
     return (
