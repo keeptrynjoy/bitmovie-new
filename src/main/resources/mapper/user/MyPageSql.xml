@@ -57,7 +57,7 @@
     <select id="selectPhotoName" parameterType="User" resultType="String">
         SELECT u_photo FROM user_tb WHERE user_pk = #{user_pk}
     </select>
-    <!--프로필드 사진 업로드-->
+    <!--프로필 사진 업로드-->
     <update id="updateUserPhoto" parameterType="User">
         UPDATE user_tb SET u_photo = #{u_photo} WHERE user_pk = #{user_pk}
     </update>

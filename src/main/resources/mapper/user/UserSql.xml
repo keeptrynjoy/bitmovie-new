@@ -49,4 +49,8 @@
     <select id="selectCheckPhone" parameterType="String" resultType="int">
         SELECT count(*) FROM user_tb WHERE u_phone = #{u_phone}
     </select>
+    <!--입력한 아이디와 전화번호로 일치하는 계정 있는지 확인-->
+    <select id="selectCheckInfo" parameterType="User" resultType="int">
+        SELECT count(*) FROM user_tb WHERE u_id = #{u_id} AND u_phone = #{u_phone}
+    </select>
 </mapper>
