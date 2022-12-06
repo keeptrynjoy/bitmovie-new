@@ -18,7 +18,7 @@
 <img src = "">
 
 ### 사용 API
-* [네이버](https://developers.naver.com/docs/login/api/api.md) / [카카오 로그인 API](https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api) - 소셜 로그인 
+* [TMDB](https://www.themoviedb.org/) - 영화/인물 데이터 수집
 * [i'mport](https://api.iamport.kr/) - 결제 및 환불
 * [coolsms](https://docs.coolsms.co.kr/api-reference/cash/getreceipt) - 핸드폰 인증 문자 발송
 
