@@ -86,6 +86,11 @@ public class UserController {
     public int selectCheckPhone(String u_phone) {
         return userService.selectCheckPhone(u_phone);
     }
+    @GetMapping("/checkInfo")
+    //입력한 아이디와 전화번호로 일치하는 계정 있는지 확인
+    public int selectCheckInfo(User user) {
+        return userService.selectCheckInfo(user);
+    }
 
     // 영화 평점 등록
     @GetMapping("/insertReview")
