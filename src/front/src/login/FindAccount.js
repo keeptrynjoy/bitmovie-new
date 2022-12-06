@@ -84,7 +84,7 @@ function FindAccount(props) {
                 }else{
                     Swal.fire({
                         icon:"warning",
-                        text:"아이디와 전화번호가 일치 라지 않습니다."
+                        text:"아이디와 전화번호가 일치하지 않습니다."
                     })
                 }
             })
