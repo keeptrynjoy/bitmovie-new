@@ -134,7 +134,6 @@ function Header(props) {
             <div className={"upper-div"}>
                 <img className={"logoimg"} alt={"로고"} src={logo} onClick={()=>{
                     navi("/");
-
                 }}/>
                 <ul className={"member-info"}>
                     <li>

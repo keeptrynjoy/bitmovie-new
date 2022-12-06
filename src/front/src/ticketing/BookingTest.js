@@ -7,7 +7,6 @@ function BookingTest(props) {
     const onClickMovie=(e)=>{
         let url = process.env.REACT_APP_URL;
         setMovie(e.target.value);
-        console.log(movie);
         axios.get(url+"/screentime/test?movie="+movie)
             .then(res=>{
                 alert(res.data);

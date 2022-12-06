@@ -151,7 +151,6 @@ function MovieDetail(props) {
                 setChartData(res.data.chart);
                 setChartLoading(false);
                 getDaysArray();
-                console.log(res.data);
             })
     }
 
@@ -175,7 +174,6 @@ function MovieDetail(props) {
         axios.get(`${localStorage.url}/movie/timeByMovieDetail?movie_pk=${parseInt(movie_pk)}&date=${selected_date}`)
             .then((res)=>{
                 setTimetable(res.data);
-                console.log(res.data);
             })
     },[selected_date])
 
@@ -184,7 +182,6 @@ function MovieDetail(props) {
         const movieLogUrl = `${localStorage.url}/mypage/movielog?user_pk=${user_pk}`;
         axios.get(movieLogUrl)
             .then((res)=>{
-                console.log(res.data);
                 for(let i=0;i<res.data.length;i++)
                 {
                     if(parseInt(res.data[i].movie_pk)===parseInt(movie_pk)){
@@ -205,7 +202,6 @@ function MovieDetail(props) {
         const movieLogUrl = `${localStorage.url}/mypage/movielog?user_pk=${user_pk}`;
         axios.get(movieLogUrl)
             .then((res)=>{
-                console.log(res.data);
                 for(let i=0;i<res.data.length;i++)
                 {
                     if(parseInt(res.data[i].movie_pk)===parseInt(movie_pk)){
@@ -260,7 +256,6 @@ function MovieDetail(props) {
                 }
                 arr.push(rowarr);
             }
-            console.log(arr);
             return arr;
         }
     }

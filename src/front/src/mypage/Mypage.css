@@ -1,8 +1,4 @@
-
-
-
 div.mypage-div {
-    display: block;
     width: 1500px;
     height: 1500px;
     margin: 0 auto;
@@ -13,6 +9,11 @@ div.mypage-div {
         "uper"
         "lower";
     grid-template-rows: 500px 1fr;
+    overflow: hidden;
+}
+
+div.mypage-div::-webkit-scrollbar{
+    display: none;
 }
 
 .upper-info-div {
@@ -179,6 +180,11 @@ b.sidebar-menu-subtitle {
 }
 
 .menu-items:hover {
+    background-color: silver;
+    box-shadow: darkgray 3px 3px 3px;
+}
+
+li .selected-menu {
     background-color: silver;
     box-shadow: darkgray 3px 3px 3px;
 }

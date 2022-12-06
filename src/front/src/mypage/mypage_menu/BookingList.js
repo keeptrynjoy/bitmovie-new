@@ -58,13 +58,9 @@ function BookingList(props) {
         }
     }
 
-    const test=()=>{
-        console.log(list);
-    }
-
     return (
         <div>
-            <div className={"mypage-contents-title"} onClick={test}>
+            <div className={"mypage-contents-title"}>
                 예매 내역
             </div>
             {/*<table className={"mypage-table"}>*/}
