@@ -132,7 +132,6 @@ function MyPageContents(props) {
     //페이지 로딩시 데이터 가져오기
     useEffect(()=>{
         getDatas().then(r=>{
-            console.log(datas);
             setContents("booking");
         });
     }, []);

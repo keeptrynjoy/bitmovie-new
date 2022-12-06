@@ -198,10 +198,8 @@ function JoinInfo(props) {
                 .then((res)=>{
                     if(res.data===0){
                         let url = localStorage.url + "/user/sendSMS?u_phone=" + input.u_phone;
-                        console.log(input.u_phone);
                         axios.get(url)
                             .then(r => {
-                                console.log("ph: "+r.data);
                                 input.randomNum = r.data;
                                 Swal.fire({
                                     icon:"success",
@@ -253,10 +251,6 @@ function JoinInfo(props) {
                 }
             })
     }
-
-    // useEffect(() => {
-    //     console.log(input.u_phone);
-    // }, [input]);
 
     return (
         <div className={"join-info"}>

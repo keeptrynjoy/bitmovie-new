@@ -19,7 +19,6 @@ function LoginMain(props) {
         axios.post(url, {u_id, u_pass})
             .then(res => {
                 if (res.data.loginOk === 1) {
-                    console.log(res.data);
                     sessionStorage.login_status = 'ok';
                     sessionStorage.u_id = u_id;
                     sessionStorage.u_name = res.data.u_name;

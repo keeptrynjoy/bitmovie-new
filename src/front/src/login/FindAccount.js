@@ -71,7 +71,6 @@ function FindAccount(props) {
         let url = localStorage.url + "/user/sendSMS?u_phone=" + findPwInputHp;
         axios.get(url)
             .then(res => {
-                console.log("ph: "+res.data);
                 input.randomNum = res.data;
                 Swal.fire({
                     icon:"success",

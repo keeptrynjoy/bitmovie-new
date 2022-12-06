@@ -61,7 +61,6 @@ function SearchResult(props) {
                     setSelected_person(res.data.people_list[0].person_pk);
                 }
                 setSearchLoading(false);
-                console.log(res.data);
             })
     }
 
@@ -73,7 +72,6 @@ function SearchResult(props) {
         axios.get(`${localStorage.url}/main/searchDetail?person_pk=${selected_person}`)
             .then((res)=>{
                 setSp_data(res.data);
-                console.log(res.data);
             })
     }, [selected_person]);
 

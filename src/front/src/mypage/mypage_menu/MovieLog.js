@@ -10,8 +10,6 @@ function MovieLog(props) {
     let [page, setPage] = useState(1);
     const PER_PAGE = 3;
 
-
-    console.log(list);
     const count = Math.ceil(list.length / PER_PAGE);
     const _DATA = usePagination(list, PER_PAGE);
 

@@ -1,5 +1,5 @@
 .footer-div{
-    width: 100%;
+    width: 1700px;
     height: 145px;
     background-color: black;
     color: white;
@@ -7,4 +7,10 @@
     /*margin: 0 auto;*/
     position: relative;
     /*justify-content: center;*/
+}
+
+.footer-big {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }

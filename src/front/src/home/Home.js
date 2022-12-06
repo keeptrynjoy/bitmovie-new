@@ -40,7 +40,6 @@ function Home(props) {
         //더 무비 api
         await axios.get(`https://api.themoviedb.org/3/movie/${type}/?api_key=${key}&language=ko&page=1&region=kr`)
             .then((res)=>{
-                console.log(res.data);
                 setMovies(res.data.results);
                 setIndex(0);
                 setSelected_movie(res.data.results[0].id);
