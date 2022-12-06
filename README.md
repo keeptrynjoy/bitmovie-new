@@ -41,10 +41,10 @@
 ## 팀원
 |**이름**|**담당 포지션**|**담당 기능**                               |**Git URL**                     |
 |------|-----------|--------------------------------------------|--------------------------------|
-| 김태민 | Front-End | 결제,예매                                    | https://github.com/commitonly  |
-| 김성민 | Back-End  | 결제,예매                                    | https://github.com/keeptrynjoy |
-| 이준민 | Back-End  | 로그인,회원가입,MyPage                         | https://github.com/Jxnmin      |
-| 유희준 | Back-End  | 영화리스트,상세페이지,리뷰,검색                    | https://github.com/J-LOOK-J    |
-| 정지훈 | Front-End | 로그인,회원가입,영화리스트,상세페이지,리뷰,검색,Mypage | https://github.com/greetjeehun |
+| 김태민 | Front-End | 결제, 예매                                    | https://github.com/commitonly  |
+| 김성민 | Back-End  | 결제, 예매                                    | https://github.com/keeptrynjoy |
+| 이준민 | Back-End  | 로그인, 회원가입, MyPage                         | https://github.com/Jxnmin      |
+| 유희준 | Back-End  | 영화리스트, 상세페이지, 리뷰, 검색                    | https://github.com/J-LOOK-J    |
+| 정지훈 | Front-End | 로그인, 회원가입, 영화리스트, 상세페이지, 리뷰, 검색, Mypage | https://github.com/greetjeehun |
 
 
