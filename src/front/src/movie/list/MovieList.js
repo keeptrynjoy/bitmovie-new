@@ -4,10 +4,8 @@ import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import MovieCard from "./MovieCard";
 import {Button, ButtonGroup, CircularProgress, Divider, Pagination, ScopedCssBaseline, Switch} from "@mui/material";
-import {ChevronRight, Favorite, FavoriteBorderOutlined} from "@material-ui/icons";
 import usePagination from "../../service/UsePagination";
 import Age from "../../service/Age";
-import Swal from "sweetalert2";
 import Likes from "./Likes";
 
 function MovieList(props) {
@@ -16,7 +14,6 @@ function MovieList(props) {
     const [loading,setLoading] = useState(true);
     const [mlist, setMlist] = useState([]);
     const [MWishList,setMWishList] = useState([]);
-    const [likes,setLikes] = useState([]);
     //페이징
     let [page, setPage] = useState(1);
     const PER_PAGE = 20;
@@ -29,7 +26,6 @@ function MovieList(props) {
     const [in_theater,setIn_theater] = useState("");
 
     const handleChange = (e, p) => {
-        getMwishList();
         setPage(p);
         _DATA.jump(p);
     };
@@ -51,7 +47,6 @@ function MovieList(props) {
     const getMwishList=()=>{
         axios.get(`${localStorage.url}/movie/selectMWishList?${sessionStorage.user_pk==null?"":"user_pk="+sessionStorage.user_pk}`)
             .then((res)=>{
-                console.log(res.data);
                 setMWishList(res.data);
             })
     }
@@ -70,51 +65,15 @@ function MovieList(props) {
         _DATA.jump(1);
     }
 
-    // const handleMWish=(e)=>{
-    //     if (sessionStorage.login_status==null) {
-    //         Swal.fire({
-    //             icon:"warning",
-    //             text:"로그인후 이용해주세요"
-    //         });
-    //         return;
-    //     }
-    //     console.log("pk",e.target.value);
-    //     if(MWishList.includes(Number(e.target.value))){
-    //         axios.post(`${localStorage.url}/user/deleteMWish`,{movie_pk:e.target.value,user_pk:sessionStorage.user_pk})
-    //             .then((res)=>{
-    //                 alert("삭제")
-    //                 // getData();
-    //                 getMwishList();
-    //             })
-    //     }else{
-    //         axios.post(`${localStorage.url}/user/insertMWish`,{movie_pk:e.target.value,user_pk:sessionStorage.user_pk})
-    //             .then((res)=>{
-    //                 alert("좋아요")
-    //                 // getData();
-    //                 getMwishList();
-    //             })
-    //     }
-    // }
-
     //시작 데이터 가져오기
     const getData =()=>{
         setLoading(true);
         axios.get(makeListUrl())
             .then((res)=>{
                 setMlist(res.data);
-                getMwishList();
                 setLoading(false);
             });
     }
-
-
-    // //특정값 가져오기
-    // const getRankData=async (order_stand,BorA)=>{
-    //     await axios.get(makeListUrl(order_stand,BorA))
-    //         .then((res)=>{
-    //             setMlist(res.data);
-    //         });
-    // }
 
     //특정값 가져오기
     const getRankData=(order_stand,BorA)=>{
@@ -122,7 +81,6 @@ function MovieList(props) {
         axios.get(makeListUrl(order_stand,BorA))
             .then((res)=>{
                 setMlist(res.data);
-                getMwishList();
                 setLoading(false);
             });
     }
@@ -130,13 +88,11 @@ function MovieList(props) {
     //페이지 로딩시 데이터 가져오기
     useEffect(() => {
         getData();
-        // getMwishList();
     }, []);
 
     //정렬순서, 개봉작 바뀔 때마다 리스트 가져오기
     useEffect(()=>{
         getRankData(order,in_theater);
-        // getMwishList();
     },[order,in_theater]);
 
     return (
@@ -152,11 +108,6 @@ function MovieList(props) {
                              setIn_theater("");
                              goToPageOne();
                          }}>
-                        {/*<span style={{width:"30px",height:"30px", display:"block"}}>*/}
-                        {/*    {*/}
-                        {/*        in_theater!=="before"?<ChevronRight/>:""*/}
-                        {/*    }*/}
-                        {/*</span>*/}
                         무비차트
                     </div>
                     <div className={"coming-soon-btn"}
@@ -220,7 +171,7 @@ function MovieList(props) {
                                             </div>
                                             <div className={"btn-div"}>
                                                 <span className={"like-btn"}>
-                                                    <Likes pk={item.movie_pk} MWishList={MWishList} getMwishList={getMwishList}/>
+                                                    <Likes pk={item.movie_pk} MWishList={MWishList} getMwishList={getMwishList} page={page} mlist={mlist}/>
                                                 </span>
                                                 <span className={"book-btn"}>
                                                     <Button variant={"contained"} sx={{width:"120px", marginLeft:"10px"}}

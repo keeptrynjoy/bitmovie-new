@@ -16,12 +16,12 @@ function Likes(props) {
                 setLikes(res.data);
                 count=res.data;
             });
-        return count;
     }
 
     useEffect(() => {
-        setLikes(getLikes(pk))
-    }, []);
+        props.getMwishList();
+        getLikes(pk);
+    }, [props.page,props.mlist]);
 
     const handleMWish=(e)=>{
         if (sessionStorage.login_status==null) {
@@ -45,8 +45,6 @@ function Likes(props) {
                 })
         }
     }
-
-   
 
     return (
         <Button variant="outlined"
