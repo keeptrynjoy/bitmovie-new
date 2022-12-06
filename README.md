@@ -46,7 +46,7 @@
 
 ## 팀원
 |**이름**|**역할**|**담당 기능**                               |**Git URL**                     |
-|------|-----------|--------------------------------------------|--------------------------------|
+|-------|-----------|--------------------------------------------|--------------------------------|
 | 김태민 | <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> | 결제, 예매                                    | https://github.com/commitonly  |
 | 김성민 | <img src="https://img.shields.io/badge/SPRINGBOOT-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> | 결제, 예매                                    | https://github.com/keeptrynjoy |
 | 이준민 | <img src="https://img.shields.io/badge/SPRINGBOOT-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">  | 로그인, 회원가입, MyPage                         | https://github.com/Jxnmin      |
