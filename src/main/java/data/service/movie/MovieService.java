@@ -64,13 +64,6 @@ public class MovieService {
         // 1. 영화 정보 출력
         Movie movie_data = movieRepository.selectMovieData(movie_pk);
         Map<String, Object> map = new HashMap<>();
-        System.out.println("moviedata "+movie_data);
-        if(movie_data==null) {
-            System.out.println("null");
-        }
-        else {
-            System.out.println("not null");
-        }
 
         if (movie_data == null) {
             theMovieService.movieDataSave(movie_pk);
@@ -99,11 +92,8 @@ public class MovieService {
         int age40 = 0;
         int age50 = 0;
         int age = 0;
-        System.out.println("size " + total);
-        System.out.println(chart);
         for (int i = 0; i < total; i++) {
             String gender = chart.get(i).get("u_gender").toString();
-            System.out.println("u_birth "+gender);
             // 성별 정보 저장
             if(gender.equals("male"))
                 male++;
@@ -113,8 +103,6 @@ public class MovieService {
             String u_birth = chart.get(i).get("u_birth").toString();
             int birth = Integer.parseInt(u_birth.substring(0,4));
             int year = LocalDate.now().getYear();
-            System.out.println(birth);
-            System.out.println(year-birth+1);
             switch ((year-birth+1)/10){
                 case 1: age10++; break;
                 case 2: age20++; break;
@@ -134,9 +122,6 @@ public class MovieService {
         chart_data.put("age40", age40);
         chart_data.put("age50", age50);
         chart_data.put("age", age);
-        //
-        System.out.println(chart_data);
-
         map.put("chart", chart_data);
 
 
@@ -181,4 +166,6 @@ public class MovieService {
     public List<Integer> selectMWishList(int user_pk) {
         return mWishRepository.selectMWishList(user_pk);
     }
+
+    public int selectLikes(int movie_pk) {return mWishRepository.selectLikes(movie_pk);}
 }

@@ -211,7 +211,6 @@ public class TheMovieService {
             photo += ",";
         }
         photo = photo.substring(0, photo.length() - 1);
-        System.out.println("insert");
         //Repository 를 호출해 db에 저장
         movieRepository.insertDetailData(
                 Movie.movieBuilder()
@@ -271,7 +270,6 @@ public class TheMovieService {
         // 값이 존재하는 경우에만 읽어오기
         if(jsonArray.size()>0){
             video = ((JSONObject) jsonArray.get(0)).get("key").toString();
-            System.out.println(video);
 
             // db에 데이터를 저장
             map.put("column","m_video");
@@ -307,7 +305,6 @@ public class TheMovieService {
             photo += ",";
         }
         photo = photo.substring(0, photo.length() - 1);
-        System.out.println(photo);
 
         movie_pk = Integer.parseInt(movie_id.toString());
         map.put("movie_pk", movie_pk);
@@ -338,7 +335,6 @@ public class TheMovieService {
         int limit = jsonArray.size()<15?jsonArray.size():15;
         for (int j = 0; j < limit; j++) {
             jsonObject = (JSONObject) jsonArray.get(j);
-            System.out.println(jsonObject);
 
             // 등장인물의 id 를 구하기
             person_pk = Integer.parseInt(jsonObject.get("id").toString());
@@ -354,7 +350,6 @@ public class TheMovieService {
                 if (profile_path.isPresent()) {
                     per_photo = object.toString();
                 }
-                System.out.println("per_photo: "+per_photo);
                 personRepository.insertPersonData(
                         Person.personBuilder()
                                 .person_pk(person_pk)
@@ -365,7 +360,6 @@ public class TheMovieService {
             // cast_tb 에 인물과 영화를 연결하는 정보 저장
             int movie_pk = Integer.parseInt(movie_id.toString());
             String cast_type = jsonObject.get("known_for_department").toString();
-            System.out.println("movie_pk: "+movie_pk);
             castRepository.insertCast(
                     Cast.castBuilder()
                             .movie_pk(movie_pk)

@@ -2,7 +2,7 @@
     text-align: center;
     display: block;
     width: 1500px;
-    height: 1500px;
+    height: 700px;
     margin: 0 auto;
     position: relative;
     background-color: whitesmoke;
@@ -12,7 +12,7 @@
     text-align: center;
     display: block;
     width: 1500px;
-    height: 600px;
+    height: 700px;
     margin: 0 auto;
     position: relative;
     background-color: whitesmoke;
@@ -31,14 +31,14 @@
 
 .login-div .login-box {
     width: 1000px;
-    height: 700px;
+    height: 500px;
     margin: 0 auto 0;
     padding: 80px 170px;
 }
 
 .find-box {
     width: 700px;
-    height: 700px;
+    height: 500px;
     margin: 0 auto 0;
     padding: 80px 170px;
 }

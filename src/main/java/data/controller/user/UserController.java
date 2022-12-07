@@ -67,8 +67,8 @@ public class UserController {
         return userService.selectId(u_phone);
     }
     //비밀번호 찾기(아이디, 핸드폰 번호 넘겨서 둘 다 일치하는 레코드 있으면 1, 없으면 0 넘겨줌)
-    @GetMapping("/findpass")
-    public int selectFindPass(@RequestParam User user) {
+    @PostMapping("/findpass")
+    public String selectFindPass(@RequestBody User user) {
         return userService.selectFindPass(user);
     }
     //회원 삭제(상태 변경)
@@ -80,6 +80,16 @@ public class UserController {
     @PostMapping("/selectpass")
     public boolean selectPass(@RequestBody User user) {
         return userService.selectPass(user);
+    }
+    //전화번호 중복 체크
+    @GetMapping("/checkPhone")
+    public int selectCheckPhone(String u_phone) {
+        return userService.selectCheckPhone(u_phone);
+    }
+    @GetMapping("/checkInfo")
+    //입력한 아이디와 전화번호로 일치하는 계정 있는지 확인
+    public int selectCheckInfo(User user) {
+        return userService.selectCheckInfo(user);
     }
 
     // 영화 평점 등록

@@ -1,27 +1,43 @@
 div.mypage-div {
-    display: block;
     width: 1500px;
     height: 1500px;
     margin: 0 auto;
+    padding: 50px 50px 50px;
     position: relative;
-    /*background-color: whitesmoke;*/
+    display: grid;
+    grid-template-areas:
+        "uper"
+        "lower";
+    grid-template-rows: 500px 1fr;
+    overflow: hidden;
+}
+
+div.mypage-div::-webkit-scrollbar{
+    display: none;
 }
 
 .upper-info-div {
+    grid-area: uper;
     display: flex;
-    padding-left: 50px;
-    padding-top: 50px;
+    justify-content: center;
+}
+
+div.lower-info-div {
+    grid-area: lower;
+    display: flex;
+    width: 1300px;
+    height: 900px;
 }
 
 .photo-div {
     position : relative;
-    width: 400px;
-    height: 400px;
+    width: 100px;
+    height: 100px;
 }
 
 img.profile-photo {
-    width: 400px;
-    height: 400px;
+    width: 100%;
+    height: 100%;
     border-radius: 30%;
 }
 
@@ -39,14 +55,12 @@ div.mypage-info-wrap {
     background-color: lightgray;
     position : relative;
     width: 900px;
-    margin-left: 100px;
     height: 400px;
     color: black;
 }
 
 .mypage-info-wrap .person-info * {
     display: inline-block;
-    margin-right: 8px;
     color: #342929;
     font-weight: 500;
     overflow:hidden;
@@ -55,7 +69,7 @@ div.mypage-info-wrap {
 }
 
 .mypage-info-wrap .person-info .person-info-name {
-    width: 300px;
+    margin-left: 30px;
     font-size: 50px;
 }
 
@@ -65,8 +79,8 @@ div.mypage-info-wrap {
 }
 
 .mypage-info-wrap .person-info .person-info-nickname {
-    width: 300px;
     font-size: 25px;
+    margin: 10px 20px;
 }
 
 .mypage-info-wrap .person-info {
@@ -124,17 +138,13 @@ div.mypage-info-wrap {
     float: right;
 }
 
-div.lower-info-div {
-    display: flex;
-    width: 1300px;
-    height: 900px;
-    margin: 50px auto 0;
-}
+
 
 div.lower-info-div .sidebar-menu {
     background-color: Gainsboro;
-    width: 400px;
-    height: 100%;
+    width: 382px;
+    height: fit-content;
+    padding: 30px;
 }
 
 div.lower-info-div .sidebar-menu ul {
@@ -142,21 +152,21 @@ div.lower-info-div .sidebar-menu ul {
 }
 
 .sidebar-menu .sidebar-menu-title {
-    margin-top: 30px;
-    text-align: center;
-    height: 110px;
-    vertical-align: center;
+    margin-bottom: 30px;
     font-size: 50px;
+    font-weight: bold;
+    line-height: inherit;
+    margin-left: 40px;
 }
 
 b.sidebar-menu-subtitle {
     margin-top: 10px;
-    font-size: 35px;
+    font-size: 27px;
     height: 100px;
 }
 
 .sidebar-menu li {
-    width: 280px;
+    width: 220px;
     font-size: 20px;
     list-style: none;
     margin-top: 15px;
@@ -170,6 +180,11 @@ b.sidebar-menu-subtitle {
 }
 
 .menu-items:hover {
+    background-color: silver;
+    box-shadow: darkgray 3px 3px 3px;
+}
+
+li .selected-menu {
     background-color: silver;
     box-shadow: darkgray 3px 3px 3px;
 }

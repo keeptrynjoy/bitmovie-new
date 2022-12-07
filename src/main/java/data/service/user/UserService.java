@@ -90,8 +90,17 @@ public class UserService {
         }
     }
     //비밀번호 찾기 (아이디, 핸드폰 번호 확인)
-    public int selectFindPass(User user) {
+    public String selectFindPass(User user) {
+
         return userRepository.selectFindPass(user);
+    }
+    //전화번호 중복 체크
+    public int selectCheckPhone(String u_phone) {
+        return userRepository.selectCheckPhone(u_phone);
+    }
+    //입력한 아이디와 전화번호로 일치하는 계정 있는지 확인
+    public int selectCheckInfo(User user) {
+        return userRepository.selectCheckInfo(user);
     }
 
     // 영화 평점 등록

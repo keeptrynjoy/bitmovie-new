@@ -40,7 +40,6 @@ function Home(props) {
         //더 무비 api
         await axios.get(`https://api.themoviedb.org/3/movie/${type}/?api_key=${key}&language=ko&page=1&region=kr`)
             .then((res)=>{
-                console.log(res.data);
                 setMovies(res.data.results);
                 setIndex(0);
                 setSelected_movie(res.data.results[0].id);
@@ -51,7 +50,6 @@ function Home(props) {
         const getMovieUrl = `${localStorage.url}/main/selectRecentRevw?${sessionStorage.user_pk==null?"":"user_pk="+sessionStorage.user_pk}`;
         axios.get(getMovieUrl)
             .then((res)=>{
-                console.log(res.data);
                 setReviews(res.data);
             })
     }
@@ -148,9 +146,9 @@ function Home(props) {
                                 <div>
                                     <div className="frames glide__track" data-glide-el="track">
                                         <Swiper className="myswiper"
-                                                modules={[Navigation, Pagination, Autoplay]}
+                                                modules={[Pagination, Autoplay]}
                                                 pagination={{ clickable: true }}
-                                                navigation
+                                                // navigation
                                                 effect
                                                 // fontsize={20}
                                                 speed={800}

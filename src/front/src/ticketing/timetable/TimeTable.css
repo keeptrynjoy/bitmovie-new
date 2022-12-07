@@ -7,6 +7,7 @@
     text-align: center;
     float: left;
     margin: 5px;
+
 }
 
 .ttt{
@@ -25,7 +26,7 @@
 
 .showhide{
     background-color: white;
-    width: 7%;
+    /*width: 7%;*/
     margin-top: 0.3%;
     padding: 15px 15px 15px 15px;
     justify-content: center;
@@ -42,7 +43,8 @@
 
 .showhide:hover{
     margin-top: 0.3%;
-    opacity: 1;
+    opacity: 0;
     pointer-events: none;
+    border-radius: 20px;
 }
 

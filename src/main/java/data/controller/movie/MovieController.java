@@ -61,9 +61,7 @@ public class MovieController {
     // 영화 좋아요 리스트 출력 (movie_pk 를 반환)
     @GetMapping("selectMWishList")
     public List<Integer> selectMWishList(@RequestParam(defaultValue = "0") int user_pk) {
-
         List<Integer> list = new ArrayList<>();
-        System.out.println(movieService.selectMWishList(user_pk));
         return movieService.selectMWishList(user_pk);
     }
 
@@ -77,5 +75,10 @@ public class MovieController {
     @GetMapping("/timeByMovieDetail")
     public List<Map<String, Object>> selectTimeByMovieDetail(@RequestParam int movie_pk, @RequestParam String date) {
         return movieService.selectTimeByMovieDetail(movie_pk, date);
+    }
+
+    @GetMapping("/selectLikes")
+    public int selectLikes(@RequestParam String movie_pk) {
+        return movieService.selectLikes(Integer.parseInt(movie_pk));
     }
 }

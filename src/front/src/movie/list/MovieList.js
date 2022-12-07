@@ -4,9 +4,9 @@ import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import MovieCard from "./MovieCard";
 import {Button, ButtonGroup, CircularProgress, Divider, Pagination, ScopedCssBaseline, Switch} from "@mui/material";
-import {ChevronRight, Favorite, FavoriteBorderOutlined} from "@material-ui/icons";
 import usePagination from "../../service/UsePagination";
 import Age from "../../service/Age";
+import Likes from "./Likes";
 
 function MovieList(props) {
     const navi = useNavigate();
@@ -48,7 +48,6 @@ function MovieList(props) {
         axios.get(`${localStorage.url}/movie/selectMWishList?${sessionStorage.user_pk==null?"":"user_pk="+sessionStorage.user_pk}`)
             .then((res)=>{
                 setMWishList(res.data);
-                console.log("위시",res.data);
             })
     }
 
@@ -66,23 +65,6 @@ function MovieList(props) {
         _DATA.jump(1);
     }
 
-    const handleMWish=(e)=>{
-        console.log("pk",e.target.value);
-        if(MWishList.includes(e.target.value)){
-            axios.post(`${localStorage.url}/user/deleteMWish`,{movie_pk:e.target.value,user_pk:sessionStorage.user_pk})
-                .then((res)=>{
-                    alert("삭제")
-                    getData();
-                })
-        }else{
-            axios.post(`${localStorage.url}/user/insertMWish`,{movie_pk:e.target.value,user_pk:sessionStorage.user_pk})
-                .then((res)=>{
-                    alert("좋아요")
-                    getData();
-                })
-        }
-    }
-
     //시작 데이터 가져오기
     const getData =()=>{
         setLoading(true);
@@ -92,14 +74,6 @@ function MovieList(props) {
                 setLoading(false);
             });
     }
-
-    // //특정값 가져오기
-    // const getRankData=async (order_stand,BorA)=>{
-    //     await axios.get(makeListUrl(order_stand,BorA))
-    //         .then((res)=>{
-    //             setMlist(res.data);
-    //         });
-    // }
 
     //특정값 가져오기
     const getRankData=(order_stand,BorA)=>{
@@ -114,13 +88,11 @@ function MovieList(props) {
     //페이지 로딩시 데이터 가져오기
     useEffect(() => {
         getData();
-        getMwishList();
     }, []);
 
     //정렬순서, 개봉작 바뀔 때마다 리스트 가져오기
     useEffect(()=>{
         getRankData(order,in_theater);
-        console.log(mlist);
     },[order,in_theater]);
 
     return (
@@ -136,11 +108,6 @@ function MovieList(props) {
                              setIn_theater("");
                              goToPageOne();
                          }}>
-                        {/*<span style={{width:"30px",height:"30px", display:"block"}}>*/}
-                        {/*    {*/}
-                        {/*        in_theater!=="before"?<ChevronRight/>:""*/}
-                        {/*    }*/}
-                        {/*</span>*/}
                         무비차트
                     </div>
                     <div className={"coming-soon-btn"}
@@ -204,14 +171,7 @@ function MovieList(props) {
                                             </div>
                                             <div className={"btn-div"}>
                                                 <span className={"like-btn"}>
-                                                    <Button variant="outlined"
-                                                            startIcon={MWishList.includes(item.movie_pk)?<Favorite/>:<FavoriteBorderOutlined />}
-                                                            style={{width:"100px"}}
-                                                            onClick={handleMWish}
-                                                            value={item.movie_pk}
-                                                    >
-                                                    {item.wish_cnt}
-                                                    </Button>
+                                                    <Likes pk={item.movie_pk} MWishList={MWishList} getMwishList={getMwishList} page={page} mlist={mlist}/>
                                                 </span>
                                                 <span className={"book-btn"}>
                                                     <Button variant={"contained"} sx={{width:"120px", marginLeft:"10px"}}

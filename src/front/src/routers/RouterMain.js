@@ -22,12 +22,10 @@ function RouterMain(props) {
             setInterval(timerIncrement, 60000); //단위 1000분의 1초
             //마우스 움직임이 있으면 움직이지 않은 시간 초기화
             window.addEventListener("mousemove", function () {
-                // console.log("mousemove");
                 setTimer(1);
             });
             //키보드 움직임이 있으면 움직이지 않은 시간 초기화
             window.addEventListener("keypress", function () {
-                // console.log("keypress");
                 setTimer(1);
             });
         }

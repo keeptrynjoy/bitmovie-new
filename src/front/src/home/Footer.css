@@ -8,3 +8,9 @@
     position: relative;
     /*justify-content: center;*/
 }
+
+.footer-big {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

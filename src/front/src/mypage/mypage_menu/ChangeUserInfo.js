@@ -23,7 +23,7 @@ function ChangeUserInfo(props) {
     })
 
     const errorChk=()=> {
-        const hppattern = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
+        const hppattern = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
         if(pwOpen) {
             switch (chkPW()) {
                 case "reg":
@@ -150,7 +150,6 @@ function ChangeUserInfo(props) {
     }
 
     const onSubmitBtn=(e)=>{
-        console.log(userdata);
         e.preventDefault();
         if(errorChk()==="ok")
         {
@@ -174,26 +173,34 @@ function ChangeUserInfo(props) {
     }
 
     const sendSMS = () => {
-        const hppattern = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
+        const hppattern = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
         if(!hppattern.test(userdata.u_phone))
         {
             Swal.fire({
                 icon:"warning",
                 text:"전화번호는 \"-\" 을 포함해 휴대전화 형식에 맞게 입력해주세요"
             })
-            return;
-        }
-
-        let url = localStorage.url + "/user/sendSMS?u_phone=" + userdata.u_phone;
-        axios.get(url)
-            .then(res => {
-                console.log("ph: "+res.data);
-                input.randomNum = res.data;
-                Swal.fire({
-                    icon:"success",
-                    text:"인증 번호 발송 완료!"
+        }else{
+            axios.get(`${localStorage.url}/user/checkPhone?u_phone=${userdata.u_phone}`)
+                .then((res)=>{
+                    if(res.data===0){
+                        let url = localStorage.url + "/user/sendSMS?u_phone=" + userdata.u_phone;
+                        axios.get(url)
+                            .then(r => {
+                                input.randomNum = r.data;
+                                Swal.fire({
+                                    icon:"success",
+                                    text:"인증 번호 발송 완료!"
+                                })
+                            })
+                    }else{
+                        Swal.fire({
+                            icon:"warning",
+                            text:"이미 가입된 번호 입니다."
+                        })
+                    }
                 })
-            })
+        }
     }
 
     const checkSMS = () => {
@@ -310,7 +317,7 @@ function ChangeUserInfo(props) {
                         <td>
                             <div className={"input-group"} style={{width: "513px"}}>
                                 <input required disabled={!open} type={'text'} className='form-control' onChange={changeData}
-                                       value={userdata.u_phone} name={"u_phone"}/>
+                                       value={userdata.u_phone} name={"u_phone"} maxLength={13}/>
                                 <Button
                                     variant={"contained"} color={"success"}
                                     style={{marginLeft:"15px",borderRadius:"5px"}}

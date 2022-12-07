@@ -151,7 +151,14 @@ function MovieDetail(props) {
                 setChartData(res.data.chart);
                 setChartLoading(false);
                 getDaysArray();
-                console.log(res.data);
+            })
+    }
+
+    const getReview=()=>{
+        const getMovieUrl = `${localStorage.url}/movie/selectMovieData?movie_pk=${movie_pk}`;
+        axios.get(getMovieUrl)
+            .then((res)=>{
+                setMovie_review(res.data.revw);
             })
     }
 
@@ -167,7 +174,6 @@ function MovieDetail(props) {
         axios.get(`${localStorage.url}/movie/timeByMovieDetail?movie_pk=${parseInt(movie_pk)}&date=${selected_date}`)
             .then((res)=>{
                 setTimetable(res.data);
-                console.log(res.data);
             })
     },[selected_date])
 
@@ -176,7 +182,6 @@ function MovieDetail(props) {
         const movieLogUrl = `${localStorage.url}/mypage/movielog?user_pk=${user_pk}`;
         axios.get(movieLogUrl)
             .then((res)=>{
-                console.log(res.data);
                 for(let i=0;i<res.data.length;i++)
                 {
                     if(parseInt(res.data[i].movie_pk)===parseInt(movie_pk)){
@@ -197,7 +202,6 @@ function MovieDetail(props) {
         const movieLogUrl = `${localStorage.url}/mypage/movielog?user_pk=${user_pk}`;
         axios.get(movieLogUrl)
             .then((res)=>{
-                console.log(res.data);
                 for(let i=0;i<res.data.length;i++)
                 {
                     if(parseInt(res.data[i].movie_pk)===parseInt(movie_pk)){
@@ -252,7 +256,6 @@ function MovieDetail(props) {
                 }
                 arr.push(rowarr);
             }
-            console.log(arr);
             return arr;
         }
     }
@@ -415,7 +418,7 @@ function MovieDetail(props) {
                                         {
                                             movie_review && movie_review.map((review,i)=>(
                                                 <li key={i}>
-                                                    <MovieReview review={review} get={getData}/>
+                                                    <MovieReview type={"detail"} m_pk={movie_pk} review={review} get={getReview}/>
                                                 </li>
                                             ))
                                         }
@@ -525,7 +528,7 @@ function MovieDetail(props) {
                                                                                                           </div>
                                                                                                       </React.Fragment>
                                                                                                   }>
-                                                                                        <div className={"time"} >
+                                                                                        <div className={"time"} onClick={()=>navi(`/ticketing`)}>
                                                                                             <div className={"time-upper"}>
                                                                                                 {time.scrt_stime.substring(0,5)}
                                                                                             </div>

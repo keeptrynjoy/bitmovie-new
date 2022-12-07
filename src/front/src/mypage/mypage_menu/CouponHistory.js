@@ -49,7 +49,7 @@ function PointHistory(props) {
                             return (
                                 <tr key={i}>
                                     <td>{item.coupon_pk}</td>
-                                    <td>{type(item.c_class)} 쿠폰</td>
+                                    <td>{item.c_class}</td>
                                     <td>{item.c_amount}</td>
                                     <td>{item.c_issue_date}</td>
                                     <td>{item.c_use_date}</td>

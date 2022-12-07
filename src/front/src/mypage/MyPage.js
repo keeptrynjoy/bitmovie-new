@@ -7,6 +7,7 @@ import axios from "axios";
 import {ScopedCssBaseline} from "@mui/material";
 import MyPageContents from "./MyPageContents";
 import Swal from "sweetalert2";
+import {ChevronRight} from "@material-ui/icons";
 
 function MyPage(props) {
     const p = useParams();
@@ -24,7 +25,6 @@ function MyPage(props) {
         axios.get(infoUrl)
             .then((res)=>{
                 setData(res.data);
-                console.log(res.data);
             });
     }
     //페이지 로딩시 데이터 가져오기
@@ -96,15 +96,16 @@ function MyPage(props) {
     return (
         <div className={"mypage-div"}>
             <div className={"upper-info-div"}>
-                <div className={"photo-div"}>
-                    <img alt={"프로필 사진"} src={`${localStorage.url}/image/${data.u_photo}`} className={"profile-photo"}/>
-                    <input type={"file"} hidden={true} id={"profile-photo"} onChange={onUploadImage}/>
-                    <div className={"photo-fix-icon"} onClick={triggerCLick}>
-                        <EditIcon/>
-                    </div>
-                </div>
+
                 <div className={"mypage-info-wrap"}>
                     <div className={"person-info"}>
+                        <div className={"photo-div"}>
+                            <img alt={"프로필 사진"} src={`${localStorage.url}/image/${data.u_photo}`} className={"profile-photo"}/>
+                            <input type={"file"} hidden={true} id={"profile-photo"} onChange={onUploadImage}/>
+                            <div className={"photo-fix-icon"} onClick={triggerCLick}>
+                                <EditIcon/>
+                            </div>
+                        </div>
                         <strong className={"person-info-name"}>{data.u_name}님</strong>
                         {/*<em className={"person-info-id"}>{data.u_id}</em>*/}
                         <span className={"person-info-nickname"}>
@@ -151,7 +152,7 @@ function MyPage(props) {
                         <li>
                             <b className={"sidebar-menu-subtitle"}>나의 예매내역</b>
                             <ul>
-                                <li className={"menu-items"} onClick={()=>setContents("booking")}>
+                                <li className={`menu-items ${contents==="booking"?"selected-menu":""}`} onClick={()=>setContents("booking")}>
                                     예매 내역
                                 </li>
                             </ul>
@@ -159,26 +160,29 @@ function MyPage(props) {
                         <li>
                             <b className={"sidebar-menu-subtitle"}>쿠폰 관리</b>
                             <ul>
-                                <li className={"menu-items"} onClick={()=>setContents("usableCoupon")}>사용 가능 쿠폰</li>
-                                <li className={"menu-items"} onClick={()=>setContents("couponHistory")}>쿠폰 내역</li>
+                                <li className={`menu-items ${contents==="usableCoupon"?"selected-menu":""}`} onClick={()=>setContents("usableCoupon")}>사용 가능 쿠폰</li>
+                                <li className={`menu-items ${contents==="couponHistory"?"selected-menu":""}`} onClick={()=>setContents("couponHistory")}>쿠폰 내역</li>
                             </ul>
                         </li>
                         <li>
                             <b className={"sidebar-menu-subtitle"}>BIT 포인트</b>
                             <ul>
-                                <li className={"menu-items"} onClick={()=>setContents("pointInfo")}>포인트 사용 안내</li>
-                                <li className={"menu-items"} onClick={()=>setContents("pointHistory")}>포인트 사용 내역</li>
+                                <li className={`menu-items ${contents==="pointInfo"?"selected-menu":""}`} onClick={()=>setContents("pointInfo")}>포인트 사용 안내</li>
+                                <li className={`menu-items ${contents==="pointHistory"?"selected-menu":""}`} onClick={()=>setContents("pointHistory")}>포인트 사용 내역</li>
                             </ul>
                         </li>
                         <li>
                             <b className={"sidebar-menu-subtitle"}>회원 정보 변경</b>
                             <ul>
-                                <li className={"menu-items"} onClick={()=>setContents("userInfo")}>개인정보 변경</li>
-                                <li className={"menu-items"} onClick={()=>setContents("withDrawal")}>회원 탈퇴</li>
+                                <li className={`menu-items ${contents==="userInfo"?"selected-menu":""}`} onClick={()=>setContents("userInfo")}>개인정보 변경</li>
+                                <li className={`menu-items ${contents==="withDrawal"?"selected-menu":""}`} onClick={()=>setContents("withDrawal")}>회원 탈퇴</li>
                             </ul>
                         </li>
                         <li>
-                            <b className={"sidebar-menu-subtitle menu-items"} onClick={()=>setContents("movieLog")}>무비 로그</b>
+                            <b className={`sidebar-menu-subtitle menu-items ${contents==="movieLog"?"selected-menu":""}`} onClick={()=>setContents("movieLog")}>무비 로그
+                                <ChevronRight fontSize={"large"} style={{marginBottom:6}}/>
+                            </b>
+
                         </li>
                     </ul>
                 </div>
