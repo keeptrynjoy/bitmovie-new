@@ -35,7 +35,7 @@
 ### Back-End
 <img src="https://img.shields.io/badge/JAVA | 11-0d8ac7?style=for-the-badge&logo=OpenJDK&logoColor=white"> <img src="https://img.shields.io/badge/SPRINGBOOT | 2.7-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white">
 <img src="https://img.shields.io/badge/MYBATIS | 2.2-000000?style=for-the-badge&logo=&logoColor=white">
-<br><img src="https://img.shields.io/badge/Jackson-0d8ac7?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Lombok-DDB320?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=&logoColor=white"><img src="https://img.shields.io/badge/Apache Tomcat-F8DC75?style=for-the-badge&logo=Apache Tomcat&logoColor=white"> 
+<br><img src="https://img.shields.io/badge/Jackson-0d8ac7?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Lombok-DDB320?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Apache Tomcat-F8DC75?style=for-the-badge&logo=Apache Tomcat&logoColor=white"> 
 
 ### Infra
 <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=Amazon EC2&logoColor=white"> <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=Amazon RDS&logoColor=white">
