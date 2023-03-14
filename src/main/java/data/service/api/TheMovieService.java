@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -212,22 +214,26 @@ public class TheMovieService {
         }
         photo = photo.substring(0, photo.length() - 1);
         //Repository 를 호출해 db에 저장
-        movieRepository.insertDetailData(
-                Movie.movieBuilder()
-                        .movie_pk(Integer.parseInt(movie_id.toString()))
-                        .m_name(name)
-                        .m_type(type)
-                        .m_sdate(sdate)
-                        .m_edate(edate)
-                        .m_runtime(runtime)
-                        .m_age_grd(age_grd)
-                        .m_info(info)
-                        .m_photo(photo)
-                        .m_video(video)
-                        .m_enname(enname)
-                        .m_country(country)
-                        .build()
-        );
+
+        try {
+            movieRepository.insertDetailData(
+                    Movie.movieBuilder()
+                            .movie_pk(Integer.parseInt(movie_id.toString()))
+                            .m_name(name)
+                            .m_type(type)
+                            .m_sdate(sdate)
+                            .m_edate(edate)
+                            .m_runtime(runtime)
+                            .m_age_grd(age_grd)
+                            .m_info(info)
+                            .m_photo(photo)
+                            .m_video(video)
+                            .m_enname(enname)
+                            .m_country(country)
+                            .build()
+            );
+        } catch (DataIntegrityViolationException e) {
+        }
 
 //        }//for
 
