@@ -141,7 +141,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     // //유저정보
     // const comeDb=()=>{
     //     let user_pk=sessionStorage.user_pk;
-    //     axios.get('http://localhost:8282/mypage/information?user_pk='+user_pk)
+    //     axios.get('http://localhost:8080/mypage/information?user_pk='+user_pk)
     //         .then((res)=> {
     //                 // alert('굿잡베이베')
     //                 setDbdata(res.data);
@@ -154,7 +154,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     //쿠폰 받아오기
     const getCoupon=()=> {
         let user_pk=sessionStorage.user_pk;
-        axios.get(`http://localhost:8282/payment/coupon?user_pk=${user_pk}`)
+        axios.get(`${localStorage.url}/payment/coupon?user_pk=${user_pk}`)
             .then((res) => {
                 setCoupon(res.data);
                 // console.log(res.data);
@@ -221,8 +221,8 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
     },[])
 
     const take=()=> {
-        //     axios.get(`http://localhost:8282/booking/reserved_seat?screentime=${obj3.scrtime_pk}`)
-        axios.get(`http://localhost:8282/booking/reserved_seat?screentime=${obj3.scrtime_pk}`)
+        //     axios.get(`http://localhost:8080/booking/reserved_seat?screentime=${obj3.scrtime_pk}`)
+        axios.get(`${localStorage.url}/booking/reserved_seat?screentime=${obj3.scrtime_pk}`)
             .then((res) => {
                 setBookedSeat(res.data);
                 // console.log('?',res.data);
@@ -257,7 +257,7 @@ export default function SeatView({people, seats, rowSeats, onClickPeople,input ,
 
     //
     // const get=()=>{
-    //     axios.get('http://localhost:8282/theater/')
+    //     axios.get('http://localhost:8080/theater/')
     //         .then((response) =>{
     //             setMloc(response.data);
     //             console.log(response.data);

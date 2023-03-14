@@ -140,7 +140,7 @@ function Ticketing(props) {
 
     const get=()=>{
         setLoading(true);
-        axios.get('http://localhost:8282/booking/screening_list?BorA=after')
+        axios.get(`${localStorage.url}/booking/screening_list?BorA=after`)
             .then((response) =>{
                 setMvlist(response.data);
                 setLoading(false);
@@ -149,7 +149,7 @@ function Ticketing(props) {
 
     const get2=()=>{
         setLoading(true);
-        axios.get('http://localhost:8282/booking/screening_list?order_stand=reserve_rate&BorA=after')
+        axios.get(`${localStorage.url}/booking/screening_list?order_stand=reserve_rate&BorA=after`)
             .then((response) =>{
                 setMvlist(response.data);
                 setLoading(false);
@@ -159,7 +159,7 @@ function Ticketing(props) {
 
     const get3=()=>{
         setLoading(true);
-        axios.get('http://localhost:8282/booking/screening_list?order_stand=revw_avgstar&BorA=after')
+        axios.get(`${localStorage.url}/booking/screening_list?order_stand=revw_avgstar&BorA=after`)
             .then((response) =>{
                 setMvlist(response.data);
                 setLoading(false);

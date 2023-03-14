@@ -47,8 +47,8 @@ const TimeTable = (props) => {
     // },[])
     //
     // const take=()=> {
-    //     //     axios.get(`http://localhost:8282/booking/reserved_seat?screentime=${obj3.scrtime_pk}`)
-    //     axios.get(`http://localhost:8282/booking/reserved_seat?screentime=${obj3.scrtime_pk}`)
+    //     //     axios.get(`http://localhost:8080/booking/reserved_seat?screentime=${obj3.scrtime_pk}`)
+    //     axios.get(`http://localhost:8080/booking/reserved_seat?screentime=${obj3.scrtime_pk}`)
     //         .then((res) => {
     //             setBookedSeat(res.data);
     //             // console.log('?',res.data);
@@ -84,7 +84,7 @@ const TimeTable = (props) => {
             return;
         }
 
-        axios.get(`http://localhost:8282/screentime/screen_times?movie=${mvpk}&theater=${loc}&date=${day}`)
+        axios.get(`${localStorage.url}/screentime/screen_times?movie=${mvpk}&theater=${loc}&date=${day}`)
             .then((response) =>{
                 setTable(response.data);
 

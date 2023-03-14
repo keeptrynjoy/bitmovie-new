@@ -157,7 +157,7 @@ const Payment = (effect, deps) => {
                         book_youth_cnt : location.state.students
                     }
 
-                    axios.post("http://localhost:8282/payment/complete",
+                    axios.post(`${localStorage.url}/payment/complete`,
                         {"payment":paymentData, "booking": bookingData}
                         , {
                             headers: { "Content-Type": "application/json"}
@@ -209,7 +209,7 @@ const Payment = (effect, deps) => {
     //db에서 유저정보 받아오자
     const comeDb=()=>{
         let user_pk=sessionStorage.user_pk;
-        axios.get('http://localhost:8282/user/information?user_pk='+user_pk)
+        axios.get(`${localStorage.url}/user/information?user_pk=`+user_pk)
             .then((res)=> {
                     // alert('굿잡베이베')
                     setDbdata(res.data);
@@ -309,7 +309,7 @@ const Payment = (effect, deps) => {
 
     // 쿠폰 받아오기
     const take=()=> {
-        axios.get(`http://localhost:8282/payment/coupon?user_pk=${user_pk}`)
+        axios.get(`${localStorage.url}/payment/coupon?user_pk=${user_pk}`)
             .then((res) => {
                 setCoupon(res.data);
                 // console.log('쿠폰',res.data);

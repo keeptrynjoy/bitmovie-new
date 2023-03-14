@@ -6,7 +6,7 @@ const Location = (props) => {
     const {input,setInput,changeData}=props;
     const [color, setColor] = useState("");
     const get=()=>{
-        axios.get('http://localhost:8282/theater/')
+        axios.get(`${localStorage.url}/theater/`)
             .then((response) =>{
                 setMloc(response.data);
                 // console.log(response.data);
