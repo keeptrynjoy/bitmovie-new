@@ -1,12 +1,13 @@
+<img src="http://bit-movie.site/favicon.ico">
+
 # BitMovie(영화 예매 웹 서비스)
+### 🎬 Bit Movie [서비스 바로가기](http://bit-movie.site)
+<br/>
 
 ## 프로젝트 소개
-학습한 지식을 경험으로 만들기 위한 프로젝트입니다.<br/>
+학습한 지식을 경험으로 만들기 위한 프로젝트입니다.  
 영화 예매 서비스를 제공하기 위한 기본적인 기능들을 구현했습니다.
 
-### Bit Movie [서비스 바로가기](http://bit-movie.site)
-
-<br/>
 - 영화/인물 조회 및 검색
 - 영화 리스트 출력 및 상세정보 조회
 - 상영 영화 예매 및 결제 
